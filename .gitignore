@@ -1,3 +1,7 @@
 # Folders
 /build
 /devel
+/install
+
+# User files
+*.user
