@@ -1,0 +1,35 @@
+<?xml version='1.0'?>
+<sdf version="1.5">
+
+	<model name="duck">
+		<pose> 0 0 0 0 0 0 </pose>
+		<static> false </static>
+
+		<link name="duck">
+			<inertial>
+				<mass>1.0</mass>
+				<inertia>
+					<ixx>0.01</ixx>
+					<iyy>0.01</iyy>
+					<izz>0.01</izz>
+			    </inertia>
+			</inertial>
+
+			<collision name="collision">
+				<pose> 0 0 0 1.5708 0 0 </pose>
+				<geometry>
+					<mesh><uri>file://duck/meshes/duck.dae</uri></mesh>
+				</geometry>
+			</collision>
+
+			<visual name="visual">
+				<pose> 0 0 0 1.5708 0 0 </pose>
+				<geometry>
+					<mesh><uri>file://duck/meshes/duck.dae</uri></mesh>
+				</geometry>
+			</visual>
+		</link>
+
+	</model>
+
+</sdf>
