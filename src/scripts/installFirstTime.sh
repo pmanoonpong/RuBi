@@ -1,8 +1,14 @@
 #!/bin/bash
 
+#Installing Catkin Tools
+echo "    Installing Catkin Tools"
+sudo apt-get install python-catkin-tools
+wait
+
 #Installing Gazebo 6
 echo "    Installing Gazebo 6"
 sudo apt-get install gazebo6
+sudo apt-get install python-catkin-tools
 wait
 
 #Downloading Gazebo Models from the repo
