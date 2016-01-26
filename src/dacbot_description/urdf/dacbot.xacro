@@ -22,12 +22,14 @@
 	<xacro:property name="weightHeight" value="0.025" />
 	<xacro:property name="weightMass" value="0.50" />
 
-	<xacro:property name="upperLegLength" value="0.0142" />
-	<xacro:property name="upperLegThickness" value="0.015" />
+	<xacro:property name="upperLegWidth" value="0.015" />
+	<xacro:property name="upperLegLength" value="0.015" />
+	<xacro:property name="upperLegHeight" value="0.142" />
 	<xacro:property name="upperLegMass" value="0.2" />
 
-	<xacro:property name="lowerLegLength" value="0.0125" />
-	<xacro:property name="lowerLegThickness" value="0.015" />
+	<xacro:property name="lowerLegWidth" value="0.015" />
+	<xacro:property name="lowerLegLength" value="0.015" />
+	<xacro:property name="lowerLegHeight" value="0.125" />
 	<xacro:property name="lowerLegMass" value="0.08" />
 
 	<xacro:property name="footWidth" value="0.015" />
@@ -66,73 +68,87 @@
 		<child link="left_foot"/>
 	</joint>
 
-	<joint name="fixed_right" type="fixed">
-		<parent link="world"/>
-		<child link="right_foot"/>
-	</joint>
+	<!-- 
+		Macros
+	 -->
+
+	 <!-- Box Macro! 
+	<xacro:box name="" origin_x="" origin_y="" origin_z="" width="" length="" height="" mass="" />
+	 -->
+	<xacro:macro name="create_box" params="name origin_x origin_y origin_z width length height mass">
+		<link name="${name}">
+			<collision>
+				<origin xyz="${origin_x} ${origin_y} ${origin_z}" rpy="0 0 0"/>
+				<geometry>
+					<box size="${width*scale} ${length*scale} ${height*scale}" />
+				</geometry>
+			</collision>
+
+			<visual>
+				<origin xyz="${origin_x} ${origin_y} ${origin_z}" rpy="0 0 0"/>
+				<geometry>
+					<box size="${width*scale} ${length*scale} ${height*scale}" />
+				</geometry>
+				<material name="orange"/>
+			</visual>
+
+			<inertial>
+				<origin xyz="${origin_x} ${origin_y} ${origin_z}" rpy="0 0 0"/>
+				<mass value="${mass}"/>
+				<inertia
+					ixx="${mass / 12.0 * (length*length + height*height)*scale*scale}" ixy="0.0" ixz="0.0" 
+					iyy="${mass / 12.0 * (height*height + width*width)*scale*scale}" iyz="0.0" 
+					izz="${mass / 12.0 * (width*width + length*length)*scale*scale}"/>
+			</inertial>
+		</link>
+	</xacro:macro>
 
 	<!-- 
 		Left Leg
 	-->
 
 	<!-- Left Foot -->
-	<link name="left_foot">
+	<xacro:property name="var" value="1"/>
+	<xacro:create_box name="left_foot" origin_x="${var}" origin_y="${footLength*scale/2 - footAnklePos}" origin_z="${footHeight/2}" width="${footWidth}" length="${footLength}" height="${footHeight}" mass="${footMass}" />
+
+	<!-- Left Foot -->
+	<xacro:property name="var" value"${var} + 1"/>
+	<xacro:create_box name="left_lower_leg" origin_x="${var}" origin_y="${footLength*scale/2 - footAnklePos}" origin_z="${footHeight/2}" width="${footWidth}" length="${footLength}" height="${footHeight}" mass="${footMass}" />
+
+
+	<!-- Left Lower Leg -->
+	<!--
+	<link name="left_lower_leg">
 		<collision>
-			<origin xyz="${-bodyWidth/2} 0 ${footHeight/2}" rpy="0 0 0"/>
+			<origin xyz="${-legDistFromCenter} 0 ${footHeight + lowerLegHeight*scale/2}" rpy="0 0 0"/>
 			<geometry>
-				<box size="${footWidth*scale} ${footLength*scale} ${footHeight*scale}" />
+				<box size="${lowerLegWidth*scale} ${lowerLegLength*scale} ${lowerLegHeight*scale}" />
 			</geometry>
 		</collision>
 
 		<visual>
-			<origin xyz="${-bodyWidth/2} 0 ${footHeight/2}" rpy="0 0 0"/>
+			<origin xyz="${-bodyWidth/2} 0 ${footHeight + lowerLegHeight/2}" rpy="0 0 0"/>
 			<geometry>
-				<box size="${footWidth*scale} ${footLength*scale} ${footHeight*scale}" />
+				<box size="${lowerLegWidth*scale} ${lowerLegLength*scale} ${lowerLegHeight*scale}" />
 			</geometry>
 			<material name="orange"/>
 		</visual>
 
 		<inertial>
-			<origin xyz="${-bodyWidth/2} 0 ${footHeight/2}" rpy="0 0 0"/>
+			<origin xyz="${-bodyWidth/2} 0 ${footHeight + lowerLegHeight/2}" rpy="0 0 0"/>
 			<mass value="${footMass}"/>
 			<inertia
-				ixx="${footMass / 12.0 * (footWidth*footWidth + footHeight*footHeight)}" ixy="0.0" ixz="0.0" 
-				iyy="${footMass / 12.0 * (footHeight*footHeight + footWidth*footWidth)}" iyz="0.0" 
-				izz="${footMass / 12.0 * (footWidth*footWidth + footWidth*footWidth)}"/>
+				ixx="${footMass / 12.0 * (lowerLegWidth*lowerLegWidth + lowerLegHeight*lowerLegHeight)}" ixy="0.0" ixz="0.0" 
+				iyy="${footMass / 12.0 * (lowerLegHeight*lowerLegHeight + lowerLegWidth*lowerLegWidth)}" iyz="0.0" 
+				izz="${footMass / 12.0 * (lowerLegWidth*lowerLegWidth + lowerLegWidth*lowerLegWidth)}"/>
 		</inertial>
 	</link>
 
+	<joint name="left_ankle" type="fixed">
+		<parent link="left_foot"/>
+		<child link="left_lower_leg"/>
+	</joint>
+-->
 
-
-	<!-- 
-		Right Leg
-	-->
-
-	<!-- Right Foot -->
-	<link name="right_foot">
-		<collision>
-			<origin xyz="${bodyWidth/2} 0 ${footHeight/2}" rpy="0 0 0"/>
-			<geometry>
-				<box size="${footWidth*scale} ${footLength*scale} ${footHeight*scale}" />
-			</geometry>
-		</collision>
-
-		<visual>
-			<origin xyz="${bodyWidth/2} 0 ${footHeight/2}" rpy="0 0 0"/>
-			<geometry>
-				<box size="${footWidth*scale} ${footLength*scale} ${footHeight*scale}" />
-			</geometry>
-			<material name="orange"/>
-		</visual>
-
-		<inertial>
-			<origin xyz="${bodyWidth/2} 0 ${footHeight/2}" rpy="0 0 0"/>
-			<mass value="${footMass}"/>
-			<inertia
-				ixx="${footMass / 12.0 * (footWidth*footWidth + footHeight*footHeight)}" ixy="0.0" ixz="0.0" 
-				iyy="${footMass / 12.0 * (footHeight*footHeight + footWidth*footWidth)}" iyz="0.0" 
-				izz="${footMass / 12.0 * (footWidth*footWidth + footWidth*footWidth)}"/>
-		</inertial>
-	</link>
 
 </robot>
