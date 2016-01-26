@@ -41,11 +41,12 @@
 
 	<xacro:property name="footAnklePos" value="0.015" />
 	<xacro:property name="legAnklePos" value="0" />
-	<xacro:property name="lowerKneePos" value="0.0.12" />
+	<xacro:property name="lowerKneePos" value="0.12" />
 	<xacro:property name="upperKneePos" value="0.02" />
-	<xacro:property name="legHipPos" value="0.0132" />
-	<xacro:property name="bodyHipHigth" value="0.01" />
-	<xacro:property name="bodyHipDepth" value="0.025" />
+	<xacro:property name="legHipPos" value="0.132" />
+	<xacro:property name="bodyHipHeight" value="0.01" />
+	<xacro:property name="bodyHipWidth" value="0.025" />
+
 	<xacro:property name="massJointBodyDepth" value="0.07" />
 	<xacro:property name="massJointBodyHeight" value="0.055" />
 	<xacro:property name="massJointMassDepth" value="0.065" />
@@ -60,20 +61,13 @@
 	<xacro:include filename="$(find dacbot_description)/urdf/colors.xacro" />
 
 
-	<!-- Used for fixing robot to Gazebo 'base_link' -->
-	<link name="world"/>
-
-	<joint name="fixed_left" type="fixed">
-		<parent link="world"/>
-		<child link="left_foot"/>
-	</joint>
 
 	<!-- 
 		Macros
 	 -->
 
 	 <!-- Box Macro! 
-	<xacro:box name="" origin_x="" origin_y="" origin_z="" width="" length="" height="" mass="" />
+	<xacro:create_box name="" origin_x="" origin_y="" origin_z="" width="" length="" height="" mass="" />
 	 -->
 	<xacro:macro name="create_box" params="name origin_x origin_y origin_z width length height mass">
 		<link name="${name}">
@@ -103,52 +97,103 @@
 		</link>
 	</xacro:macro>
 
+
 	<!-- 
 		Left Leg
 	-->
 
 	<!-- Left Foot -->
-	<xacro:property name="var" value="1"/>
-	<xacro:create_box name="left_foot" origin_x="${var}" origin_y="${footLength*scale/2 - footAnklePos}" origin_z="${footHeight/2}" width="${footWidth}" length="${footLength}" height="${footHeight}" mass="${footMass}" />
-
-	<!-- Left Foot -->
-	<xacro:property name="var" value"${var} + 1"/>
-	<xacro:create_box name="left_lower_leg" origin_x="${var}" origin_y="${footLength*scale/2 - footAnklePos}" origin_z="${footHeight/2}" width="${footWidth}" length="${footLength}" height="${footHeight}" mass="${footMass}" />
-
+	<xacro:create_box name="left_foot" origin_x="${-legDistFromCenter}" origin_y="${footLength*scale/2 - footAnklePos}" origin_z="${footHeight/2}" width="${footWidth}" length="${footLength}" height="${footHeight}" mass="${footMass}" />
 
 	<!-- Left Lower Leg -->
-	<!--
-	<link name="left_lower_leg">
-		<collision>
-			<origin xyz="${-legDistFromCenter} 0 ${footHeight + lowerLegHeight*scale/2}" rpy="0 0 0"/>
-			<geometry>
-				<box size="${lowerLegWidth*scale} ${lowerLegLength*scale} ${lowerLegHeight*scale}" />
-			</geometry>
-		</collision>
+	<xacro:create_box name="left_lower_leg" origin_x="${-legDistFromCenter}" origin_y="0" origin_z="${lowerLegHeight/2 + footHeight - legAnklePos}" width="${lowerLegWidth}" length="${lowerLegLength}" height="${lowerLegHeight}" mass="${lowerLegMass}" />
 
-		<visual>
-			<origin xyz="${-bodyWidth/2} 0 ${footHeight + lowerLegHeight/2}" rpy="0 0 0"/>
-			<geometry>
-				<box size="${lowerLegWidth*scale} ${lowerLegLength*scale} ${lowerLegHeight*scale}" />
-			</geometry>
-			<material name="orange"/>
-		</visual>
+	<!-- Left Upper Leg -->
+	<xacro:create_box name="left_upper_leg" origin_x="${-legDistFromCenter}" origin_y="0" origin_z="${upperLegHeight/2 + footHeight - legAnklePos + lowerKneePos - upperKneePos}" width="${upperLegWidth}" length="${upperLegLength}" height="${upperLegHeight}" mass="${upperLegMass}" />
 
-		<inertial>
-			<origin xyz="${-bodyWidth/2} 0 ${footHeight + lowerLegHeight/2}" rpy="0 0 0"/>
-			<mass value="${footMass}"/>
-			<inertia
-				ixx="${footMass / 12.0 * (lowerLegWidth*lowerLegWidth + lowerLegHeight*lowerLegHeight)}" ixy="0.0" ixz="0.0" 
-				iyy="${footMass / 12.0 * (lowerLegHeight*lowerLegHeight + lowerLegWidth*lowerLegWidth)}" iyz="0.0" 
-				izz="${footMass / 12.0 * (lowerLegWidth*lowerLegWidth + lowerLegWidth*lowerLegWidth)}"/>
-		</inertial>
-	</link>
 
-	<joint name="left_ankle" type="fixed">
+	<!-- 
+		Right Leg
+	-->
+	<!-- Right Foot -->
+	<xacro:create_box name="right_foot" origin_x="${legDistFromCenter}" origin_y="${footLength*scale/2 - footAnklePos}" origin_z="${footHeight/2}" width="${footWidth}" length="${footLength}" height="${footHeight}" mass="${footMass}" />
+
+	<!-- Right Lower Leg -->
+	<xacro:create_box name="right_lower_leg" origin_x="${legDistFromCenter}" origin_y="0" origin_z="${lowerLegHeight/2 + footHeight - legAnklePos}" width="${lowerLegWidth}" length="${lowerLegLength}" height="${lowerLegHeight}" mass="${lowerLegMass}" />
+
+	<!-- Right Upper Leg -->
+	<xacro:create_box name="right_upper_leg" origin_x="${legDistFromCenter}" origin_y="0" origin_z="${upperLegHeight/2 + footHeight - legAnklePos + lowerKneePos - upperKneePos}" width="${upperLegWidth}" length="${upperLegLength}" height="${upperLegHeight}" mass="${upperLegMass}" />
+
+
+	<!-- 
+		Body
+	-->
+	<xacro:create_box name="body" origin_x="0" origin_y="${bodyWidth/2 - bodyHipWidth}" origin_z="${bodyHeight/2 + footHeight - legAnklePos + lowerKneePos - upperKneePos + legHipPos - bodyHipHeight}" width="${bodyWidth}" length="${bodyLength}" height="${bodyHeight}" mass="${bodyMass}" />
+
+
+	<!-- 
+		Joints 
+	-->
+
+	<!-- Used for fixing robot to Gazebo 'base_link' -->
+	<link name="world"/>
+
+	<joint name="world_left_foot" type="floating">
+		<parent link="world"/>
+		<child link="left_foot"/>
+	</joint>
+
+	<joint name="world_right_foot" type="floating">
+		<parent link="world"/>
+		<child link="right_foot"/>
+	</joint>
+
+	<joint name="left_ankle" type="continuous">
 		<parent link="left_foot"/>
 		<child link="left_lower_leg"/>
-	</joint>
--->
+		<origin xyz="${-legDistFromCenter} 0 ${footHeight/2}" rpy="0 0 0"/>
+		<axis xyz="1 0 0"/>
+		<dynamics damping="0.7"/>
+	</joint> 
 
+	<joint name="left_knee" type="fixed">
+		<parent link="left_lower_leg"/>
+		<child link="left_upper_leg"/>
+		<origin xyz="${-legDistFromCenter} 0 0" rpy="0 0 0"/>
+		<axis xyz="1 0 0"/>
+		<dynamics damping="0.7"/>
+	</joint>
+
+	<joint name="left_hip" type="continuous">
+		<parent link="left_upper_leg"/>
+		<child link="body"/>
+		<origin xyz="${-legDistFromCenter} 0 0" rpy="0 0 0"/>
+		<axis xyz="1 0 0"/>
+		<dynamics damping="0.7"/>
+	</joint> 
+
+	<joint name="right_ankle" type="continuous">
+		<parent link="right_foot"/>
+		<child link="right_lower_leg"/>
+		<origin xyz="${-legDistFromCenter} 0 ${footHeight/2}" rpy="0 0 0"/>
+		<axis xyz="1 0 0"/>
+		<dynamics damping="0.7"/>
+	</joint> 
+
+	<joint name="right_knee" type="fixed">
+		<parent link="right_lower_leg"/>
+		<child link="right_upper_leg"/>
+		<origin xyz="${-legDistFromCenter} 0 0" rpy="0 0 0"/>
+		<axis xyz="1 0 0"/>
+		<dynamics damping="0.7"/>
+	</joint>
+
+	<joint name="right_hip" type="continuous">
+		<parent link="right_upper_leg"/>
+		<child link="body"/>
+		<origin xyz="${-legDistFromCenter} 0 0" rpy="0 0 0"/>
+		<axis xyz="1 0 0"/>
+		<dynamics damping="0.7"/>
+	</joint>
 
 </robot>
