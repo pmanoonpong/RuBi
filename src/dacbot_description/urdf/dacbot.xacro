@@ -196,4 +196,30 @@
 		<dynamics damping="0.7"/>
 	</joint>
 
+
+	<!-- 
+		Transmissions
+	-->
+	<transmission name="transmission_left_knee">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="left_knee">
+			<hardwareInterface>EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="motor_left_knee">
+			<hardwareInterface>EffortJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+
+	<transmission name="transmission_left_hip">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="left_hip">
+			<hardwareInterface>EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="motor_left_hip">
+			<hardwareInterface>EffortJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+
 </robot>
