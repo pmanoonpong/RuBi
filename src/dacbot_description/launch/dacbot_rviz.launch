@@ -1,10 +1,10 @@
 <launch>
   <param name="robot_description"
-    command="$(find xacro)/xacro.py '$(find dacbot_description)/urdf/dacbot.xacro'" />
+    command="xacro --inorder '$(find dacbot_description)/urdf/dacbot.xacro'" />
 
   <!-- send fake joint values -->
   <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
-    <param name="use_gui" value="TRUE"/>
+    <param name="use_gui" value="true"/>
   </node>
 
   <!-- Combine joint values -->

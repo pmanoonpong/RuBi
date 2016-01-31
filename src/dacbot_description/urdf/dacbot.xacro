@@ -67,19 +67,19 @@
 	 -->
 
 	 <!-- Box Macro! 
-	<xacro:create_box name="" origin_x="" origin_y="" origin_z="" width="" length="" height="" mass="" />
+	<xacro:create_box name="" origin_x="" origin_y="" origin_z="" r="" p="" y="" width="" length="" height="" mass="" />
 	 -->
-	<xacro:macro name="create_box" params="name origin_x origin_y origin_z width length height mass">
+	<xacro:macro name="create_box" params="name origin_x origin_y origin_z r p y width length height mass">
 		<link name="${name}">
 			<collision>
-				<origin xyz="${origin_x} ${origin_y} ${origin_z}" rpy="0 0 0"/>
+				<origin xyz="${origin_x} ${origin_y} ${origin_z}" rpy="${r} ${p} ${y}"/>
 				<geometry>
 					<box size="${width*scale} ${length*scale} ${height*scale}" />
 				</geometry>
 			</collision>
 
 			<visual>
-				<origin xyz="${origin_x} ${origin_y} ${origin_z}" rpy="0 0 0"/>
+				<origin xyz="${origin_x} ${origin_y} ${origin_z}" rpy="${r} ${p} ${y}"/>
 				<geometry>
 					<box size="${width*scale} ${length*scale} ${height*scale}" />
 				</geometry>
@@ -87,7 +87,7 @@
 			</visual>
 
 			<inertial>
-				<origin xyz="${origin_x} ${origin_y} ${origin_z}" rpy="0 0 0"/>
+				<origin xyz="${origin_x} ${origin_y} ${origin_z}" rpy="${r} ${p} ${y}"/>
 				<mass value="${mass}"/>
 				<inertia
 					ixx="${mass / 12.0 * (length*length + height*height)*scale*scale}" ixy="0.0" ixz="0.0" 
@@ -97,104 +97,174 @@
 		</link>
 	</xacro:macro>
 
+	<!-- 
+		World
+	-->
+	<!-- <link name="dacbot_global"/> -->
 
 	<!-- 
 		Left Leg
 	-->
 
 	<!-- Left Foot -->
-	<xacro:create_box name="left_foot" origin_x="${-legDistFromCenter}" origin_y="${footLength*scale/2 - footAnklePos}" origin_z="${footHeight/2}" width="${footWidth}" length="${footLength}" height="${footHeight}" mass="${footMass}" />
+	<xacro:create_box name="left_foot" origin_x="${footHeight*scale/2}" origin_y="${footLength*scale/2 - footAnklePos}" origin_z="0" r="0" p="${-PI/2}" y="0" width="${footWidth}" length="${footLength}" height="${footHeight}" mass="${footMass}" />
 
 	<!-- Left Lower Leg -->
-	<xacro:create_box name="left_lower_leg" origin_x="${-legDistFromCenter}" origin_y="0" origin_z="${lowerLegHeight/2 + footHeight - legAnklePos}" width="${lowerLegWidth}" length="${lowerLegLength}" height="${lowerLegHeight}" mass="${lowerLegMass}" />
+	<xacro:create_box name="left_lower_leg" origin_x="${lowerLegHeight*scale/2}" origin_y="0" origin_z="0" r="0" p="${-PI/2}" y="0" width="${lowerLegWidth}" length="${lowerLegLength}" height="${lowerLegHeight}" mass="${lowerLegMass}" />
 
 	<!-- Left Upper Leg -->
-	<xacro:create_box name="left_upper_leg" origin_x="${-legDistFromCenter}" origin_y="0" origin_z="${upperLegHeight/2 + footHeight - legAnklePos + lowerKneePos - upperKneePos}" width="${upperLegWidth}" length="${upperLegLength}" height="${upperLegHeight}" mass="${upperLegMass}" />
+	<xacro:create_box name="left_upper_leg" origin_x="${upperLegHeight*scale/2}" origin_y="0" origin_z="0" r="0" p="${-PI/2}" y="0" width="${upperLegWidth}" length="${upperLegLength}" height="${upperLegHeight}" mass="${upperLegMass}" />
 
 
 	<!-- 
 		Right Leg
 	-->
 	<!-- Right Foot -->
-	<xacro:create_box name="right_foot" origin_x="${legDistFromCenter}" origin_y="${footLength*scale/2 - footAnklePos}" origin_z="${footHeight/2}" width="${footWidth}" length="${footLength}" height="${footHeight}" mass="${footMass}" />
+	<xacro:create_box name="right_foot" origin_x="${footHeight*scale/2}" origin_y="${footLength*scale/2 - footAnklePos}" origin_z="0" r="0" p="${-PI/2}" y="0" width="${footWidth}" length="${footLength}" height="${footHeight}" mass="${footMass}" />
 
 	<!-- Right Lower Leg -->
-	<xacro:create_box name="right_lower_leg" origin_x="${legDistFromCenter}" origin_y="0" origin_z="${lowerLegHeight/2 + footHeight - legAnklePos}" width="${lowerLegWidth}" length="${lowerLegLength}" height="${lowerLegHeight}" mass="${lowerLegMass}" />
+	<xacro:create_box name="right_lower_leg" origin_x="${lowerLegHeight*scale/2}" origin_y="0" origin_z="0" r="0" p="${-PI/2}" y="0" width="${lowerLegWidth}" length="${lowerLegLength}" height="${lowerLegHeight}" mass="${lowerLegMass}" />
 
 	<!-- Right Upper Leg -->
-	<xacro:create_box name="right_upper_leg" origin_x="${legDistFromCenter}" origin_y="0" origin_z="${upperLegHeight/2 + footHeight - legAnklePos + lowerKneePos - upperKneePos}" width="${upperLegWidth}" length="${upperLegLength}" height="${upperLegHeight}" mass="${upperLegMass}" />
+	<xacro:create_box name="right_upper_leg" origin_x="${upperLegHeight*scale/2}" origin_y="0" origin_z="0" r="0" p="${-PI/2}" y="0" width="${upperLegWidth}" length="${upperLegLength}" height="${upperLegHeight}" mass="${upperLegMass}" />
 
 
 	<!-- 
 		Body
 	-->
-	<xacro:create_box name="body" origin_x="0" origin_y="${bodyWidth/2 - bodyHipWidth}" origin_z="${bodyHeight/2 + footHeight - legAnklePos + lowerKneePos - upperKneePos + legHipPos - bodyHipHeight}" width="${bodyWidth}" length="${bodyLength}" height="${bodyHeight}" mass="${bodyMass}" />
+	<xacro:create_box name="body" origin_x="0" origin_y="0" origin_z="${bodyHeight/2}" r="0" p="0" y="0" width="${bodyWidth}" length="${bodyLength}" height="${bodyHeight}" mass="${bodyMass}" />
+
+	<!-- 
+		Origin
+	-->
+	<link name="dacbot_origin"/>
 
 
 	<!-- 
 		Joints 
 	-->
-
-	<!-- Used for fixing robot to Gazebo 'base_link' -->
-	<link name="world"/>
-
-	<joint name="world_left_foot" type="floating">
-		<parent link="world"/>
-		<child link="left_foot"/>
-	</joint>
-
-	<joint name="world_right_foot" type="floating">
-		<parent link="world"/>
-		<child link="right_foot"/>
-	</joint>
-
-	<joint name="left_ankle" type="continuous">
-		<parent link="left_foot"/>
-		<child link="left_lower_leg"/>
-		<origin xyz="${-legDistFromCenter} 0 ${footHeight/2}" rpy="0 0 0"/>
-		<axis xyz="1 0 0"/>
-		<dynamics damping="0.7"/>
-	</joint> 
-
-	<joint name="left_knee" type="fixed">
-		<parent link="left_lower_leg"/>
-		<child link="left_upper_leg"/>
-		<origin xyz="${-legDistFromCenter} 0 0" rpy="0 0 0"/>
-		<axis xyz="1 0 0"/>
-		<dynamics damping="0.7"/>
+	<joint name="dacbot" type="fixed">
+		<parent link="dacbot_origin"/>
+		<child link="body" />
+		<origin xyz="0 0 ${(bodyHeight*scale/2 + footHeight - legAnklePos + lowerKneePos - upperKneePos + legHipPos - bodyHipHeight)*2}" rpy="0 0 0"/>
 	</joint>
 
 	<joint name="left_hip" type="continuous">
+		<parent link="body"/>
+		<child link="left_upper_leg"/>
+		<origin xyz="${-legDistFromCenter} 0 0" rpy="0 ${PI/2} 0"/>
+		<axis xyz="0 0 1"/>
+		<dynamics damping="0.7"/>
+	</joint> 
+
+	<joint name="left_knee" type="continuous">
 		<parent link="left_upper_leg"/>
-		<child link="body"/>
-		<origin xyz="${-legDistFromCenter} 0 0" rpy="0 0 0"/>
-		<axis xyz="1 0 0"/>
-		<dynamics damping="0.7"/>
-	</joint> 
-
-	<joint name="right_ankle" type="continuous">
-		<parent link="right_foot"/>
-		<child link="right_lower_leg"/>
-		<origin xyz="${-legDistFromCenter} 0 ${footHeight/2}" rpy="0 0 0"/>
-		<axis xyz="1 0 0"/>
-		<dynamics damping="0.7"/>
-	</joint> 
-
-	<joint name="right_knee" type="fixed">
-		<parent link="right_lower_leg"/>
-		<child link="right_upper_leg"/>
-		<origin xyz="${-legDistFromCenter} 0 0" rpy="0 0 0"/>
-		<axis xyz="1 0 0"/>
+		<child link="left_lower_leg"/>
+		<origin xyz="${upperLegHeight} 0 0" rpy="0 0 0"/>
+		<axis xyz="0 0 1"/>
 		<dynamics damping="0.7"/>
 	</joint>
+
+	<joint name="left_ankle" type="continuous">
+		<parent link="left_lower_leg"/>
+		<child link="left_foot"/>
+		<origin xyz="${lowerLegHeight} 0 0" rpy="0 0 0"/>
+		<axis xyz="0 0 1"/>
+		<dynamics damping="0.7"/>
+	</joint> 
 
 	<joint name="right_hip" type="continuous">
+		<parent link="body"/>
+		<child link="right_upper_leg"/>
+		<origin xyz="${legDistFromCenter} 0 0" rpy="0 ${PI/2} 0"/>
+		<axis xyz="0 0 1"/>
+		<dynamics damping="0.7"/>
+	</joint> 
+
+	<joint name="right_knee" type="continuous">
 		<parent link="right_upper_leg"/>
-		<child link="body"/>
-		<origin xyz="${-legDistFromCenter} 0 0" rpy="0 0 0"/>
-		<axis xyz="1 0 0"/>
+		<child link="right_lower_leg"/>
+		<origin xyz="${upperLegHeight} 0 0" rpy="0 0 0"/>
+		<axis xyz="0 0 1"/>
 		<dynamics damping="0.7"/>
 	</joint>
+
+	<joint name="right_ankle" type="continuous">
+		<parent link="right_lower_leg"/>
+		<child link="right_foot"/>
+		<origin xyz="${lowerLegHeight} 0 0" rpy="0 0 0"/>
+		<axis xyz="0 0 1"/>
+		<dynamics damping="0.7"/>
+	</joint> 
+
+	<transmission name="left_hip_trans">
+		<type>transmission_interface/SimpleTransmission</type>
+			<joint name="left_hip">
+			<hardwareInterface>EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="left_hip_motor">
+			<hardwareInterface>EffortJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+
+	<transmission name="left_knee_trans">
+		<type>transmission_interface/SimpleTransmission</type>
+			<joint name="left_knee">
+			<hardwareInterface>EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="left_knee_motor">
+			<hardwareInterface>EffortJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+
+	<transmission name="left_ankle_trans">
+		<type>transmission_interface/SimpleTransmission</type>
+			<joint name="left_ankle">
+			<hardwareInterface>EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="left_ankle_motor">
+			<hardwareInterface>EffortJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+
+	<transmission name="right_hip_trans">
+		<type>transmission_interface/SimpleTransmission</type>
+			<joint name="right_hip">
+			<hardwareInterface>EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="right_hip_motor">
+			<hardwareInterface>EffortJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+
+	<transmission name="right_knee_trans">
+		<type>transmission_interface/SimpleTransmission</type>
+			<joint name="right_knee">
+			<hardwareInterface>EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="right_knee_motor">
+			<hardwareInterface>EffortJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+
+	<transmission name="right_ankle_trans">
+		<type>transmission_interface/SimpleTransmission</type>
+			<joint name="right_ankle">
+			<hardwareInterface>EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="right_ankle_motor">
+			<hardwareInterface>EffortJointInterface</hardwareInterface>
+			<mechanicalReduction>1</mechanicalReduction>
+		</actuator>
+	</transmission>
+
+
+
 
 
 
