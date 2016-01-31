@@ -11,8 +11,8 @@
 
 	<!-- Links -->
 	<gazebo>
-  		<static> true </static>
-  		<pose> 0 0 ${(footHeight + lowerLegHeight + upperLegHeight)*1.1} 0 0 0 </pose>
+  		<static> false </static>
+  		<pose> 0 0 ${(footHeight + lowerLegHeight + upperLegHeight)*1.0} 0 0 0 </pose>
 	</gazebo>
 
 	<gazebo reference="body">
