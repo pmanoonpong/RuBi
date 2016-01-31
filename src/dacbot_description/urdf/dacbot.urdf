@@ -101,7 +101,7 @@
     <inertial>
       <origin rpy="0 -1.57079632679 0" xyz="0.004 0.01 0"/>
       <mass value="0.01"/>
-      <inertia ixx="0.01" ixy="0.0" ixz="0.0" iyy="0.01" iyz="0.0" izz="0.01"/>
+      <inertia ixx="0.002" ixy="0.0" ixz="0.0" iyy="0.002" iyz="0.0" izz="0.002"/>
     </inertial>
   </link>
   <!-- Creates the link -->
@@ -122,7 +122,7 @@
     <inertial>
       <origin rpy="0 -1.57079632679 0" xyz="0.0625 0 0"/>
       <mass value="0.08"/>
-      <inertia ixx="0.01" ixy="0.0" ixz="0.0" iyy="0.01" iyz="0.0" izz="0.01"/>
+      <inertia ixx="0.002" ixy="0.0" ixz="0.0" iyy="0.002" iyz="0.0" izz="0.002"/>
     </inertial>
   </link>
   <!-- Creates the link -->
@@ -143,7 +143,7 @@
     <inertial>
       <origin rpy="0 -1.57079632679 0" xyz="0.071 0 0"/>
       <mass value="0.2"/>
-      <inertia ixx="0.01" ixy="0.0" ixz="0.0" iyy="0.01" iyz="0.0" izz="0.01"/>
+      <inertia ixx="0.002" ixy="0.0" ixz="0.0" iyy="0.002" iyz="0.0" izz="0.002"/>
     </inertial>
   </link>
   <!-- Creates the link -->
@@ -164,7 +164,7 @@
     <inertial>
       <origin rpy="0 -1.57079632679 0" xyz="0.004 0.01 0"/>
       <mass value="0.01"/>
-      <inertia ixx="0.01" ixy="0.0" ixz="0.0" iyy="0.01" iyz="0.0" izz="0.01"/>
+      <inertia ixx="0.002" ixy="0.0" ixz="0.0" iyy="0.002" iyz="0.0" izz="0.002"/>
     </inertial>
   </link>
   <!-- Creates the link -->
@@ -185,7 +185,7 @@
     <inertial>
       <origin rpy="0 -1.57079632679 0" xyz="0.0625 0 0"/>
       <mass value="0.08"/>
-      <inertia ixx="0.01" ixy="0.0" ixz="0.0" iyy="0.01" iyz="0.0" izz="0.01"/>
+      <inertia ixx="0.002" ixy="0.0" ixz="0.0" iyy="0.002" iyz="0.0" izz="0.002"/>
     </inertial>
   </link>
   <!-- Creates the link -->
@@ -206,7 +206,7 @@
     <inertial>
       <origin rpy="0 -1.57079632679 0" xyz="0.071 0 0"/>
       <mass value="0.2"/>
-      <inertia ixx="0.01" ixy="0.0" ixz="0.0" iyy="0.01" iyz="0.0" izz="0.01"/>
+      <inertia ixx="0.002" ixy="0.0" ixz="0.0" iyy="0.002" iyz="0.0" izz="0.002"/>
     </inertial>
   </link>
   <!-- Creates the link -->
@@ -227,7 +227,7 @@
     <inertial>
       <origin rpy="0 0 0" xyz="0 0 0.0325"/>
       <mass value="0.45"/>
-      <inertia ixx="0.01" ixy="0.0" ixz="0.0" iyy="0.01" iyz="0.0" izz="0.01"/>
+      <inertia ixx="0.002" ixy="0.0" ixz="0.0" iyy="0.002" iyz="0.0" izz="0.002"/>
     </inertial>
   </link>
   <!-- 

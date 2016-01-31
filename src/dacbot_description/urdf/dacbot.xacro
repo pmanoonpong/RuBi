@@ -11,6 +11,7 @@
 		Height = Z axis
 	-->
 	<xacro:property name="scale" value="1" />
+	<xacro:property name="minimum_intertia" value="0.002" /> <!-- <0.001 doesn't work -->
 
 	<xacro:property name="bodyWidth" value="${0.085*scale}" />
 	<xacro:property name="bodyLength" value="${0.08*scale}" />
@@ -70,18 +71,18 @@
 	 -->
 	<xacro:macro name="create_box" params="name origin_x origin_y origin_z r p y width length height mass">
 
-		<!-- Set the minimum intertia as 0.01 -->
-		<xacro:property name="ixx" value="0.01" />
+		<!-- Set the minimum intertia -->
+		<xacro:property name="ixx" value="${minimum_intertia}" />
 		<xacro:if value="${mass / 12.0 * (length*length + height*height) > 0.01}">
 			<xacro:property name="ixx" value="${mass / 12.0 * (length*length + height*height)}" />
 		</xacro:if>
 
-		<xacro:property name="iyy" value="0.01" />
+		<xacro:property name="iyy" value="${minimum_intertia}" />
 		<xacro:if value="${mass / 12.0 * (length*length + height*height) > 0.01}">
 			<xacro:property name="iyy" value="${mass / 12.0 * (length*length + height*height)}" />
 		</xacro:if>
 
-		<xacro:property name="izz" value="0.01" />
+		<xacro:property name="izz" value="${minimum_intertia}" />
 		<xacro:if value="${mass / 12.0 * (length*length + height*height) > 0.01}">
 			<xacro:property name="izz" value="${mass / 12.0 * (length*length + height*height)}" />
 		</xacro:if>
