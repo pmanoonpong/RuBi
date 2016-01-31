@@ -135,20 +135,8 @@
 	<xacro:create_box name="body" origin_x="0" origin_y="0" origin_z="${bodyHeight/2}" r="0" p="0" y="0" width="${bodyWidth}" length="${bodyLength}" height="${bodyHeight}" mass="${bodyMass}" />
 
 	<!-- 
-		Origin
-	-->
-	<link name="dacbot_origin"/>
-
-
-	<!-- 
 		Joints 
 	-->
-	<joint name="dacbot" type="fixed">
-		<parent link="dacbot_origin"/>
-		<child link="body" />
-		<origin xyz="0 0 ${(bodyHeight*scale/2 + footHeight - legAnklePos + lowerKneePos - upperKneePos + legHipPos - bodyHipHeight)*2}" rpy="0 0 0"/>
-	</joint>
-
 	<joint name="left_hip" type="continuous">
 		<parent link="body"/>
 		<child link="left_upper_leg"/>
