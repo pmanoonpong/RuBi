@@ -14,7 +14,7 @@
   <!-- Links -->
   <gazebo>
     <static> false </static>
-    <pose> 0 0 0.5 0 0 0 </pose>
+    <pose> 0 0 8.25 0 0 0 </pose>
   </gazebo>
   <gazebo reference="body">
     <material>Gazebo/Orange</material>
@@ -85,142 +85,142 @@
 	-->
   <link name="left_foot">
     <collision>
-      <origin rpy="0 -1.57079632679 0" xyz="0.004 0.01 0"/>
+      <origin rpy="0 -1.57079632679 0" xyz="0.02 0.05 0"/>
       <geometry>
-        <box size="0.015 0.05 0.008"/>
+        <box size="0.075 0.25 0.04"/>
       </geometry>
     </collision>
     <visual>
-      <origin rpy="0 -1.57079632679 0" xyz="0.004 0.01 0"/>
+      <origin rpy="0 -1.57079632679 0" xyz="0.02 0.05 0"/>
       <geometry>
-        <box size="0.015 0.05 0.008"/>
+        <box size="0.075 0.25 0.04"/>
       </geometry>
       <material name="orange"/>
     </visual>
     <inertial>
-      <origin rpy="0 -1.57079632679 0" xyz="0.004 0.01 0"/>
-      <mass value="0.01"/>
-      <inertia ixx="2.13666666667e-06" ixy="0.0" ixz="0.0" iyy="2.40833333333e-07" iyz="0.0" izz="2.27083333333e-06"/>
+      <origin rpy="0 -1.57079632679 0" xyz="0.02 0.05 0"/>
+      <mass value="0.05"/>
+      <inertia ixx="0.00667708333333" ixy="0.0" ixz="0.0" iyy="0.000752604166667" iyz="0.0" izz="0.00709635416667"/>
     </inertial>
   </link>
   <link name="left_lower_leg">
     <collision>
-      <origin rpy="0 -1.57079632679 0" xyz="0.0625 0 0"/>
+      <origin rpy="0 -1.57079632679 0" xyz="0.3125 0 0"/>
       <geometry>
-        <box size="0.015 0.015 0.125"/>
+        <box size="0.075 0.075 0.625"/>
       </geometry>
     </collision>
     <visual>
-      <origin rpy="0 -1.57079632679 0" xyz="0.0625 0 0"/>
+      <origin rpy="0 -1.57079632679 0" xyz="0.3125 0 0"/>
       <geometry>
-        <box size="0.015 0.015 0.125"/>
+        <box size="0.075 0.075 0.625"/>
       </geometry>
       <material name="orange"/>
     </visual>
     <inertial>
-      <origin rpy="0 -1.57079632679 0" xyz="0.0625 0 0"/>
-      <mass value="0.08"/>
-      <inertia ixx="0.000105666666667" ixy="0.0" ixz="0.0" iyy="0.000105666666667" iyz="0.0" izz="3e-06"/>
+      <origin rpy="0 -1.57079632679 0" xyz="0.3125 0 0"/>
+      <mass value="0.4"/>
+      <inertia ixx="0.330208333333" ixy="0.0" ixz="0.0" iyy="0.330208333333" iyz="0.0" izz="0.009375"/>
     </inertial>
   </link>
   <link name="left_upper_leg">
     <collision>
-      <origin rpy="0 -1.57079632679 0" xyz="0.071 0 0"/>
+      <origin rpy="0 -1.57079632679 0" xyz="0.355 0 0"/>
       <geometry>
-        <box size="0.015 0.015 0.142"/>
+        <box size="0.075 0.075 0.71"/>
       </geometry>
     </collision>
     <visual>
-      <origin rpy="0 -1.57079632679 0" xyz="0.071 0 0"/>
+      <origin rpy="0 -1.57079632679 0" xyz="0.355 0 0"/>
       <geometry>
-        <box size="0.015 0.015 0.142"/>
+        <box size="0.075 0.075 0.71"/>
       </geometry>
       <material name="orange"/>
     </visual>
     <inertial>
-      <origin rpy="0 -1.57079632679 0" xyz="0.071 0 0"/>
-      <mass value="0.2"/>
-      <inertia ixx="0.000339816666667" ixy="0.0" ixz="0.0" iyy="0.000339816666667" iyz="0.0" izz="7.5e-06"/>
+      <origin rpy="0 -1.57079632679 0" xyz="0.355 0 0"/>
+      <mass value="1.0"/>
+      <inertia ixx="1.06192708333" ixy="0.0" ixz="0.0" iyy="1.06192708333" iyz="0.0" izz="0.0234375"/>
     </inertial>
   </link>
   <link name="right_foot">
     <collision>
-      <origin rpy="0 -1.57079632679 0" xyz="0.004 0.01 0"/>
+      <origin rpy="0 -1.57079632679 0" xyz="0.02 0.05 0"/>
       <geometry>
-        <box size="0.015 0.05 0.008"/>
+        <box size="0.075 0.25 0.04"/>
       </geometry>
     </collision>
     <visual>
-      <origin rpy="0 -1.57079632679 0" xyz="0.004 0.01 0"/>
+      <origin rpy="0 -1.57079632679 0" xyz="0.02 0.05 0"/>
       <geometry>
-        <box size="0.015 0.05 0.008"/>
+        <box size="0.075 0.25 0.04"/>
       </geometry>
       <material name="orange"/>
     </visual>
     <inertial>
-      <origin rpy="0 -1.57079632679 0" xyz="0.004 0.01 0"/>
-      <mass value="0.01"/>
-      <inertia ixx="2.13666666667e-06" ixy="0.0" ixz="0.0" iyy="2.40833333333e-07" iyz="0.0" izz="2.27083333333e-06"/>
+      <origin rpy="0 -1.57079632679 0" xyz="0.02 0.05 0"/>
+      <mass value="0.05"/>
+      <inertia ixx="0.00667708333333" ixy="0.0" ixz="0.0" iyy="0.000752604166667" iyz="0.0" izz="0.00709635416667"/>
     </inertial>
   </link>
   <link name="right_lower_leg">
     <collision>
-      <origin rpy="0 -1.57079632679 0" xyz="0.0625 0 0"/>
+      <origin rpy="0 -1.57079632679 0" xyz="0.3125 0 0"/>
       <geometry>
-        <box size="0.015 0.015 0.125"/>
+        <box size="0.075 0.075 0.625"/>
       </geometry>
     </collision>
     <visual>
-      <origin rpy="0 -1.57079632679 0" xyz="0.0625 0 0"/>
+      <origin rpy="0 -1.57079632679 0" xyz="0.3125 0 0"/>
       <geometry>
-        <box size="0.015 0.015 0.125"/>
+        <box size="0.075 0.075 0.625"/>
       </geometry>
       <material name="orange"/>
     </visual>
     <inertial>
-      <origin rpy="0 -1.57079632679 0" xyz="0.0625 0 0"/>
-      <mass value="0.08"/>
-      <inertia ixx="0.000105666666667" ixy="0.0" ixz="0.0" iyy="0.000105666666667" iyz="0.0" izz="3e-06"/>
+      <origin rpy="0 -1.57079632679 0" xyz="0.3125 0 0"/>
+      <mass value="0.4"/>
+      <inertia ixx="0.330208333333" ixy="0.0" ixz="0.0" iyy="0.330208333333" iyz="0.0" izz="0.009375"/>
     </inertial>
   </link>
   <link name="right_upper_leg">
     <collision>
-      <origin rpy="0 -1.57079632679 0" xyz="0.071 0 0"/>
+      <origin rpy="0 -1.57079632679 0" xyz="0.355 0 0"/>
       <geometry>
-        <box size="0.015 0.015 0.142"/>
+        <box size="0.075 0.075 0.71"/>
       </geometry>
     </collision>
     <visual>
-      <origin rpy="0 -1.57079632679 0" xyz="0.071 0 0"/>
+      <origin rpy="0 -1.57079632679 0" xyz="0.355 0 0"/>
       <geometry>
-        <box size="0.015 0.015 0.142"/>
+        <box size="0.075 0.075 0.71"/>
       </geometry>
       <material name="orange"/>
     </visual>
     <inertial>
-      <origin rpy="0 -1.57079632679 0" xyz="0.071 0 0"/>
-      <mass value="0.2"/>
-      <inertia ixx="0.000339816666667" ixy="0.0" ixz="0.0" iyy="0.000339816666667" iyz="0.0" izz="7.5e-06"/>
+      <origin rpy="0 -1.57079632679 0" xyz="0.355 0 0"/>
+      <mass value="1.0"/>
+      <inertia ixx="1.06192708333" ixy="0.0" ixz="0.0" iyy="1.06192708333" iyz="0.0" izz="0.0234375"/>
     </inertial>
   </link>
   <link name="body">
     <collision>
-      <origin rpy="0 0 0" xyz="0 0 0.0325"/>
+      <origin rpy="0 0 0" xyz="0 0 0.1625"/>
       <geometry>
-        <box size="0.085 0.08 0.065"/>
+        <box size="0.425 0.4 0.325"/>
       </geometry>
     </collision>
     <visual>
-      <origin rpy="0 0 0" xyz="0 0 0.0325"/>
+      <origin rpy="0 0 0" xyz="0 0 0.1625"/>
       <geometry>
-        <box size="0.085 0.08 0.065"/>
+        <box size="0.425 0.4 0.325"/>
       </geometry>
       <material name="orange"/>
     </visual>
     <inertial>
-      <origin rpy="0 0 0" xyz="0 0 0.0325"/>
-      <mass value="0.45"/>
-      <inertia ixx="0.0003984375" ixy="0.0" ixz="0.0" iyy="0.000429375" iyz="0.0" izz="0.0005109375"/>
+      <origin rpy="0 0 0" xyz="0 0 0.1625"/>
+      <mass value="2.25"/>
+      <inertia ixx="1.2451171875" ixy="0.0" ixz="0.0" iyy="1.341796875" iyz="0.0" izz="1.5966796875"/>
     </inertial>
   </link>
   <!-- 
@@ -229,42 +229,42 @@
   <joint name="left_hip" type="continuous">
     <parent link="body"/>
     <child link="left_upper_leg"/>
-    <origin rpy="0 1.57079632679 0" xyz="-0.015 0 0"/>
+    <origin rpy="0 1.57079632679 0" xyz="-0.075 0 0"/>
     <axis xyz="0 0 1"/>
     <dynamics damping="0.7"/>
   </joint>
   <joint name="left_knee" type="continuous">
     <parent link="left_upper_leg"/>
     <child link="left_lower_leg"/>
-    <origin rpy="0 0 0" xyz="0.142 0 0"/>
+    <origin rpy="0 0 0" xyz="0.71 0 0"/>
     <axis xyz="0 0 1"/>
     <dynamics damping="0.7"/>
   </joint>
   <joint name="left_ankle" type="continuous">
     <parent link="left_lower_leg"/>
     <child link="left_foot"/>
-    <origin rpy="0 0 0" xyz="0.125 0 0"/>
+    <origin rpy="0 0 0" xyz="0.625 0 0"/>
     <axis xyz="0 0 1"/>
     <dynamics damping="0.7"/>
   </joint>
   <joint name="right_hip" type="continuous">
     <parent link="body"/>
     <child link="right_upper_leg"/>
-    <origin rpy="0 1.57079632679 0" xyz="0.015 0 0"/>
+    <origin rpy="0 1.57079632679 0" xyz="0.075 0 0"/>
     <axis xyz="0 0 1"/>
     <dynamics damping="0.7"/>
   </joint>
   <joint name="right_knee" type="continuous">
     <parent link="right_upper_leg"/>
     <child link="right_lower_leg"/>
-    <origin rpy="0 0 0" xyz="0.142 0 0"/>
+    <origin rpy="0 0 0" xyz="0.71 0 0"/>
     <axis xyz="0 0 1"/>
     <dynamics damping="0.7"/>
   </joint>
   <joint name="right_ankle" type="continuous">
     <parent link="right_lower_leg"/>
     <child link="right_foot"/>
-    <origin rpy="0 0 0" xyz="0.125 0 0"/>
+    <origin rpy="0 0 0" xyz="0.625 0 0"/>
     <axis xyz="0 0 1"/>
     <dynamics damping="0.7"/>
   </joint>
