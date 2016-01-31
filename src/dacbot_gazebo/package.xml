@@ -1,0 +1,19 @@
+<package>
+  <name>dacbot_gazebo</name>
+  <version>0.1.0</version>
+  <description>dacbot_gazebo</description>
+  <maintainer email="jorod14@student.sdu.dk">Jorge Rodriguez</maintainer>
+
+  <license>BSD</license>
+
+  <author email="jorod14@student.sdu.dk">Jorge Rodriguez</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <run_depend>dacbot_description</run_depend>
+  <run_depend>dacbot_control</run_depend> 
+  <run_depend>gazebo_ros</run_depend> 
+
+  <export>
+  </export>
+</package>
