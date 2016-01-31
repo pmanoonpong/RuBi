@@ -10,7 +10,7 @@
 		Length = Y axis
 		Height = Z axis
 	-->
-	<xacro:property name="scale" value="5" />
+	<xacro:property name="scale" value="1" />
 
 	<xacro:property name="bodyWidth" value="${0.085*scale}" />
 	<xacro:property name="bodyLength" value="${0.08*scale}" />
@@ -69,6 +69,24 @@
 	<xacro:create_box name="" origin_x="" origin_y="" origin_z="" r="" p="" y="" width="" length="" height="" mass="" />
 	 -->
 	<xacro:macro name="create_box" params="name origin_x origin_y origin_z r p y width length height mass">
+
+		<!-- Set the minimum intertia as 0.01 -->
+		<xacro:property name="ixx" value="0.01" />
+		<xacro:if value="${mass / 12.0 * (length*length + height*height) > 0.01}">
+			<xacro:property name="ixx" value="${mass / 12.0 * (length*length + height*height)}" />
+		</xacro:if>
+
+		<xacro:property name="iyy" value="0.01" />
+		<xacro:if value="${mass / 12.0 * (length*length + height*height) > 0.01}">
+			<xacro:property name="iyy" value="${mass / 12.0 * (length*length + height*height)}" />
+		</xacro:if>
+
+		<xacro:property name="izz" value="0.01" />
+		<xacro:if value="${mass / 12.0 * (length*length + height*height) > 0.01}">
+			<xacro:property name="izz" value="${mass / 12.0 * (length*length + height*height)}" />
+		</xacro:if>
+
+		<!-- Creates the link -->
 		<link name="${name}">
 			<collision>
 				<origin xyz="${origin_x} ${origin_y} ${origin_z}" rpy="${r} ${p} ${y}"/>
@@ -89,9 +107,9 @@
 				<origin xyz="${origin_x} ${origin_y} ${origin_z}" rpy="${r} ${p} ${y}"/>
 				<mass value="${mass}"/>
 				<inertia
-					ixx="${mass / 12.0 * (length*length + height*height)*scale*scale}" ixy="0.0" ixz="0.0" 
-					iyy="${mass / 12.0 * (height*height + width*width)*scale*scale}" iyz="0.0" 
-					izz="${mass / 12.0 * (width*width + length*length)*scale*scale}"/>
+					ixx="${ixx}" ixy="0.0" ixz="0.0" 
+					iyy="${iyy}" iyz="0.0" 
+					izz="${izz}"/>
 			</inertial>
 		</link>
 	</xacro:macro>
