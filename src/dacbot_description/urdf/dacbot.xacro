@@ -155,6 +155,15 @@
 	<!-- 
 		Joints 
 	-->
+  <link name="world"/>
+
+  <joint name="fixed" type="fixed">
+    <parent link="world"/>
+    <child link="body"/>
+    <origin xyz="0 0 ${(footHeight + lowerLegHeight + upperLegHeight)*1.1}" rpy="0 0 0"/>
+  </joint> 
+
+
 	<joint name="left_hip" type="continuous">
 		<parent link="body"/>
 		<child link="left_upper_leg"/>

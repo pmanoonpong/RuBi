@@ -4,6 +4,7 @@
 <!-- |    EDITING THIS FILE BY HAND IS NOT RECOMMENDED                                 | -->
 <!-- =================================================================================== -->
 <robot name="dacbot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!-- <0.001 doesn't work -->
   <!-- ros_control plugin -->
   <gazebo>
     <plugin filename="libgazebo_ros_control.so" name="gazebo_ros_control">
@@ -233,6 +234,12 @@
   <!-- 
 		Joints 
 	-->
+  <link name="world"/>
+  <joint name="fixed" type="fixed">
+    <parent link="world"/>
+    <child link="body"/>
+    <origin rpy="0 0 0" xyz="0 0 0.3025"/>
+  </joint>
   <joint name="left_hip" type="continuous">
     <parent link="body"/>
     <child link="left_upper_leg"/>
