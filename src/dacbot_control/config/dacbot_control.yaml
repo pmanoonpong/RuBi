@@ -8,25 +8,25 @@ dacbot:
   left_ankle_position_controller:
     type: effort_controllers/JointPositionController
     joint: left_ankle
-    pid: {p: 100.0, i: 0.01, d: 10.0}
+    pid: {p: 1.0, i: 0.01, d: 0.0}
   left_knee_position_controller:
     type: effort_controllers/JointPositionController
     joint: left_knee
-    pid: {p: 100.0, i: 0.01, d: 10.0}
+    pid: {p: 1.0, i: 0.01, d: 0.0}
   left_hip_position_controller:
     type: effort_controllers/JointPositionController
     joint: left_hip
-    pid: {p: 100.0, i: 0.01, d: 10.0}
+    pid: {p: 1.0, i: 0.01, d: 0.0}
 
   right_ankle_position_controller:
     type: effort_controllers/JointPositionController
     joint: right_ankle
-    pid: {p: 100.0, i: 0.01, d: 10.0}
+    pid: {p: 1.0, i: 0.01, d: 0.0}
   right_knee_position_controller:
     type: effort_controllers/JointPositionController
     joint: right_knee
-    pid: {p: 100.0, i: 0.01, d: 10.0}
+    pid: {p: 1.0, i: 0.01, d: 0.0}
   right_hip_position_controller:
     type: effort_controllers/JointPositionController
     joint: right_hip
-    pid: {p: 100.0, i: 0.01, d: 10.0}
+    pid: {p: 1.0, i: 0.01, d: 0.0}
