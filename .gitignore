@@ -5,3 +5,6 @@
 
 # User files
 *.user
+
+# Qt creator
+*.user
