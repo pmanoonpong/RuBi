@@ -4,6 +4,7 @@
 <!-- |    EDITING THIS FILE BY HAND IS NOT RECOMMENDED                                 | -->
 <!-- =================================================================================== -->
 <robot name="dacbot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!-- In N*m -->
   <!-- <0.001 doesn't work -->
   <!-- ros_control plugin -->
   <gazebo>
@@ -289,7 +290,7 @@
     </joint>
     <actuator name="left_hip_motor">
       <hardwareInterface>EffortJointInterface</hardwareInterface>
-      <mechanicalReduction>1</mechanicalReduction>
+      <mechanicalReduction>1.0787315</mechanicalReduction>
     </actuator>
   </transmission>
   <transmission name="left_knee_trans">
@@ -299,7 +300,7 @@
     </joint>
     <actuator name="left_knee_motor">
       <hardwareInterface>EffortJointInterface</hardwareInterface>
-      <mechanicalReduction>1</mechanicalReduction>
+      <mechanicalReduction>1.0787315</mechanicalReduction>
     </actuator>
   </transmission>
   <transmission name="left_ankle_trans">
@@ -309,7 +310,7 @@
     </joint>
     <actuator name="left_ankle_motor">
       <hardwareInterface>EffortJointInterface</hardwareInterface>
-      <mechanicalReduction>1</mechanicalReduction>
+      <mechanicalReduction>1.0787315</mechanicalReduction>
     </actuator>
   </transmission>
   <transmission name="right_hip_trans">
@@ -319,7 +320,7 @@
     </joint>
     <actuator name="right_hip_motor">
       <hardwareInterface>EffortJointInterface</hardwareInterface>
-      <mechanicalReduction>1</mechanicalReduction>
+      <mechanicalReduction>1.0787315</mechanicalReduction>
     </actuator>
   </transmission>
   <transmission name="right_knee_trans">
@@ -329,7 +330,7 @@
     </joint>
     <actuator name="right_knee_motor">
       <hardwareInterface>EffortJointInterface</hardwareInterface>
-      <mechanicalReduction>1</mechanicalReduction>
+      <mechanicalReduction>1.0787315</mechanicalReduction>
     </actuator>
   </transmission>
   <transmission name="right_ankle_trans">
@@ -339,7 +340,7 @@
     </joint>
     <actuator name="right_ankle_motor">
       <hardwareInterface>EffortJointInterface</hardwareInterface>
-      <mechanicalReduction>1</mechanicalReduction>
+      <mechanicalReduction>1.0787315</mechanicalReduction>
     </actuator>
   </transmission>
 </robot>

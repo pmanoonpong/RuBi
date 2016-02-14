@@ -5,7 +5,10 @@
 	<!-- Constants -->
 	<xacro:property name="PI" value="3.1415926535897931"/>
 
-	<!-- Robot configuration 
+	<!-- Robot configuration: Transmission -->
+	<xacro:property name="maxRealMotorTorque" value="1.0787315"/> <!-- In N*m -->
+
+	<!-- Robot configuration: Geometry 
 		Width = X axis
 		Length = Y axis
 		Height = Z axis
@@ -219,7 +222,7 @@
 		</joint>
 		<actuator name="left_hip_motor">
 			<hardwareInterface>EffortJointInterface</hardwareInterface>
-			<mechanicalReduction>1</mechanicalReduction>
+			<mechanicalReduction>${maxRealMotorTorque}</mechanicalReduction>
 		</actuator>
 	</transmission>
 
@@ -230,7 +233,7 @@
 		</joint>
 		<actuator name="left_knee_motor">
 			<hardwareInterface>EffortJointInterface</hardwareInterface>
-			<mechanicalReduction>1</mechanicalReduction>
+			<mechanicalReduction>${maxRealMotorTorque}</mechanicalReduction>
 		</actuator>
 	</transmission>
 
@@ -241,7 +244,7 @@
 		</joint>
 		<actuator name="left_ankle_motor">
 			<hardwareInterface>EffortJointInterface</hardwareInterface>
-			<mechanicalReduction>1</mechanicalReduction>
+			<mechanicalReduction>${maxRealMotorTorque}</mechanicalReduction>
 		</actuator>
 	</transmission>
 
@@ -252,7 +255,7 @@
 		</joint>
 		<actuator name="right_hip_motor">
 			<hardwareInterface>EffortJointInterface</hardwareInterface>
-			<mechanicalReduction>1</mechanicalReduction>
+			<mechanicalReduction>${maxRealMotorTorque}</mechanicalReduction>
 		</actuator>
 	</transmission>
 
@@ -263,7 +266,7 @@
 		</joint>
 		<actuator name="right_knee_motor">
 			<hardwareInterface>EffortJointInterface</hardwareInterface>
-			<mechanicalReduction>1</mechanicalReduction>
+			<mechanicalReduction>${maxRealMotorTorque}</mechanicalReduction>
 		</actuator>
 	</transmission>
 
@@ -274,7 +277,7 @@
 		</joint>
 		<actuator name="right_ankle_motor">
 			<hardwareInterface>EffortJointInterface</hardwareInterface>
-			<mechanicalReduction>1</mechanicalReduction>
+			<mechanicalReduction>${maxRealMotorTorque}</mechanicalReduction>
 		</actuator>
 	</transmission>
 
