@@ -43,17 +43,18 @@ class MuscleRunbotController {
  public:
   MuscleRunbotController();
 
+  /*
   void init(int sensornumber, int motornumber, RandGen* randGen = 0);
 
   void step(const sensor* sensors, int sensornumber, motor* motors,
             int motornumber);
-
+*/
   // Callbacks
   /**
    * @brief callbackSubcriberJointState
    * @param msg
    */
-  void callbackSubcriberJointState(sensor_msgs::JointState& msg);
+  void callbackSubcriberJointState(sensor_msgs::JointState msg);
 
  private:
   // ROS
@@ -155,5 +156,33 @@ class MuscleRunbotController {
       *rightHipDelayed;
   derivativeTransitionRegister* checkWave;
 };
+
+/**
+ * @brief Runs the controller
+ */
+int main() {
+  // Init
+  int argc(0);
+  char** argv(NULL);
+  ros::init(argc, argv, "dacbot/muscle_controller");
+
+  // Controller
+  MuscleRunbotController muscleRunbotController;
+
+  // Rate
+  ros::Rate rate(30);
+
+  // Sppiner
+  ros::AsyncSpinner spinner(0);
+
+  // ROS Spin: Handle callbacks
+  while (!ros::isShuttingDown()) {
+    spinner.start();
+    // ros::spinOnce();
+    rate.sleep();
+  }
+
+  return 0;
+}
 
 #endif /* MUSCLERUNBOTCONTROLLER_H_ */
