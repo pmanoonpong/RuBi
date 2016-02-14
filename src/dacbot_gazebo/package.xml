@@ -11,7 +11,7 @@
   <buildtool_depend>catkin</buildtool_depend>
 
   <run_depend>dacbot_description</run_depend>
-  <run_depend>dacbot_control</run_depend> 
+  <run_depend>dacbot_joint_control</run_depend> 
   <run_depend>gazebo_ros</run_depend> 
 
   <export>

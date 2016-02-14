@@ -26,9 +26,9 @@
 	args="-urdf -model dacbot -param robot_description -z 0.275"/>
 
 	<!-- ros_control dacbot launch file -->
-	<include file="$(find dacbot_control)/launch/dacbot_control.launch"/>
+	<include file="$(find dacbot_joint_control)/launch/dacbot_joint_control.launch"/>
 
 	<!-- rviz controller -->
-	<!-- <include file="$(find dacbot_control)/launch/dacbot_rviz.launch"/> -->
+	<!-- <include file="$(find dacbot_joint_control)/launch/dacbot_rviz.launch"/> -->
 
 </launch>
