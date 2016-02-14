@@ -122,8 +122,7 @@ set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O2 -Wextra")
 
 
 set(SOURCES
-  src/main.cpp
-  # src/muscleRunbotController.cpp
+  src/muscleRunbotController.cpp
   ${RUNBOT_CONTROLLERS}/cnnet.cpp
   ${RUNBOT_CONTROLLERS}/cgaitprofile.cpp
   ${RUNBOT_CONTROLLERS}/cgaittransition.cpp
@@ -147,7 +146,7 @@ set(SOURCES
 )
 
 set(HEADERS
-  # src/muscleRunbotController.h
+  src/muscleRunbotController.h
   ${RUNBOT_CONTROLLERS}/cnnet.h
   ${RUNBOT_CONTROLLERS}/cgaitprofile.h
   ${RUNBOT_CONTROLLERS}/cgaittransition.h
