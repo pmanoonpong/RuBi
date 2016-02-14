@@ -67,10 +67,6 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        dacbot_origin:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
         left_foot:
           Alpha: 1
           Show Axes: false
@@ -101,6 +97,20 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
+        rotational_robot_holder_base:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        rotational_robot_holder_holder:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        world:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
       Name: RobotModel
       Robot Description: robot_description
       TF Prefix: ""
@@ -110,7 +120,7 @@ Visualization Manager:
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
-    Fixed Frame: dacbot_origin
+    Fixed Frame: world
     Frame Rate: 30
   Name: root
   Tools:
@@ -131,7 +141,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 5.31329
+      Distance: 11.746
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.06
         Stereo Focal Distance: 1
@@ -143,10 +153,10 @@ Visualization Manager:
         Z: 0.421568
       Name: Current View
       Near Clip Distance: 0.01
-      Pitch: 0.205399
+      Pitch: 0.0853988
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 1.91039
+      Yaw: 1.51039
     Saved: ~
 Window Geometry:
   Displays:

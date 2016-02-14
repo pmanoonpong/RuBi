@@ -236,11 +236,11 @@
 		Joints 
 	-->
   <link name="world"/>
-  <joint name="fixed" type="fixed">
+  <!--   <joint name="fixed" type="fixed">
     <parent link="world"/>
     <child link="body"/>
-    <origin rpy="0 0 0" xyz="0 0 0.3025"/>
-  </joint>
+    <origin xyz="0 0 ${(footHeight + lowerLegHeight + upperLegHeight)*1.1}" rpy="0 0 0"/>
+  </joint>  -->
   <joint name="left_hip" type="continuous">
     <parent link="body"/>
     <child link="left_upper_leg"/>
@@ -343,5 +343,63 @@
       <mechanicalReduction>1.0787315</mechanicalReduction>
     </actuator>
   </transmission>
+  <link name="rotational_robot_holder_base">
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.275" radius="0.2"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.275" radius="0.2"/>
+      </geometry>
+      <material name="orange"/>
+    </visual>
+    <inertial>
+      <mass value="10"/>
+      <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+    </inertial>
+  </link>
+  <link name="rotational_robot_holder_holder">
+    <collision>
+      <origin rpy="0 1.57079632679 0" xyz="1.0 0 0"/>
+      <geometry>
+        <cylinder length="2" radius="0.01"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin rpy="0 1.57079632679 0" xyz="1.0 0 0"/>
+      <geometry>
+        <cylinder length="2" radius="0.01"/>
+      </geometry>
+      <material name="orange"/>
+    </visual>
+    <inertial>
+      <mass value="0.01"/>
+      <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1"/>
+    </inertial>
+  </link>
+  <!-- Robot to rotational_robot_holder -->
+  <joint name="rotational_robot_holder_base_to_world" type="fixed">
+    <parent link="world"/>
+    <child link="rotational_robot_holder_base"/>
+    <origin rpy="0 0 0" xyz="0 0 0.1375"/>
+  </joint>
+  <joint name="rotational_robot_holder_joint" type="continuous">
+    <parent link="rotational_robot_holder_base"/>
+    <child link="rotational_robot_holder_holder"/>
+    <origin rpy="0 0 0" xyz="0 0 0.1375"/>
+    <axis xyz="0 0 1"/>
+    <dynamics damping="0.7"/>
+  </joint>
+  <joint name="rotational_robot_holder_to_rotot" type="continuous">
+    <parent link="rotational_robot_holder_holder"/>
+    <child link="body"/>
+    <origin rpy="0 0 0" xyz="2 0 0"/>
+    <axis xyz="1 0 0"/>
+    <dynamics damping="0.7"/>
+  </joint>
 </robot>
 

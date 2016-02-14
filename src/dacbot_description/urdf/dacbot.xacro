@@ -160,11 +160,11 @@
 	-->
   <link name="world"/>
 
-  <joint name="fixed" type="fixed">
+<!--   <joint name="fixed" type="fixed">
     <parent link="world"/>
     <child link="body"/>
     <origin xyz="0 0 ${(footHeight + lowerLegHeight + upperLegHeight)*1.1}" rpy="0 0 0"/>
-  </joint> 
+  </joint>  -->
 
 
 	<joint name="left_hip" type="continuous">
@@ -280,5 +280,13 @@
 			<mechanicalReduction>${maxRealMotorTorque}</mechanicalReduction>
 		</actuator>
 	</transmission>
+
+
+	<!-- Rotational robot holder -->
+	<xacro:property name="rotational_robot_holder_base_radius" value="${0.2*scale}" />
+  <xacro:property name="rotational_robot_holder_base_length" value="${(footHeight + lowerLegHeight + upperLegHeight)*scale}" />
+  <xacro:property name="rotational_robot_holder_holder_radius" value="${0.01*scale}" />
+  <xacro:property name="rotational_robot_holder_holder_length" value="${2*scale}" />
+	<xacro:include filename="$(find gazebo_resources)/models/rotational_robot_holder/urdf/rotational_robot_holder.xacro" />
 
 </robot>
