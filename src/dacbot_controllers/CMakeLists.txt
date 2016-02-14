@@ -102,80 +102,79 @@ catkin_package(
 #  DEPENDS system_lib
 )
 
-###########
-## Build ##
-###########
+set(RUNBOT_CONTROLLERS
+  /mnt/Free/Drive/Programming/artificialIntelligence/gorobots/controllers/runbotii_dacbot
+)
 
-## Specify additional locations of header files
-## Your package locations should be listed before other locations
-# include_directories(include)
+set(UTILS
+  /mnt/Free/Drive/Programming/artificialIntelligence/gorobots/utils
+)
 
-## Declare a C++ library
-# add_library(dacbot_controllers
-#   src/${PROJECT_NAME}/dacbot_controllers.cpp
-# )
+include_directories(
+    ${catkin_INCLUDE_DIRS}
+    /mnt/Free/Drive/Programming/artificialIntelligence/gorobots
+    ${UTILS}
+    ${RUNBOT_CONTROLLERS}
+)
 
-## Add cmake target dependencies of the library
-## as an example, code may need to be generated before libraries
-## either from message generation or dynamic reconfigure
-# add_dependencies(dacbot_controllers ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall")
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O2 -Wextra")
 
-## Declare a C++ executable
-# add_executable(dacbot_controllers_node src/dacbot_controllers_node.cpp)
 
-## Add cmake target dependencies of the executable
-## same as for the library above
-# add_dependencies(dacbot_controllers_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+set(SOURCES
+  src/main.cpp
+  # src/muscleRunbotController.cpp
+  ${RUNBOT_CONTROLLERS}/cnnet.cpp
+  ${RUNBOT_CONTROLLERS}/cgaitprofile.cpp
+  ${RUNBOT_CONTROLLERS}/cgaittransition.cpp
+  ${RUNBOT_CONTROLLERS}/Neurons/integrator.cpp
+  ${RUNBOT_CONTROLLERS}/Neurons/gc_neuron.cpp
+  ${RUNBOT_CONTROLLERS}/Neurons/coincidence.cpp
+  ${RUNBOT_CONTROLLERS}/Filter/sigmoid.cpp
+  ${RUNBOT_CONTROLLERS}/ctextarraywriter.cpp
+  ${RUNBOT_CONTROLLERS}/carraywriter.cpp
+  ${RUNBOT_CONTROLLERS}/derivativeTransitionRegister.cpp
+  ${RUNBOT_CONTROLLERS}/plastic.cpp
+  ${RUNBOT_CONTROLLERS}/lowPassfilter.cpp
+  ${RUNBOT_CONTROLLERS}/shiftregister.cpp
+  ${UTILS}/vaam-library/abstractmusclemodel.cpp
+  ${UTILS}/vaam-library/parametertransitionfunction.cpp
+  ${UTILS}/vaam-library/dccontrollingvmm.cpp
+  ${UTILS}/vaam-library/positioncontrollingvmm.cpp
+  ${UTILS}/vaam-library/sigmoidtransitionfunction.cpp
+  ${UTILS}/vaam-library/musclechain.cpp
+  ${UTILS}/vaam-library/muscletorque1.cpp
+)
 
-## Specify libraries to link a library or executable target against
-# target_link_libraries(dacbot_controllers_node
-#   ${catkin_LIBRARIES}
-# )
+set(HEADERS
+  # src/muscleRunbotController.h
+  ${RUNBOT_CONTROLLERS}/cnnet.h
+  ${RUNBOT_CONTROLLERS}/cgaitprofile.h
+  ${RUNBOT_CONTROLLERS}/cgaittransition.h
+  ${RUNBOT_CONTROLLERS}/Neurons/integrator.h
+  ${RUNBOT_CONTROLLERS}/Neurons/gc_neuron.h
+  ${RUNBOT_CONTROLLERS}/Neurons/coincidence.h
+  ${RUNBOT_CONTROLLERS}/Filter/sigmoid.h
+  ${RUNBOT_CONTROLLERS}/ctextarraywriter.h
+  ${RUNBOT_CONTROLLERS}/carraywriter.h
+  ${RUNBOT_CONTROLLERS}/derivativeTransitionRegister.h
+  ${RUNBOT_CONTROLLERS}/plastic.h
+  ${RUNBOT_CONTROLLERS}/lowPassfilter.h
+  ${RUNBOT_CONTROLLERS}/shiftregister.h
+  ${UTILS}/vaam-library/abstractmusclemodel.h
+  ${UTILS}/vaam-library/parametertransitionfunction.h
+  ${UTILS}/vaam-library/dccontrollingvmm.h
+  ${UTILS}/vaam-library/positioncontrollingvmm.h
+  ${UTILS}/vaam-library/sigmoidtransitionfunction.h
+  ${UTILS}/vaam-library/musclechain.h
+  ${UTILS}/vaam-library/muscletorque1.h
+)
 
-#############
-## Install ##
-#############
+add_executable(muscleController
+    ${SOURCES}
+    ${HEADERS}
+)
 
-# all install targets should use catkin DESTINATION variables
-# See http://ros.org/doc/api/catkin/html/adv_user_guide/variables.html
-
-## Mark executable scripts (Python etc.) for installation
-## in contrast to setup.py, you can choose the destination
-# install(PROGRAMS
-#   scripts/my_python_script
-#   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-# )
-
-## Mark executables and/or libraries for installation
-# install(TARGETS dacbot_controllers dacbot_controllers_node
-#   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-#   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-#   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-# )
-
-## Mark cpp header files for installation
-# install(DIRECTORY include/${PROJECT_NAME}/
-#   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
-#   FILES_MATCHING PATTERN "*.h"
-#   PATTERN ".svn" EXCLUDE
-# )
-
-## Mark other files for installation (e.g. launch and bag files, etc.)
-# install(FILES
-#   # myfile1
-#   # myfile2
-#   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
-# )
-
-#############
-## Testing ##
-#############
-
-## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_dacbot_controllers.cpp)
-# if(TARGET ${PROJECT_NAME}-test)
-#   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
-# endif()
-
-## Add folders to be run by python nosetests
-# catkin_add_nosetests(test)
+target_link_libraries(muscleController
+    ${catkin_LIBRARIES}
+)
