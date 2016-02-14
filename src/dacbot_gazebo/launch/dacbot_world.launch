@@ -29,6 +29,6 @@
 	<include file="$(find dacbot_control)/launch/dacbot_control.launch"/>
 
 	<!-- rviz controller -->
-	<include file="$(find dacbot_control)/launch/dacbot_rviz.launch"/>
+	<!-- <include file="$(find dacbot_control)/launch/dacbot_rviz.launch"/> -->
 
 </launch>
