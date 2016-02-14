@@ -4,8 +4,12 @@
   <rosparam file="$(find dacbot_control)/config/dacbot_control.yaml" command="load"/>
 
   <!-- load the controllers -->
+<!--   <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+    output="screen" ns="/dacbot" args="left_ankle_controller left_knee_controller left_hip_controller right_ankle_controller right_knee_controller right_hip_controller joint_state_controller"/>
+ -->
   <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
-    output="screen" ns="/dacbot" args="left_ankle_position_controller left_knee_position_controller left_hip_position_controller right_ankle_position_controller right_knee_position_controller right_hip_position_controller joint_state_controller"/>
+    output="screen" ns="/dacbot" args="leg_controllers joint_state_controller"/>
+
 
   <!-- convert joint states to TF transforms for rviz, etc -->
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
