@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<package>
+  <name>dacbot_controllers</name>
+  <version>0.0.0</version>
+  <description>Holds all the controllers designed for the dacbot</description>
+
+  <maintainer email="jorge.rguez.marin@gmail.com">Jorge Rodriguez</maintainer>
+
+  <license>TODO</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+</package>
