@@ -1,0 +1,9 @@
+<node pkg="dacbot_controllers" name="muscle_controller" type="muscle_controller" respawn="true" output="screen">
+  <param name="joint_states_topic" value="/dacbot/joint_states"/>
+  <param name="left_hip_topic" value="/dacbot/left_hip_effort/command"/>
+  <param name="left_knee_topic" value="/dacbot/left_knee_effort/command"/>
+  <param name="left_ankle_topic" value="/dacbot/left_ankle_effort/command"/>
+  <param name="right_hip_topic" value="/dacbot/right_hip_effort/command"/>
+  <param name="right_knee_topic" value="/dacbot/right_knee_effort/command"/>
+  <param name="right_ankle_topic" value="/dacbot/right_ankle_effort/command"/>
+</node>
