@@ -64,12 +64,10 @@
     <dynamics damping="0.7"/>
   </joint>
 
-  <joint name="rotational_robot_holder_to_rotot" type="continuous">
+  <joint name="rotational_robot_holder_to_rotot" type="fixed">
     <parent link="rotational_robot_holder_holder"/>
     <child link="body"/>
     <origin xyz="${rotational_robot_holder_holder_length} 0 0" rpy="0 0 0"/>
-    <axis xyz="1 0 0"/>
-    <dynamics damping="0.7"/>
   </joint> 
 
 </robot>
