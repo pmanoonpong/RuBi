@@ -11,6 +11,10 @@ sudo apt-get install gazebo6
 sudo apt-get install python-catkin-tools
 wait
 
+#Installing some extra tools
+echo "    Installing some extra tools"
+sudo apt-get install liburdfdom-tools
+
 #Downloading Gazebo Models from the repo
 echo "    Downloading Gazebo Models from the repo"
 cd $HOME/.gazebo
