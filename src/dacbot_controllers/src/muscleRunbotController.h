@@ -41,14 +41,11 @@ const unsigned char RIGHT_KNEE = 6;
 
 class MuscleRunbotController {
  public:
+  /**
+   * @brief MuscleRunbotController Default constructor
+   */
   MuscleRunbotController();
 
-  /*
-  void init(int sensornumber, int motornumber, RandGen* randGen = 0);
-
-  void step(const sensor* sensors, int sensornumber, motor* motors,
-            int motornumber);
-*/
   // Callbacks
   /**
    * @brief callbackSubcriberJointState
@@ -95,15 +92,7 @@ class MuscleRunbotController {
   runbot::cGaitProfile* newGait;
   runbot::cGaitProfile* gait3;
   runbot::cNNet* nnet3;
-  DCControllingVMM* RHmuscles;  // modelled muscles for each joint..
-  DCControllingVMM* LHmuscles;
-  DCControllingVMM* RKmuscles;
-  DCControllingVMM* LKmuscles;
 
-  // muscle chains that handle the communication for muscles depending on each
-  // other
-  MuscleChain* leftMuscles;
-  MuscleChain* rightMuscles;
 
   valarray<double>
       actualAD;  // array, used for mapping the sensor array to the right order
@@ -111,50 +100,25 @@ class MuscleRunbotController {
   bool initialized = false;
   // giuliano
 
-  std::ofstream hipPlot;  // plot
-  std::ofstream cpgLeft;
-  std::ofstream cpgPlot;
-  std::ofstream cpgRight;
 
-  double sensorFeedback;
-  double feetFeedback;
+
   lowPass_filter* filter;
   std::vector<double> leftDerivativeVector, rightDerivativeVector,
       motor0DerivativeVector, leftHipDerivativeVector, freqDeriv;
-  double cpg_right_hip = 0;
-  double cpg_left_hip = 0;
+
   std::vector<double> stepFreq;
   double frequencySystem;
-  double cpg_left_knee = 0;
-  double cpg_right_knee = 0;
-  int getShiftDelay(double out1, double out2, int step);
-  int countDelay = 0;
+
+
+
   std::vector<double> shiftVector, derOut1, derOut2;
-  double cpgcounter = 0;
 
   std::vector<double> systemFrequencyVector;
-  // signal parameters//
-  double amplitudeHips;
-  double amplitudeKnee;
-  double max;
-  double min = 1000;
-  double controllerEnable = 0;
-  std::vector<double> freq;
-  // signal parameters
-  double cpg_signal_right;
-  double cpg_signal_left;
-  double perturbation;
-  bool cpgNoPerturbation;
 
-  double errorVal = 0, errorCount = 0;
-
-  bool oneCPG = true;
   DynamicCpg* DinLeft, *DinRight;
 
-  std::vector<double> shift;
   shift_register* phase, *leftKneeDelayed, *rightKneeDelayed, *leftHipDelayed,
       *rightHipDelayed;
-  derivativeTransitionRegister* checkWave;
 };
 
 /**
