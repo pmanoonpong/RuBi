@@ -32,12 +32,13 @@
 #include "utils/vaam-library/dccontrollingvmm.h"
 
 /// Channel number description
-const unsigned char LEFT_FOOT = 1;
-const unsigned char RIGHT_FOOT = 2;
-const unsigned char LEFT_HIP = 3;
-const unsigned char RIGHT_HIP = 4;
-const unsigned char LEFT_KNEE = 5;
-const unsigned char RIGHT_KNEE = 6;
+const unsigned char BOOM_ANGLE = 1;
+const unsigned char LEFT_FOOT = 2;
+const unsigned char RIGHT_FOOT = 3;
+const unsigned char LEFT_HIP = 4;
+const unsigned char RIGHT_HIP = 5;
+const unsigned char LEFT_KNEE = 6;
+const unsigned char RIGHT_KNEE = 7;
 
 class MuscleRunbotController {
  public:
@@ -52,6 +53,11 @@ class MuscleRunbotController {
    * @param msg
    */
   void callbackSubcriberJointState(sensor_msgs::JointState msg);
+
+  /**
+   * @brief step
+   */
+  void step();
 
  private:
   // ROS
@@ -93,30 +99,20 @@ class MuscleRunbotController {
   runbot::cGaitProfile* gait3;
   runbot::cNNet* nnet3;
 
-
   valarray<double>
       actualAD;  // array, used for mapping the sensor array to the right order
 
   bool initialized = false;
+
   // giuliano
-
-
-
   lowPass_filter* filter;
   std::vector<double> leftDerivativeVector, rightDerivativeVector,
       motor0DerivativeVector, leftHipDerivativeVector, freqDeriv;
-
   std::vector<double> stepFreq;
   double frequencySystem;
-
-
-
   std::vector<double> shiftVector, derOut1, derOut2;
-
   std::vector<double> systemFrequencyVector;
-
   DynamicCpg* DinLeft, *DinRight;
-
   shift_register* phase, *leftKneeDelayed, *rightKneeDelayed, *leftHipDelayed,
       *rightHipDelayed;
 };
@@ -136,13 +132,10 @@ int main() {
   // Rate
   ros::Rate rate(30);
 
-  // Sppiner
-  ros::AsyncSpinner spinner(0);
-
   // ROS Spin: Handle callbacks
   while (!ros::isShuttingDown()) {
-    spinner.start();
-    // ros::spinOnce();
+    muscleRunbotController.step();
+    ros::spinOnce();
     rate.sleep();
   }
 

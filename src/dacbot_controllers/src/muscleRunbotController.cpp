@@ -47,31 +47,11 @@ MuscleRunbotController::MuscleRunbotController() : nh_("~") {
   pub_right_ankle_ = nh_.advertise<std_msgs::Float64>(topic_right_ankle_, 1);
   pub_right_knee_ = nh_.advertise<std_msgs::Float64>(topic_right_knee_, 1);
   pub_right_hip_ = nh_.advertise<std_msgs::Float64>(topic_right_hip_, 1);
-}
 
-void MuscleRunbotController::callbackSubcriberJointState(
-    sensor_msgs::JointState msg) {
-  std::unique_lock<std::mutex> lock(joint_state_mutex_);
-  left_ankle_pos_ = msg.position.at(0);
-  left_hip_pos_ = msg.position.at(1);
-  left_knee_pos_ = msg.position.at(2);
-  right_ankle_pos_ = msg.position.at(3);
-  right_hip_pos_ = msg.position.at(4);
-  right_knee_pos_ = msg.position.at(5);
-}
-
-/*
-void MuscleRunbotController::init(int sensornumber, int motornumber,
-                                  RandGen* randGen) {
-  nSensors = sensornumber;
-  nMotors = motornumber;
+  nSensors = 6;
+  nMotors = 6;
   steps = 0;
 
-  hipPlot.open("/home/giuliano/Documents/thesis/plots/hips.dat");  // change
-                                                                   // this to
-                                                                   // your
-                                                                   // directory
-
   motor0DerivativeVector.push_back(0);
   motor0DerivativeVector.push_back(0);
 
@@ -87,8 +67,6 @@ void MuscleRunbotController::init(int sensornumber, int motornumber,
   systemFrequencyVector.push_back(0);
   systemFrequencyVector.push_back(0);
 
-  freq.push_back(0);
-  freq.push_back(0);
   shiftVector.push_back(0);
   shiftVector.push_back(0);
 
@@ -110,26 +88,32 @@ void MuscleRunbotController::init(int sensornumber, int motornumber,
   leftKneeDelayed = new shift_register(6);
   rightKneeDelayed = new shift_register(4);
 
-  actualAD = valarray<double>(sensornumber + 1);
+  actualAD = valarray<double>(6 + 1);
   initialized = true;
 }
 
-int MuscleRunbotController::getSensorNumber() const { return nSensors; }
+void MuscleRunbotController::callbackSubcriberJointState(
+    sensor_msgs::JointState msg) {
+  std::unique_lock<std::mutex> lock(joint_state_mutex_);
+  left_ankle_pos_ = msg.position.at(0);
+  left_hip_pos_ = msg.position.at(1);
+  left_knee_pos_ = msg.position.at(2);
+  right_ankle_pos_ = msg.position.at(3);
+  right_hip_pos_ = msg.position.at(4);
+  right_knee_pos_ = msg.position.at(5);
+}
 
-int MuscleRunbotController::getMotorNumber() const { return nMotors; }
-
-void MuscleRunbotController::step(const sensor* sensors, int sensornumber,
-                                  motor* motors, int motornumber) {
+void MuscleRunbotController::step() {
   valarray<double> motorOutput(4);
   steps++;
 
-  actualAD[LEFT_HIP] = sensors[0];
-  actualAD[RIGHT_HIP] = sensors[1];
-  actualAD[LEFT_KNEE] = sensors[2];
-  actualAD[RIGHT_KNEE] = sensors[3];
-  actualAD[BOOM_ANGLE] = sensors[4];
-  actualAD[LEFT_FOOT] = sensors[5];
-  actualAD[RIGHT_FOOT] = sensors[6];
+  actualAD[LEFT_HIP] = left_hip_pos_;
+  actualAD[RIGHT_HIP] = right_hip_pos_;
+  actualAD[LEFT_KNEE] = left_knee_pos_;
+  actualAD[RIGHT_KNEE] = right_knee_pos_;
+  actualAD[BOOM_ANGLE] = 0;
+  actualAD[LEFT_FOOT] = left_ankle_pos_;
+  actualAD[RIGHT_FOOT] = right_ankle_pos_;
   actualAD[0] = steps;
 
   double enable;
@@ -153,33 +137,12 @@ void MuscleRunbotController::step(const sensor* sensors, int sensornumber,
 
   sensora = actualAD[LEFT_HIP];  // feedback
 
-  // This is to simulate the feedback, you can cut the feedback to the CPG or
-  // you can activate it in different periods
-
-  // if((steps>3000 && steps<5000) || (steps >7000 && steps < 9000) || (steps
-  // >11000 && steps < 13000) || (steps >15000 && steps < 19000))
-  // sensora=0;
-
-  // if(steps > 4000)
-  //  sensora=0;
-
   std::vector<double> sign = DinLeft->generateOutputTwoLegThereshold(
       sensora, motors[0], motors[2], steps);  // generates motor signals
   DinLeft->setEnable(steps > 2000, motors[0], left_foot_sensor,
                      right_foot_sensor);  // generates enable output
   enable = DinLeft->getEnable();          // set enable
   std::cout << " enable: " << enable << std::endl;
-
-  // wrtie to file, change directory
-  if (steps > 500) {
-    hipPlot << steps << " " << motorOutput[0] << " "
-            << DinLeft->getCpg()->getFrequency() * 2.1 / 0.015 << " " << sign[0]
-            << " " << motorOutput[0] << " " << motorOutput[2] << " "
-            << motorOutput[3] << " " << actualAD[LEFT_HIP] << " "
-            << actualAD[RIGHT_HIP] << " " << actualAD[LEFT_KNEE] << " "
-            << actualAD[RIGHT_KNEE] << " " << actualAD[LEFT_FOOT] << " "
-            << actualAD[RIGHT_FOOT] << std::endl;
-  }
 
   // Depending on the enable, either reflexive signals or CPG-based are sent to
   // the motors
@@ -192,8 +155,6 @@ void MuscleRunbotController::step(const sensor* sensors, int sensornumber,
   if (steps % ubc_time == 0) ubc_wabl *= -1;
 
   // speed measurement..
-  double stepsize = 0.01;  // length of control intervalls (both should be
-                           // obtained automatically somehow..)
   double radius = 1;       // armlength in global coordinates
   if ((sensors[7] / 10 - pos) < -M_PI)
     speed = speed * 0.99 +
@@ -202,5 +163,3 @@ void MuscleRunbotController::step(const sensor* sensors, int sensornumber,
     speed = speed * 0.99 + 0.01 * ((sensors[7] / 10 - pos) * radius) / 0.01;
   pos = sensors[7] / 10;
 }
-
-*/
