@@ -84,8 +84,7 @@ class MuscleRunbotController {
   double ubc;            // position of the upper body component (-1..+1)
   double speed;          // current speed of the robot
   double pos;            // current position of the robot
-  double simulatedMass;  // simulated mass of the robot, used by all modelled
-                         // muscles
+
   double ubc_wabl =
       0.0;  // movement of the UBC around its position variable "ubc"
   // wabbling from ubc-ubc_wabl to ubc+ubc_wabl
@@ -102,19 +101,8 @@ class MuscleRunbotController {
   valarray<double>
       actualAD;  // array, used for mapping the sensor array to the right order
 
-  bool initialized = false;
-
-  // giuliano
-  lowPass_filter* filter;
-  std::vector<double> leftDerivativeVector, rightDerivativeVector,
-      motor0DerivativeVector, leftHipDerivativeVector, freqDeriv;
-  std::vector<double> stepFreq;
-  double frequencySystem;
-  std::vector<double> shiftVector, derOut1, derOut2;
-  std::vector<double> systemFrequencyVector;
   DynamicCpg* DinLeft, *DinRight;
-  shift_register* phase, *leftKneeDelayed, *rightKneeDelayed, *leftHipDelayed,
-      *rightHipDelayed;
+
 };
 
 /**

@@ -4,9 +4,9 @@
 MuscleRunbotController::MuscleRunbotController() : nh_("~") {
   steps = 0;
   pos = 0;
-  nSensors = 0;
-  nMotors = 0;
-  simulatedMass = 0.4;
+  nSensors = 6;
+  nMotors = 6;
+
   gait = new runbot::cGaitTransition(runbot::cGaitProfile());
   nnet = new runbot::cNNet((runbot::cGaitProfile*)gait);
 
@@ -16,7 +16,10 @@ MuscleRunbotController::MuscleRunbotController() : nh_("~") {
   gait3 = new runbot::cGaitProfile(78, 115, 115, 175, 2, 2.7);
   nnet3 = new runbot::cNNet((runbot::cGaitProfile*)gait3);
 
-  initialized = false;
+  DinLeft = new DynamicCpg(0.04);   // 0.04
+  DinRight = new DynamicCpg(0.04);  // 0.04
+
+  actualAD = valarray<double>(6 + 1);
 
   // Parameters
   // Get parameter names
@@ -47,49 +50,6 @@ MuscleRunbotController::MuscleRunbotController() : nh_("~") {
   pub_right_ankle_ = nh_.advertise<std_msgs::Float64>(topic_right_ankle_, 1);
   pub_right_knee_ = nh_.advertise<std_msgs::Float64>(topic_right_knee_, 1);
   pub_right_hip_ = nh_.advertise<std_msgs::Float64>(topic_right_hip_, 1);
-
-  nSensors = 6;
-  nMotors = 6;
-  steps = 0;
-
-  motor0DerivativeVector.push_back(0);
-  motor0DerivativeVector.push_back(0);
-
-  leftHipDerivativeVector.push_back(0);
-  leftHipDerivativeVector.push_back(0);
-
-  leftDerivativeVector.push_back(0);
-  leftDerivativeVector.push_back(0);
-
-  rightDerivativeVector.push_back(0);
-  rightDerivativeVector.push_back(0);
-
-  systemFrequencyVector.push_back(0);
-  systemFrequencyVector.push_back(0);
-
-  shiftVector.push_back(0);
-  shiftVector.push_back(0);
-
-  freqDeriv.push_back(0);
-  freqDeriv.push_back(0);
-
-  stepFreq.push_back(0);
-  stepFreq.push_back(0);
-
-  frequencySystem = 0;
-
-  DinLeft = new DynamicCpg(0.04);   // 0.04
-  DinRight = new DynamicCpg(0.04);  // 0.04
-
-  filter = new lowPass_filter(0.2);
-  phase = new shift_register(3);  // 4
-  rightHipDelayed = new shift_register(0);
-
-  leftKneeDelayed = new shift_register(6);
-  rightKneeDelayed = new shift_register(4);
-
-  actualAD = valarray<double>(6 + 1);
-  initialized = true;
 }
 
 void MuscleRunbotController::callbackSubcriberJointState(
