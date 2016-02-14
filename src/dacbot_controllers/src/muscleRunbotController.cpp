@@ -36,7 +36,7 @@ MuscleRunbotController::MuscleRunbotController() : nh_("~") {
                          "/dacbot/right_ankle_effort/command");
 
   // Subcribers
-  sub_joints_states = nh_.subscribe<std_msgs::Float64MultiArray>(
+  sub_joints_states = nh_.subscribe<sensor_msgs::JointState>(
       topic_joint_states_, 1,
       &MuscleRunbotController::callbackSubcriberJointState, this);
 
@@ -50,7 +50,15 @@ MuscleRunbotController::MuscleRunbotController() : nh_("~") {
 }
 
 void MuscleRunbotController::callbackSubcriberJointState(
-    std_msgs::Float64MultiArray& msg) {}
+    sensor_msgs::JointState& msg) {
+  std::unique_lock<std::mutex> lock(joint_state_mutex_);
+  left_ankle_pos_ = msg.position.at(0);
+  left_hip_pos_ = msg.position.at(1);
+  left_knee_pos_ = msg.position.at(2);
+  right_ankle_pos_ = msg.position.at(3);
+  right_hip_pos_ = msg.position.at(4);
+  right_knee_pos_ = msg.position.at(5);
+}
 
 void MuscleRunbotController::init(int sensornumber, int motornumber,
                                   RandGen* randGen) {

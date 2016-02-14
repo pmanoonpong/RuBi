@@ -13,11 +13,12 @@
 #include <cmath>
 #include <iostream>
 #include <string>
+#include <mutex>
 
 // ROS
 #include "ros/ros.h"
 #include "std_msgs/Float64.h"
-#include "std_msgs/Float64MultiArray.h"
+#include "sensor_msgs/JointState.h"
 
 #include "cgaittransition.h"
 #include "cnnet.h"
@@ -31,15 +32,12 @@
 #include "utils/vaam-library/dccontrollingvmm.h"
 
 /// Channel number description
-const int BOOM_ANGLE = 1;
-const int LEFT_FOOT =
-    2;  // = 0 .. -4.96v,  2048 = 0V (foot contact the ground) ....
-        //                4096 = + 4.96V (foot off ground)
-const int RIGHT_FOOT = 3;  // chanel 3
-const int LEFT_HIP = 4;
-const int RIGHT_HIP = 5;
-const int LEFT_KNEE = 6;
-const int RIGHT_KNEE = 7;
+const unsigned char LEFT_FOOT = 1;
+const unsigned char RIGHT_FOOT = 2;
+const unsigned char LEFT_HIP = 3;
+const unsigned char RIGHT_HIP = 4;
+const unsigned char LEFT_KNEE = 5;
+const unsigned char RIGHT_KNEE = 6;
 
 class MuscleRunbotController {
  public:
@@ -51,7 +49,11 @@ class MuscleRunbotController {
             int motornumber);
 
   // Callbacks
-  void callbackSubcriberJointState(std_msgs::Float64MultiArray &msg);
+  /**
+   * @brief callbackSubcriberJointState
+   * @param msg
+   */
+  void callbackSubcriberJointState(sensor_msgs::JointState& msg);
 
  private:
   // ROS
@@ -60,8 +62,16 @@ class MuscleRunbotController {
   ros::Publisher pub_left_hip_, pub_left_knee_, pub_left_ankle_, pub_right_hip_,
       pub_right_knee_, pub_right_ankle_;
 
-  std::string topic_left_hip_, topic_left_knee_, topic_left_ankle_, topic_right_hip_,
-  topic_right_knee_, topic_right_ankle_, topic_joint_states_;
+  std::string topic_left_hip_, topic_left_knee_, topic_left_ankle_,
+      topic_right_hip_, topic_right_knee_, topic_right_ankle_,
+      topic_joint_states_;
+
+  // Controller
+  float left_hip_pos_, left_knee_pos_, left_ankle_pos_, right_hip_pos_,
+      right_knee_pos_, right_ankle_pos_;
+
+  // Mutex
+  std::mutex joint_state_mutex_;
 
   // Controller
   int nSensors;
