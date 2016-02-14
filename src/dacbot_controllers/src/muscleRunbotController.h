@@ -20,16 +20,10 @@
 #include "std_msgs/Float64.h"
 #include "sensor_msgs/JointState.h"
 
+// GOrobots
 #include "cgaittransition.h"
 #include "cnnet.h"
-#include "plastic.h"
 #include "DynamicCpg.h"
-#include "lowPassfilter.h"
-#include "controllers/runbotii_dacbot/shiftregister.h"
-#include "controllers/runbotii_dacbot/derivativeTransitionRegister.h"
-
-#include "utils/vaam-library/musclechain.h"
-#include "utils/vaam-library/dccontrollingvmm.h"
 
 /// Channel number description
 const unsigned char BOOM_ANGLE = 1;
