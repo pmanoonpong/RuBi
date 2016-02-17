@@ -136,10 +136,10 @@ set(SOURCES
 )
 
 
-add_executable(muscle_controller
+add_executable(muscle_controller_node
     ${SOURCES}
 )
 
-target_link_libraries(muscle_controller
+target_link_libraries(muscle_controller_node
     ${catkin_LIBRARIES}
 )
