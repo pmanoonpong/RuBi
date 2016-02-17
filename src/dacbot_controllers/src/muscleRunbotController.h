@@ -19,6 +19,7 @@
 #include "ros/ros.h"
 #include "std_msgs/Float64.h"
 #include "sensor_msgs/JointState.h"
+#include "gazebo_msgs/ContactsState.h"
 
 // GOrobots
 #include "cgaittransition.h"
@@ -48,6 +49,10 @@ class MuscleRunbotController {
    */
   void callbackSubcriberJointState(sensor_msgs::JointState msg);
 
+  void callbackSubcriberLeftFootContact(gazebo_msgs::ContactsState msg);
+
+  void callbackSubcriberRightFootContact(gazebo_msgs::ContactsState msg);
+
   /**
    * @brief step
    */
@@ -56,17 +61,19 @@ class MuscleRunbotController {
  private:
   // ROS
   ros::NodeHandle nh_;
-  ros::Subscriber sub_joint_states_;
+  ros::Subscriber sub_joint_states_, sub_left_foot_contact_, sub_right_foot_contact_;
   ros::Publisher pub_left_hip_, pub_left_knee_, pub_left_ankle_, pub_right_hip_,
       pub_right_knee_, pub_right_ankle_;
 
   std::string topic_left_hip_, topic_left_knee_, topic_left_ankle_,
       topic_right_hip_, topic_right_knee_, topic_right_ankle_,
-      topic_joint_states_;
+      topic_joint_states_, topic_left_foot_contact_, topic_right_foot_contact_;
 
   // Controller
   float left_hip_pos_, left_knee_pos_, left_ankle_pos_, right_hip_pos_,
       right_knee_pos_, right_ankle_pos_;
+
+  bool left_foot_contact_, right_foot_contact_;
 
   // Mutex
   std::mutex joint_state_mutex_;

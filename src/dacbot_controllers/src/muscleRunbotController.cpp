@@ -37,11 +37,23 @@ MuscleRunbotController::MuscleRunbotController() : nh_("~") {
                          "/dacbot/right_knee_effort/command");
   nh_.param<std::string>("right_ankle_topic", topic_right_ankle_,
                          "/dacbot/right_ankle_effort/command");
+  nh_.param<std::string>("left_foot_contact_topic", topic_left_foot_contact_,
+                         "/dacbot/bumper/left_foot");
+  nh_.param<std::string>("right_foot_contact_topic", topic_right_foot_contact_,
+                         "/dacbot/bumper/right_foot");
 
   // Subcribers
   sub_joint_states_ = nh_.subscribe<sensor_msgs::JointState>(
       topic_joint_states_, 1,
       &MuscleRunbotController::callbackSubcriberJointState, this);
+
+  sub_left_foot_contact_ = nh_.subscribe<gazebo_msgs::ContactsState>(
+      topic_left_foot_contact_, 1,
+      &MuscleRunbotController::callbackSubcriberLeftFootContact, this);
+
+  sub_right_foot_contact_ = nh_.subscribe<gazebo_msgs::ContactsState>(
+      topic_right_foot_contact_, 1,
+      &MuscleRunbotController::callbackSubcriberRightFootContact, this);
 
   // Publishers
   pub_left_ankle_ = nh_.advertise<std_msgs::Float64>(topic_left_ankle_, 1);
@@ -61,6 +73,16 @@ void MuscleRunbotController::callbackSubcriberJointState(
   right_ankle_pos_ = msg.position.at(3);
   right_hip_pos_ = msg.position.at(4);
   right_knee_pos_ = msg.position.at(5);
+}
+
+void MuscleRunbotController::callbackSubcriberLeftFootContact(
+    gazebo_msgs::ContactsState msg) {
+  (msg.states.empty()) ? left_foot_contact_ = false : left_foot_contact_ = true;
+}
+
+void MuscleRunbotController::callbackSubcriberRightFootContact(
+    gazebo_msgs::ContactsState msg) {
+  (msg.states.empty()) ? right_foot_contact_ = false : right_foot_contact_ = true;
 }
 
 void MuscleRunbotController::step() {
@@ -115,7 +137,7 @@ void MuscleRunbotController::step() {
   if (steps % ubc_time == 0) ubc_wabl *= -1;
 
   // speed measurement..
-  double radius = 1;       // armlength in global coordinates
+  double radius = 1;  // armlength in global coordinates
   if ((sensors[7] / 10 - pos) < -M_PI)
     speed = speed * 0.99 +
             0.01 * ((sensors[7] / 10 + 2 * M_PI - pos) * radius / 0.01);

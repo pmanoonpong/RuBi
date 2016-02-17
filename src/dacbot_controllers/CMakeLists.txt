@@ -8,7 +8,9 @@ find_package(catkin REQUIRED
     roscpp
     rospy
     std_msgs
-    sensor_msgs)
+    sensor_msgs
+    gazebo_msgs
+    )
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
@@ -102,7 +104,7 @@ find_package(catkin REQUIRED
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES dacbot_controllers
-  CATKIN_DEPENDS std_msgs sensor_msgs
+  CATKIN_DEPENDS std_msgs sensor_msgs gazebo_msgs
 #  DEPENDS system_lib
 )
 
