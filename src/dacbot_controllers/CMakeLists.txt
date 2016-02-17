@@ -125,6 +125,7 @@ set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O2 -Wextra")
 
 set(SOURCES
   src/muscleRunbotController.cpp
+  src/muscleRunbotController.h
   ${RUNBOT_CONTROLLERS}/cnnet.cpp
   ${RUNBOT_CONTROLLERS}/ctextarraywriter.cpp
   ${RUNBOT_CONTROLLERS}/derivativeTransitionRegister.cpp

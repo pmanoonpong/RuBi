@@ -42,6 +42,11 @@ class MuscleRunbotController {
    */
   MuscleRunbotController();
 
+  /**
+   * @brief Stop the legs and destroyes the node
+   */
+  ~MuscleRunbotController();
+
   // Callbacks
   /**
    * @brief callbackSubcriberJointState
@@ -116,13 +121,13 @@ int main() {
   // Init
   int argc(0);
   char** argv(NULL);
-  ros::init(argc, argv, "dacbot/muscle_controller");
+  ros::init(argc, argv, "muscle_controller");
 
   // Controller
   MuscleRunbotController muscleRunbotController;
 
   // Rate
-  ros::Rate rate(30);
+  ros::Rate rate(10);
 
   // ROS Spin: Handle callbacks
   while (!ros::isShuttingDown()) {

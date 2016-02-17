@@ -64,6 +64,26 @@ MuscleRunbotController::MuscleRunbotController() : nh_("~") {
   pub_right_hip_ = nh_.advertise<std_msgs::Float64>(topic_right_hip_, 1);
 }
 
+MuscleRunbotController::~MuscleRunbotController() {
+  std_msgs::Float64 motor_msg;
+  motor_msg.data = 0.0;
+
+  pub_left_hip_.publish(motor_msg);
+  pub_right_hip_.publish(motor_msg);
+  pub_left_knee_.publish(motor_msg);
+  pub_right_knee_.publish(motor_msg);
+
+  delete DinLeft;
+  delete DinRight;
+  delete nnet;
+  delete nnetTwo;
+  delete gait;
+  delete gait_two;
+  delete newGait;
+  delete gait3;
+  delete nnet3;
+}
+
 void MuscleRunbotController::callbackSubcriberJointState(
     sensor_msgs::JointState msg) {
   std::unique_lock<std::mutex> lock(joint_state_mutex_);
@@ -119,7 +139,8 @@ void MuscleRunbotController::step() {
   sensora = actualAD[LEFT_HIP];  // feedback
 
   std::vector<double> sign = DinLeft->generateOutputTwoLegThereshold(
-      sensora, left_hip_effort_, left_knee_effort_, steps);  // generates motor signals
+      sensora, left_hip_effort_, left_knee_effort_,
+      steps);  // generates motor signals
   DinLeft->setEnable(steps > 2000, left_hip_effort_, left_foot_contact_,
                      right_foot_contact_);  // generates enable output
   enable = DinLeft->getEnable();            // set enable
@@ -129,23 +150,27 @@ void MuscleRunbotController::step() {
   // the motors
   std_msgs::Float64 motor_msg;
 
-  left_hip_effort_ = motorOutput[0] * !enable + sign.at(0) * enable;  // LHMusclTor;
-  motor_msg.data = left_hip_effort_;
+  left_hip_effort_ =
+      motorOutput[0] * !enable + sign.at(0) * enable;  // LHMusclTor;
+  motor_msg.data = -left_hip_effort_;
   pub_left_hip_.publish(motor_msg);
 
-  right_hip_effort_ = motorOutput[1] * !enable + sign.at(1) * enable;  // RHMusclTor;
-  motor_msg.data = right_hip_effort_;
+  right_hip_effort_ =
+      motorOutput[1] * !enable + sign.at(1) * enable;  // RHMusclTor;
+  motor_msg.data = -right_hip_effort_;
   pub_right_hip_.publish(motor_msg);
 
-  left_knee_effort_ = motorOutput[2] * !enable + sign.at(2) * enable;  // LKMusclTor;
-  motor_msg.data = left_knee_effort_;
+  left_knee_effort_ =
+      motorOutput[2] * !enable + sign.at(2) * enable;  // LKMusclTor;
+  motor_msg.data = -left_knee_effort_;
   pub_left_knee_.publish(motor_msg);
 
-  right_knee_effort_ = motorOutput[3] * !enable + sign.at(3) * enable;  // RKMusclTor;
-  motor_msg.data = right_knee_effort_;
+  right_knee_effort_ =
+      motorOutput[3] * !enable + sign.at(3) * enable;  // RKMusclTor;
+  motor_msg.data = -right_knee_effort_;
   pub_right_knee_.publish(motor_msg);
 
-  //motors[4] = ubc + ubc_wabl;
+  // motors[4] = ubc + ubc_wabl;
 
   if (steps % ubc_time == 0) ubc_wabl *= -1;
 
