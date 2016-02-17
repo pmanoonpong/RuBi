@@ -6,4 +6,6 @@
   <param name="right_hip_topic" value="/dacbot/right_hip_effort/command"/>
   <param name="right_knee_topic" value="/dacbot/right_knee_effort/command"/>
   <param name="right_ankle_topic" value="/dacbot/right_ankle_effort/command"/>
+  <param name="left_foot_contact_topic" value="/dacbot/bumper/left_foot"/>
+  <param name="right_foot_contact_topic" value="/dacbot/bumper/right_foot"/>
 </node>
