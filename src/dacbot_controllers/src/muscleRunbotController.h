@@ -75,6 +75,9 @@ class MuscleRunbotController {
 
   bool left_foot_contact_, right_foot_contact_;
 
+  double left_hip_effort_, left_knee_effort_, left_ankle_effort_, right_hip_effort_,
+  right_knee_effort_, right_ankle_effort_;
+
   // Mutex
   std::mutex joint_state_mutex_;
 

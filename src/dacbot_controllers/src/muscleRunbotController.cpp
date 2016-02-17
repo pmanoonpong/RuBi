@@ -82,7 +82,8 @@ void MuscleRunbotController::callbackSubcriberLeftFootContact(
 
 void MuscleRunbotController::callbackSubcriberRightFootContact(
     gazebo_msgs::ContactsState msg) {
-  (msg.states.empty()) ? right_foot_contact_ = false : right_foot_contact_ = true;
+  (msg.states.empty()) ? right_foot_contact_ = false : right_foot_contact_ =
+                                                           true;
 }
 
 void MuscleRunbotController::step() {
@@ -102,8 +103,6 @@ void MuscleRunbotController::step() {
   std::cout << steps << std::endl;
 
   double sensora;
-  double left_foot_sensor = (sensors[6] > 3000) ? 0.0 : 1.0;
-  double right_foot_sensor = (sensors[5] > 3000) ? 0.0 : 1.0;
 
   // Used to generate 1 gait with reflexive nn
   // motorOutput=nnet->update(actualAD,steps);
@@ -120,23 +119,38 @@ void MuscleRunbotController::step() {
   sensora = actualAD[LEFT_HIP];  // feedback
 
   std::vector<double> sign = DinLeft->generateOutputTwoLegThereshold(
-      sensora, motors[0], motors[2], steps);  // generates motor signals
-  DinLeft->setEnable(steps > 2000, motors[0], left_foot_sensor,
-                     right_foot_sensor);  // generates enable output
-  enable = DinLeft->getEnable();          // set enable
+      sensora, left_hip_effort_, left_knee_effort_, steps);  // generates motor signals
+  DinLeft->setEnable(steps > 2000, left_hip_effort_, left_foot_contact_,
+                     right_foot_contact_);  // generates enable output
+  enable = DinLeft->getEnable();            // set enable
   std::cout << " enable: " << enable << std::endl;
 
   // Depending on the enable, either reflexive signals or CPG-based are sent to
   // the motors
-  motors[0] = motorOutput[0] * !enable + sign.at(0) * enable;  // LHMusclTor;
-  motors[1] = motorOutput[1] * !enable + sign.at(1) * enable;  // RHMusclTor;
-  motors[2] = motorOutput[2] * !enable + sign.at(2) * enable;  // LKMusclTor;
-  motors[3] = motorOutput[3] * !enable + sign.at(3) * enable;  // RKMusclTor;
-  motors[4] = ubc + ubc_wabl;
+  std_msgs::Float64 motor_msg;
+
+  left_hip_effort_ = motorOutput[0] * !enable + sign.at(0) * enable;  // LHMusclTor;
+  motor_msg.data = left_hip_effort_;
+  pub_left_hip_.publish(motor_msg);
+
+  right_hip_effort_ = motorOutput[1] * !enable + sign.at(1) * enable;  // RHMusclTor;
+  motor_msg.data = right_hip_effort_;
+  pub_right_hip_.publish(motor_msg);
+
+  left_knee_effort_ = motorOutput[2] * !enable + sign.at(2) * enable;  // LKMusclTor;
+  motor_msg.data = left_knee_effort_;
+  pub_left_knee_.publish(motor_msg);
+
+  right_knee_effort_ = motorOutput[3] * !enable + sign.at(3) * enable;  // RKMusclTor;
+  motor_msg.data = right_knee_effort_;
+  pub_right_knee_.publish(motor_msg);
+
+  //motors[4] = ubc + ubc_wabl;
 
   if (steps % ubc_time == 0) ubc_wabl *= -1;
 
   // speed measurement..
+  /*
   double radius = 1;  // armlength in global coordinates
   if ((sensors[7] / 10 - pos) < -M_PI)
     speed = speed * 0.99 +
@@ -144,4 +158,5 @@ void MuscleRunbotController::step() {
   else
     speed = speed * 0.99 + 0.01 * ((sensors[7] / 10 - pos) * radius) / 0.01;
   pos = sensors[7] / 10;
+  */
 }

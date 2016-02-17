@@ -142,6 +142,8 @@ set(SOURCES
   ${RUNBOT_CONTROLLERS}/plastic.cpp
   ${RUNBOT_CONTROLLERS}/lowPassfilter.cpp
   ${RUNBOT_CONTROLLERS}/shiftregister.cpp
+  ${RUNBOT_CONTROLLERS}/DynamicCpg.cpp
+  ${RUNBOT_CONTROLLERS}/DynamicVector.cpp
   ${UTILS}/vaam-library/abstractmusclemodel.cpp
   ${UTILS}/vaam-library/parametertransitionfunction.cpp
   ${UTILS}/vaam-library/dccontrollingvmm.cpp
@@ -166,6 +168,8 @@ set(HEADERS
   ${RUNBOT_CONTROLLERS}/plastic.h
   ${RUNBOT_CONTROLLERS}/lowPassfilter.h
   ${RUNBOT_CONTROLLERS}/shiftregister.h
+  ${RUNBOT_CONTROLLERS}/DynamicCpg.h
+  ${RUNBOT_CONTROLLERS}/DynamicVector.h
   ${UTILS}/vaam-library/abstractmusclemodel.h
   ${UTILS}/vaam-library/parametertransitionfunction.h
   ${UTILS}/vaam-library/dccontrollingvmm.h
