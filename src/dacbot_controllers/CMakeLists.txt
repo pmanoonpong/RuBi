@@ -112,14 +112,10 @@ set(RUNBOT_CONTROLLERS
   /mnt/Free/Drive/Programming/artificialIntelligence/gorobots/controllers/runbotii_dacbot
 )
 
-set(UTILS
-  /mnt/Free/Drive/Programming/artificialIntelligence/gorobots/utils
-)
 
 include_directories(
     ${catkin_INCLUDE_DIRS}
     /mnt/Free/Drive/Programming/artificialIntelligence/gorobots
-    ${UTILS}
     ${RUNBOT_CONTROLLERS}
 )
 
@@ -140,10 +136,10 @@ set(SOURCES
 )
 
 
-add_executable(muscleController
+add_executable(muscle_controller
     ${SOURCES}
 )
 
-target_link_libraries(muscleController
+target_link_libraries(muscle_controller
     ${catkin_LIBRARIES}
 )
