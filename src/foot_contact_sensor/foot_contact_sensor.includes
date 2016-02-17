@@ -1,0 +1,3 @@
+include
+/opt/ros/jade/include
+/usr/include/gazebo-6.5/

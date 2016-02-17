@@ -1,0 +1,4 @@
+include/foot_contact_sensor/foot_contact_sensor.h
+src/foot_contact_sensor.cpp
+CMakeLists.txt
+package.xml
