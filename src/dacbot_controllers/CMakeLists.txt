@@ -130,27 +130,13 @@ set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O2 -Wextra")
 set(SOURCES
   src/muscleRunbotController.cpp
   ${RUNBOT_CONTROLLERS}/cnnet.cpp
-  ${RUNBOT_CONTROLLERS}/cgaitprofile.cpp
-  ${RUNBOT_CONTROLLERS}/cgaittransition.cpp
-  ${RUNBOT_CONTROLLERS}/Neurons/integrator.cpp
-  ${RUNBOT_CONTROLLERS}/Neurons/gc_neuron.cpp
-  ${RUNBOT_CONTROLLERS}/Neurons/coincidence.cpp
-  ${RUNBOT_CONTROLLERS}/Filter/sigmoid.cpp
   ${RUNBOT_CONTROLLERS}/ctextarraywriter.cpp
-  ${RUNBOT_CONTROLLERS}/carraywriter.cpp
   ${RUNBOT_CONTROLLERS}/derivativeTransitionRegister.cpp
   ${RUNBOT_CONTROLLERS}/plastic.cpp
   ${RUNBOT_CONTROLLERS}/lowPassfilter.cpp
   ${RUNBOT_CONTROLLERS}/shiftregister.cpp
   ${RUNBOT_CONTROLLERS}/DynamicCpg.cpp
   ${RUNBOT_CONTROLLERS}/DynamicVector.cpp
-  ${UTILS}/vaam-library/abstractmusclemodel.cpp
-  ${UTILS}/vaam-library/parametertransitionfunction.cpp
-  ${UTILS}/vaam-library/dccontrollingvmm.cpp
-  ${UTILS}/vaam-library/positioncontrollingvmm.cpp
-  ${UTILS}/vaam-library/sigmoidtransitionfunction.cpp
-  ${UTILS}/vaam-library/musclechain.cpp
-  ${UTILS}/vaam-library/muscletorque1.cpp
 )
 
 
