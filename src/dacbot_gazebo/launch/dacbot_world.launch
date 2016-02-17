@@ -31,4 +31,7 @@
 	<!-- rviz controller -->
 	<!-- <include file="$(find dacbot_joint_control)/launch/dacbot_rviz.launch"/> -->
 
+	<!-- GoRobots controller -->
+	<!-- <include file="$(find dacbot_controllers)/launch/muscle_controller.launch"/>	 -->
+
 </launch>

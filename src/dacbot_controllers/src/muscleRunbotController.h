@@ -100,11 +100,11 @@ class MuscleRunbotController {
   int ubc_time = 100;   // sec/100   -   defines the time where the ubc changes
                         // its movement direction
   runbot::cNNet* nnet;  // ANN controlling the movement of the robot
-  runbot::cNNet* nnetTwo;
   runbot::cGaitTransition* gait;  // gait parameter for the ANN
+  runbot::cNNet* nnetTwo;
   runbot::cGaitTransition* gait_two;
-  runbot::cGaitProfile* newGait;
   runbot::cGaitProfile* gait3;
+  runbot::cGaitProfile* newGait;
   runbot::cNNet* nnet3;
 
   valarray<double>

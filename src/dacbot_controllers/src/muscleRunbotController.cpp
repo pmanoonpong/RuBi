@@ -10,6 +10,7 @@ MuscleRunbotController::MuscleRunbotController() : nh_("~") {
   gait = new runbot::cGaitTransition(runbot::cGaitProfile());
   nnet = new runbot::cNNet((runbot::cGaitProfile*)gait);
 
+  /*
   newGait = new runbot::cGaitProfile(78, 97, 115, 175, 2, 1.5);
   nnetTwo = new runbot::cNNet((runbot::cGaitProfile*)newGait);
 
@@ -18,7 +19,7 @@ MuscleRunbotController::MuscleRunbotController() : nh_("~") {
 
   DinLeft = new DynamicCpg(0.04);   // 0.04
   DinRight = new DynamicCpg(0.04);  // 0.04
-
+  */
   actualAD = valarray<double>(6 + 1);
 
   // Parameters
@@ -119,16 +120,12 @@ void MuscleRunbotController::step() {
   actualAD[RIGHT_FOOT] = right_ankle_pos_;
   actualAD[0] = steps;
 
-  double enable;
-  std::cout << steps << std::endl;
-
-  double sensora;
-
   // Used to generate 1 gait with reflexive nn
-  // motorOutput=nnet->update(actualAD,steps);
+  motorOutput=nnet->update(actualAD,steps);
 
   // This is used to generate different gaits with the reflexive NN, change
   // according to your experiment
+  /*
   if (steps < 5000)
     motorOutput = nnet->update(actualAD, steps);
   else if (steps >= 5000 && steps < 7000)
@@ -136,8 +133,11 @@ void MuscleRunbotController::step() {
   else
     motorOutput = nnet3->update(actualAD, steps);
 
-  sensora = actualAD[LEFT_HIP];  // feedback
+  double enable;
+  std::cout << steps << std::endl;
 
+  double sensora;
+  sensora = actualAD[LEFT_HIP];  // feedback
   std::vector<double> sign = DinLeft->generateOutputTwoLegThereshold(
       sensora, left_hip_effort_, left_knee_effort_,
       steps);  // generates motor signals
@@ -145,37 +145,38 @@ void MuscleRunbotController::step() {
                      right_foot_contact_);  // generates enable output
   enable = DinLeft->getEnable();            // set enable
   std::cout << " enable: " << enable << std::endl;
+  */
 
   // Depending on the enable, either reflexive signals or CPG-based are sent to
   // the motors
   std_msgs::Float64 motor_msg;
 
+
   left_hip_effort_ =
-      motorOutput[0] * !enable + sign.at(0) * enable;  // LHMusclTor;
+      motorOutput[0]/* * !enable + sign.at(0) * enable*/;  // LHMusclTor;
   motor_msg.data = -left_hip_effort_;
   pub_left_hip_.publish(motor_msg);
 
   right_hip_effort_ =
-      motorOutput[1] * !enable + sign.at(1) * enable;  // RHMusclTor;
+      motorOutput[1]/* * !enable + sign.at(1) * enable*/;  // RHMusclTor;
   motor_msg.data = -right_hip_effort_;
   pub_right_hip_.publish(motor_msg);
 
   left_knee_effort_ =
-      motorOutput[2] * !enable + sign.at(2) * enable;  // LKMusclTor;
+      motorOutput[2]/* * !enable + sign.at(2) * enable*/;  // LKMusclTor;
   motor_msg.data = -left_knee_effort_;
   pub_left_knee_.publish(motor_msg);
 
   right_knee_effort_ =
-      motorOutput[3] * !enable + sign.at(3) * enable;  // RKMusclTor;
+      motorOutput[3]/* * !enable + sign.at(3) * enable*/;  // RKMusclTor;
   motor_msg.data = -right_knee_effort_;
   pub_right_knee_.publish(motor_msg);
 
   // motors[4] = ubc + ubc_wabl;
 
-  if (steps % ubc_time == 0) ubc_wabl *= -1;
-
-  // speed measurement..
   /*
+  if (steps % ubc_time == 0) ubc_wabl *= -1;
+  // speed measurement..
   double radius = 1;  // armlength in global coordinates
   if ((sensors[7] / 10 - pos) < -M_PI)
     speed = speed * 0.99 +
