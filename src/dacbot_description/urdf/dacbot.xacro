@@ -5,6 +5,10 @@
 	<!-- Constants -->
 	<xacro:property name="PI" value="3.1415926535897931"/>
 
+	<!-- ROS -->
+	<xacro:property name="update_rate" value="2"/>
+	<xacro:property name="robot_name" value="dacbot"/>
+
 	<!-- Robot configuration: Transmission -->
 	<xacro:property name="maxRealMotorTorque" value="1.0787315"/> <!-- In N*m -->
 
@@ -70,7 +74,7 @@
 	 -->
 
 	 <!-- Box Macro! 
-	<xacro:create_box name="" origin_x="" origin_y="" origin_z="" r="" p="" y="" width="" length="" height="" mass="" />
+	<xacro:create_box name="" origin_x="" origin_y="" origin_z="" r="" p="" y="" width="" length="" height="" mass=""/>
 	 -->
 	<xacro:macro name="create_box" params="name origin_x origin_y origin_z r p y width length height mass">
 
@@ -118,6 +122,8 @@
 		</link>
 	</xacro:macro>
 
+
+
 	<!-- 
 		World
 	-->
@@ -128,32 +134,32 @@
 	-->
 
 	<!-- Left Foot -->
-	<xacro:create_box name="left_foot" origin_x="${footHeight/2}" origin_y="${footLength/2 - footAnklePos}" origin_z="0" r="0" p="${-PI/2}" y="0" width="${footWidth}" length="${footLength}" height="${footHeight}" mass="${footMass}" />
+	<xacro:create_box name="left_foot" origin_x="${footHeight/2}" origin_y="${footLength/2 - footAnklePos}" origin_z="0" r="0" p="${-PI/2}" y="0" width="${footWidth}" length="${footLength}" height="${footHeight}" mass="${footMass}"  />
 
 	<!-- Left Lower Leg -->
-	<xacro:create_box name="left_lower_leg" origin_x="${lowerLegHeight/2}" origin_y="0" origin_z="0" r="0" p="${-PI/2}" y="0" width="${lowerLegWidth}" length="${lowerLegLength}" height="${lowerLegHeight}" mass="${lowerLegMass}" />
+	<xacro:create_box name="left_lower_leg" origin_x="${lowerLegHeight/2}" origin_y="0" origin_z="0" r="0" p="${-PI/2}" y="0" width="${lowerLegWidth}" length="${lowerLegLength}" height="${lowerLegHeight}" mass="${lowerLegMass}"  />
 
 	<!-- Left Upper Leg -->
-	<xacro:create_box name="left_upper_leg" origin_x="${upperLegHeight/2}" origin_y="0" origin_z="0" r="0" p="${-PI/2}" y="0" width="${upperLegWidth}" length="${upperLegLength}" height="${upperLegHeight}" mass="${upperLegMass}" />
+	<xacro:create_box name="left_upper_leg" origin_x="${upperLegHeight/2}" origin_y="0" origin_z="0" r="0" p="${-PI/2}" y="0" width="${upperLegWidth}" length="${upperLegLength}" height="${upperLegHeight}" mass="${upperLegMass}"   />
 
 
 	<!-- 
 		Right Leg
 	-->
 	<!-- Right Foot -->
-	<xacro:create_box name="right_foot" origin_x="${footHeight/2}" origin_y="${footLength/2 - footAnklePos}" origin_z="0" r="0" p="${-PI/2}" y="0" width="${footWidth}" length="${footLength}" height="${footHeight}" mass="${footMass}" />
+	<xacro:create_box name="right_foot" origin_x="${footHeight/2}" origin_y="${footLength/2 - footAnklePos}" origin_z="0" r="0" p="${-PI/2}" y="0" width="${footWidth}" length="${footLength}" height="${footHeight}" mass="${footMass}"   />
 
 	<!-- Right Lower Leg -->
-	<xacro:create_box name="right_lower_leg" origin_x="${lowerLegHeight/2}" origin_y="0" origin_z="0" r="0" p="${-PI/2}" y="0" width="${lowerLegWidth}" length="${lowerLegLength}" height="${lowerLegHeight}" mass="${lowerLegMass}" />
+	<xacro:create_box name="right_lower_leg" origin_x="${lowerLegHeight/2}" origin_y="0" origin_z="0" r="0" p="${-PI/2}" y="0" width="${lowerLegWidth}" length="${lowerLegLength}" height="${lowerLegHeight}" mass="${lowerLegMass}"   />
 
 	<!-- Right Upper Leg -->
-	<xacro:create_box name="right_upper_leg" origin_x="${upperLegHeight/2}" origin_y="0" origin_z="0" r="0" p="${-PI/2}" y="0" width="${upperLegWidth}" length="${upperLegLength}" height="${upperLegHeight}" mass="${upperLegMass}" />
+	<xacro:create_box name="right_upper_leg" origin_x="${upperLegHeight/2}" origin_y="0" origin_z="0" r="0" p="${-PI/2}" y="0" width="${upperLegWidth}" length="${upperLegLength}" height="${upperLegHeight}" mass="${upperLegMass}"   />
 
 
 	<!-- 
 		Body
 	-->
-	<xacro:create_box name="body" origin_x="0" origin_y="0" origin_z="${bodyHeight/2}" r="0" p="0" y="0" width="${bodyWidth}" length="${bodyLength}" height="${bodyHeight}" mass="${bodyMass}" />
+	<xacro:create_box name="body" origin_x="0" origin_y="0" origin_z="${bodyHeight/2}" r="0" p="0" y="0" width="${bodyWidth}" length="${bodyLength}" height="${bodyHeight}" mass="${bodyMass}"  />
 
 	<!-- 
 		Joints 

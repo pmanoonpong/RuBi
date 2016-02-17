@@ -4,10 +4,45 @@
 	<!-- ros_control plugin -->
 	<gazebo>
 		<plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-			<robotNamespace>/dacbot</robotNamespace>
+			<robotNamespace>/${robot_name}</robotNamespace>
 			<robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
 		</plugin>
 	</gazebo>
+
+	<!-- Bumpers plugins -->
+	<gazebo reference="left_foot">
+		<sensor name="contact_sensor" type="contact">
+			<always_on>true</always_on>
+			<update_rate>${update_rate}</update_rate>
+
+      <contact>
+        <collision>left_foot_collision</collision>
+        <topic>/left_foot_contact</topic>
+      </contact>
+
+      <plugin name="left_foot" filename="libgazebo_ros_bumper.so">
+        <frameName>left_foot</frameName>
+        <bumperTopicName>/${robot_name}/bumper/left_foot</bumperTopicName>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+  <gazebo reference="right_foot">
+		<sensor name="contact_sensor" type="contact">
+			<always_on>true</always_on>
+			<update_rate>${update_rate}</update_rate>
+
+      <contact>
+        <collision>right_foot_collision</collision>
+        <topic>/right_foot_contact</topic>
+      </contact>
+
+      <plugin name="right_foot" filename="libgazebo_ros_bumper.so">
+        <frameName>right_foot</frameName>
+        <bumperTopicName>/${robot_name}/bumper/right_foot</bumperTopicName>
+      </plugin>
+    </sensor>
+  </gazebo>
 
 	<!-- Links -->
 	<gazebo>

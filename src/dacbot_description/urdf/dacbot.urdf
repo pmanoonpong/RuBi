@@ -13,6 +13,37 @@
       <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
     </plugin>
   </gazebo>
+  <gazebo reference="left_foot">
+    <sensor name="contact_sensor" type="contact">
+      <always_on>1</always_on>
+      <update_rate>2</update_rate>
+      <contact>
+        <collision name="left_foot"/>
+        <topic>/left_foot_contact</topic>
+      </contact>
+      <plugin filename="libgazebo_ros_bumper.so" name="left_foot">
+        <alwaysOn>true</alwaysOn>
+        <updateRate>2</updateRate>
+        <frameName>world</frameName>
+        <bumperTopicName>/dacbot/bumper/left_foot</bumperTopicName>
+      </plugin>
+    </sensor>
+  </gazebo>
+  <gazebo reference="right_foot">
+    <sensor name="contact_sensor" type="contact">
+      <always_on>1</always_on>
+      <update_rate>2</update_rate>
+      <contact>
+        <collision name="collision_box"/>
+      </contact>
+      <plugin filename="libgazebo_ros_bumper.so" name="left_foot">
+        <alwaysOn>true</alwaysOn>
+        <updateRate>2</updateRate>
+        <frameName>world</frameName>
+        <bumperTopicName>/dacbot/bumper/right_foot</bumperTopicName>
+      </plugin>
+    </sensor>
+  </gazebo>
   <!-- Links -->
   <gazebo>
     <static> false </static>
@@ -394,12 +425,10 @@
     <axis xyz="0 0 1"/>
     <dynamics damping="0.7"/>
   </joint>
-  <joint name="rotational_robot_holder_to_rotot" type="continuous">
+  <joint name="rotational_robot_holder_to_rotot" type="fixed">
     <parent link="rotational_robot_holder_holder"/>
     <child link="body"/>
     <origin rpy="0 0 0" xyz="2 0 0"/>
-    <axis xyz="1 0 0"/>
-    <dynamics damping="0.7"/>
   </joint>
 </robot>
 
