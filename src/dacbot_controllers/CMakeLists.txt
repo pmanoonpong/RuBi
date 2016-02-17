@@ -153,35 +153,9 @@ set(SOURCES
   ${UTILS}/vaam-library/muscletorque1.cpp
 )
 
-set(HEADERS
-  src/muscleRunbotController.h
-  ${RUNBOT_CONTROLLERS}/cnnet.h
-  ${RUNBOT_CONTROLLERS}/cgaitprofile.h
-  ${RUNBOT_CONTROLLERS}/cgaittransition.h
-  ${RUNBOT_CONTROLLERS}/Neurons/integrator.h
-  ${RUNBOT_CONTROLLERS}/Neurons/gc_neuron.h
-  ${RUNBOT_CONTROLLERS}/Neurons/coincidence.h
-  ${RUNBOT_CONTROLLERS}/Filter/sigmoid.h
-  ${RUNBOT_CONTROLLERS}/ctextarraywriter.h
-  ${RUNBOT_CONTROLLERS}/carraywriter.h
-  ${RUNBOT_CONTROLLERS}/derivativeTransitionRegister.h
-  ${RUNBOT_CONTROLLERS}/plastic.h
-  ${RUNBOT_CONTROLLERS}/lowPassfilter.h
-  ${RUNBOT_CONTROLLERS}/shiftregister.h
-  ${RUNBOT_CONTROLLERS}/DynamicCpg.h
-  ${RUNBOT_CONTROLLERS}/DynamicVector.h
-  ${UTILS}/vaam-library/abstractmusclemodel.h
-  ${UTILS}/vaam-library/parametertransitionfunction.h
-  ${UTILS}/vaam-library/dccontrollingvmm.h
-  ${UTILS}/vaam-library/positioncontrollingvmm.h
-  ${UTILS}/vaam-library/sigmoidtransitionfunction.h
-  ${UTILS}/vaam-library/musclechain.h
-  ${UTILS}/vaam-library/muscletorque1.h
-)
 
 add_executable(muscleController
     ${SOURCES}
-    ${HEADERS}
 )
 
 target_link_libraries(muscleController
