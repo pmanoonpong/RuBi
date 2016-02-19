@@ -4,7 +4,7 @@ project(dacbot_controllers)
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(catkin REQUIRED
+find_package(catkin REQUIRED COMPONENTS
     roscpp
     rospy
     std_msgs
@@ -108,39 +108,44 @@ catkin_package(
 #  DEPENDS system_lib
 )
 
-set(RUNBOT_CONTROLLERS
-  /mnt/Free/Drive/Programming/artificialIntelligence/gorobots/controllers/runbotii_dacbot
-)
-
 
 include_directories(
     ${catkin_INCLUDE_DIRS}
-    /mnt/Free/Drive/Programming/artificialIntelligence/gorobots
-    ${RUNBOT_CONTROLLERS}
+    $ENV{GOROBOTS}
+    $ENV{GOROBOTS}/controllers/runbotii_dacbot
+    $ENV{GOROBOTS}/utils/ann-framework
 )
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall")
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O2 -Wextra")
 
-
-set(SOURCES
-  src/muscleRunbotController.cpp
-  src/muscleRunbotController.h
-  ${RUNBOT_CONTROLLERS}/cnnet.cpp
-  ${RUNBOT_CONTROLLERS}/ctextarraywriter.cpp
-  ${RUNBOT_CONTROLLERS}/derivativeTransitionRegister.cpp
-  ${RUNBOT_CONTROLLERS}/plastic.cpp
-  ${RUNBOT_CONTROLLERS}/lowPassfilter.cpp
-  ${RUNBOT_CONTROLLERS}/shiftregister.cpp
-  ${RUNBOT_CONTROLLERS}/DynamicCpg.cpp
-  ${RUNBOT_CONTROLLERS}/DynamicVector.cpp
-)
-
-
+### Muscle controller
 add_executable(muscle_controller_node
-    ${SOURCES}
+    src/muscle_runbot_controller.cpp
+    src/muscle_runbot_controller.h
+    $ENV{GOROBOTS}/controllers/runbotii_dacbot/cnnet.cpp
+    $ENV{GOROBOTS}/controllers/runbotii_dacbot/ctextarraywriter.cpp
+    $ENV{GOROBOTS}/controllers/runbotii_dacbot/derivativeTransitionRegister.cpp
+    $ENV{GOROBOTS}/controllers/runbotii_dacbot/plastic.cpp
+    $ENV{GOROBOTS}/controllers/runbotii_dacbot/lowPassfilter.cpp
+    $ENV{GOROBOTS}/controllers/runbotii_dacbot/shiftregister.cpp
+    $ENV{GOROBOTS}/controllers/runbotii_dacbot/DynamicCpg.cpp
+    $ENV{GOROBOTS}/controllers/runbotii_dacbot/DynamicVector.cpp
 )
 
 target_link_libraries(muscle_controller_node
+    ${catkin_LIBRARIES}
+)
+
+### Two Neuron Controller
+file(GLOB ann_framework_folder
+    $ENV{GOROBOTS}/utils/ann-framework/*.cpp
+)
+add_executable(two_neuron_controller_node
+    src/two_neuron_controller.cpp
+    src/two_neuron_controller.h
+    ${ann_framework_folder}
+)
+target_link_libraries(two_neuron_controller_node
     ${catkin_LIBRARIES}
 )

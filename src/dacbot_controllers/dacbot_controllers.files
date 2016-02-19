@@ -1,5 +1,7 @@
-src/muscleRunbotController.cpp
-src/muscleRunbotController.h
+src/muscle_runbot_controller.cpp
+src/muscle_runbot_controller.h
 package.xml
 CMakeLists.txt
 launch/muscle_controller.launch
+src/two_neuron_controller.h
+src/two_neuron_controller.cpp

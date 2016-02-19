@@ -1,26 +1,7 @@
 
-#include "muscleRunbotController.h"
+#include "muscle_runbot_controller.h"
 
 MuscleRunbotController::MuscleRunbotController() : nh_("~") {
-  steps = 0;
-  pos = 0;
-  nSensors = 6;
-  nMotors = 6;
-
-  gait = new runbot::cGaitTransition(runbot::cGaitProfile());
-  nnet = new runbot::cNNet((runbot::cGaitProfile*)gait);
-
-  newGait = new runbot::cGaitProfile(78, 97, 115, 175, 2, 1.5);
-  nnetTwo = new runbot::cNNet((runbot::cGaitProfile*)newGait);
-
-  gait3 = new runbot::cGaitProfile(78, 115, 115, 175, 2, 2.7);
-  nnet3 = new runbot::cNNet((runbot::cGaitProfile*)gait3);
-
-  DinLeft = new DynamicCpg(0.04);   // 0.04
-  DinRight = new DynamicCpg(0.04);  // 0.04
-
-  actualAD = valarray<double>(6 + 1);
-
   // Parameters
   // Get parameter names
   nh_.param<std::string>("joint_states_topic", topic_joint_states_,
@@ -62,6 +43,24 @@ MuscleRunbotController::MuscleRunbotController() : nh_("~") {
   pub_right_ankle_ = nh_.advertise<std_msgs::Float64>(topic_right_ankle_, 1);
   pub_right_knee_ = nh_.advertise<std_msgs::Float64>(topic_right_knee_, 1);
   pub_right_hip_ = nh_.advertise<std_msgs::Float64>(topic_right_hip_, 1);
+  steps = 0;
+  pos = 0;
+  nSensors = 6;
+  nMotors = 6;
+
+  gait = new runbot::cGaitTransition(runbot::cGaitProfile());
+  nnet = new runbot::cNNet((runbot::cGaitProfile*)gait);
+
+  newGait = new runbot::cGaitProfile(78, 97, 115, 175, 2, 1.5);
+  nnetTwo = new runbot::cNNet((runbot::cGaitProfile*)newGait);
+
+  gait3 = new runbot::cGaitProfile(78, 115, 115, 175, 2, 2.7);
+  nnet3 = new runbot::cNNet((runbot::cGaitProfile*)gait3);
+
+  DinLeft = new DynamicCpg(0.04);   // 0.04
+  DinRight = new DynamicCpg(0.04);  // 0.04
+
+  actualAD = valarray<double>(6 + 1);
 }
 
 MuscleRunbotController::~MuscleRunbotController() {

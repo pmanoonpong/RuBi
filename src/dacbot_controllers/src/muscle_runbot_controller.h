@@ -74,7 +74,7 @@ class MuscleRunbotController {
       topic_right_hip_, topic_right_knee_, topic_right_ankle_,
       topic_joint_states_, topic_left_foot_contact_, topic_right_foot_contact_;
 
-  // Controller
+  // Controller: common
   float left_hip_pos_, left_knee_pos_, left_ankle_pos_, right_hip_pos_,
       right_knee_pos_, right_ankle_pos_;
 
