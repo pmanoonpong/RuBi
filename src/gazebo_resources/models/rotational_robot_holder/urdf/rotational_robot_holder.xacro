@@ -97,7 +97,7 @@
   <joint name="rotational_robot_holder_to_rotot" type="fixed">
     <parent link="rotational_robot_holder_holder"/>
     <child link="body"/>
-    <origin xyz="${rotational_robot_holder_holder_length} 0 0" rpy="0 0 0"/>
+    <origin xyz="${rotational_robot_holder_holder_length+bodyWidth/2} 0 0" rpy="0 0 0"/>
     <axis xyz="0 0 1"/>
     <limit effort="30" velocity="1.0" lower="0" upper="1" />
   </joint> 
