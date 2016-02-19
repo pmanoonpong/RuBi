@@ -1,6 +1,9 @@
 #ifndef TWO_NEURON_CPH_H
 #define TWO_NEURON_CPH_H
 
+// System
+#include <signal.h>
+
 // STD
 #include <vector>
 #include <cmath>
@@ -17,6 +20,17 @@
 // GoRobots
 #include "utils/ann-framework/ann.h"
 
+/**
+ * System signal
+ */
+bool killed(false);
+void killerHandler(int sig) {
+  killed = true;
+}
+
+/**
+ * @brief The TwoNeuronController class
+ */
 class TwoNeuronController {
  public:
   /**
@@ -39,6 +53,11 @@ class TwoNeuronController {
    * @brief step
    */
   void step();
+
+  /**
+   * @brief stop
+   */
+  void stop();
 
  private:
   // ROS
@@ -67,7 +86,6 @@ class TwoNeuronController {
   ANN ann_;
 };
 
-
 /**
  * @brief Runs the controller
  */
@@ -75,20 +93,26 @@ int main() {
   // Init
   int argc(0);
   char** argv(NULL);
-  ros::init(argc, argv, "muscle_controller");
+  ros::init(argc, argv, "two_neuron_controller", ros::init_options::NoSigintHandler);
 
   // Controller
   TwoNeuronController twoNeuronController;
+
+  // Signal
+  signal(SIGINT, killerHandler);
 
   // Rate
   ros::Rate rate(10);
 
   // ROS Spin: Handle callbacks
-  while (!ros::isShuttingDown()) {
+  while (!killed) {
     twoNeuronController.step();
     ros::spinOnce();
     rate.sleep();
   }
+
+  twoNeuronController.stop();
+  ros::shutdown();
 
   return 0;
 }

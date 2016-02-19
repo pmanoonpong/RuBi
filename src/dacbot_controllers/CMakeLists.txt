@@ -118,6 +118,7 @@ include_directories(
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall")
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O2 -Wextra")
+set(CMAKE_BUILD_TYPE Debug)
 
 ### Muscle controller
 add_executable(muscle_controller_node
@@ -140,6 +141,7 @@ target_link_libraries(muscle_controller_node
 ### Two Neuron Controller
 file(GLOB ann_framework_folder
     $ENV{GOROBOTS}/utils/ann-framework/*.cpp
+    $ENV{GOROBOTS}/utils/ann-framework/*.h
 )
 add_executable(two_neuron_controller_node
     src/two_neuron_controller.cpp

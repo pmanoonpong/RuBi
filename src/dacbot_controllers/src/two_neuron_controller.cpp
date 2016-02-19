@@ -1,6 +1,9 @@
 #include "two_neuron_controller.h"
 
-TwoNeuronController::TwoNeuronController() : ann_(2) {
+TwoNeuronController::TwoNeuronController() : nh_(""), ann_(2) {
+  // Register signal
+  // signal(SIGINT, &TwoNeuronController::mySigintHandler);
+
   // Parameters
   // Get parameter names
   nh_.param<std::string>("joint_states_topic", topic_joint_states_,
@@ -24,8 +27,8 @@ TwoNeuronController::TwoNeuronController() : ann_(2) {
 
   // Subcribers
   sub_joint_states_ = nh_.subscribe<sensor_msgs::JointState>(
-      topic_joint_states_, 1,
-      &TwoNeuronController::callbackSubcriberJointState, this);
+      topic_joint_states_, 1, &TwoNeuronController::callbackSubcriberJointState,
+      this);
 
   sub_left_foot_contact_ = nh_.subscribe<gazebo_msgs::ContactsState>(
       topic_left_foot_contact_, 1,
@@ -43,15 +46,11 @@ TwoNeuronController::TwoNeuronController() : ann_(2) {
   pub_right_knee_ = nh_.advertise<std_msgs::Float64>(topic_right_knee_, 1);
   pub_right_hip_ = nh_.advertise<std_msgs::Float64>(topic_right_hip_, 1);
 
-  // Oscilator
-  ann_.setDefaultTransferFunction(ann_.tanhFunction());
-
   // Update ann weights
   ann_.setWeight(0, 0, 1.5);
   ann_.setWeight(0, 1, 0.4);
   ann_.setWeight(1, 0, -0.4);
   ann_.setWeight(1, 1, 1.5);
-
 }
 
 void TwoNeuronController::callbackSubcriberJointState(
@@ -77,7 +76,10 @@ void TwoNeuronController::callbackSubcriberRightFootContact(
 }
 
 void TwoNeuronController::step() {
-
+  ann_.setInput(ann_.getNeuron(0), 1);
+  ann_.step();
+  ROS_INFO("%f, %f", ann_.getActivity(ann_.getNeuron(0)),
+           ann_.getActivity(ann_.getNeuron(1)));
 
   // Depending on the enable, either reflexive signals or CPG-based are sent to
   // the motors
@@ -98,4 +100,20 @@ void TwoNeuronController::step() {
   // Right knee
   motor_msg.data = ann_.getActivity(ann_.getNeuron(1));
   pub_right_knee_.publish(motor_msg);
+}
+
+void TwoNeuronController::stop() {
+  std_msgs::Float64 motor_msg;
+  motor_msg.data = 0.0;
+
+  // Left hip
+  pub_left_hip_.publish(motor_msg);
+  // Right hip
+  pub_right_hip_.publish(motor_msg);
+  // Left knee
+  pub_left_knee_.publish(motor_msg);
+  // Right knee
+  pub_right_knee_.publish(motor_msg);
+
+  ROS_WARN("Two Neuron Controller stoped");
 }
