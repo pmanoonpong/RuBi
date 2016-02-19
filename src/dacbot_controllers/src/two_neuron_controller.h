@@ -15,7 +15,6 @@
 #include "ros/ros.h"
 #include "std_msgs/Float64.h"
 #include "sensor_msgs/JointState.h"
-#include "gazebo_msgs/ContactsState.h"
 
 // GoRobots
 #include "utils/ann-framework/ann.h"
@@ -45,10 +44,6 @@ class TwoNeuronController {
    */
   void callbackSubcriberJointState(sensor_msgs::JointState msg);
 
-  void callbackSubcriberLeftFootContact(gazebo_msgs::ContactsState msg);
-
-  void callbackSubcriberRightFootContact(gazebo_msgs::ContactsState msg);
-
   /**
    * @brief step
    */
@@ -74,13 +69,6 @@ class TwoNeuronController {
   // Controller: common
   double left_hip_pos_, left_knee_pos_, left_ankle_pos_, right_hip_pos_,
       right_knee_pos_, right_ankle_pos_;
-
-  bool left_foot_contact_, right_foot_contact_;
-
-  double left_hip_effort_, left_knee_effort_, left_ankle_effort_,
-      right_hip_effort_, right_knee_effort_, right_ankle_effort_;
-
-  std::mutex joint_state_mutex_;
 
   // Controller: ANN
   ANN ann_;

@@ -30,14 +30,6 @@ TwoNeuronController::TwoNeuronController() : nh_(""), ann_(2) {
       topic_joint_states_, 1, &TwoNeuronController::callbackSubcriberJointState,
       this);
 
-  sub_left_foot_contact_ = nh_.subscribe<gazebo_msgs::ContactsState>(
-      topic_left_foot_contact_, 1,
-      &TwoNeuronController::callbackSubcriberLeftFootContact, this);
-
-  sub_right_foot_contact_ = nh_.subscribe<gazebo_msgs::ContactsState>(
-      topic_right_foot_contact_, 1,
-      &TwoNeuronController::callbackSubcriberRightFootContact, this);
-
   // Publishers
   pub_left_ankle_ = nh_.advertise<std_msgs::Float64>(topic_left_ankle_, 1);
   pub_left_knee_ = nh_.advertise<std_msgs::Float64>(topic_left_knee_, 1);
@@ -55,7 +47,6 @@ TwoNeuronController::TwoNeuronController() : nh_(""), ann_(2) {
 
 void TwoNeuronController::callbackSubcriberJointState(
     sensor_msgs::JointState msg) {
-  std::unique_lock<std::mutex> lock(joint_state_mutex_);
   left_ankle_pos_ = msg.position.at(0);
   left_hip_pos_ = msg.position.at(1);
   left_knee_pos_ = msg.position.at(2);
@@ -64,16 +55,6 @@ void TwoNeuronController::callbackSubcriberJointState(
   right_knee_pos_ = msg.position.at(5);
 }
 
-void TwoNeuronController::callbackSubcriberLeftFootContact(
-    gazebo_msgs::ContactsState msg) {
-  (msg.states.empty()) ? left_foot_contact_ = false : left_foot_contact_ = true;
-}
-
-void TwoNeuronController::callbackSubcriberRightFootContact(
-    gazebo_msgs::ContactsState msg) {
-  (msg.states.empty()) ? right_foot_contact_ = false : right_foot_contact_ =
-                                                           true;
-}
 
 void TwoNeuronController::step() {
   ann_.setInput(ann_.getNeuron(0), 1);
