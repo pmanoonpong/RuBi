@@ -39,10 +39,10 @@ TwoNeuronController::TwoNeuronController() : nh_(""), ann_(2) {
   pub_right_hip_ = nh_.advertise<std_msgs::Float64>(topic_right_hip_, 1);
 
   // Update ann weights
-  ann_.setWeight(0, 0, 1.5);
-  ann_.setWeight(0, 1, 0.4);
-  ann_.setWeight(1, 0, -0.4);
-  ann_.setWeight(1, 1, 1.5);
+  ann_.setWeight(0, 0, 1.4);
+  ann_.setWeight(0, 1, 0.7);
+  ann_.setWeight(1, 0, -0.7);
+  ann_.setWeight(1, 1, 1.4);
   ann_.setBias(0, 0.01);
   ann_.setBias(1, 0.01);
   ann_.setInputScaling(0,1);
@@ -61,9 +61,9 @@ void TwoNeuronController::callbackSubcriberJointState(
 
 void TwoNeuronController::step() {
 
-  //ann_.step();
-  ann_.updateActivities();
-  ann_.updateOutputs();
+  ann_.step();
+  //ann_.updateActivities();
+  //ann_.updateOutputs();
   ROS_INFO("%f, %f", ann_.getOutput(0), ann_.getOutput(1));
 
   // Depending on the enable, either reflexive signals or CPG-based are sent to
@@ -79,6 +79,8 @@ void TwoNeuronController::step() {
   pub_right_hip_.publish(motor_msg);
 
   // Left knee
+  //double knee_output;
+  //ann_.getOutput(1)<0.9 ? knee_output = knee_output
   motor_msg.data = -ann_.getOutput(1);
   pub_left_knee_.publish(motor_msg);
 

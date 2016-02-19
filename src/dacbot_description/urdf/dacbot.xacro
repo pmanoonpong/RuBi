@@ -11,7 +11,7 @@
 	<xacro:property name="robot_name" value="dacbot"/>
 
 	<!-- Robot configuration: Transmission -->
-	<xacro:property name="maxRealMotorTorque" value="2.0787315"/> <!-- In N*m -->
+	<xacro:property name="maxRealMotorTorque" value="1.0787315"/> <!-- In N*m -->
 
 	<!-- Robot configuration: Geometry 
 		Width = X axis
