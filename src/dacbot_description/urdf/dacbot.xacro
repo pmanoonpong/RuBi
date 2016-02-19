@@ -4,13 +4,14 @@
 
 	<!-- Constants -->
 	<xacro:property name="PI" value="3.1415926535897931"/>
+	<xacro:property name="DEG_TO_RAD" value="${PI/180}"/>
 
 	<!-- ROS -->
 	<xacro:property name="update_rate" value="2"/>
 	<xacro:property name="robot_name" value="dacbot"/>
 
 	<!-- Robot configuration: Transmission -->
-	<xacro:property name="maxRealMotorTorque" value="1.0787315"/> <!-- In N*m -->
+	<xacro:property name="maxRealMotorTorque" value="2.0787315"/> <!-- In N*m -->
 
 	<!-- Robot configuration: Geometry 
 		Width = X axis
@@ -173,52 +174,58 @@
   </joint>  -->
 
 
-	<joint name="left_hip" type="continuous">
+	<joint name="left_hip" type="revolute">
 		<parent link="body"/>
 		<child link="left_upper_leg"/>
 		<origin xyz="${-legDistFromCenter} 0 0" rpy="0 ${PI/2} 0"/>
 		<axis xyz="0 0 1"/>
+		<limit effort="10" velocity="1.0" lower="-${78*DEG_TO_RAD}" upper="${100*DEG_TO_RAD}" />
 		<dynamics damping="0.7"/>
 	</joint> 
 
-	<joint name="left_knee" type="continuous">
+	<joint name="left_knee" type="revolute">
 		<parent link="left_upper_leg"/>
 		<child link="left_lower_leg"/>
 		<origin xyz="${upperLegHeight} 0 0" rpy="0 0 0"/>
 		<axis xyz="0 0 1"/>
+		<limit effort="10" velocity="1.0" lower="-${150*DEG_TO_RAD}" upper="0" />
 		<dynamics damping="0.7"/>
 	</joint>
 
-	<joint name="left_ankle" type="continuous">
+	<joint name="left_ankle" type="revolute">
 		<parent link="left_lower_leg"/>
 		<child link="left_foot"/>
 		<origin xyz="${lowerLegHeight} 0 0" rpy="0 0 0"/>
 		<axis xyz="0 0 1"/>
+		<!-- <limit effort="10" velocity="1.0" lower="-${90*DEG_TO_RAD}" upper="${30*DEG_TO_RAD}" /> -->
+		<limit effort="10" velocity="1.0" lower="0" upper="0" />
 		<dynamics damping="0.7"/>
 	</joint> 
 
-	<joint name="right_hip" type="continuous">
+	<joint name="right_hip" type="revolute">
 		<parent link="body"/>
 		<child link="right_upper_leg"/>
 		<origin xyz="${legDistFromCenter} 0 0" rpy="0 ${PI/2} 0"/>
 		<axis xyz="0 0 1"/>
-		<dynamics damping="0.7"/>
+		<limit effort="10" velocity="1.0" lower="-${78*DEG_TO_RAD}" upper="${100*DEG_TO_RAD}" />
 	</joint> 
 
-	<joint name="right_knee" type="continuous">
+	<joint name="right_knee" type="revolute">
 		<parent link="right_upper_leg"/>
 		<child link="right_lower_leg"/>
 		<origin xyz="${upperLegHeight} 0 0" rpy="0 0 0"/>
 		<axis xyz="0 0 1"/>
+		<limit effort="10" velocity="1.0" lower="-${150*DEG_TO_RAD}" upper="0" />
 		<dynamics damping="0.7"/>
 	</joint>
 
-	<joint name="right_ankle" type="continuous">
+	<joint name="right_ankle" type="revolute">
 		<parent link="right_lower_leg"/>
 		<child link="right_foot"/>
 		<origin xyz="${lowerLegHeight} 0 0" rpy="0 0 0"/>
 		<axis xyz="0 0 1"/>
-		<dynamics damping="0.7"/>
+		<!-- <limit effort="10" velocity="1.0" lower="-${90*DEG_TO_RAD}" upper="${30*DEG_TO_RAD}" /> -->
+		<limit effort="10" velocity="1.0" lower="0" upper="0" />
 	</joint> 
 
 	<transmission name="left_hip_trans">
