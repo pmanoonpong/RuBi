@@ -15,6 +15,8 @@
 #include "ros/ros.h"
 #include "std_msgs/Float64.h"
 #include "sensor_msgs/JointState.h"
+#include "dynamic_reconfigure/server.h"
+#include "dacbot_controllers/two_neuronConfig.h"
 
 // GoRobots
 #include "utils/ann-framework/ann.h"
@@ -23,9 +25,7 @@
  * System signal
  */
 bool killed(false);
-void killerHandler(int sig) {
-  killed = true;
-}
+void killerHandler(int sig) { killed = true; }
 
 /**
  * @brief The TwoNeuronController class
@@ -43,6 +43,14 @@ class TwoNeuronController {
    * @param msg
    */
   void callbackSubcriberJointState(sensor_msgs::JointState msg);
+
+  /**
+   * @brief callbackDynamicParameters
+   * @param config
+   * @param level
+   */
+  void callbackDynamicParameters(dacbot_controller::two_neuronConfig& config,
+                                 uint32_t level);
 
   /**
    * @brief step
@@ -66,12 +74,21 @@ class TwoNeuronController {
       topic_right_hip_, topic_right_knee_, topic_right_ankle_,
       topic_joint_states_, topic_left_foot_contact_, topic_right_foot_contact_;
 
+  // Dynamic reconfigure
+  typedef dynamic_reconfigure::Server<dacbot_controller::two_neuronConfig>
+      DynamicReconfigServer;
+  boost::shared_ptr<DynamicReconfigServer> param_reconfig_server_;
+  DynamicReconfigServer::CallbackType param_reconfig_callback_;
+  boost::recursive_mutex param_reconfig_mutex_;
+
   // Controller: common
   double left_hip_pos_, left_knee_pos_, left_ankle_pos_, right_hip_pos_,
       right_knee_pos_, right_ankle_pos_;
 
   // Controller: ANN
   ANN ann_;
+  double weight_w1_w1_, weight_w1_w2_, weight_w2_w1_, weight_w2_w2_, input1_,
+      input2_;
 };
 
 /**
@@ -81,7 +98,8 @@ int main() {
   // Init
   int argc(0);
   char** argv(NULL);
-  ros::init(argc, argv, "two_neuron_controller", ros::init_options::NoSigintHandler);
+  ros::init(argc, argv, "two_neuron_controller",
+            ros::init_options::NoSigintHandler);
 
   // Controller
   TwoNeuronController twoNeuronController;

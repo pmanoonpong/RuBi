@@ -10,6 +10,7 @@ find_package(catkin REQUIRED COMPONENTS
     std_msgs
     sensor_msgs
     gazebo_msgs
+    dynamic_reconfigure
     )
 
 ## System dependencies are found with CMake's conventions
@@ -87,10 +88,9 @@ find_package(catkin REQUIRED COMPONENTS
 ##     and list every .cfg file to be processed
 
 ## Generate dynamic reconfigure parameters in the 'cfg' folder
-# generate_dynamic_reconfigure_options(
-#   cfg/DynReconf1.cfg
-#   cfg/DynReconf2.cfg
-# )
+generate_dynamic_reconfigure_options(
+    cfg/two_neuron.cfg
+)
 
 ###################################
 ## catkin specific configuration ##
@@ -151,3 +151,4 @@ add_executable(two_neuron_controller_node
 target_link_libraries(two_neuron_controller_node
     ${catkin_LIBRARIES}
 )
+add_dependencies(two_neuron_controller_node ${PROJECT_NAME}_gencfg)

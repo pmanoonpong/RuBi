@@ -3,3 +3,4 @@ src
 /mnt/Free/Drive/Programming/artificialIntelligence/gorobots/controllers/runbotii_dacbot
 /opt/ros/jade/include
 .
+../../devel/include/

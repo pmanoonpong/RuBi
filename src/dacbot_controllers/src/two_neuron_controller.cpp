@@ -1,9 +1,6 @@
 #include "two_neuron_controller.h"
 
-TwoNeuronController::TwoNeuronController() : nh_(""), ann_(2) {
-  // Register signal
-  // signal(SIGINT, &TwoNeuronController::mySigintHandler);
-
+TwoNeuronController::TwoNeuronController() : nh_("~"), ann_(2) {
   // Parameters
   // Get parameter names
   nh_.param<std::string>("joint_states_topic", topic_joint_states_,
@@ -25,6 +22,19 @@ TwoNeuronController::TwoNeuronController() : nh_(""), ann_(2) {
   nh_.param<std::string>("right_foot_contact_topic", topic_right_foot_contact_,
                          "/dacbot/bumper/right_foot");
 
+  // Dynamic parameters
+  param_reconfig_server_.reset(
+      new DynamicReconfigServer(param_reconfig_mutex_, nh_));
+
+  dacbot_controller::two_neuronConfig config;
+  param_reconfig_mutex_.lock();
+  param_reconfig_server_->updateConfig(config.__getDefault__());
+  param_reconfig_mutex_.unlock();
+
+  param_reconfig_callback_ = boost::bind(
+      &TwoNeuronController::callbackDynamicParameters, this, _1, _2);
+  param_reconfig_server_->setCallback(param_reconfig_callback_);
+
   // Subcribers
   sub_joint_states_ = nh_.subscribe<sensor_msgs::JointState>(
       topic_joint_states_, 1, &TwoNeuronController::callbackSubcriberJointState,
@@ -38,15 +48,15 @@ TwoNeuronController::TwoNeuronController() : nh_(""), ann_(2) {
   pub_right_knee_ = nh_.advertise<std_msgs::Float64>(topic_right_knee_, 1);
   pub_right_hip_ = nh_.advertise<std_msgs::Float64>(topic_right_hip_, 1);
 
-  // Update ann weights
+  // Starts ANN
   ann_.setWeight(0, 0, 1.4);
   ann_.setWeight(0, 1, 0.7);
   ann_.setWeight(1, 0, -0.7);
   ann_.setWeight(1, 1, 1.4);
   ann_.setBias(0, 0.01);
   ann_.setBias(1, 0.01);
-  ann_.setInputScaling(0,1);
-  ann_.setInputScaling(1,1);
+  ann_.setInputScaling(0, 1);
+  ann_.setInputScaling(1, 1);
 }
 
 void TwoNeuronController::callbackSubcriberJointState(
@@ -59,12 +69,26 @@ void TwoNeuronController::callbackSubcriberJointState(
   right_knee_pos_ = msg.position.at(5);
 }
 
-void TwoNeuronController::step() {
+void TwoNeuronController::callbackDynamicParameters(
+    dacbot_controller::two_neuronConfig &config, uint32_t level) {
+  weight_w1_w1_ = config.weight_self;
+  weight_w1_w2_ = config.weight_other;
+  weight_w2_w1_ = -config.weight_other;
+  weight_w2_w2_ = config.weight_self;
+  input1_ = config.input1_param;
+  input2_ = config.input2_param;
 
+  ann_.setWeight(0, 0, weight_w1_w1_);
+  ann_.setWeight(0, 1, weight_w1_w2_);
+  ann_.setWeight(1, 0, weight_w2_w1_);
+  ann_.setWeight(1, 1, weight_w2_w2_);
+  ann_.setInput(0, input1_);
+  ann_.setInput(1, input2_);
+}
+
+void TwoNeuronController::step() {
   ann_.step();
-  //ann_.updateActivities();
-  //ann_.updateOutputs();
-  ROS_INFO("%f, %f", ann_.getOutput(0), ann_.getOutput(1));
+  // ROS_INFO("%f, %f", ann_.getOutput(0), ann_.getOutput(1));
 
   // Depending on the enable, either reflexive signals or CPG-based are sent to
   // the motors
@@ -79,13 +103,15 @@ void TwoNeuronController::step() {
   pub_right_hip_.publish(motor_msg);
 
   // Left knee
-  //double knee_output;
-  //ann_.getOutput(1)<0.9 ? knee_output = knee_output
-  motor_msg.data = -ann_.getOutput(1);
+  double knee_output;
+  (ann_.getOutput(1) >= 0 && ann_.getOutput(1) <= 0.9)
+      ? knee_output = ann_.getOutput(1)
+      : knee_output = 0;
+  motor_msg.data = -knee_output;
   pub_left_knee_.publish(motor_msg);
 
   // Right knee
-  motor_msg.data = ann_.getOutput(1);
+  motor_msg.data = knee_output;
   pub_right_knee_.publish(motor_msg);
 }
 
