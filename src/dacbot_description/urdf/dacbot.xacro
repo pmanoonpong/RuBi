@@ -10,17 +10,20 @@
 	<xacro:property name="update_rate" value="10"/>
 	<xacro:property name="robot_name" value="dacbot"/>
 
+  <!-- Robot configuration: Miscellaneous -->
+  <xacro:property name="robot_floating" value="0"/>
+
 	<!-- Robot configuration: Transmission -->
 	<xacro:property name="max_real_motor_torque" value="1.0787315"/> <!-- In N*m -->
-  <xacro:property name="robot_floating" value="1"/>
 
-	<!-- Robot configuration: Geometry 
-		Width = X axis
-		Length = Y axis
-		Height = Z axis
-	-->
-	<xacro:property name="scale" value="1" />
-	<xacro:property name="minimum_intertia" value="0.002" /> <!-- <0.001 doesn't work -->
+  <!-- Robot configuration: Geometry 
+    Width = X axis
+    Length = Y axis
+    Height = Z axis
+  -->
+  <xacro:property name="scale" value="1" />
+  <xacro:property name="minimum_intertia" value="0.002" /> <!-- <0.001 doesn't work -->
+  <xacro:property name="damping" value="0.8"/>
 
 	<xacro:property name="bodyWidth" value="${0.085*scale}" />
 	<xacro:property name="bodyLength" value="${0.08*scale}" />
@@ -36,16 +39,31 @@
 	<xacro:property name="upperLegLength" value="${0.015*scale}" />
 	<xacro:property name="upperLegHeight" value="${0.142*scale}" />
 	<xacro:property name="upperLegMass" value="${0.2*scale}" />
+  <xacro:property name="upperLegLimitUpperPosition" value="70" />
+  <xacro:property name="upperLegLimitLowerPosition" value="-70" />
+  <xacro:property name="upperLegLimitVelocity" value="10" />
+  <xacro:property name="upperLegLimitEffort" value="10" />
+  <xacro:property name="upperLegDamping" value="0.7" />
 
 	<xacro:property name="lowerLegWidth" value="${0.015*scale}" />
 	<xacro:property name="lowerLegLength" value="${0.015*scale}" />
 	<xacro:property name="lowerLegHeight" value="${0.125*scale}" />
 	<xacro:property name="lowerLegMass" value="${0.08*scale}" />
+  <xacro:property name="lowerLegLimitUpperPosition" value="0" />
+  <xacro:property name="lowerLegLimitLowerPosition" value="150" />
+  <xacro:property name="lowerLegLimitVelocity" value="10" />
+  <xacro:property name="lowerLegLimitEffort" value="10" />
+  <xacro:property name="lowerLegDamping" value="0.7" />
 
 	<xacro:property name="footWidth" value="${0.015*scale}" />
 	<xacro:property name="footLength" value="${0.050*scale}" />
 	<xacro:property name="footHeight" value="${0.008*scale}" />
 	<xacro:property name="footMass" value="${0.01*scale}" />
+  <xacro:property name="footLimitUpperPosition" value="0" />
+  <xacro:property name="footLimitLowerPosition" value="0" />
+  <xacro:property name="footLimitVelocity" value="10" />
+  <xacro:property name="footLimitEffort" value="10" />
+  <xacro:property name="footDamping" value="0.7" />
 
 	<xacro:property name="legDistFromCenter" value="${0.015*scale}" />
 
@@ -180,8 +198,8 @@
 		<child link="left_upper_leg"/>
 		<origin xyz="${-legDistFromCenter} 0 0" rpy="0 ${PI/2} 0"/>
 		<axis xyz="0 0 1"/>
-		<limit effort="10" velocity="1.0" lower="-${78*DEG_TO_RAD}" upper="${100*DEG_TO_RAD}" />
-		<dynamics damping="0.7"/>
+		<limit effort="${upperLegLimitEffort}" velocity="${upperLegLimitVelocity}" lower="${upperLegLimitLowerPosition*DEG_TO_RAD}" upper="${upperLegLimitUpperPosition*DEG_TO_RAD}" />
+		<dynamics damping="${upperLegDamping}"/>
 	</joint> 
 
 	<joint name="left_knee" type="revolute">
@@ -189,8 +207,8 @@
 		<child link="left_lower_leg"/>
 		<origin xyz="${upperLegHeight} 0 0" rpy="0 0 0"/>
 		<axis xyz="0 0 1"/>
-		<limit effort="10" velocity="1.0" lower="-${150*DEG_TO_RAD}" upper="0" />
-		<dynamics damping="0.7"/>
+		<limit effort="${lowerLegLimitEffort}" velocity="${lowerLegLimitVelocity}" lower="${lowerLegLimitLowerPosition*DEG_TO_RAD}" upper="${lowerLegLimitUpperPosition*DEG_TO_RAD}" />
+		<dynamics damping="${lowerLegDamping}"/>
 	</joint>
 
 	<joint name="left_ankle" type="revolute">
@@ -198,9 +216,8 @@
 		<child link="left_foot"/>
 		<origin xyz="${lowerLegHeight} 0 0" rpy="0 0 0"/>
 		<axis xyz="0 0 1"/>
-		<!-- <limit effort="10" velocity="1.0" lower="-${90*DEG_TO_RAD}" upper="${30*DEG_TO_RAD}" /> -->
-		<limit effort="10" velocity="1.0" lower="0" upper="0" />
-		<dynamics damping="0.7"/>
+		<limit effort="${footLimitEffort}" velocity="${footLimitVelocity}" lower="${footLimitLowerPosition}" upper="${footLimitUpperPosition}" />
+		<dynamics damping="${footDamping}"/>
 	</joint> 
 
 	<joint name="right_hip" type="revolute">
@@ -208,7 +225,8 @@
 		<child link="right_upper_leg"/>
 		<origin xyz="${legDistFromCenter} 0 0" rpy="0 ${PI/2} 0"/>
 		<axis xyz="0 0 1"/>
-		<limit effort="10" velocity="1.0" lower="-${78*DEG_TO_RAD}" upper="${100*DEG_TO_RAD}" />
+    <limit effort="${upperLegLimitEffort}" velocity="${upperLegLimitVelocity}" lower="${upperLegLimitLowerPosition*DEG_TO_RAD}" upper="${upperLegLimitUpperPosition*DEG_TO_RAD}" />
+    <dynamics damping="${upperLegDamping}"/>
 	</joint> 
 
 	<joint name="right_knee" type="revolute">
@@ -216,8 +234,8 @@
 		<child link="right_lower_leg"/>
 		<origin xyz="${upperLegHeight} 0 0" rpy="0 0 0"/>
 		<axis xyz="0 0 1"/>
-		<limit effort="10" velocity="1.0" lower="-${150*DEG_TO_RAD}" upper="0" />
-		<dynamics damping="0.7"/>
+    <limit effort="${lowerLegLimitEffort}" velocity="${lowerLegLimitVelocity}" lower="${lowerLegLimitLowerPosition*DEG_TO_RAD}" upper="${lowerLegLimitUpperPosition*DEG_TO_RAD}" />
+		<dynamics damping="${lowerLegDamping}"/>
 	</joint>
 
 	<joint name="right_ankle" type="revolute">
@@ -225,8 +243,8 @@
 		<child link="right_foot"/>
 		<origin xyz="${lowerLegHeight} 0 0" rpy="0 0 0"/>
 		<axis xyz="0 0 1"/>
-		<!-- <limit effort="10" velocity="1.0" lower="-${90*DEG_TO_RAD}" upper="${30*DEG_TO_RAD}" /> -->
-		<limit effort="10" velocity="1.0" lower="0" upper="0" />
+		<limit effort="${footLimitEffort}" velocity="${footLimitVelocity}" lower="${footLimitLowerPosition}" upper="${footLimitUpperPosition}" />
+    <dynamics damping="${footDamping}"/>
 	</joint> 
 
 	<transmission name="left_hip_trans">
