@@ -68,8 +68,8 @@
 	</gazebo>
 
 	<gazebo reference="left_foot">
-		<mu1>0.2</mu1>
-		<mu2>0.2</mu2>
+		<mu1>0.75</mu1>
+		<mu2>0.75</mu2>
   	<material>Gazebo/Orange</material>
 	</gazebo>
 
@@ -86,8 +86,8 @@
 	</gazebo>
 
 	<gazebo reference="right_foot">
-		<mu1>0.2</mu1>
-		<mu2>0.2</mu2>
+		<mu1>0.75</mu1>
+    <mu2>0.75</mu2>
   	<material>Gazebo/Orange</material>
 	</gazebo>
 
