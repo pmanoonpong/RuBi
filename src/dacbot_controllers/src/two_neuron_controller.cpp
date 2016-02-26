@@ -10,18 +10,8 @@ TwoNeuronController::TwoNeuronController()
   // Get parameter names
   nh_.param<std::string>("joint_states_topic", topic_joint_states_,
                          "/dacbot/joint_states");
-  nh_.param<std::string>("left_hip_topic", topic_left_hip_,
-                         "/dacbot/left_hip_effort/command");
-  nh_.param<std::string>("left_knee_topic", topic_left_knee_,
-                         "/dacbot/left_knee_effort/command");
-  nh_.param<std::string>("left_ankle_topic", topic_left_ankle_,
-                         "/dacbot/left_ankle_effort/command");
-  nh_.param<std::string>("right_hip_topic", topic_right_hip_,
-                         "/dacbot/right_hip_effort/command");
-  nh_.param<std::string>("right_knee_topic", topic_right_knee_,
-                         "/dacbot/right_knee_effort/command");
-  nh_.param<std::string>("right_ankle_topic", topic_right_ankle_,
-                         "/dacbot/right_ankle_effort/command");
+  nh_.param<std::string>("legs_topic", topic_legs_,
+                         "/dacbot/leg_controllers/command");
   nh_.param<std::string>("left_foot_contact_topic", topic_left_foot_contact_,
                          "/dacbot/bumper/left_foot");
   nh_.param<std::string>("right_foot_contact_topic", topic_right_foot_contact_,
@@ -59,12 +49,7 @@ TwoNeuronController::TwoNeuronController()
       this);
 
   // Publishers
-  pub_left_ankle_ = nh_.advertise<std_msgs::Float64>(topic_left_ankle_, 1);
-  pub_left_knee_ = nh_.advertise<std_msgs::Float64>(topic_left_knee_, 1);
-  pub_left_hip_ = nh_.advertise<std_msgs::Float64>(topic_left_hip_, 1);
-  pub_right_ankle_ = nh_.advertise<std_msgs::Float64>(topic_right_ankle_, 1);
-  pub_right_knee_ = nh_.advertise<std_msgs::Float64>(topic_right_knee_, 1);
-  pub_right_hip_ = nh_.advertise<std_msgs::Float64>(topic_right_hip_, 1);
+  pub_legs_ = nh_.advertise<std_msgs::Float64MultiArray>(topic_legs_, 1);
 
   // Starts ANN
   ann_.setWeight(0, 0, 1.4);
@@ -110,15 +95,10 @@ void TwoNeuronController::step() {
 
   // Depending on the enable, either reflexive signals or CPG-based are sent to
   // the motors
-  std_msgs::Float64 motor_msg;
-
-  // Left hip
-  motor_msg.data = -ann_.getOutput(0);
-  pub_left_hip_.publish(motor_msg);
-
-  // Right hip
-  motor_msg.data = ann_.getOutput(0);
-  pub_right_hip_.publish(motor_msg);
+  std_msgs::Float64MultiArray
+      motors_msg;  // (0) Left ankle, (1) Left knee, (2) Left hip,
+                   // (3) Right ankle, (4) Right knee, (5) Right hip
+  motors_msg.data.resize(6);
 
   // Knee adaptation
   double knee_output;
@@ -127,13 +107,18 @@ void TwoNeuronController::step() {
   //      : knee_output = ann_.getOutput(1);
   knee_output = ann_.getOutput(1);
 
-  // Left knee
-  motor_msg.data = knee_output;
-  pub_left_knee_.publish(motor_msg);
+  // (1) Left knee
+  motors_msg.data.at(1) = -knee_output;
+  // (2) Left hip
+  motors_msg.data.at(2) = -ann_.getOutput(0);
 
-  // Right knee
-  motor_msg.data = -knee_output;
-  pub_right_knee_.publish(motor_msg);
+  // (4) Left knee
+  motors_msg.data.at(4) = knee_output;
+  // (5) Left hip
+  motors_msg.data.at(5) = ann_.getOutput(0);
+
+  // Publish the message
+  pub_legs_.publish(motors_msg);
 
   // Spin and update the rate
   ros::spinOnce();
@@ -143,18 +128,11 @@ void TwoNeuronController::step() {
 }
 
 void TwoNeuronController::stop() {
-  std_msgs::Float64 motor_msg;
-  motor_msg.data = 0.0;
+  std_msgs::Float64MultiArray motors_msg;
+  motors_msg.data.resize(6);
 
-  // Left hip
-  pub_left_hip_.publish(motor_msg);
-  // Right hip
-  pub_right_hip_.publish(motor_msg);
-  // Left knee
-  pub_left_knee_.publish(motor_msg);
-  // Right knee
-  pub_right_knee_.publish(motor_msg);
-
+  for (int joint = 0; joint < 6; ++joint) motors_msg.data.at(joint) = 0.0;
+  pub_legs_.publish(motors_msg);
   ROS_WARN("Two Neuron Controller stoped");
 }
 
@@ -170,7 +148,8 @@ void TwoNeuronController::updateRate() {
       real_time_factor_ = msg.response.max_update_rate;
       time_step_ = msg.response.time_step;
       update_rate_mutex_.lock();
-      rate_.reset(new ros::Rate(update_rate_ / (time_step_ * real_time_factor_)));
+      rate_.reset(
+          new ros::Rate(update_rate_ / (time_step_ * real_time_factor_)));
       update_rate_mutex_.unlock();
     }
   }
