@@ -1,6 +1,11 @@
 #include "two_neuron_controller.h"
 
-TwoNeuronController::TwoNeuronController() : nh_("~"), ann_(2) {
+TwoNeuronController::TwoNeuronController()
+    : nh_("~"),
+      time_step_(0.001),
+      real_time_factor_(1000),
+      update_rate_(10),
+      ann_(2) {
   // Parameters
   // Get parameter names
   nh_.param<std::string>("joint_states_topic", topic_joint_states_,
@@ -21,6 +26,19 @@ TwoNeuronController::TwoNeuronController() : nh_("~"), ann_(2) {
                          "/dacbot/bumper/left_foot");
   nh_.param<std::string>("right_foot_contact_topic", topic_right_foot_contact_,
                          "/dacbot/bumper/right_foot");
+  nh_.param<std::string>("gazebo_physic_properties_topic",
+                         topic_right_foot_contact_,
+                         "/gazebo/get_physics_properties");
+
+  update_rate_mutex_.lock();
+  rate_.reset(new ros::Rate(update_rate_ / (time_step_ * real_time_factor_)));
+  update_rate_mutex_.unlock();
+
+  update_rate_thread_ =
+      std::thread(&TwoNeuronController::updateRate,
+                  this);  // We do it in a different thread so we dont
+                          // have to wait to the service call.
+  update_rate_thread_.detach();
 
   // Dynamic parameters
   param_reconfig_server_.reset(
@@ -102,17 +120,26 @@ void TwoNeuronController::step() {
   motor_msg.data = ann_.getOutput(0);
   pub_right_hip_.publish(motor_msg);
 
-  // Left knee
+  // Knee adaptation
   double knee_output;
-  (ann_.getOutput(1) >= 0 && ann_.getOutput(1) <= 0.9)
-      ? knee_output = ann_.getOutput(1)
-      : knee_output = 0;
-  motor_msg.data = -knee_output;
+  //  (ann_.getOutput(1) <= 0)
+  //      ? knee_output = 0
+  //      : knee_output = ann_.getOutput(1);
+  knee_output = ann_.getOutput(1);
+
+  // Left knee
+  motor_msg.data = knee_output;
   pub_left_knee_.publish(motor_msg);
 
   // Right knee
-  motor_msg.data = knee_output;
+  motor_msg.data = -knee_output;
   pub_right_knee_.publish(motor_msg);
+
+  // Spin and update the rate
+  ros::spinOnce();
+  update_rate_mutex_.lock();
+  rate_->sleep();
+  update_rate_mutex_.unlock();
 }
 
 void TwoNeuronController::stop() {
@@ -129,4 +156,23 @@ void TwoNeuronController::stop() {
   pub_right_knee_.publish(motor_msg);
 
   ROS_WARN("Two Neuron Controller stoped");
+}
+
+void TwoNeuronController::updateRate() {
+  if (ros::service::exists(topic_gazebo_physic_properties_,
+                           false)) {  // Checks if gazebo exists
+    gazebo_msgs::GetPhysicsProperties msg;
+    srv_client_gazebo_physic_properties_.call(msg);
+    if (msg.response.time_step != time_step_ ||
+        msg.response.max_update_rate != real_time_factor_) {
+      ROS_INFO_STREAM("Time changed! Real Time Factor: "
+                      << real_time_factor_ << " Time Step: " << time_step_);
+      real_time_factor_ = msg.response.max_update_rate;
+      time_step_ = msg.response.time_step;
+      update_rate_mutex_.lock();
+      rate_.reset(new ros::Rate(update_rate_ / (time_step_ * real_time_factor_)));
+      update_rate_mutex_.unlock();
+    }
+  }
+  std::this_thread::sleep_for(std::chrono::microseconds(50));
 }
