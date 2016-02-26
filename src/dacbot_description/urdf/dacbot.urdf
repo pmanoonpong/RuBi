@@ -13,42 +13,41 @@
       <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
     </plugin>
   </gazebo>
+  <!-- Bumpers plugins -->
   <gazebo reference="left_foot">
     <sensor name="contact_sensor" type="contact">
-      <always_on>1</always_on>
-      <update_rate>2</update_rate>
+      <always_on>true</always_on>
+      <update_rate>10</update_rate>
       <contact>
-        <collision name="left_foot"/>
+        <collision>left_foot_collision</collision>
         <topic>/left_foot_contact</topic>
       </contact>
       <plugin filename="libgazebo_ros_bumper.so" name="left_foot">
-        <alwaysOn>true</alwaysOn>
-        <updateRate>2</updateRate>
-        <frameName>world</frameName>
+        <frameName>left_foot</frameName>
         <bumperTopicName>/dacbot/bumper/left_foot</bumperTopicName>
       </plugin>
     </sensor>
   </gazebo>
   <gazebo reference="right_foot">
     <sensor name="contact_sensor" type="contact">
-      <always_on>1</always_on>
-      <update_rate>2</update_rate>
+      <always_on>true</always_on>
+      <update_rate>10</update_rate>
       <contact>
-        <collision name="collision_box"/>
+        <collision>right_foot_collision</collision>
+        <topic>/right_foot_contact</topic>
       </contact>
-      <plugin filename="libgazebo_ros_bumper.so" name="left_foot">
-        <alwaysOn>true</alwaysOn>
-        <updateRate>2</updateRate>
-        <frameName>world</frameName>
+      <plugin filename="libgazebo_ros_bumper.so" name="right_foot">
+        <frameName>right_foot</frameName>
         <bumperTopicName>/dacbot/bumper/right_foot</bumperTopicName>
       </plugin>
     </sensor>
   </gazebo>
-  <!-- Links -->
+  <!-- Starting position -->
   <gazebo>
     <static> false </static>
     <pose> 0 0 0.275 0 0 0 </pose>
   </gazebo>
+  <!-- Links -->
   <gazebo reference="body">
     <material>Gazebo/Orange</material>
   </gazebo>
@@ -63,8 +62,8 @@
     <material>Gazebo/Orange</material>
   </gazebo>
   <gazebo reference="left_foot">
-    <mu1>0.2</mu1>
-    <mu2>0.2</mu2>
+    <mu1>2.0</mu1>
+    <mu2>2.0</mu2>
     <material>Gazebo/Orange</material>
   </gazebo>
   <gazebo reference="right_upper_leg">
@@ -78,8 +77,8 @@
     <material>Gazebo/Orange</material>
   </gazebo>
   <gazebo reference="right_foot">
-    <mu1>0.2</mu1>
-    <mu2>0.2</mu2>
+    <mu1>2.0</mu1>
+    <mu2>2.0</mu2>
     <material>Gazebo/Orange</material>
   </gazebo>
   <material name="black">
@@ -272,46 +271,52 @@
     <child link="body"/>
     <origin xyz="0 0 ${(footHeight + lowerLegHeight + upperLegHeight)*1.1}" rpy="0 0 0"/>
   </joint>  -->
-  <joint name="left_hip" type="continuous">
+  <joint name="left_hip" type="revolute">
     <parent link="body"/>
     <child link="left_upper_leg"/>
     <origin rpy="0 1.57079632679 0" xyz="-0.015 0 0"/>
     <axis xyz="0 0 1"/>
+    <limit effort="10" lower="-0.523598775598" upper="0.523598775598" velocity="10"/>
     <dynamics damping="0.7"/>
   </joint>
-  <joint name="left_knee" type="continuous">
+  <joint name="left_knee" type="revolute">
     <parent link="left_upper_leg"/>
     <child link="left_lower_leg"/>
     <origin rpy="0 0 0" xyz="0.142 0 0"/>
     <axis xyz="0 0 1"/>
+    <limit effort="10" lower="-2.61799387799" upper="0.0" velocity="10"/>
     <dynamics damping="0.7"/>
   </joint>
-  <joint name="left_ankle" type="continuous">
+  <joint name="left_ankle" type="revolute">
     <parent link="left_lower_leg"/>
     <child link="left_foot"/>
     <origin rpy="0 0 0" xyz="0.125 0 0"/>
     <axis xyz="0 0 1"/>
+    <limit effort="10" lower="0" upper="0" velocity="10"/>
     <dynamics damping="0.7"/>
   </joint>
-  <joint name="right_hip" type="continuous">
+  <joint name="right_hip" type="revolute">
     <parent link="body"/>
     <child link="right_upper_leg"/>
     <origin rpy="0 1.57079632679 0" xyz="0.015 0 0"/>
     <axis xyz="0 0 1"/>
+    <limit effort="10" lower="-0.523598775598" upper="0.523598775598" velocity="10"/>
     <dynamics damping="0.7"/>
   </joint>
-  <joint name="right_knee" type="continuous">
+  <joint name="right_knee" type="revolute">
     <parent link="right_upper_leg"/>
     <child link="right_lower_leg"/>
     <origin rpy="0 0 0" xyz="0.142 0 0"/>
     <axis xyz="0 0 1"/>
+    <limit effort="10" lower="-2.61799387799" upper="0.0" velocity="10"/>
     <dynamics damping="0.7"/>
   </joint>
-  <joint name="right_ankle" type="continuous">
+  <joint name="right_ankle" type="revolute">
     <parent link="right_lower_leg"/>
     <child link="right_foot"/>
     <origin rpy="0 0 0" xyz="0.125 0 0"/>
     <axis xyz="0 0 1"/>
+    <limit effort="10" lower="0" upper="0" velocity="10"/>
     <dynamics damping="0.7"/>
   </joint>
   <transmission name="left_hip_trans">
@@ -374,23 +379,43 @@
       <mechanicalReduction>1.0787315</mechanicalReduction>
     </actuator>
   </transmission>
+  <!-- <xacro:include filename="$(find gazebo_resources)/models/rotational_robot_holder/urdf/rotational_robot_holder.xacro" /> -->
   <link name="rotational_robot_holder_base">
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <cylinder length="0.275" radius="0.2"/>
+        <cylinder length="0.375" radius="0.2"/>
       </geometry>
     </collision>
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <cylinder length="0.275" radius="0.2"/>
+        <cylinder length="0.375" radius="0.2"/>
       </geometry>
       <material name="orange"/>
     </visual>
     <inertial>
       <mass value="10"/>
       <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+    </inertial>
+  </link>
+  <link name="rotational_robot_holder_virtual">
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <sphere radius="0.01"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <sphere radius="0.01"/>
+      </geometry>
+      <material name="orange"/>
+    </visual>
+    <inertial>
+      <mass value="0.01"/>
+      <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1"/>
     </inertial>
   </link>
   <link name="rotational_robot_holder_holder">
@@ -416,19 +441,23 @@
   <joint name="rotational_robot_holder_base_to_world" type="fixed">
     <parent link="world"/>
     <child link="rotational_robot_holder_base"/>
-    <origin rpy="0 0 0" xyz="0 0 0.1375"/>
+    <origin rpy="0 0 0" xyz="0 0 0.1875"/>
   </joint>
-  <joint name="rotational_robot_holder_joint" type="continuous">
+  <joint name="rotational_robot_holder_virtual_to_holder" type="fixed">
     <parent link="rotational_robot_holder_base"/>
+    <child link="rotational_robot_holder_virtual"/>
+  </joint>
+  <joint name="rotational_robot_holder_joint" type="fixed">
+    <parent link="rotational_robot_holder_virtual"/>
     <child link="rotational_robot_holder_holder"/>
-    <origin rpy="0 0 0" xyz="0 0 0.1375"/>
-    <axis xyz="0 0 1"/>
-    <dynamics damping="0.7"/>
+    <origin rpy="0 0 0" xyz="0 0 0.1875"/>
   </joint>
   <joint name="rotational_robot_holder_to_rotot" type="fixed">
     <parent link="rotational_robot_holder_holder"/>
     <child link="body"/>
-    <origin rpy="0 0 0" xyz="2 0 0"/>
+    <origin rpy="0 0 0" xyz="2.0425 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="30" lower="0" upper="1" velocity="1.0"/>
   </joint>
 </robot>
 
