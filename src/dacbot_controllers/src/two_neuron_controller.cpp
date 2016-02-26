@@ -102,20 +102,22 @@ void TwoNeuronController::step() {
 
   // Knee adaptation
   double knee_output;
-  //  (ann_.getOutput(1) <= 0)
-  //      ? knee_output = 0
-  //      : knee_output = ann_.getOutput(1);
-  knee_output = ann_.getOutput(1);
+  double hip_output;
+  double multiplier(1);
+  //(ann_.getOutput(1) <= 0) ? knee_output = 0
+  //                         : knee_output = ann_.getOutput(1) * multiplier;
+  knee_output = ann_.getOutput(1) * multiplier;
+  hip_output = ann_.getOutput(0) * multiplier;
 
   // (1) Left knee
   motors_msg.data.at(1) = -knee_output;
   // (2) Left hip
-  motors_msg.data.at(2) = -ann_.getOutput(0);
+  motors_msg.data.at(2) = -hip_output;
 
   // (4) Left knee
   motors_msg.data.at(4) = knee_output;
   // (5) Left hip
-  motors_msg.data.at(5) = ann_.getOutput(0);
+  motors_msg.data.at(5) = hip_output;
 
   // Publish the message
   pub_legs_.publish(motors_msg);
