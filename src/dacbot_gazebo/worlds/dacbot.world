@@ -20,5 +20,13 @@
       </camera>
     </gui>
 
+    <!-- Dacbot -->
+<!--     <include>
+      <uri>model://dacbot</uri>
+      <pose>0 0 0 0 0 0</pose>
+    </include>
+ -->
+
+
   </world>
 </sdf>

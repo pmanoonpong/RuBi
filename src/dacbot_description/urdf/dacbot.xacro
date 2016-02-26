@@ -7,11 +7,12 @@
 	<xacro:property name="DEG_TO_RAD" value="${PI/180}"/>
 
 	<!-- ROS -->
-	<xacro:property name="update_rate" value="2"/>
+	<xacro:property name="update_rate" value="10"/>
 	<xacro:property name="robot_name" value="dacbot"/>
 
 	<!-- Robot configuration: Transmission -->
-	<xacro:property name="maxRealMotorTorque" value="1.0787315"/> <!-- In N*m -->
+	<xacro:property name="max_real_motor_torque" value="1.0787315"/> <!-- In N*m -->
+  <xacro:property name="robot_floating" value="1"/>
 
 	<!-- Robot configuration: Geometry 
 		Width = X axis
@@ -235,7 +236,7 @@
 		</joint>
 		<actuator name="left_hip_motor">
 			<hardwareInterface>EffortJointInterface</hardwareInterface>
-			<mechanicalReduction>${maxRealMotorTorque}</mechanicalReduction>
+			<mechanicalReduction>${max_real_motor_torque}</mechanicalReduction>
 		</actuator>
 	</transmission>
 
@@ -246,7 +247,7 @@
 		</joint>
 		<actuator name="left_knee_motor">
 			<hardwareInterface>EffortJointInterface</hardwareInterface>
-			<mechanicalReduction>${maxRealMotorTorque}</mechanicalReduction>
+			<mechanicalReduction>${max_real_motor_torque}</mechanicalReduction>
 		</actuator>
 	</transmission>
 
@@ -257,7 +258,7 @@
 		</joint>
 		<actuator name="left_ankle_motor">
 			<hardwareInterface>EffortJointInterface</hardwareInterface>
-			<mechanicalReduction>${maxRealMotorTorque}</mechanicalReduction>
+			<mechanicalReduction>${max_real_motor_torque}</mechanicalReduction>
 		</actuator>
 	</transmission>
 
@@ -268,7 +269,7 @@
 		</joint>
 		<actuator name="right_hip_motor">
 			<hardwareInterface>EffortJointInterface</hardwareInterface>
-			<mechanicalReduction>${maxRealMotorTorque}</mechanicalReduction>
+			<mechanicalReduction>${max_real_motor_torque}</mechanicalReduction>
 		</actuator>
 	</transmission>
 
@@ -279,7 +280,7 @@
 		</joint>
 		<actuator name="right_knee_motor">
 			<hardwareInterface>EffortJointInterface</hardwareInterface>
-			<mechanicalReduction>${maxRealMotorTorque}</mechanicalReduction>
+			<mechanicalReduction>${max_real_motor_torque}</mechanicalReduction>
 		</actuator>
 	</transmission>
 
@@ -290,16 +291,150 @@
 		</joint>
 		<actuator name="right_ankle_motor">
 			<hardwareInterface>EffortJointInterface</hardwareInterface>
-			<mechanicalReduction>${maxRealMotorTorque}</mechanicalReduction>
+			<mechanicalReduction>${max_real_motor_torque}</mechanicalReduction>
 		</actuator>
 	</transmission>
 
 
+
+
+
+
+
+
 	<!-- Rotational robot holder -->
-	<xacro:property name="rotational_robot_holder_base_radius" value="${0.2*scale}" />
-  <xacro:property name="rotational_robot_holder_base_length" value="${(footHeight + lowerLegHeight + upperLegHeight)*scale}" />
+  <xacro:property name="rotational_robot_holder_base_length_extra" value="0" />
+  <xacro:if value="${robot_floating is 1}">
+    <xacro:property name="rotational_robot_holder_base_length_extra" value="0.1" />
+  </xacro:if>
+  <xacro:property name="rotational_robot_holder_base_length" value="${(footHeight + lowerLegHeight + upperLegHeight + rotational_robot_holder_base_length_extra)*scale}" />
+  <xacro:property name="rotational_robot_holder_base_radius" value="${0.2*scale}" />
   <xacro:property name="rotational_robot_holder_holder_radius" value="${0.01*scale}" />
   <xacro:property name="rotational_robot_holder_holder_length" value="${2*scale}" />
-	<xacro:include filename="$(find gazebo_resources)/models/rotational_robot_holder/urdf/rotational_robot_holder.xacro" />
+	<!-- <xacro:include filename="$(find gazebo_resources)/models/rotational_robot_holder/urdf/rotational_robot_holder.xacro" /> -->
+
+
+
+
+
+
+
+  <link name="rotational_robot_holder_base">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder length="${rotational_robot_holder_base_length}" radius="${rotational_robot_holder_base_radius}"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder length="${rotational_robot_holder_base_length}" radius="${rotational_robot_holder_base_radius}"/>
+      </geometry>
+      <material name="orange"/>
+    </visual>
+
+    <inertial>
+      <mass value="10"/>
+      <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+    </inertial>
+
+  </link>
+
+  <link name="rotational_robot_holder_virtual">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <sphere radius="0.01"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+         <sphere radius="0.01"/>
+      </geometry>
+      <material name="orange"/>
+    </visual>
+
+    <inertial>
+      <mass value="0.01"/>
+      <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1"/>
+    </inertial>
+    
+  </link>
+
+  <link name="rotational_robot_holder_holder">
+    <collision>
+      <origin xyz="${rotational_robot_holder_holder_length/2} 0 0" rpy="0 ${PI/2} 0"/>
+      <geometry>
+        <cylinder length="${rotational_robot_holder_holder_length}" radius="${rotational_robot_holder_holder_radius}"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="${rotational_robot_holder_holder_length/2} 0 0" rpy="0 ${PI/2} 0"/>
+      <geometry>
+         <cylinder length="${rotational_robot_holder_holder_length}" radius="${rotational_robot_holder_holder_radius}"/>
+      </geometry>
+      <material name="orange"/>
+    </visual>
+
+    <inertial>
+      <mass value="0.01"/>
+      <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1"/>
+    </inertial>
+    
+  </link>
+
+  <!-- Robot to rotational_robot_holder -->
+
+  <joint name="rotational_robot_holder_base_to_world" type="fixed">
+    <parent link="world"/>
+    <child link="rotational_robot_holder_base"/>
+    <origin xyz="0 0 ${rotational_robot_holder_base_length/2}" rpy="0 0 0"/>
+  </joint>
+
+
+  <xacro:if value="${robot_floating is 1}">
+    <joint name="rotational_robot_holder_virtual_to_holder" type="fixed">
+      <parent link="rotational_robot_holder_base"/>
+      <child link="rotational_robot_holder_virtual"/>
+    </joint> 
+
+    <joint name="rotational_robot_holder_joint" type="fixed">
+      <parent link="rotational_robot_holder_virtual"/>
+      <child link="rotational_robot_holder_holder"/>
+      <origin xyz="0 0 ${rotational_robot_holder_base_length/2}" rpy="0 0 0"/>
+    </joint>
+  </xacro:if>
+
+  <xacro:if value="${robot_floating is 0}">
+    <joint name="rotational_robot_holder_virtual_to_holder" type="continuous">
+      <parent link="rotational_robot_holder_base"/>
+      <child link="rotational_robot_holder_virtual"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <axis xyz="0 1 0"/>
+      <dynamics damping="0.7"/>
+    </joint> 
+
+    <joint name="rotational_robot_holder_joint" type="continuous">
+      <parent link="rotational_robot_holder_virtual"/>
+      <child link="rotational_robot_holder_holder"/>
+      <origin xyz="0 0 ${rotational_robot_holder_base_length/2}" rpy="0 0 0"/>
+      <axis xyz="0 0 1"/>
+      <dynamics damping="0.7"/>
+    </joint>
+  </xacro:if>
+
+  <joint name="rotational_robot_holder_to_rotot" type="fixed">
+    <parent link="rotational_robot_holder_holder"/>
+    <child link="body"/>
+    <origin xyz="${rotational_robot_holder_holder_length+bodyWidth/2} 0 0" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="30" velocity="1.0" lower="0" upper="1" />
+  </joint> 
+
 
 </robot>

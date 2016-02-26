@@ -44,50 +44,51 @@
     </sensor>
   </gazebo>
 
-	<!-- Links -->
-	<gazebo>
-  		<static> false </static>
-  		<pose> 0 0 ${(footHeight + lowerLegHeight + upperLegHeight)*1.0} 0 0 0 </pose>
-	</gazebo>
+  <!-- Starting position -->
+  <gazebo>
+      <static> false </static>
+      <pose> 0 0 ${(footHeight + lowerLegHeight + upperLegHeight)*1.0} 0 0 0 </pose>
+  </gazebo>
 
+	<!-- Links -->
 	<gazebo reference="body">
-  		<material>Gazebo/Orange</material>
+  	<material>Gazebo/Orange</material>
 	</gazebo>
 
 	<gazebo reference="left_upper_leg">
 		<mu1>0.2</mu1>
 		<mu2>0.2</mu2>
-  		<material>Gazebo/Orange</material>
+  	<material>Gazebo/Orange</material>
 	</gazebo>
 
 	<gazebo reference="left_lower_leg">
 		<mu1>0.2</mu1>
 		<mu2>0.2</mu2>
-  		<material>Gazebo/Orange</material>
+  	<material>Gazebo/Orange</material>
 	</gazebo>
 
 	<gazebo reference="left_foot">
 		<mu1>0.2</mu1>
 		<mu2>0.2</mu2>
-  		<material>Gazebo/Orange</material>
+  	<material>Gazebo/Orange</material>
 	</gazebo>
 
 	<gazebo reference="right_upper_leg">
 		<mu1>0.2</mu1>
 		<mu2>0.2</mu2>
-  		<material>Gazebo/Orange</material>
+  	<material>Gazebo/Orange</material>
 	</gazebo>
 
 	<gazebo reference="right_lower_leg">
 		<mu1>0.2</mu1>
 		<mu2>0.2</mu2>
-  		<material>Gazebo/Orange</material>
+  	<material>Gazebo/Orange</material>
 	</gazebo>
 
 	<gazebo reference="right_foot">
 		<mu1>0.2</mu1>
 		<mu2>0.2</mu2>
-  		<material>Gazebo/Orange</material>
+  	<material>Gazebo/Orange</material>
 	</gazebo>
 
 </robot>
