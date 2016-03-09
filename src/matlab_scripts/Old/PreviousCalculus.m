@@ -3,17 +3,14 @@ clear
 clc
 
 %Obtain joints linear positions, velocities and accelerations
+syms Q1 Q2 Q3 
 syms L1 L2 L3
 L=[L1;L2;L3];
-syms t
-Q1 = sysm('Q1(t)');
-Q2 = sysm('Q2(t)');
-Q3 = sysm('Q3(t)');
 Qsym=[Q1;Q2;Q3];
 
 %Compute cartesian position from forward kinematics model
-Px(t)=L(1,1)*sin(Qsym(1,1))+L(2,1)*sin(Qsym(1,1)+Qsym(2,1))+L(3,1)*sin(Qsym(1,1)+Qsym(2,1)+Qsym(3,1));
-Py(t)=L(1,1)*cos(Qsym(1,1))+L(2,1)*cos(Qsym(1,1)+Qsym(2,1))+L(3,1)*cos(Qsym(1,1)+Qsym(2,1)+Qsym(3,1));
+Px=L(1,1)*sin(Qsym(1,1))+L(2,1)*sin(Qsym(1,1)+Qsym(2,1))+L(3,1)*sin(Qsym(1,1)+Qsym(2,1)+Qsym(3,1));
+Py=L(1,1)*cos(Qsym(1,1))+L(2,1)*cos(Qsym(1,1)+Qsym(2,1))+L(3,1)*cos(Qsym(1,1)+Qsym(2,1)+Qsym(3,1));
 Ptheta=Qsym(1,1)+Qsym(2,1)+Qsym(3,1);
 
 P=[Px;Py;Ptheta];
@@ -32,7 +29,7 @@ ddP=[diff(dP(1,1), Qsym(1,1), Qsym(2,1), Qsym(3,1));
 J = jacobian([P(1,1);P(2,1)], [Qsym(1,1),Qsym(2,1),Qsym(3,1)]);
 %P(3,1)
 
-%%
+
 
 %Obtain joints angular positions, velocities and accelerations
 syms toolPoseX toolPoseY toolPoseTheta
@@ -59,7 +56,7 @@ ddQ=[diff(dQ(1,1), toolPose(1,1), toolPose(2,1), toolPose(3,1));
      diff(dQ(3,1), toolPose(1,1), toolPose(2,1), toolPose(3,1));];
 
 
-%%
+
 %Numerical solution for the equations obtained: introduce kinematics model
 %parameters here
 threshold = 0.0001;
