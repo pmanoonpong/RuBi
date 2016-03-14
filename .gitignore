@@ -3,8 +3,22 @@
 /devel
 /install
 
-# User files
-*.user
-
 # Qt creator
 *.user
+
+#Latex
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.log
+*.out
+*.run.xml
+*.synctex.gz
+*.toc
+*.fuse*
+*.pdf
+
+#Sublime Text
+*.sublime*
