@@ -1,0 +1,83 @@
+%---Document Class---%
+\documentclass[12pt]{report}
+
+%---Packages---%
+\usepackage{authblk} %Title
+\usepackage[utf8]{inputenc} %Danish letters
+\usepackage{graphicx}
+\usepackage{sectsty}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{listings}
+\usepackage[hidelinks]{hyperref} %Emails in Title
+
+\usepackage[usenames,dvipsnames]{xcolor}
+
+
+%---Colors---%
+\definecolor{chapterColor}{HTML}{004685}
+\definecolor{sectionColor}{HTML}{087D9C}
+\definecolor{subSectionColor}{HTML}{07928A}
+\definecolor{defaultColor}{HTML}{222222}
+
+\chapterfont{\color{chapterColor}}
+\sectionfont{\color{sectionColor}}
+\subsectionfont{\color{subSectionColor}}
+\color{defaultColor}
+
+%---Fonts---%
+\renewcommand\textbullet{\ensuremath{\bullet}}
+\usepackage[default]{raleway}
+\usepackage[T1]{fontenc}
+
+%---Page Setup---%
+\usepackage[a4paper, margin=3cm]{geometry}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\lstdefinestyle{customc}{
+    belowcaptionskip=1\baselineskip,
+    breaklines=true,
+    xleftmargin=\parindent,
+    language=C,
+    showstringspaces=false,
+    basicstyle=\footnotesize\ttfamily,
+    keywordstyle=\bfseries\color{green!40!NavyBlue},
+    commentstyle=\itshape\color{purple!40!NavyBlue},
+    identifierstyle=\color{black},
+    stringstyle=\color{orange},
+    tabsize=4,
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+}
+
+\lstset{style=customc}
+
+%---Begin Document---%
+\newcommand{\documentTitle}{Design, simulation and development of a bipedal locomotion platform  for human-like gaits studies}
+\newcommand{\documentType}{Master Thesis}
+
+\newcommand{\institute}{University of Southern Denmark}
+\newcommand{\department}{Faculty of Engineering}
+\newcommand{\program}{MSc in Engineering, Robot Systems}
+\newcommand{\course}{Robot System Design}
+
+\newcommand{\authorOne}{Jorge Rodriguez Marin}
+\newcommand{\authorTwo}{Ignacio Torroba Balmori}
+
+%---Begin Document---%
+\begin{document}
+    \pagenumbering{gobble} % Remove warnings of number page
+	\include{chapters/cha_title/title}
+    \pagenumbering{arabic} % Remove warnings of number page
+    \setcounter{page}{2}
+
+    \tableofcontents\thispagestyle{empty}\vfill % No number page
+	%\tableofcontents
+
+	\include{chapters/cha_introduction/introduction}
+    \include{chapters/cha_mechanical_design/cha_mechanical_design}
+    \include{chapters/cha_discussion/cha_discussion}
+    \include{chapters/cha_conclusions/conclusions}
+	\include{chapters/cha_bibliography/bibliography}
+\end{document}          
