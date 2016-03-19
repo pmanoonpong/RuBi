@@ -19,6 +19,8 @@
 *.toc
 *.fuse*
 *.pdf
+*-blx.bib
+*.fls
 
 #Sublime Text
 *.sublime*

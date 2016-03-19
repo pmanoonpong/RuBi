@@ -2,8 +2,8 @@
 \documentclass[12pt]{report}
 
 %---Packages---%
-\usepackage{authblk} %Title
 \usepackage[utf8]{inputenc} %Danish letters
+\usepackage{authblk} %Title
 \usepackage{graphicx}
 \usepackage{sectsty}
 \usepackage{caption}
@@ -53,6 +53,11 @@
 
 \lstset{style=customc}
 
+%--- Bibliography ---%
+\usepackage[backend=bibtex,bibencoding=ascii]{biblatex}
+\addbibresource{chapters/cha_bibliography/bibliography.bib}
+
+
 %---Begin Document---%
 \newcommand{\documentTitle}{Design, simulation and development of a bipedal locomotion platform  for human-like gaits studies}
 \newcommand{\documentType}{Master Thesis}
@@ -79,5 +84,6 @@
     \include{chapters/cha_mechanical_design/cha_mechanical_design}
     \include{chapters/cha_discussion/cha_discussion}
     \include{chapters/cha_conclusions/conclusions}
-	\include{chapters/cha_bibliography/bibliography}
+	% \include{chapters/cha_bibliography/bibliography}
+    \printbibliography
 \end{document}          
