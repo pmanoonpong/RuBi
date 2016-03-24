@@ -24,19 +24,9 @@
   <xacro:property name="scale" value="1" />
   <xacro:property name="minimum_intertia" value="0.002" /> <!-- <0.001 doesn't work -->
 
-	<xacro:property name="bodyWidth" value="${0.085*scale}" />
-	<xacro:property name="bodyLength" value="${0.08*scale}" />
-	<xacro:property name="bodyHeight" value="${0.065*scale}" />
-	<xacro:property name="bodyMass" value="${0.45*scale}" />
-
-	<xacro:property name="weightWidth" value="${0.05*scale}" />
-	<xacro:property name="weightLength" value="${0.07*scale}" />
-	<xacro:property name="weightHeight" value="${0.025*scale}" />
-	<xacro:property name="weightMass" value="${0.50*scale}" />
-
 	<xacro:property name="upperLegWidth" value="${0.015*scale}" />
 	<xacro:property name="upperLegLength" value="${0.015*scale}" />
-	<xacro:property name="upperLegHeight" value="${0.142*scale}" />
+	<xacro:property name="upperLegHeight" value="${0.262*scale}" />
 	<xacro:property name="upperLegMass" value="${0.163*scale}" />
   <xacro:property name="upperLegLimitUpperPosition" value="30" />
   <xacro:property name="upperLegLimitLowerPosition" value="-30" />
@@ -46,7 +36,7 @@
 
 	<xacro:property name="lowerLegWidth" value="${0.015*scale}" />
 	<xacro:property name="lowerLegLength" value="${0.015*scale}" />
-	<xacro:property name="lowerLegHeight" value="${0.125*scale}" />
+	<xacro:property name="lowerLegHeight" value="${0.212*scale}" />
 	<xacro:property name="lowerLegMass" value="${0.17*scale}" />
   <xacro:property name="lowerLegLimitUpperPosition" value="0" />
   <xacro:property name="lowerLegLimitLowerPosition" value="-150" />
@@ -55,7 +45,7 @@
   <xacro:property name="lowerLegDamping" value="0.7" />
 
 	<xacro:property name="footWidth" value="${0.015*scale}" />
-	<xacro:property name="footLength" value="${0.050*scale}" />
+	<xacro:property name="footLength" value="${0.095*scale}" />
 	<xacro:property name="footHeight" value="${0.008*scale}" />
 	<xacro:property name="footMass" value="${0.0296*scale}" />
   <xacro:property name="footLimitUpperPosition" value="0" />
@@ -64,7 +54,17 @@
   <xacro:property name="footLimitEffort" value="10" />
   <xacro:property name="footDamping" value="0.7" />
 
-	<xacro:property name="legDistFromCenter" value="${0.015*scale}" />
+	<xacro:property name="legDistFromCenter" value="${0.075*scale}" />
+
+  <xacro:property name="bodyWidth" value="${legDistFromCenter*2+0.02*scale}" />
+  <xacro:property name="bodyLength" value="${0.08*scale}" />
+  <xacro:property name="bodyHeight" value="${0.065*scale}" />
+  <xacro:property name="bodyMass" value="${0.45*scale}" />
+
+  <xacro:property name="weightWidth" value="${0.05*scale}" />
+  <xacro:property name="weightLength" value="${0.07*scale}" />
+  <xacro:property name="weightHeight" value="${0.025*scale}" />
+  <xacro:property name="weightMass" value="${0.50*scale}" />
 
 	<xacro:property name="footAnklePos" value="${0.015*scale}" />
 	<xacro:property name="legAnklePos" value="${0*scale}" />
