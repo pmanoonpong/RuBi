@@ -2,7 +2,8 @@
 function [Fmin, tmax]=impulse(hDelta, m, dispCoG, gravity)
 
 %Total mass of legs
-mTotal = 2*[m(1,1)+m(2,1)+m(3,1)];
+mTotal = 0.971;
+%2*[m(1,1)+m(2,1)+m(3,1)];
 %Maximum vertical displacement of the body
 %hDelta=0.01;
 %Body velocity increment
@@ -11,7 +12,7 @@ vDelta = sqrt(2*abs(gravity)*hDelta);
 %Fmin and tmax for the required Energy
 Fmin = (mTotal*vDelta^2)/(2*dispCoG);
 tmax = mTotal*vDelta/Fmin;
-Fmin=11.21;
+Fmin=9.06;
 tmax=0.15;
 
 %Reciprocal relationship between force and application time for the desired

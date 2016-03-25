@@ -14,8 +14,15 @@ L=[Ltotal*0.46;Ltotal*0.3729;Ltotal*0.1670];
 bendPhase = 2/3;
 %toolPoseInit = Initial position of the toes [toolX,toolY, toolTheta]
 toolX = 0;
+%Leg bent before take off on jumping
 toolY = Ltotal*(bendPhase)*cos(t);
 toolTheta = -pi/3*cos(t);
+%Leg stretched after push-off on running
+%toolY = 0.56;
+%toolTheta = -pi/8;
+%Leg bent before push-off on running
+%toolY = 0.4275;
+%toolTheta = -pi/2;
 %Distance from the joint to the motor position (percentage of link length)
 motorPos=2/4;
 %Displacement of the CoG during impulse phase
@@ -30,13 +37,13 @@ Kinematics;
 %Gravity (positive in Y axis)
 g= 9.81;
 %Masses of the links (from 1 to 3)
-m=[0.25;0.20;0.15];
+m=[0.163;0.17;0.029];
 %Y axis displacement
 hDelta = 0.1;
 %External torque applied to the toes
 TauExt=0;
 %Moments of inertia of the link (from 1 to 3)
-I=[0.001;0.001;0.001];
+I=[0.0001;0.0001;0.0001];
 
 %IMPULSE ANALYSIS
 [FminY, tmax]=impulse(hDelta, m, dispCoG, g);
