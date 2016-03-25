@@ -48,8 +48,8 @@
 	<xacro:property name="footLength" value="${0.095*scale}" />
 	<xacro:property name="footHeight" value="${0.008*scale}" />
 	<xacro:property name="footMass" value="${0.0296*scale}" />
-  <xacro:property name="footLimitUpperPosition" value="0" />
-  <xacro:property name="footLimitLowerPosition" value="0" />
+  <xacro:property name="footLimitUpperPosition" value="40" />
+  <xacro:property name="footLimitLowerPosition" value="-50" />
   <xacro:property name="footLimitVelocity" value="10" />
   <xacro:property name="footLimitEffort" value="10" />
   <xacro:property name="footDamping" value="0.7" />

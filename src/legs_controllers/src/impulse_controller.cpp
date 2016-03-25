@@ -119,8 +119,8 @@ void ImpulseController::resetSimulation() {
   right_hip_initial_pos_ = 0.67;
   left_knee_initial_pos_ = -0.8;
   right_knee_initial_pos_ = -0.8;
-  left_ankle_initial_pos_ = 0.0;
-  right_ankle_initial_pos_ = 0.0;
+  left_ankle_initial_pos_ = -0.4;
+  right_ankle_initial_pos_ = -0.4;
 
   initial_configuration_msg.request.joint_names.push_back("left_hip");
   initial_configuration_msg.request.joint_positions.push_back(
@@ -128,9 +128,9 @@ void ImpulseController::resetSimulation() {
   initial_configuration_msg.request.joint_names.push_back("left_knee");
   initial_configuration_msg.request.joint_positions.push_back(
       left_knee_initial_pos_);
-  //  initial_configuration_msg.request.joint_names.push_back("left_ankle");
-  //  initial_configuration_msg.request.joint_positions.push_back(
-  //      left_ankle_initial_pos_);
+    initial_configuration_msg.request.joint_names.push_back("left_ankle");
+    initial_configuration_msg.request.joint_positions.push_back(
+        left_ankle_initial_pos_);
 
   initial_configuration_msg.request.joint_names.push_back("right_hip");
   initial_configuration_msg.request.joint_positions.push_back(
@@ -138,9 +138,9 @@ void ImpulseController::resetSimulation() {
   initial_configuration_msg.request.joint_names.push_back("right_knee");
   initial_configuration_msg.request.joint_positions.push_back(
       right_knee_initial_pos_);
-  //  initial_configuration_msg.request.joint_names.push_back("right_ankle");
-  //  initial_configuration_msg.request.joint_positions.push_back(
-  //      right_ankle_initial_pos_);
+    initial_configuration_msg.request.joint_names.push_back("right_ankle");
+    initial_configuration_msg.request.joint_positions.push_back(
+        right_ankle_initial_pos_);
 
   srv_client_gazebo_set_model_configuration_.call(initial_configuration_msg);
 }
