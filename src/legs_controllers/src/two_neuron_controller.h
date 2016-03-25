@@ -109,31 +109,4 @@ class TwoNeuronController {
       input2_;
 };
 
-/**
- * @brief Runs the controller
- */
-int main() {
-  // Init
-  int argc(0);
-  char** argv(NULL);
-  ros::init(argc, argv, "two_neuron_controller",
-            ros::init_options::NoSigintHandler);
-
-  // Controller
-  TwoNeuronController twoNeuronController;
-
-  // Signal
-  signal(SIGINT, killerHandler);
-
-  // Step until killed
-  while (!killed) {
-    twoNeuronController.step();
-  }
-
-  twoNeuronController.stop();
-  ros::shutdown();
-
-  return 0;
-}
-
 #endif  // TWO_NEURON_CPH_H

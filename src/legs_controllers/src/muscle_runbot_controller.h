@@ -114,29 +114,4 @@ class MuscleRunbotController {
 
 };
 
-/**
- * @brief Runs the controller
- */
-int main() {
-  // Init
-  int argc(0);
-  char** argv(NULL);
-  ros::init(argc, argv, "muscle_controller");
-
-  // Controller
-  MuscleRunbotController muscleRunbotController;
-
-  // Rate
-  ros::Rate rate(10);
-
-  // ROS Spin: Handle callbacks
-  while (!ros::isShuttingDown()) {
-    muscleRunbotController.step();
-    ros::spinOnce();
-    rate.sleep();
-  }
-
-  return 0;
-}
-
 #endif /* MUSCLERUNBOTCONTROLLER_H_ */

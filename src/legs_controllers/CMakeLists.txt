@@ -123,7 +123,6 @@ set(CMAKE_BUILD_TYPE Debug)
 ### Muscle controller
 add_executable(muscle_controller_node
     src/muscle_runbot_controller.cpp
-    src/muscle_runbot_controller.h
     $ENV{GOROBOTS}/controllers/runbotii_dacbot/cnnet.cpp
     $ENV{GOROBOTS}/controllers/runbotii_dacbot/ctextarraywriter.cpp
     $ENV{GOROBOTS}/controllers/runbotii_dacbot/derivativeTransitionRegister.cpp
@@ -141,14 +140,22 @@ target_link_libraries(muscle_controller_node
 ### Two Neuron Controller
 file(GLOB ann_framework_folder
     $ENV{GOROBOTS}/utils/ann-framework/*.cpp
-    $ENV{GOROBOTS}/utils/ann-framework/*.h
 )
 add_executable(two_neuron_controller_node
     src/two_neuron_controller.cpp
-    src/two_neuron_controller.h
     ${ann_framework_folder}
 )
 target_link_libraries(two_neuron_controller_node
     ${catkin_LIBRARIES}
 )
 add_dependencies(two_neuron_controller_node ${PROJECT_NAME}_gencfg)
+
+### Impulse controller
+
+#add_executable(impulse_controller_node
+#    src/impulse_controller.cpp
+#    )
+#target_link_libraries(impulse_controller_node
+#    ${catkin_LIBRARIES}
+#)
+#add_dependencies(impulse_controller_node ${PROJECT_NAME}_gencfg)
