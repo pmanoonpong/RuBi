@@ -6,3 +6,5 @@ launch/muscle_controller.launch
 src/two_neuron_controller.h
 src/two_neuron_controller.cpp
 cfg/two_neuron.cfg
+src/impulse_controller.h
+src/impulse_controller.cpp
