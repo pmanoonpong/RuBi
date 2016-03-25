@@ -8,3 +8,5 @@ src/two_neuron_controller.cpp
 cfg/two_neuron.cfg
 src/impulse_controller.h
 src/impulse_controller.cpp
+
+srv/impulse.srv

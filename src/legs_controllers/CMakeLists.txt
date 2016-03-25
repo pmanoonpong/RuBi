@@ -54,11 +54,10 @@ find_package(catkin REQUIRED COMPONENTS
 # )
 
 ## Generate services in the 'srv' folder
-# add_service_files(
-#   FILES
-#   Service1.srv
-#   Service2.srv
-# )
+add_service_files(
+   FILES
+   impulse.srv
+)
 
 ## Generate actions in the 'action' folder
 # add_action_files(
@@ -68,10 +67,10 @@ find_package(catkin REQUIRED COMPONENTS
 # )
 
 ## Generate added messages and services with any dependencies listed here
-# generate_messages(
-#   DEPENDENCIES
+generate_messages(
+  DEPENDENCIES
 #   std_msgs  # Or other packages containing msgs
-# )
+)
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -152,10 +151,10 @@ add_dependencies(two_neuron_controller_node ${PROJECT_NAME}_gencfg)
 
 ### Impulse controller
 
-#add_executable(impulse_controller_node
-#    src/impulse_controller.cpp
-#    )
-#target_link_libraries(impulse_controller_node
-#    ${catkin_LIBRARIES}
-#)
-#add_dependencies(impulse_controller_node ${PROJECT_NAME}_gencfg)
+add_executable(impulse_controller_node
+    src/impulse_controller.cpp
+    )
+target_link_libraries(impulse_controller_node
+    ${catkin_LIBRARIES}
+)
+add_dependencies(impulse_controller_node ${PROJECT_NAME}_gencfg)
