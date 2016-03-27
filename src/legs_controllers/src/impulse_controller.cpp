@@ -59,22 +59,22 @@ ImpulseController::ImpulseController()
 
   nh_.param<std::string>("left_ankle_position_topic",
                          topic_position_controller_left_ankle_,
-                         "/legs/left_ankle_position");
+                         "/legs/left_ankle_position/command");
   nh_.param<std::string>("left_knee_position_topic",
                          topic_position_controller_left_knee_,
-                         "/legs/left_knee_position");
+                         "/legs/left_knee_position/command");
   nh_.param<std::string>("left_hip_position_topic",
                          topic_position_controller_left_hip_,
-                         "/legs/left_hip_position");
+                         "/legs/left_hip_position/command");
   nh_.param<std::string>("right_ankle_position_topic",
                          topic_position_controller_right_ankle_,
-                         "/legs/right_ankle_position");
+                         "/legs/right_ankle_position/command");
   nh_.param<std::string>("right_knee_position_topic",
                          topic_position_controller_right_knee_,
-                         "/legs/right_knee_position");
+                         "/legs/right_knee_position/command");
   nh_.param<std::string>("right_hip_position_topic",
                          topic_position_controller_right_hip_,
-                         "/legs/right_hip_position");
+                         "/legs/right_hip_position/command");
 
   nh_.param<std::string>("gazebo_physic_properties_topic",
                          topic_gazebo_physic_properties_,
@@ -91,10 +91,10 @@ ImpulseController::ImpulseController()
                          "/legs/controller_manager/list_controllers");
   nh_.param<std::string>("controller_manager_load_topic",
                          topic_controller_manager_load_,
-                         "/legs/controller_manager/load_controllers");
+                         "/legs/controller_manager/load_controller");
   nh_.param<std::string>("controller_manager_switch_topic",
                          topic_controller_manager_switch_,
-                         "/legs/controller_manager/switch_controllers");
+                         "/legs/controller_manager/switch_controller");
 
   nh_.param<std::string>("impulse_one_leg_topic", topic_impulse_one_leg_,
                          "/legs/impulse_one_leg");
@@ -231,8 +231,72 @@ void ImpulseController::resetSimulation() {
 }
 
 void ImpulseController::hoppingPosition() {
+  // Prepares variables for the right leg
+  std::vector<std::string> right_position_controllers{
+      "right_ankle_position", "right_knee_position", "right_hip_position"};
+  std::vector<std::string> right_effort_controllers{
+      "right_ankle_effort", "right_knee_effort", "right_hip_effort"};
+  std::vector<double> right_hopping_positions{0 * DEG_TO_RAD, -90 * DEG_TO_RAD,
+                                              40 * DEG_TO_RAD};
+  std::vector<ros::Publisher *> publishers{
+      &pub_position_controller_right_ankle_,
+      &pub_position_controller_right_knee_,
+      &pub_position_controller_right_hip_};
+
   // Check if the right leg controllers are positions.
   controller_manager_msgs::ListControllers list_controllers_msg;
+  srv_controller_manager_list_.call(list_controllers_msg);
+
+  // For all the motors in the right leg
+  for (unsigned char right_leg_controller = 0;
+       right_leg_controller < right_position_controllers.size();
+       ++right_leg_controller) {
+    bool controller_not_loaded(false);
+    // Check in the all the controller's list
+    for (auto &controller : list_controllers_msg.response.controller) {
+      // Find the position controller for that joint exists
+      if (controller.name ==
+          right_position_controllers.at(right_leg_controller)) {
+        // If it does, checks if it is running
+        if (controller.state != "running") {
+          ROS_INFO_STREAM(right_position_controllers.at(right_leg_controller)
+                          << " is loaded but not running. Starting!");
+          // Stops the effort and starts the position controller
+          controller_manager_msgs::SwitchController switch_controller_msg;
+          switch_controller_msg.request.start_controllers.push_back(
+              right_position_controllers.at(right_leg_controller));
+          switch_controller_msg.request.stop_controllers.push_back(
+              right_effort_controllers.at(right_leg_controller));
+          switch_controller_msg.request.strictness = 1;
+          srv_controller_manager_switch_.call(switch_controller_msg);
+        }
+
+      } else {
+        controller_not_loaded = true;
+      }
+    }
+    if (controller_not_loaded) {
+      ROS_INFO_STREAM(right_position_controllers.at(right_leg_controller)
+                      << " is not loaded. Spawning!");
+      controller_manager_msgs::LoadController load_controller_msg;
+      load_controller_msg.request.name =
+          right_position_controllers.at(right_leg_controller);
+      srv_controller_manager_load_.call(load_controller_msg);
+
+      // Stops the effort and starts the position controller
+      controller_manager_msgs::SwitchController switch_controller_msg;
+      switch_controller_msg.request.start_controllers.push_back(
+          right_position_controllers.at(right_leg_controller));
+      switch_controller_msg.request.stop_controllers.push_back(
+          right_effort_controllers.at(right_leg_controller));
+      srv_controller_manager_switch_.call(switch_controller_msg);
+    }
+
+    // Sends the hopping position
+    std_msgs::Float64 motor_position_msg;
+    motor_position_msg.data = right_hopping_positions.at(right_leg_controller);
+    publishers.at(right_leg_controller)->publish(motor_position_msg);
+  }
 }
 
 void ImpulseController::updateRate() {
@@ -281,6 +345,9 @@ bool ImpulseController::callbackServiceImpulseOneLeg(
     legs_controllers::impulse_one_leg::Response &res) {
   // Resets the simulation
   resetSimulation();
+
+  // Put the right leg into hopping position
+  hoppingPosition();
 
   // Creates the trajectory of the motors
   std::vector<double> left_ankle_trajectory;
@@ -339,6 +406,18 @@ bool ImpulseController::callbackServiceImpulseOneLeg(
     // Publish the message
 
     */
+
+  return 1;
+}
+
+bool ImpulseController::callbackServiceImpulseTwoLegs(
+    legs_controllers::impulse_two_legs::Request &req,
+    legs_controllers::impulse_two_legs::Response &res) {
+  // Resets the simulation
+  resetSimulation();
+
+  // Put the right leg into hopping position
+  hoppingPosition();
 
   return 1;
 }
