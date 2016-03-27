@@ -125,6 +125,20 @@ ImpulseController::ImpulseController()
       boost::bind(&ImpulseController::callbackDynamicParameters, this, _1, _2);
   param_reconfig_server_->setCallback(param_reconfig_callback_);
 
+  nh_.getParam("left_ankle_initial_pos", left_ankle_initial_pos_);
+  nh_.getParam("left_knee_initial_pos", left_knee_initial_pos_);
+  nh_.getParam("left_hip_initial_pos", left_hip_initial_pos_);
+  nh_.getParam("right_ankle_initial_pos", right_ankle_initial_pos_);
+  nh_.getParam("right_knee_initial_pos", right_knee_initial_pos_);
+  nh_.getParam("right_hip_initial_pos", right_hip_initial_pos_);
+
+  nh_.getParam("hopping_ankle_pos", hopping_ankle_pos_);
+  nh_.getParam("hopping_knee_pos", hopping_knee_pos_);
+  nh_.getParam("hopping_hip_pos", hopping_hip_pos_);
+
+  nh_.getParam("hopping_hip_pos", hopping_hip_pos_);
+  nh_.getParam("hopping_hip_pos", hopping_hip_pos_);
+
   // Publishers
   pub_effort_controller_left_ankle_ =
       nh_.advertise<std_msgs::Float64>(topic_effort_controller_left_ankle_, 1);
@@ -192,7 +206,6 @@ void ImpulseController::step() {
 
 void ImpulseController::resetSimulation() {
   // Resets the simulation
-  ROS_INFO("Reset");
   std_srvs::Empty reset_simualtion_srv;
   srv_client_reset_simulation.call(reset_simualtion_srv);
 
@@ -348,23 +361,26 @@ void ImpulseController::setPositionControllers() {
 }
 
 void ImpulseController::updateRate() {
-  if (ros::service::exists(topic_gazebo_physic_properties_,
-                           false)) {  // Checks if gazebo exists
-    gazebo_msgs::GetPhysicsProperties msg;
-    srv_client_gazebo_physic_properties_.call(msg);
-    if (msg.response.time_step != time_step_ ||
-        msg.response.max_update_rate != real_time_factor_) {
-      ROS_INFO_STREAM("Time changed! Real Time Factor: "
-                      << real_time_factor_ << " Time Step: " << time_step_);
-      real_time_factor_ = msg.response.max_update_rate;
-      time_step_ = msg.response.time_step;
-      update_rate_mutex_.lock();
-      rate_.reset(
-          new ros::Rate(update_rate_ / (time_step_ * real_time_factor_)));
-      update_rate_mutex_.unlock();
+  while (!killed) {
+    if (ros::service::exists(topic_gazebo_physic_properties_,
+                             false)) {  // Checks if gazebo exists
+      gazebo_msgs::GetPhysicsProperties msg;
+      srv_client_gazebo_physic_properties_.call(msg);
+      if (msg.response.time_step != time_step_ ||
+          msg.response.max_update_rate != real_time_factor_) {
+        ROS_INFO_STREAM("Time changed! Real Time Factor: "
+                        << msg.response.max_update_rate
+                        << " Time Step: " << msg.response.time_step);
+        real_time_factor_ = msg.response.max_update_rate;
+        time_step_ = msg.response.time_step;
+        update_rate_mutex_.lock();
+        rate_.reset(
+            new ros::Rate(update_rate_ / (time_step_ * real_time_factor_)));
+        update_rate_mutex_.unlock();
+      }
     }
+    std::this_thread::sleep_for(std::chrono::microseconds(50));
   }
-  std::this_thread::sleep_for(std::chrono::microseconds(50));
 }
 
 void ImpulseController::callbackDynamicParameters(
@@ -395,6 +411,8 @@ void ImpulseController::callbackSubcriberJointState(
 bool ImpulseController::callbackServiceImpulseOneLeg(
     legs_controllers::impulse_one_leg::Request &req,
     legs_controllers::impulse_one_leg::Response &res) {
+  ROS_INFO("Impulse with One Leg");
+
   // Resets the simulation
   resetSimulation();
 
@@ -409,7 +427,7 @@ bool ImpulseController::callbackServiceImpulseOneLeg(
   // Gets the last time step
   double time_step;
   update_rate_mutex_.lock();
-  time_step = 0.001;
+  time_step = time_step_;
   update_rate_mutex_.unlock();
 
   // Adds the acceleration phase
@@ -454,6 +472,8 @@ bool ImpulseController::callbackServiceImpulseOneLeg(
 bool ImpulseController::callbackServiceImpulseTwoLegs(
     legs_controllers::impulse_two_legs::Request &req,
     legs_controllers::impulse_two_legs::Response &res) {
+  ROS_INFO("Impulse with Two Legs");
+
   // Resets the simulation
   resetSimulation();
 
@@ -468,7 +488,7 @@ bool ImpulseController::callbackServiceImpulseTwoLegs(
   // Gets the last time step
   double time_step;
   update_rate_mutex_.lock();
-  time_step = 0.001 /*time_step_*/;
+  time_step = time_step_;
   update_rate_mutex_.unlock();
 
   // Adds the acceleration phase
