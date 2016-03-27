@@ -8,6 +8,8 @@ find_package(catkin REQUIRED COMPONENTS
     roscpp
     rospy
     std_msgs
+    std_srvs
+    message_generation
     sensor_msgs
     gazebo_msgs
     dynamic_reconfigure
@@ -69,7 +71,8 @@ add_service_files(
 ## Generate added messages and services with any dependencies listed here
 generate_messages(
   DEPENDENCIES
-#   std_msgs  # Or other packages containing msgs
+  std_msgs  # Or other packages containing msgs
+  std_srvs
 )
 
 ################################################
@@ -103,7 +106,7 @@ generate_dynamic_reconfigure_options(
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES legs_controllers
-  CATKIN_DEPENDS std_msgs sensor_msgs gazebo_msgs
+  CATKIN_DEPENDS std_msgs sensor_msgs gazebo_msgs message_runtime
 #  DEPENDS system_lib
 )
 
@@ -150,11 +153,10 @@ target_link_libraries(two_neuron_controller_node
 add_dependencies(two_neuron_controller_node ${PROJECT_NAME}_gencfg)
 
 ### Impulse controller
-
 add_executable(impulse_controller_node
     src/impulse_controller.cpp
-    )
+)
 target_link_libraries(impulse_controller_node
     ${catkin_LIBRARIES}
 )
-add_dependencies(impulse_controller_node ${PROJECT_NAME}_gencfg)
+add_dependencies(impulse_controller_node ${${PROJECT_NAME}_EXPORTED_TARGETS})
