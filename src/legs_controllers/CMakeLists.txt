@@ -92,6 +92,7 @@ generate_messages(
 ## Generate dynamic reconfigure parameters in the 'cfg' folder
 generate_dynamic_reconfigure_options(
     cfg/two_neuron.cfg
+    cfg/impulse.cfg
 )
 
 ###################################
@@ -142,21 +143,24 @@ target_link_libraries(muscle_controller_node
 ### Two Neuron Controller
 file(GLOB ann_framework_folder
     $ENV{GOROBOTS}/utils/ann-framework/*.cpp
-)
+    )
 add_executable(two_neuron_controller_node
     src/two_neuron_controller.cpp
     ${ann_framework_folder}
-)
+    )
 target_link_libraries(two_neuron_controller_node
     ${catkin_LIBRARIES}
-)
-add_dependencies(two_neuron_controller_node ${PROJECT_NAME}_gencfg)
+    )
+add_dependencies(two_neuron_controller_node
+    ${PROJECT_NAME}_gencfg)
 
 ### Impulse controller
 add_executable(impulse_controller_node
     src/impulse_controller.cpp
-)
+    )
 target_link_libraries(impulse_controller_node
     ${catkin_LIBRARIES}
-)
-add_dependencies(impulse_controller_node ${${PROJECT_NAME}_EXPORTED_TARGETS})
+    )
+add_dependencies(impulse_controller_node
+    ${${PROJECT_NAME}_EXPORTED_TARGETS} ${PROJECT_NAME}_gencfg
+    )

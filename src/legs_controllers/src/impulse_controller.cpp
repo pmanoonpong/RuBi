@@ -26,7 +26,6 @@ int main() {
     impulseController.step();
   }
 
-  impulseController.stop();
   ros::shutdown();
 
   return 0;
@@ -62,6 +61,19 @@ ImpulseController::ImpulseController()
                           // have to wait to the service call.
   update_rate_thread_.detach();
 
+  // Dynamic parameters
+  param_reconfig_server_.reset(
+      new DynamicReconfigServer(param_reconfig_mutex_, nh_));
+
+  legs_controller::impulse_controllerConfig config;
+  param_reconfig_mutex_.lock();
+  param_reconfig_server_->updateConfig(config.__getDefault__());
+  param_reconfig_mutex_.unlock();
+
+  param_reconfig_callback_ =
+      boost::bind(&ImpulseController::callbackDynamicParameters, this, _1, _2);
+  param_reconfig_server_->setCallback(param_reconfig_callback_);
+
   // Publishers
   pub_legs_ = nh_.advertise<std_msgs::Float64MultiArray>(topic_legs_, 1);
 
@@ -95,15 +107,6 @@ void ImpulseController::step() {
   update_rate_mutex_.unlock();
 }
 
-void ImpulseController::stop() {
-  std_msgs::Float64MultiArray motors_msg;
-  motors_msg.data.resize(6);
-
-  // for (int joint = 0; joint < 6; ++joint) motors_msg.data.at(joint) = 0.0;
-  // pub_legs_.publish(motors_msg);
-  // ROS_WARN("Two Neuron Controller stoped");
-}
-
 void ImpulseController::resetSimulation() {
   // Resets the simulation
   ROS_INFO("Reset");
@@ -115,22 +118,15 @@ void ImpulseController::resetSimulation() {
   initial_configuration_msg.request.model_name = "legs";
   initial_configuration_msg.request.urdf_param_name = "robot_description";
 
-  left_hip_initial_pos_ = 0.67;
-  right_hip_initial_pos_ = 0.67;
-  left_knee_initial_pos_ = -0.8;
-  right_knee_initial_pos_ = -0.8;
-  left_ankle_initial_pos_ = -0.4;
-  right_ankle_initial_pos_ = -0.4;
-
   initial_configuration_msg.request.joint_names.push_back("left_hip");
   initial_configuration_msg.request.joint_positions.push_back(
       left_hip_initial_pos_);
   initial_configuration_msg.request.joint_names.push_back("left_knee");
   initial_configuration_msg.request.joint_positions.push_back(
       left_knee_initial_pos_);
-    initial_configuration_msg.request.joint_names.push_back("left_ankle");
-    initial_configuration_msg.request.joint_positions.push_back(
-        left_ankle_initial_pos_);
+  initial_configuration_msg.request.joint_names.push_back("left_ankle");
+  initial_configuration_msg.request.joint_positions.push_back(
+      left_ankle_initial_pos_);
 
   initial_configuration_msg.request.joint_names.push_back("right_hip");
   initial_configuration_msg.request.joint_positions.push_back(
@@ -138,9 +134,9 @@ void ImpulseController::resetSimulation() {
   initial_configuration_msg.request.joint_names.push_back("right_knee");
   initial_configuration_msg.request.joint_positions.push_back(
       right_knee_initial_pos_);
-    initial_configuration_msg.request.joint_names.push_back("right_ankle");
-    initial_configuration_msg.request.joint_positions.push_back(
-        right_ankle_initial_pos_);
+  initial_configuration_msg.request.joint_names.push_back("right_ankle");
+  initial_configuration_msg.request.joint_positions.push_back(
+      right_ankle_initial_pos_);
 
   srv_client_gazebo_set_model_configuration_.call(initial_configuration_msg);
 }
@@ -163,6 +159,17 @@ void ImpulseController::updateRate() {
     }
   }
   std::this_thread::sleep_for(std::chrono::microseconds(50));
+}
+
+void ImpulseController::callbackDynamicParameters(
+    legs_controller::impulse_controllerConfig &config, uint32_t level) {
+  left_ankle_initial_pos_ = config.left_ankle_initial_pos * DEG_TO_RAD;
+  left_knee_initial_pos_ = config.left_knee_initial_pos * DEG_TO_RAD;
+  left_hip_initial_pos_ = config.left_hip_initial_pos * DEG_TO_RAD;
+
+  right_ankle_initial_pos_ = config.right_ankle_initial_pos * DEG_TO_RAD;
+  right_knee_initial_pos_ = config.right_knee_initial_pos * DEG_TO_RAD;
+  right_hip_initial_pos_ = config.right_hip_initial_pos * DEG_TO_RAD;
 }
 
 void ImpulseController::callbackSubcriberJointState(

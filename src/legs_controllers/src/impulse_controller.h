@@ -14,12 +14,17 @@
 
 // ROS
 #include "ros/ros.h"
+#include "dynamic_reconfigure/server.h"
 #include "std_msgs/Float64MultiArray.h"
 #include "sensor_msgs/JointState.h"
 #include "gazebo_msgs/GetPhysicsProperties.h"
 #include "gazebo_msgs/SetModelConfiguration.h"
 #include "std_srvs/Empty.h"
 #include "legs_controllers/impulse.h"
+#include "legs_controllers/impulse_controllerConfig.h"
+
+#define DEG_TO_RAD M_PI/180
+#define RAD_TO_DEG 180/M_PI
 
 class ImpulseController {
  public:
@@ -38,11 +43,6 @@ class ImpulseController {
   void step();
 
   /**
-   * @brief stop
-   */
-  void stop();
-
-  /**
    * @brief restart The simulation and puts the robot in the inital position
    */
   void resetSimulation();
@@ -54,6 +54,17 @@ class ImpulseController {
    */
   void callbackSubcriberJointState(sensor_msgs::JointState msg);
 
+  /**
+   * @brief callbackDynamicParameters
+   * @param config
+   * @param level
+   */
+  void callbackDynamicParameters(legs_controller::impulse_controllerConfig& config,
+                                 uint32_t level);
+
+  /**
+   * @brief callbackServiceImpulse
+   */
   bool callbackServiceImpulse(legs_controllers::impulse::Request& req,
                               legs_controllers::impulse::Response& res);
 
@@ -78,6 +89,13 @@ class ImpulseController {
   std::shared_ptr<ros::Rate> rate_;
   std::recursive_mutex update_rate_mutex_;
   std::thread update_rate_thread_;
+
+  // Dynamic reconfigure
+  typedef dynamic_reconfigure::Server<legs_controller::impulse_controllerConfig>
+      DynamicReconfigServer;
+  std::shared_ptr<DynamicReconfigServer> param_reconfig_server_;
+  DynamicReconfigServer::CallbackType param_reconfig_callback_;
+  boost::recursive_mutex param_reconfig_mutex_; // Must be boost
 
   // Controller: common
   double left_hip_pos_, left_knee_pos_, left_ankle_pos_, right_hip_pos_,
