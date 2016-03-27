@@ -37,8 +37,45 @@ ImpulseController::ImpulseController()
   // Get parameter names
   nh_.param<std::string>("joint_states_topic", topic_joint_states_,
                          "/legs/joint_states");
-  nh_.param<std::string>("legs_topic", topic_legs_,
-                         "/legs/leg_controllers/command");
+
+  nh_.param<std::string>("left_ankle_effort_topic",
+                         topic_effort_controller_left_ankle_,
+                         "/legs/left_ankle_effort");
+  nh_.param<std::string>("left_knee_effort_topic",
+                         topic_effort_controller_left_knee_,
+                         "/legs/left_knee_effort");
+  nh_.param<std::string>("left_hip_effort_topic",
+                         topic_effort_controller_left_hip_,
+                         "/legs/left_hip_effort");
+  nh_.param<std::string>("right_ankle_effort_topic",
+                         topic_effort_controller_right_ankle_,
+                         "/legs/right_ankle_effort");
+  nh_.param<std::string>("right_knee_effort_topic",
+                         topic_effort_controller_right_knee_,
+                         "/legs/right_knee_effort");
+  nh_.param<std::string>("right_hip_effort_topic",
+                         topic_effort_controller_right_hip_,
+                         "/legs/right_hip_effort");
+
+  nh_.param<std::string>("left_ankle_position_topic",
+                         topic_position_controller_left_ankle_,
+                         "/legs/left_ankle_position");
+  nh_.param<std::string>("left_knee_position_topic",
+                         topic_position_controller_left_knee_,
+                         "/legs/left_knee_position");
+  nh_.param<std::string>("left_hip_position_topic",
+                         topic_position_controller_left_hip_,
+                         "/legs/left_hip_position");
+  nh_.param<std::string>("right_ankle_position_topic",
+                         topic_position_controller_right_ankle_,
+                         "/legs/right_ankle_position");
+  nh_.param<std::string>("right_knee_position_topic",
+                         topic_position_controller_right_knee_,
+                         "/legs/right_knee_position");
+  nh_.param<std::string>("right_hip_position_topic",
+                         topic_position_controller_right_hip_,
+                         "/legs/right_hip_position");
+
   nh_.param<std::string>("gazebo_physic_properties_topic",
                          topic_gazebo_physic_properties_,
                          "/gazebo/get_physics_properties");
@@ -48,7 +85,21 @@ ImpulseController::ImpulseController()
   nh_.param<std::string>("gazebo_reset_simulation_topic",
                          topic_gazebo_reset_simulation_,
                          "/gazebo/reset_simulation");
-  nh_.param<std::string>("impulse_topic", topic_impulse_, "/legs/impulse");
+
+  nh_.param<std::string>("controller_manager_list_topic",
+                         topic_controller_manager_list_,
+                         "/legs/controller_manager/list_controllers");
+  nh_.param<std::string>("controller_manager_load_topic",
+                         topic_controller_manager_load_,
+                         "/legs/controller_manager/load_controllers");
+  nh_.param<std::string>("controller_manager_switch_topic",
+                         topic_controller_manager_switch_,
+                         "/legs/controller_manager/switch_controllers");
+
+  nh_.param<std::string>("impulse_one_leg_topic", topic_impulse_one_leg_,
+                         "/legs/impulse_one_leg");
+  nh_.param<std::string>("impulse_two_legs_topic", topic_impulse_two_legs_,
+                         "/legs/impulse_two_legs");
 
   // Get update rate from gazebo
   update_rate_mutex_.lock();
@@ -75,11 +126,39 @@ ImpulseController::ImpulseController()
   param_reconfig_server_->setCallback(param_reconfig_callback_);
 
   // Publishers
-  pub_legs_ = nh_.advertise<std_msgs::Float64MultiArray>(topic_legs_, 1);
+  pub_effort_controller_left_ankle_ =
+      nh_.advertise<std_msgs::Float64>(topic_effort_controller_left_ankle_, 1);
+  pub_effort_controller_left_knee_ =
+      nh_.advertise<std_msgs::Float64>(topic_effort_controller_left_knee_, 1);
+  pub_effort_controller_left_hip_ =
+      nh_.advertise<std_msgs::Float64>(topic_effort_controller_left_hip_, 1);
+  pub_effort_controller_right_ankle_ =
+      nh_.advertise<std_msgs::Float64>(topic_effort_controller_right_ankle_, 1);
+  pub_effort_controller_right_knee_ =
+      nh_.advertise<std_msgs::Float64>(topic_effort_controller_right_knee_, 1);
+  pub_effort_controller_right_hip_ =
+      nh_.advertise<std_msgs::Float64>(topic_effort_controller_right_hip_, 1);
+
+  pub_position_controller_left_ankle_ = nh_.advertise<std_msgs::Float64>(
+      topic_position_controller_left_ankle_, 1);
+  pub_position_controller_left_knee_ =
+      nh_.advertise<std_msgs::Float64>(topic_position_controller_left_knee_, 1);
+  pub_position_controller_left_hip_ =
+      nh_.advertise<std_msgs::Float64>(topic_position_controller_left_hip_, 1);
+  pub_position_controller_right_ankle_ = nh_.advertise<std_msgs::Float64>(
+      topic_position_controller_right_ankle_, 1);
+  pub_position_controller_right_knee_ = nh_.advertise<std_msgs::Float64>(
+      topic_position_controller_right_knee_, 1);
+  pub_position_controller_right_hip_ =
+      nh_.advertise<std_msgs::Float64>(topic_position_controller_right_hip_, 1);
 
   // Services
-  srv_server_impulse_ = nh_.advertiseService(
-      topic_impulse_, &ImpulseController::callbackServiceImpulse, this);
+  srv_server_impulse_one_leg_ = nh_.advertiseService(
+      topic_impulse_one_leg_, &ImpulseController::callbackServiceImpulseOneLeg,
+      this);
+  srv_server_impulse_two_legs_ = nh_.advertiseService(
+      topic_impulse_two_legs_,
+      &ImpulseController::callbackServiceImpulseTwoLegs, this);
 
   srv_client_reset_simulation =
       nh_.serviceClient<std_srvs::Empty>(topic_gazebo_reset_simulation_);
@@ -89,6 +168,16 @@ ImpulseController::ImpulseController()
   srv_client_gazebo_set_model_configuration_ =
       nh_.serviceClient<gazebo_msgs::SetModelConfiguration>(
           topic_gazebo_set_model_configuration_);
+
+  srv_controller_manager_list_ =
+      nh_.serviceClient<controller_manager_msgs::ListControllers>(
+          topic_controller_manager_list_);
+  srv_controller_manager_load_ =
+      nh_.serviceClient<controller_manager_msgs::LoadController>(
+          topic_controller_manager_load_);
+  srv_controller_manager_switch_ =
+      nh_.serviceClient<controller_manager_msgs::SwitchController>(
+          topic_controller_manager_switch_);
 }
 
 void ImpulseController::step() {
@@ -141,6 +230,11 @@ void ImpulseController::resetSimulation() {
   srv_client_gazebo_set_model_configuration_.call(initial_configuration_msg);
 }
 
+void ImpulseController::hoppingPosition() {
+  // Check if the right leg controllers are positions.
+  controller_manager_msgs::ListControllers list_controllers_msg;
+}
+
 void ImpulseController::updateRate() {
   if (ros::service::exists(topic_gazebo_physic_properties_,
                            false)) {  // Checks if gazebo exists
@@ -182,13 +276,13 @@ void ImpulseController::callbackSubcriberJointState(
   right_knee_pos_ = msg.position.at(MOTORS::RIGHT_HIP);
 }
 
-bool ImpulseController::callbackServiceImpulse(
-    legs_controllers::impulse::Request &req,
-    legs_controllers::impulse::Response &res) {
+bool ImpulseController::callbackServiceImpulseOneLeg(
+    legs_controllers::impulse_one_leg::Request &req,
+    legs_controllers::impulse_one_leg::Response &res) {
   // Resets the simulation
   resetSimulation();
 
-  // Creates the trajectory of the motors. IMPORTANT: pair<time, torque>
+  // Creates the trajectory of the motors
   std::vector<double> left_ankle_trajectory;
   std::vector<double> left_knee_trajectory;
   std::vector<double> left_hip_trajectory;
@@ -231,10 +325,8 @@ bool ImpulseController::callbackServiceImpulse(
   }
 
   // Sends the commands
-  std_msgs::Float64MultiArray motors_msg;
-  motors_msg.data.resize(6);
-
-  for (int step = 0; step < left_ankle_trajectory.size(); ++step) {
+  /*
+    for (int step = 0; step < left_ankle_trajectory.size(); ++step) {
       motors_msg.data.push_back(left_ankle_trajectory.at(step));
       motors_msg.data.push_back(left_knee_trajectory.at(step));
       motors_msg.data.push_back(left_ankle_trajectory.at(step));
@@ -242,10 +334,11 @@ bool ImpulseController::callbackServiceImpulse(
       motors_msg.data.push_back(left_ankle_trajectory.at(step));
       motors_msg.data.push_back(left_ankle_trajectory.at(step));
       motors_msg.data.push_back(left_ankle_trajectory.at(step));
-  }
+    }
 
-  // Publish the message
-  pub_legs_.publish(motors_msg);
+    // Publish the message
+
+    */
 
   return 1;
 }

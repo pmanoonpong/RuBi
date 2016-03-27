@@ -14,14 +14,23 @@
 
 // ROS
 #include "ros/ros.h"
+
 #include "dynamic_reconfigure/server.h"
-#include "std_msgs/Float64MultiArray.h"
+
+#include "std_msgs/Float64.h"
+#include "std_srvs/Empty.h"
 #include "sensor_msgs/JointState.h"
+
 #include "gazebo_msgs/GetPhysicsProperties.h"
 #include "gazebo_msgs/SetModelConfiguration.h"
-#include "std_srvs/Empty.h"
-#include "legs_controllers/impulse.h"
+
+#include "legs_controllers/impulse_one_leg.h"
+#include "legs_controllers/impulse_two_legs.h"
 #include "legs_controllers/impulse_controllerConfig.h"
+
+#include "controller_manager_msgs/ListControllers.h"
+#include "controller_manager_msgs/LoadController.h"
+#include "controller_manager_msgs/SwitchController.h"
 
 #define DEG_TO_RAD M_PI / 180
 #define RAD_TO_DEG 180 / M_PI
@@ -57,6 +66,12 @@ class ImpulseController {
    */
   void resetSimulation();
 
+  /**
+   * @brief hoppingPosition Folds the right leg to hopping position. This is
+   * used for hop with the other leg.
+   */
+  void hoppingPosition();
+
   // Callbacks
   /**
    * @brief callbackSubcriberJointState
@@ -73,24 +88,57 @@ class ImpulseController {
       legs_controller::impulse_controllerConfig& config, uint32_t level);
 
   /**
-   * @brief callbackServiceImpulse
+   * @brief callbackServiceImpulseOneLeg
+   * @param req
+   * @param res
+   * @return
    */
-  bool callbackServiceImpulse(legs_controllers::impulse::Request& req,
-                              legs_controllers::impulse::Response& res);
+  bool callbackServiceImpulseOneLeg(
+      legs_controllers::impulse_one_leg::Request& req,
+      legs_controllers::impulse_one_leg::Response& res);
+
+  /**
+   * @brief callbackServiceImpulseTwoLegs
+   * @param req
+   * @param res
+   * @return
+   */
+  bool callbackServiceImpulseTwoLegs(
+      legs_controllers::impulse_two_legs::Request& req,
+      legs_controllers::impulse_two_legs::Response& res);
 
  private:
   // ROS
   ros::NodeHandle nh_;
-  ros::Publisher pub_legs_;
+  ros::Publisher pub_effort_controller_left_ankle_,
+      pub_effort_controller_left_knee_, pub_effort_controller_left_hip_,
+      pub_effort_controller_right_ankle_, pub_effort_controller_right_knee_,
+      pub_effort_controller_right_hip_, pub_position_controller_left_ankle_,
+      pub_position_controller_left_knee_, pub_position_controller_left_hip_,
+      pub_position_controller_right_ankle_, pub_position_controller_right_knee_,
+      pub_position_controller_right_hip_;
+
   ros::Subscriber sub_joint_states_;
+
   ros::ServiceClient srv_client_gazebo_physic_properties_,
-      srv_client_gazebo_set_model_configuration_, srv_client_reset_simulation;
+      srv_client_gazebo_set_model_configuration_, srv_client_reset_simulation,
+      srv_controller_manager_list_, srv_controller_manager_load_,
+      srv_controller_manager_switch_;
 
-  ros::ServiceServer srv_server_impulse_;
+  ros::ServiceServer srv_server_impulse_one_leg_, srv_server_impulse_two_legs_;
 
-  std::string topic_legs_, topic_joint_states_, topic_gazebo_physic_properties_,
-      topic_gazebo_set_model_configuration_, topic_gazebo_reset_simulation_,
-      topic_impulse_;
+  std::string topic_effort_controller_left_ankle_,
+      topic_effort_controller_left_knee_, topic_effort_controller_left_hip_,
+      topic_effort_controller_right_ankle_, topic_effort_controller_right_knee_,
+      topic_effort_controller_right_hip_, topic_position_controller_left_ankle_,
+      topic_position_controller_left_knee_, topic_position_controller_left_hip_,
+      topic_position_controller_right_ankle_,
+      topic_position_controller_right_knee_,
+      topic_position_controller_right_hip_, topic_joint_states_,
+      topic_gazebo_physic_properties_, topic_gazebo_set_model_configuration_,
+      topic_gazebo_reset_simulation_, topic_impulse_one_leg_,
+      topic_impulse_two_legs_, topic_controller_manager_list_,
+      topic_controller_manager_load_, topic_controller_manager_switch_;
 
   // Step time
   double time_step_;

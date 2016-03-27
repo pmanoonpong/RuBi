@@ -58,7 +58,8 @@ find_package(catkin REQUIRED COMPONENTS
 ## Generate services in the 'srv' folder
 add_service_files(
    FILES
-   impulse.srv
+   impulse_one_leg.srv
+   impulse_two_legs.srv
 )
 
 ## Generate actions in the 'action' folder

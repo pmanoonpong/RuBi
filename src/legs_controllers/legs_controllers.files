@@ -12,4 +12,5 @@ cfg/two_neuron.cfg
 src/impulse_controller.h
 src/impulse_controller.cpp
 cfg/impulse.cfg
-srv/impulse.srv
+srv/impulse_one_leg.srv
+srv/impulse_two_legs.srv
