@@ -174,18 +174,78 @@ void ImpulseController::callbackDynamicParameters(
 
 void ImpulseController::callbackSubcriberJointState(
     sensor_msgs::JointState msg) {
-  left_ankle_pos_ = msg.position.at(0);
-  left_hip_pos_ = msg.position.at(1);
-  left_knee_pos_ = msg.position.at(2);
-  right_ankle_pos_ = msg.position.at(3);
-  right_hip_pos_ = msg.position.at(4);
-  right_knee_pos_ = msg.position.at(5);
+  left_ankle_pos_ = msg.position.at(MOTORS::LEFT_ANKLE);
+  left_hip_pos_ = msg.position.at(MOTORS::LEFT_KNEE);
+  left_knee_pos_ = msg.position.at(MOTORS::LEFT_HIP);
+  right_ankle_pos_ = msg.position.at(MOTORS::RIGHT_ANKLE);
+  right_hip_pos_ = msg.position.at(MOTORS::RIGHT_KNEE);
+  right_knee_pos_ = msg.position.at(MOTORS::RIGHT_HIP);
 }
 
 bool ImpulseController::callbackServiceImpulse(
     legs_controllers::impulse::Request &req,
     legs_controllers::impulse::Response &res) {
+  // Resets the simulation
   resetSimulation();
+
+  // Creates the trajectory of the motors. IMPORTANT: pair<time, torque>
+  std::vector<double> left_ankle_trajectory;
+  std::vector<double> left_knee_trajectory;
+  std::vector<double> left_hip_trajectory;
+
+  std::vector<double> right_ankle_trajectory;
+  std::vector<double> right_knee_trajectory;
+  std::vector<double> right_hip_trajectory;
+
+  // Gets the last time step
+  double time_step;
+  update_rate_mutex_.lock();
+  time_step = time_step_;
+  update_rate_mutex_.unlock();
+
+  // Adds the acceleration phase
+  double acceleration_time = 0.1 * req.impulse_time;
+  double acceleration_steps = acceleration_time / time_step;
+
+  for (double step = 0; step < acceleration_steps; ++step) {
+    left_ankle_trajectory.push_back(req.torque_left_ankle * step);
+    left_knee_trajectory.push_back(req.torque_left_knee * step);
+    left_hip_trajectory.push_back(req.torque_left_hip * step);
+
+    right_ankle_trajectory.push_back(req.torque_right_ankle * step);
+    right_knee_trajectory.push_back(req.torque_right_knee * step);
+    right_hip_trajectory.push_back(req.torque_right_hip * step);
+  }
+
+  // Adds the impulse phase
+  double impulse_steps = req.impulse_time / time_step;
+
+  for (double step = 0; step < impulse_steps; ++step) {
+    left_ankle_trajectory.push_back(req.torque_left_ankle);
+    left_knee_trajectory.push_back(req.torque_left_knee);
+    left_hip_trajectory.push_back(req.torque_left_hip);
+
+    right_ankle_trajectory.push_back(req.torque_right_ankle);
+    right_knee_trajectory.push_back(req.torque_right_knee);
+    right_hip_trajectory.push_back(req.torque_right_hip);
+  }
+
+  // Sends the commands
+  std_msgs::Float64MultiArray motors_msg;
+  motors_msg.data.resize(6);
+
+  for (int step = 0; step < left_ankle_trajectory.size(); ++step) {
+      motors_msg.data.push_back(left_ankle_trajectory.at(step));
+      motors_msg.data.push_back(left_knee_trajectory.at(step));
+      motors_msg.data.push_back(left_ankle_trajectory.at(step));
+
+      motors_msg.data.push_back(left_ankle_trajectory.at(step));
+      motors_msg.data.push_back(left_ankle_trajectory.at(step));
+      motors_msg.data.push_back(left_ankle_trajectory.at(step));
+  }
+
+  // Publish the message
+  pub_legs_.publish(motors_msg);
 
   return 1;
 }

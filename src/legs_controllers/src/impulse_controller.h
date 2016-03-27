@@ -23,8 +23,18 @@
 #include "legs_controllers/impulse.h"
 #include "legs_controllers/impulse_controllerConfig.h"
 
-#define DEG_TO_RAD M_PI/180
-#define RAD_TO_DEG 180/M_PI
+#define DEG_TO_RAD M_PI / 180
+#define RAD_TO_DEG 180 / M_PI
+
+// Defined by the protocol of the robot
+enum MOTORS {
+  LEFT_ANKLE = 0,
+  LEFT_KNEE = 1,
+  LEFT_HIP = 2,
+  RIGHT_ANKLE = 3,
+  RIGHT_KNEE = 4,
+  RIGHT_HIP = 5
+};
 
 class ImpulseController {
  public:
@@ -59,8 +69,8 @@ class ImpulseController {
    * @param config
    * @param level
    */
-  void callbackDynamicParameters(legs_controller::impulse_controllerConfig& config,
-                                 uint32_t level);
+  void callbackDynamicParameters(
+      legs_controller::impulse_controllerConfig& config, uint32_t level);
 
   /**
    * @brief callbackServiceImpulse
@@ -95,7 +105,7 @@ class ImpulseController {
       DynamicReconfigServer;
   std::shared_ptr<DynamicReconfigServer> param_reconfig_server_;
   DynamicReconfigServer::CallbackType param_reconfig_callback_;
-  boost::recursive_mutex param_reconfig_mutex_; // Must be boost
+  boost::recursive_mutex param_reconfig_mutex_;  // Must be boost
 
   // Controller: common
   double left_hip_pos_, left_knee_pos_, left_ankle_pos_, right_hip_pos_,
