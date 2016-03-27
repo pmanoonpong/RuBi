@@ -261,8 +261,8 @@ void ImpulseController::setController(JOINT joint, CONTROLLER controller) {
     }
   }
   if (switch_controller) {
-    ROS_INFO_STREAM("Switching " << getName(joint) << " to "
-                                 << getName(controller));
+    /*ROS_INFO_STREAM("Switching " << getName(joint) << " to "
+                                 << getName(controller)); */
     // Controller to stop
     CONTROLLER controller_to_stop;
     if (controller == CONTROLLER::EFFORT)
