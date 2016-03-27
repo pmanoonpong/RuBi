@@ -215,7 +215,7 @@
 		<child link="left_foot"/>
 		<origin xyz="${lowerLegHeight} 0 0" rpy="0 0 0"/>
 		<axis xyz="0 0 1"/>
-		<limit effort="${footLimitEffort}" velocity="${footLimitVelocity}" lower="${footLimitLowerPosition}" upper="${footLimitUpperPosition}" />
+		<limit effort="${footLimitEffort}" velocity="${footLimitVelocity}" lower="${footLimitLowerPosition*DEG_TO_RAD}" upper="${footLimitUpperPosition*DEG_TO_RAD}" />
 		<dynamics damping="${footDamping}"/>
 	</joint> 
 
@@ -242,7 +242,7 @@
 		<child link="right_foot"/>
 		<origin xyz="${lowerLegHeight} 0 0" rpy="0 0 0"/>
 		<axis xyz="0 0 1"/>
-		<limit effort="${footLimitEffort}" velocity="${footLimitVelocity}" lower="${footLimitLowerPosition}" upper="${footLimitUpperPosition}" />
+		<limit effort="${footLimitEffort}" velocity="${footLimitVelocity}" lower="${footLimitLowerPosition*DEG_TO_RAD}" upper="${footLimitUpperPosition*DEG_TO_RAD}" />
     <dynamics damping="${footDamping}"/>
 	</joint> 
 
