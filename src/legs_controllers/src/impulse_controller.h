@@ -36,14 +36,15 @@
 #define RAD_TO_DEG 180 / M_PI
 
 // Defined by the protocol of the robot
-enum MOTORS {
-  LEFT_ANKLE = 0,
-  LEFT_KNEE = 1,
-  LEFT_HIP = 2,
-  RIGHT_ANKLE = 3,
-  RIGHT_KNEE = 4,
-  RIGHT_HIP = 5
+enum JOINT {
+  LEFT_ANKLE,
+  LEFT_KNEE,
+  LEFT_HIP,
+  RIGHT_ANKLE,
+  RIGHT_KNEE,
+  RIGHT_HIP
 };
+enum CONTROLLER { EFFORT, POSITION };
 
 class ImpulseController {
  public:
@@ -74,9 +75,36 @@ class ImpulseController {
   void hoppingPosition();
 
   /**
+   * @brief loadPositionAndEffortControllers Loads the position and the effort
+   * controllers of the joints in case they are not.
+   */
+  void loadPositionAndEffortControllers();
+
+  /**
+   * @brief setController Set a controller to a joint. If it has already one,
+   * switch it.
+   */
+  void setController(JOINT joint, CONTROLLER controller);
+
+  /**
+   * @brief getName Returns the name of the joint as expressed in the ROS param
+   */
+  std::string getName(JOINT joint);
+  /**
+   * @brief getName Returns the name of the controller as expressed in the ROS
+   * param
+   */
+  std::string getName(CONTROLLER controller);
+
+  /**
    * @brief setEffortControllers Set all the joint controllers to effort
    */
   void setEffortControllers();
+
+  /**
+   * @brief setPositionControllers Set all the joint controllers to position
+   */
+  void setPositionControllers();
 
   // Callbacks
   /**
@@ -166,7 +194,8 @@ class ImpulseController {
       right_knee_pos_, right_ankle_pos_;
 
   double left_hip_initial_pos_, left_knee_initial_pos_, left_ankle_initial_pos_,
-      right_hip_initial_pos_, right_knee_initial_pos_, right_ankle_initial_pos_;
+      right_hip_initial_pos_, right_knee_initial_pos_, right_ankle_initial_pos_,
+      hopping_ankle_pos_, hopping_knee_pos_, hopping_hip_pos_;
 };
 
 #endif  // IMPULSE_CONTROLLER_H

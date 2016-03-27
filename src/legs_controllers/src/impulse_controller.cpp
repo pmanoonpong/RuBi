@@ -178,18 +178,12 @@ ImpulseController::ImpulseController()
   srv_controller_manager_switch_ =
       nh_.serviceClient<controller_manager_msgs::SwitchController>(
           topic_controller_manager_switch_);
+
+  // Load all the controllers
+  loadPositionAndEffortControllers();
 }
 
 void ImpulseController::step() {
-  // std_msgs::Float64MultiArray
-  //    motors_msg;  // (0) Left ankle, (1) Left knee, (2) Left hip,
-  // (3) Right ankle, (4) Right knee, (5) Right hip
-  // motors_msg.data.resize(6);
-
-  // Publish the message
-  // pub_legs_.publish(motors_msg);
-
-  // Spin and update the rate
   ros::spinOnce();
   update_rate_mutex_.lock();
   rate_->sleep();
@@ -203,158 +197,154 @@ void ImpulseController::resetSimulation() {
   srv_client_reset_simulation.call(reset_simualtion_srv);
 
   // Sets initial positions
-  gazebo_msgs::SetModelConfiguration initial_configuration_msg;
-  initial_configuration_msg.request.model_name = "legs";
-  initial_configuration_msg.request.urdf_param_name = "robot_description";
+  setPositionControllers();
 
-  initial_configuration_msg.request.joint_names.push_back("left_hip");
-  initial_configuration_msg.request.joint_positions.push_back(
-      left_hip_initial_pos_);
-  initial_configuration_msg.request.joint_names.push_back("left_knee");
-  initial_configuration_msg.request.joint_positions.push_back(
-      left_knee_initial_pos_);
-  initial_configuration_msg.request.joint_names.push_back("left_ankle");
-  initial_configuration_msg.request.joint_positions.push_back(
-      left_ankle_initial_pos_);
-
-  initial_configuration_msg.request.joint_names.push_back("right_hip");
-  initial_configuration_msg.request.joint_positions.push_back(
-      right_hip_initial_pos_);
-  initial_configuration_msg.request.joint_names.push_back("right_knee");
-  initial_configuration_msg.request.joint_positions.push_back(
-      right_knee_initial_pos_);
-  initial_configuration_msg.request.joint_names.push_back("right_ankle");
-  initial_configuration_msg.request.joint_positions.push_back(
-      right_ankle_initial_pos_);
-
-  srv_client_gazebo_set_model_configuration_.call(initial_configuration_msg);
+  // Sends the starting position
+  std_msgs::Float64 motor_position_msg;
+  motor_position_msg.data = left_ankle_initial_pos_;
+  pub_position_controller_left_ankle_.publish(motor_position_msg);
+  motor_position_msg.data = left_knee_initial_pos_;
+  pub_position_controller_left_knee_.publish(motor_position_msg);
+  motor_position_msg.data = left_hip_initial_pos_;
+  pub_position_controller_left_hip_.publish(motor_position_msg);
+  motor_position_msg.data = right_ankle_initial_pos_;
+  pub_position_controller_right_ankle_.publish(motor_position_msg);
+  motor_position_msg.data = right_knee_initial_pos_;
+  pub_position_controller_right_knee_.publish(motor_position_msg);
+  motor_position_msg.data = right_hip_initial_pos_;
+  pub_position_controller_right_hip_.publish(motor_position_msg);
 }
 
-void ImpulseController::hoppingPosition() {
-  // Sets all the controllers to effort. Just in case the left leg is not
-  // in effort mode.
-  setEffortControllers();
-
-  // Prepares variables for the right leg
-  std::vector<std::string> right_position_controllers{
-      "right_ankle_position", "right_knee_position", "right_hip_position"};
-  std::vector<std::string> right_effort_controllers{
-      "right_ankle_effort", "right_knee_effort", "right_hip_effort"};
-  std::vector<double> right_hopping_positions{0 * DEG_TO_RAD, -90 * DEG_TO_RAD,
-                                              40 * DEG_TO_RAD};
-  std::vector<ros::Publisher *> publishers{
-      &pub_position_controller_right_ankle_,
-      &pub_position_controller_right_knee_,
-      &pub_position_controller_right_hip_};
-
-  // Check if the right leg controllers are positions.
-  controller_manager_msgs::ListControllers list_controllers_msg;
-  srv_controller_manager_list_.call(list_controllers_msg);
-
-  // For all the motors in the right leg
-  for (unsigned char right_leg_controller = 0;
-       right_leg_controller < right_position_controllers.size();
-       ++right_leg_controller) {
-    bool controller_loaded(false);
-    // Check in the all the controller's list
-    for (auto &controller : list_controllers_msg.response.controller) {
-      controller_loaded = true;
-      // Find the position controller for that joint exists
-      if (controller.name ==
-          right_position_controllers.at(right_leg_controller)) {
-        // If it does, checks if it is running
-        if (controller.state != "running") {
-          ROS_INFO_STREAM(right_position_controllers.at(right_leg_controller)
-                          << " is loaded but not running. Starting!");
-          // Stops the effort and starts the position controller
-          controller_manager_msgs::SwitchController switch_controller_msg;
-          switch_controller_msg.request.start_controllers.push_back(
-              right_position_controllers.at(right_leg_controller));
-          switch_controller_msg.request.stop_controllers.push_back(
-              right_effort_controllers.at(right_leg_controller));
-          switch_controller_msg.request.strictness = 1;
-          srv_controller_manager_switch_.call(switch_controller_msg);
-        }
-      }
-    }
-    if (controller_loaded) {
-      ROS_INFO_STREAM(right_position_controllers.at(right_leg_controller)
-                      << " is not loaded. Spawning!");
-      controller_manager_msgs::LoadController load_controller_msg;
-      load_controller_msg.request.name =
-          right_position_controllers.at(right_leg_controller);
-      srv_controller_manager_load_.call(load_controller_msg);
-
-      // Stops the effort and starts the position controller
-      controller_manager_msgs::SwitchController switch_controller_msg;
-      switch_controller_msg.request.start_controllers.push_back(
-          right_position_controllers.at(right_leg_controller));
-      switch_controller_msg.request.stop_controllers.push_back(
-          right_effort_controllers.at(right_leg_controller));
-      srv_controller_manager_switch_.call(switch_controller_msg);
-    }
-
-    // Sends the hopping position
-    std_msgs::Float64 motor_position_msg;
-    motor_position_msg.data = right_hopping_positions.at(right_leg_controller);
-    publishers.at(right_leg_controller)->publish(motor_position_msg);
-  }
-}
-
-void ImpulseController::setEffortControllers() {
+void ImpulseController::loadPositionAndEffortControllers() {
   // Prepares variables
-  std::vector<std::string> position_controllers{
+  std::vector<std::string> controllers_to_load{
       "left_ankle_position",  "left_knee_position",  "left_hip_position",
-      "right_ankle_position", "right_knee_position", "right_hip_position"};
-  std::vector<std::string> effort_controllers{
-      "left_ankle_effort",  "left_knee_effort",  "left_hip_effort",
-      "right_ankle_effort", "right_knee_effort", "right_hip_effort"};
+      "right_ankle_position", "right_knee_position", "right_hip_position",
+      "left_ankle_effort",    "left_knee_effort",    "left_hip_effort",
+      "right_ankle_effort",   "right_knee_effort",   "right_hip_effort"};
 
-  // Check if the right leg controllers are positions.
+  // Gets the controllers
   controller_manager_msgs::ListControllers list_controllers_msg;
   srv_controller_manager_list_.call(list_controllers_msg);
 
-  // For all the motors in the right leg
-  for (unsigned char leg_controller = 0;
-       leg_controller < effort_controllers.size(); ++leg_controller) {
+  // For all the moto in the right leg
+  for (unsigned char i = 0; i < controllers_to_load.size(); ++i) {
     bool controller_loaded = false;
     // Check in the all the controller's list
     for (auto &controller : list_controllers_msg.response.controller) {
       // Finds out if the controller exists
-      if (controller.name == effort_controllers.at(leg_controller)) {
+      if (controller.name == controllers_to_load.at(i))
         controller_loaded = true;
-        // If it does, checks if it is running
-        if (controller.state != "running") {
-          ROS_INFO_STREAM(effort_controllers.at(leg_controller)
-                          << " is loaded but not running. Starting!");
-          // Stops the position and starts the effort controller
-          controller_manager_msgs::SwitchController switch_controller_msg;
-          switch_controller_msg.request.start_controllers.push_back(
-              effort_controllers.at(leg_controller));
-          switch_controller_msg.request.stop_controllers.push_back(
-              position_controllers.at(leg_controller));
-          switch_controller_msg.request.strictness = 1;
-          srv_controller_manager_switch_.call(switch_controller_msg);
-        }
-      }
     }
-    if (!controller_loaded) {
-      ROS_INFO_STREAM(effort_controllers.at(leg_controller)
-                      << " is not loaded. Spawning!");
-      controller_manager_msgs::LoadController load_controller_msg;
-      load_controller_msg.request.name =
-          position_controllers.at(leg_controller);
-      srv_controller_manager_load_.call(load_controller_msg);
 
-      // Stops the effort and starts the position controller
-      controller_manager_msgs::SwitchController switch_controller_msg;
-      switch_controller_msg.request.start_controllers.push_back(
-          effort_controllers.at(leg_controller));
-      switch_controller_msg.request.stop_controllers.push_back(
-          position_controllers.at(leg_controller));
-      srv_controller_manager_switch_.call(switch_controller_msg);
+    if (!controller_loaded) {
+      ROS_INFO_STREAM(controllers_to_load.at(i) << " is not loaded. Loading!");
+      controller_manager_msgs::LoadController load_controller_msg;
+      load_controller_msg.request.name = controllers_to_load.at(i);
+      srv_controller_manager_load_.call(load_controller_msg);
     }
   }
+}
+
+void ImpulseController::setController(JOINT joint, CONTROLLER controller) {
+  // Gets the controllers
+  controller_manager_msgs::ListControllers list_controllers_msg;
+  srv_controller_manager_list_.call(list_controllers_msg);
+
+  bool switch_controller(true);
+  // Check in the all the controller's list
+  for (auto &controller_from_srv : list_controllers_msg.response.controller) {
+    // If the controller is running
+    if (controller_from_srv.name == (getName(joint) + getName(controller)) &&
+        controller_from_srv.state == "running") {
+      switch_controller = false;
+    }
+  }
+  if (switch_controller) {
+    ROS_INFO_STREAM("Switching " << getName(joint) << " to "
+                                 << getName(controller));
+    // Controller to stop
+    CONTROLLER controller_to_stop;
+    if (controller == CONTROLLER::EFFORT)
+      controller_to_stop = CONTROLLER::POSITION;
+    else
+      controller_to_stop = CONTROLLER::EFFORT;
+
+    // Stops the effort and starts the position controller
+    controller_manager_msgs::SwitchController switch_controller_msg;
+    switch_controller_msg.request.start_controllers.push_back(
+        getName(joint) + getName(controller));
+    switch_controller_msg.request.stop_controllers.push_back(
+        getName(joint) + getName(controller_to_stop));
+    switch_controller_msg.request.strictness = 1;
+    srv_controller_manager_switch_.call(switch_controller_msg);
+  }
+}
+
+std::string ImpulseController::getName(CONTROLLER controller) {
+  switch (controller) {
+    case (POSITION):
+      return "position";
+    case (EFFORT):
+      return "effort";
+    default:
+      return "";
+  }
+}
+
+std::string ImpulseController::getName(JOINT joint) {
+  switch (joint) {
+    case (LEFT_ANKLE):
+      return "left_ankle_";
+    case (LEFT_KNEE):
+      return "left_knee_";
+    case (LEFT_HIP):
+      return "left_hip_";
+    case (RIGHT_ANKLE):
+      return "right_ankle_";
+    case (RIGHT_KNEE):
+      return "right_knee_";
+    case (RIGHT_HIP):
+      return "right_hip_";
+    default:
+      return "";
+  }
+}
+
+void ImpulseController::hoppingPosition() {
+  setController(JOINT::RIGHT_ANKLE, CONTROLLER::POSITION);
+  setController(JOINT::RIGHT_KNEE, CONTROLLER::POSITION);
+  setController(JOINT::RIGHT_HIP, CONTROLLER::POSITION);
+  setController(JOINT::LEFT_ANKLE, CONTROLLER::EFFORT);
+  setController(JOINT::LEFT_KNEE, CONTROLLER::EFFORT);
+  setController(JOINT::LEFT_HIP, CONTROLLER::EFFORT);
+
+  // Sends the hopping position
+  std_msgs::Float64 motor_position_msg;
+  motor_position_msg.data = hopping_ankle_pos_;
+  pub_position_controller_right_ankle_.publish(motor_position_msg);
+  motor_position_msg.data = hopping_knee_pos_;
+  pub_position_controller_right_knee_.publish(motor_position_msg);
+  motor_position_msg.data = hopping_hip_pos_;
+  pub_position_controller_right_hip_.publish(motor_position_msg);
+}
+
+void ImpulseController::setEffortControllers() {
+  setController(JOINT::RIGHT_ANKLE, CONTROLLER::EFFORT);
+  setController(JOINT::RIGHT_KNEE, CONTROLLER::EFFORT);
+  setController(JOINT::RIGHT_HIP, CONTROLLER::EFFORT);
+  setController(JOINT::LEFT_ANKLE, CONTROLLER::EFFORT);
+  setController(JOINT::LEFT_KNEE, CONTROLLER::EFFORT);
+  setController(JOINT::LEFT_HIP, CONTROLLER::EFFORT);
+}
+
+void ImpulseController::setPositionControllers() {
+  setController(JOINT::RIGHT_ANKLE, CONTROLLER::POSITION);
+  setController(JOINT::RIGHT_KNEE, CONTROLLER::POSITION);
+  setController(JOINT::RIGHT_HIP, CONTROLLER::POSITION);
+  setController(JOINT::LEFT_ANKLE, CONTROLLER::POSITION);
+  setController(JOINT::LEFT_KNEE, CONTROLLER::POSITION);
+  setController(JOINT::LEFT_HIP, CONTROLLER::POSITION);
 }
 
 void ImpulseController::updateRate() {
@@ -386,16 +376,20 @@ void ImpulseController::callbackDynamicParameters(
   right_ankle_initial_pos_ = config.right_ankle_initial_pos * DEG_TO_RAD;
   right_knee_initial_pos_ = config.right_knee_initial_pos * DEG_TO_RAD;
   right_hip_initial_pos_ = config.right_hip_initial_pos * DEG_TO_RAD;
+
+  hopping_ankle_pos_ = config.hopping_ankle_pos * DEG_TO_RAD;
+  hopping_knee_pos_ = config.hopping_knee_pos * DEG_TO_RAD;
+  hopping_hip_pos_ = config.hopping_hip_pos * DEG_TO_RAD;
 }
 
 void ImpulseController::callbackSubcriberJointState(
     sensor_msgs::JointState msg) {
-  left_ankle_pos_ = msg.position.at(MOTORS::LEFT_ANKLE);
-  left_hip_pos_ = msg.position.at(MOTORS::LEFT_KNEE);
-  left_knee_pos_ = msg.position.at(MOTORS::LEFT_HIP);
-  right_ankle_pos_ = msg.position.at(MOTORS::RIGHT_ANKLE);
-  right_hip_pos_ = msg.position.at(MOTORS::RIGHT_KNEE);
-  right_knee_pos_ = msg.position.at(MOTORS::RIGHT_HIP);
+  left_ankle_pos_ = msg.position.at(0);
+  left_hip_pos_ = msg.position.at(1);
+  left_knee_pos_ = msg.position.at(2);
+  right_ankle_pos_ = msg.position.at(3);
+  right_hip_pos_ = msg.position.at(4);
+  right_knee_pos_ = msg.position.at(5);
 }
 
 bool ImpulseController::callbackServiceImpulseOneLeg(
@@ -415,7 +409,7 @@ bool ImpulseController::callbackServiceImpulseOneLeg(
   // Gets the last time step
   double time_step;
   update_rate_mutex_.lock();
-  time_step = time_step_;
+  time_step = 0.001;
   update_rate_mutex_.unlock();
 
   // Adds the acceleration phase
@@ -474,7 +468,7 @@ bool ImpulseController::callbackServiceImpulseTwoLegs(
   // Gets the last time step
   double time_step;
   update_rate_mutex_.lock();
-  time_step = 0.001/*time_step_*/;
+  time_step = 0.001 /*time_step_*/;
   update_rate_mutex_.unlock();
 
   // Adds the acceleration phase
