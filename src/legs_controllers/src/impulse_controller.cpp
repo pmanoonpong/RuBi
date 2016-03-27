@@ -40,22 +40,22 @@ ImpulseController::ImpulseController()
 
   nh_.param<std::string>("left_ankle_effort_topic",
                          topic_effort_controller_left_ankle_,
-                         "/legs/left_ankle_effort");
+                         "/legs/left_ankle_effort/command");
   nh_.param<std::string>("left_knee_effort_topic",
                          topic_effort_controller_left_knee_,
-                         "/legs/left_knee_effort");
+                         "/legs/left_knee_effort/command");
   nh_.param<std::string>("left_hip_effort_topic",
                          topic_effort_controller_left_hip_,
-                         "/legs/left_hip_effort");
+                         "/legs/left_hip_effort/command");
   nh_.param<std::string>("right_ankle_effort_topic",
                          topic_effort_controller_right_ankle_,
-                         "/legs/right_ankle_effort");
+                         "/legs/right_ankle_effort/command");
   nh_.param<std::string>("right_knee_effort_topic",
                          topic_effort_controller_right_knee_,
-                         "/legs/right_knee_effort");
+                         "/legs/right_knee_effort/command");
   nh_.param<std::string>("right_hip_effort_topic",
                          topic_effort_controller_right_hip_,
-                         "/legs/right_hip_effort");
+                         "/legs/right_hip_effort/command");
 
   nh_.param<std::string>("left_ankle_position_topic",
                          topic_position_controller_left_ankle_,
@@ -210,22 +210,51 @@ void ImpulseController::resetSimulation() {
   srv_client_reset_simulation.call(reset_simualtion_srv);
 
   // Sets initial positions
-  setPositionControllers();
+  gazebo_msgs::SetModelConfiguration initial_configuration_msg;
+  initial_configuration_msg.request.model_name = "legs";
+  initial_configuration_msg.request.urdf_param_name = "robot_description";
 
-  // Sends the starting position
-  std_msgs::Float64 motor_position_msg;
-  motor_position_msg.data = left_ankle_initial_pos_;
-  pub_position_controller_left_ankle_.publish(motor_position_msg);
-  motor_position_msg.data = left_knee_initial_pos_;
-  pub_position_controller_left_knee_.publish(motor_position_msg);
-  motor_position_msg.data = left_hip_initial_pos_;
-  pub_position_controller_left_hip_.publish(motor_position_msg);
-  motor_position_msg.data = right_ankle_initial_pos_;
-  pub_position_controller_right_ankle_.publish(motor_position_msg);
-  motor_position_msg.data = right_knee_initial_pos_;
-  pub_position_controller_right_knee_.publish(motor_position_msg);
-  motor_position_msg.data = right_hip_initial_pos_;
-  pub_position_controller_right_hip_.publish(motor_position_msg);
+  initial_configuration_msg.request.joint_names.push_back("left_hip");
+  initial_configuration_msg.request.joint_positions.push_back(
+      left_hip_initial_pos_);
+  initial_configuration_msg.request.joint_names.push_back("left_knee");
+  initial_configuration_msg.request.joint_positions.push_back(
+      left_knee_initial_pos_);
+  initial_configuration_msg.request.joint_names.push_back("left_ankle");
+  initial_configuration_msg.request.joint_positions.push_back(
+      left_ankle_initial_pos_);
+
+  initial_configuration_msg.request.joint_names.push_back("right_hip");
+  initial_configuration_msg.request.joint_positions.push_back(
+      right_hip_initial_pos_);
+  initial_configuration_msg.request.joint_names.push_back("right_knee");
+  initial_configuration_msg.request.joint_positions.push_back(
+      right_knee_initial_pos_);
+  initial_configuration_msg.request.joint_names.push_back("right_ankle");
+  initial_configuration_msg.request.joint_positions.push_back(
+      right_ankle_initial_pos_);
+
+  srv_client_gazebo_set_model_configuration_.call(initial_configuration_msg);
+
+  //  // Sets initial positions
+  //  setPositionControllers();
+
+  //  // Sends the starting position
+  //  std_msgs::Float64 motor_position_msg;
+  //  motor_position_msg.data = left_ankle_initial_pos_;
+  //  pub_position_controller_left_ankle_.publish(motor_position_msg);
+  //  motor_position_msg.data = left_knee_initial_pos_;
+  //  pub_position_controller_left_knee_.publish(motor_position_msg);
+  //  motor_position_msg.data = left_hip_initial_pos_;
+  //  pub_position_controller_left_hip_.publish(motor_position_msg);
+  //  motor_position_msg.data = right_ankle_initial_pos_;
+  //  pub_position_controller_right_ankle_.publish(motor_position_msg);
+  //  motor_position_msg.data = right_knee_initial_pos_;
+  //  pub_position_controller_right_knee_.publish(motor_position_msg);
+  //  motor_position_msg.data = right_hip_initial_pos_;
+  //  pub_position_controller_right_hip_.publish(motor_position_msg);
+
+  //  std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 }
 
 void ImpulseController::loadPositionAndEffortControllers() {
@@ -325,12 +354,12 @@ std::string ImpulseController::getName(JOINT joint) {
 }
 
 void ImpulseController::hoppingPosition() {
-  setController(JOINT::RIGHT_ANKLE, CONTROLLER::POSITION);
-  setController(JOINT::RIGHT_KNEE, CONTROLLER::POSITION);
-  setController(JOINT::RIGHT_HIP, CONTROLLER::POSITION);
   setController(JOINT::LEFT_ANKLE, CONTROLLER::EFFORT);
   setController(JOINT::LEFT_KNEE, CONTROLLER::EFFORT);
   setController(JOINT::LEFT_HIP, CONTROLLER::EFFORT);
+  setController(JOINT::RIGHT_ANKLE, CONTROLLER::POSITION);
+  setController(JOINT::RIGHT_KNEE, CONTROLLER::POSITION);
+  setController(JOINT::RIGHT_HIP, CONTROLLER::POSITION);
 
   // Sends the hopping position
   std_msgs::Float64 motor_position_msg;
@@ -343,21 +372,21 @@ void ImpulseController::hoppingPosition() {
 }
 
 void ImpulseController::setEffortControllers() {
-  setController(JOINT::RIGHT_ANKLE, CONTROLLER::EFFORT);
-  setController(JOINT::RIGHT_KNEE, CONTROLLER::EFFORT);
-  setController(JOINT::RIGHT_HIP, CONTROLLER::EFFORT);
   setController(JOINT::LEFT_ANKLE, CONTROLLER::EFFORT);
   setController(JOINT::LEFT_KNEE, CONTROLLER::EFFORT);
   setController(JOINT::LEFT_HIP, CONTROLLER::EFFORT);
+  setController(JOINT::RIGHT_ANKLE, CONTROLLER::EFFORT);
+  setController(JOINT::RIGHT_KNEE, CONTROLLER::EFFORT);
+  setController(JOINT::RIGHT_HIP, CONTROLLER::EFFORT);
 }
 
 void ImpulseController::setPositionControllers() {
-  setController(JOINT::RIGHT_ANKLE, CONTROLLER::POSITION);
-  setController(JOINT::RIGHT_KNEE, CONTROLLER::POSITION);
-  setController(JOINT::RIGHT_HIP, CONTROLLER::POSITION);
   setController(JOINT::LEFT_ANKLE, CONTROLLER::POSITION);
   setController(JOINT::LEFT_KNEE, CONTROLLER::POSITION);
   setController(JOINT::LEFT_HIP, CONTROLLER::POSITION);
+  setController(JOINT::RIGHT_ANKLE, CONTROLLER::POSITION);
+  setController(JOINT::RIGHT_KNEE, CONTROLLER::POSITION);
+  setController(JOINT::RIGHT_HIP, CONTROLLER::POSITION);
 }
 
 void ImpulseController::updateRate() {
@@ -449,14 +478,19 @@ bool ImpulseController::callbackServiceImpulseOneLeg(
     hip_trajectory.push_back(req.torque_hip);
   }
 
+  // Adds a 0 in the end to stop the motor
+  ankle_trajectory.push_back(0);
+  knee_trajectory.push_back(0);
+  hip_trajectory.push_back(0);
+
   // Sends the commands
   for (unsigned int step = 0; step < ankle_trajectory.size(); ++step) {
     std_msgs::Float64 ankle_msg;
     ankle_msg.data = ankle_trajectory.at(step);
     std_msgs::Float64 knee_msg;
-    knee_msg.data = ankle_trajectory.at(step);
+    knee_msg.data = knee_trajectory.at(step);
     std_msgs::Float64 hip_msg;
-    hip_msg.data = ankle_trajectory.at(step);
+    hip_msg.data = hip_trajectory.at(step);
 
     pub_effort_controller_left_ankle_.publish(ankle_msg);
     pub_effort_controller_left_knee_.publish(knee_msg);
@@ -510,14 +544,19 @@ bool ImpulseController::callbackServiceImpulseTwoLegs(
     hip_trajectory.push_back(req.torque_hip);
   }
 
+  // Adds a 0 in the end to stop the motor
+  ankle_trajectory.push_back(0);
+  knee_trajectory.push_back(0);
+  hip_trajectory.push_back(0);
+
   // Sends the commands
   for (unsigned int step = 0; step < ankle_trajectory.size(); ++step) {
     std_msgs::Float64 ankle_msg;
     ankle_msg.data = ankle_trajectory.at(step);
     std_msgs::Float64 knee_msg;
-    knee_msg.data = ankle_trajectory.at(step);
+    knee_msg.data = knee_trajectory.at(step);
     std_msgs::Float64 hip_msg;
-    hip_msg.data = ankle_trajectory.at(step);
+    hip_msg.data = hip_trajectory.at(step);
 
     pub_effort_controller_left_ankle_.publish(ankle_msg);
     pub_effort_controller_right_ankle_.publish(ankle_msg);
@@ -529,7 +568,7 @@ bool ImpulseController::callbackServiceImpulseTwoLegs(
     pub_effort_controller_right_hip_.publish(hip_msg);
 
     std::this_thread::sleep_for(
-        std::chrono::duration<double, std::milli>(time_step * 1000));
+        std::chrono::duration<double, std::milli>(time_step / (time_step_ * real_time_factor_) * 1000));
   }
 
   return 1;
