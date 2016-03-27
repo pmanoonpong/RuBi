@@ -28,8 +28,8 @@
 	<xacro:property name="upperLegLength" value="${0.015*scale}" />
 	<xacro:property name="upperLegHeight" value="${0.262*scale}" />
 	<xacro:property name="upperLegMass" value="${0.163*scale}" />
-  <xacro:property name="upperLegLimitUpperPosition" value="30" />
-  <xacro:property name="upperLegLimitLowerPosition" value="-30" />
+  <xacro:property name="upperLegLimitUpperPosition" value="80" />
+  <xacro:property name="upperLegLimitLowerPosition" value="-80" />
   <xacro:property name="upperLegLimitVelocity" value="10" />
   <xacro:property name="upperLegLimitEffort" value="10" />
   <xacro:property name="upperLegDamping" value="0.7" />
@@ -48,8 +48,8 @@
 	<xacro:property name="footLength" value="${0.095*scale}" />
 	<xacro:property name="footHeight" value="${0.008*scale}" />
 	<xacro:property name="footMass" value="${0.0296*scale}" />
-  <xacro:property name="footLimitUpperPosition" value="40" />
-  <xacro:property name="footLimitLowerPosition" value="-50" />
+  <xacro:property name="footLimitUpperPosition" value="38" />
+  <xacro:property name="footLimitLowerPosition" value="-52" />
   <xacro:property name="footLimitVelocity" value="10" />
   <xacro:property name="footLimitEffort" value="10" />
   <xacro:property name="footDamping" value="0.7" />
