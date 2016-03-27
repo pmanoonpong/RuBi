@@ -231,6 +231,10 @@ void ImpulseController::resetSimulation() {
 }
 
 void ImpulseController::hoppingPosition() {
+  // Sets all the controllers to effort. Just in case the left leg is not
+  // in effort mode.
+  setEffortControllers();
+
   // Prepares variables for the right leg
   std::vector<std::string> right_position_controllers{
       "right_ankle_position", "right_knee_position", "right_hip_position"};
@@ -251,9 +255,10 @@ void ImpulseController::hoppingPosition() {
   for (unsigned char right_leg_controller = 0;
        right_leg_controller < right_position_controllers.size();
        ++right_leg_controller) {
-    bool controller_not_loaded(false);
+    bool controller_loaded(false);
     // Check in the all the controller's list
     for (auto &controller : list_controllers_msg.response.controller) {
+      controller_loaded = true;
       // Find the position controller for that joint exists
       if (controller.name ==
           right_position_controllers.at(right_leg_controller)) {
@@ -270,12 +275,9 @@ void ImpulseController::hoppingPosition() {
           switch_controller_msg.request.strictness = 1;
           srv_controller_manager_switch_.call(switch_controller_msg);
         }
-
-      } else {
-        controller_not_loaded = true;
       }
     }
-    if (controller_not_loaded) {
+    if (controller_loaded) {
       ROS_INFO_STREAM(right_position_controllers.at(right_leg_controller)
                       << " is not loaded. Spawning!");
       controller_manager_msgs::LoadController load_controller_msg;
@@ -296,6 +298,62 @@ void ImpulseController::hoppingPosition() {
     std_msgs::Float64 motor_position_msg;
     motor_position_msg.data = right_hopping_positions.at(right_leg_controller);
     publishers.at(right_leg_controller)->publish(motor_position_msg);
+  }
+}
+
+void ImpulseController::setEffortControllers() {
+  // Prepares variables
+  std::vector<std::string> position_controllers{
+      "left_ankle_position",  "left_knee_position",  "left_hip_position",
+      "right_ankle_position", "right_knee_position", "right_hip_position"};
+  std::vector<std::string> effort_controllers{
+      "left_ankle_effort",  "left_knee_effort",  "left_hip_effort",
+      "right_ankle_effort", "right_knee_effort", "right_hip_effort"};
+
+  // Check if the right leg controllers are positions.
+  controller_manager_msgs::ListControllers list_controllers_msg;
+  srv_controller_manager_list_.call(list_controllers_msg);
+
+  // For all the motors in the right leg
+  for (unsigned char leg_controller = 0;
+       leg_controller < effort_controllers.size(); ++leg_controller) {
+    bool controller_loaded = false;
+    // Check in the all the controller's list
+    for (auto &controller : list_controllers_msg.response.controller) {
+      // Finds out if the controller exists
+      if (controller.name == effort_controllers.at(leg_controller)) {
+        controller_loaded = true;
+        // If it does, checks if it is running
+        if (controller.state != "running") {
+          ROS_INFO_STREAM(effort_controllers.at(leg_controller)
+                          << " is loaded but not running. Starting!");
+          // Stops the position and starts the effort controller
+          controller_manager_msgs::SwitchController switch_controller_msg;
+          switch_controller_msg.request.start_controllers.push_back(
+              effort_controllers.at(leg_controller));
+          switch_controller_msg.request.stop_controllers.push_back(
+              position_controllers.at(leg_controller));
+          switch_controller_msg.request.strictness = 1;
+          srv_controller_manager_switch_.call(switch_controller_msg);
+        }
+      }
+    }
+    if (!controller_loaded) {
+      ROS_INFO_STREAM(effort_controllers.at(leg_controller)
+                      << " is not loaded. Spawning!");
+      controller_manager_msgs::LoadController load_controller_msg;
+      load_controller_msg.request.name =
+          position_controllers.at(leg_controller);
+      srv_controller_manager_load_.call(load_controller_msg);
+
+      // Stops the effort and starts the position controller
+      controller_manager_msgs::SwitchController switch_controller_msg;
+      switch_controller_msg.request.start_controllers.push_back(
+          effort_controllers.at(leg_controller));
+      switch_controller_msg.request.stop_controllers.push_back(
+          position_controllers.at(leg_controller));
+      srv_controller_manager_switch_.call(switch_controller_msg);
+    }
   }
 }
 
@@ -350,13 +408,9 @@ bool ImpulseController::callbackServiceImpulseOneLeg(
   hoppingPosition();
 
   // Creates the trajectory of the motors
-  std::vector<double> left_ankle_trajectory;
-  std::vector<double> left_knee_trajectory;
-  std::vector<double> left_hip_trajectory;
-
-  std::vector<double> right_ankle_trajectory;
-  std::vector<double> right_knee_trajectory;
-  std::vector<double> right_hip_trajectory;
+  std::vector<double> ankle_trajectory;
+  std::vector<double> knee_trajectory;
+  std::vector<double> hip_trajectory;
 
   // Gets the last time step
   double time_step;
@@ -369,43 +423,36 @@ bool ImpulseController::callbackServiceImpulseOneLeg(
   double acceleration_steps = acceleration_time / time_step;
 
   for (double step = 0; step < acceleration_steps; ++step) {
-    left_ankle_trajectory.push_back(req.torque_left_ankle * step);
-    left_knee_trajectory.push_back(req.torque_left_knee * step);
-    left_hip_trajectory.push_back(req.torque_left_hip * step);
-
-    right_ankle_trajectory.push_back(req.torque_right_ankle * step);
-    right_knee_trajectory.push_back(req.torque_right_knee * step);
-    right_hip_trajectory.push_back(req.torque_right_hip * step);
+    ankle_trajectory.push_back(req.torque_ankle * step);
+    knee_trajectory.push_back(req.torque_knee * step);
+    hip_trajectory.push_back(req.torque_hip * step);
   }
 
   // Adds the impulse phase
   double impulse_steps = req.impulse_time / time_step;
 
   for (double step = 0; step < impulse_steps; ++step) {
-    left_ankle_trajectory.push_back(req.torque_left_ankle);
-    left_knee_trajectory.push_back(req.torque_left_knee);
-    left_hip_trajectory.push_back(req.torque_left_hip);
-
-    right_ankle_trajectory.push_back(req.torque_right_ankle);
-    right_knee_trajectory.push_back(req.torque_right_knee);
-    right_hip_trajectory.push_back(req.torque_right_hip);
+    ankle_trajectory.push_back(req.torque_ankle);
+    knee_trajectory.push_back(req.torque_knee);
+    hip_trajectory.push_back(req.torque_hip);
   }
 
   // Sends the commands
-  /*
-    for (int step = 0; step < left_ankle_trajectory.size(); ++step) {
-      motors_msg.data.push_back(left_ankle_trajectory.at(step));
-      motors_msg.data.push_back(left_knee_trajectory.at(step));
-      motors_msg.data.push_back(left_ankle_trajectory.at(step));
+  for (unsigned int step = 0; step < ankle_trajectory.size(); ++step) {
+    std_msgs::Float64 ankle_msg;
+    ankle_msg.data = ankle_trajectory.at(step);
+    std_msgs::Float64 knee_msg;
+    knee_msg.data = ankle_trajectory.at(step);
+    std_msgs::Float64 hip_msg;
+    hip_msg.data = ankle_trajectory.at(step);
 
-      motors_msg.data.push_back(left_ankle_trajectory.at(step));
-      motors_msg.data.push_back(left_ankle_trajectory.at(step));
-      motors_msg.data.push_back(left_ankle_trajectory.at(step));
-    }
+    pub_effort_controller_left_ankle_.publish(ankle_msg);
+    pub_effort_controller_left_knee_.publish(knee_msg);
+    pub_effort_controller_left_hip_.publish(hip_msg);
 
-    // Publish the message
-
-    */
+    std::this_thread::sleep_for(
+        std::chrono::duration<double, std::milli>(time_step * 1000));
+  }
 
   return 1;
 }
@@ -416,8 +463,60 @@ bool ImpulseController::callbackServiceImpulseTwoLegs(
   // Resets the simulation
   resetSimulation();
 
-  // Put the right leg into hopping position
-  hoppingPosition();
+  // Sets all the controllers to effort
+  setEffortControllers();
+
+  // Creates the trajectory of the motors
+  std::vector<double> ankle_trajectory;
+  std::vector<double> knee_trajectory;
+  std::vector<double> hip_trajectory;
+
+  // Gets the last time step
+  double time_step;
+  update_rate_mutex_.lock();
+  time_step = 0.001/*time_step_*/;
+  update_rate_mutex_.unlock();
+
+  // Adds the acceleration phase
+  double acceleration_time = 0.1 * req.impulse_time;
+  double acceleration_steps = acceleration_time / time_step;
+
+  for (double step = 0; step < acceleration_steps; ++step) {
+    ankle_trajectory.push_back(req.torque_ankle * step);
+    knee_trajectory.push_back(req.torque_knee * step);
+    hip_trajectory.push_back(req.torque_hip * step);
+  }
+
+  // Adds the impulse phase
+  double impulse_steps = req.impulse_time / time_step;
+
+  for (double step = 0; step < impulse_steps; ++step) {
+    ankle_trajectory.push_back(req.torque_ankle);
+    knee_trajectory.push_back(req.torque_knee);
+    hip_trajectory.push_back(req.torque_hip);
+  }
+
+  // Sends the commands
+  for (unsigned int step = 0; step < ankle_trajectory.size(); ++step) {
+    std_msgs::Float64 ankle_msg;
+    ankle_msg.data = ankle_trajectory.at(step);
+    std_msgs::Float64 knee_msg;
+    knee_msg.data = ankle_trajectory.at(step);
+    std_msgs::Float64 hip_msg;
+    hip_msg.data = ankle_trajectory.at(step);
+
+    pub_effort_controller_left_ankle_.publish(ankle_msg);
+    pub_effort_controller_right_ankle_.publish(ankle_msg);
+
+    pub_effort_controller_left_knee_.publish(knee_msg);
+    pub_effort_controller_right_knee_.publish(knee_msg);
+
+    pub_effort_controller_left_hip_.publish(hip_msg);
+    pub_effort_controller_right_hip_.publish(hip_msg);
+
+    std::this_thread::sleep_for(
+        std::chrono::duration<double, std::milli>(time_step * 1000));
+  }
 
   return 1;
 }

@@ -1,10 +1,6 @@
-float64 torque_left_hip
-float64 torque_left_knee
-float64 torque_left_ankle
-
-float64 torque_right_hip
-float64 torque_right_knee
-float64 torque_right_ankle
+float64 torque_hip
+float64 torque_knee
+float64 torque_ankle
 
 float64 impulse_time
 ---

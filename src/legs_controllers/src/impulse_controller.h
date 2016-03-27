@@ -68,9 +68,15 @@ class ImpulseController {
 
   /**
    * @brief hoppingPosition Folds the right leg to hopping position. This is
-   * used for hop with the other leg.
+   * used for hop with the other leg. Made by changing the controllers of the
+   * folded leg to position controllers.
    */
   void hoppingPosition();
+
+  /**
+   * @brief setEffortControllers Set all the joint controllers to effort
+   */
+  void setEffortControllers();
 
   // Callbacks
   /**
