@@ -1,5 +1,5 @@
 %DYNAMICS OF VERTICAL JUMP: impulse analysis
-function [Fmin, tmax]=impulse(hDelta, m, dispCoG, gravity)
+function [Fmin, tmax, F, T]=impulse(hDelta, m, dispCoG, gravity)
 
 %Total mass of legs
 mTotal = 0.971;
@@ -12,15 +12,16 @@ vDelta = sqrt(2*abs(gravity)*hDelta);
 %Fmin and tmax for the required Energy
 Fmin = (mTotal*vDelta^2)/(2*dispCoG);
 tmax = mTotal*vDelta/Fmin;
-Fmin=9.06;
-tmax=0.15;
 
 %Reciprocal relationship between force and application time for the desired
 %hDelta
+T = linspace(0.01,0.3,30);
+i=0;
 figure
 hold on
-for t=0.01:0.002:0.3
-    F = (mTotal* vDelta)/t;
-    plot(t,F, '*')
+for t=0.01:0.01:0.3
+    i=i+1;
+    F(1,i) = (mTotal* vDelta)/t;
+    plot(t,F(1,i), '*')
 end
 hold off
