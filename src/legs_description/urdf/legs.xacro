@@ -28,8 +28,8 @@
 	<xacro:property name="upperLegLength" value="${0.015*scale}" />
 	<xacro:property name="upperLegHeight" value="${0.262*scale}" />
 	<xacro:property name="upperLegMass" value="${0.163*scale}" />
-  <xacro:property name="upperLegLimitUpperPosition" value="30" />
-  <xacro:property name="upperLegLimitLowerPosition" value="-30" />
+  <xacro:property name="upperLegLimitUpperPosition" value="80" />
+  <xacro:property name="upperLegLimitLowerPosition" value="-80" />
   <xacro:property name="upperLegLimitVelocity" value="10" />
   <xacro:property name="upperLegLimitEffort" value="10" />
   <xacro:property name="upperLegDamping" value="0.7" />
@@ -48,8 +48,8 @@
 	<xacro:property name="footLength" value="${0.095*scale}" />
 	<xacro:property name="footHeight" value="${0.008*scale}" />
 	<xacro:property name="footMass" value="${0.0296*scale}" />
-  <xacro:property name="footLimitUpperPosition" value="40" />
-  <xacro:property name="footLimitLowerPosition" value="-50" />
+  <xacro:property name="footLimitUpperPosition" value="38" />
+  <xacro:property name="footLimitLowerPosition" value="-52" />
   <xacro:property name="footLimitVelocity" value="10" />
   <xacro:property name="footLimitEffort" value="10" />
   <xacro:property name="footDamping" value="0.7" />
@@ -180,17 +180,35 @@
 	-->
 	<xacro:create_box name="body" origin_x="0" origin_y="0" origin_z="${bodyHeight/2}" r="0" p="0" y="0" width="${bodyWidth}" length="${bodyLength}" height="${bodyHeight}" mass="${bodyMass}"  />
 
+
+  <!-- 
+    Virtual links
+  -->
+  <link name="world"/>
+
+  <link name="plane_x">
+    <inertial>
+      <mass value="2e-06"/>
+      <inertia ixx="1.1e-09" ixy="0" ixz="0" iyy="1.1e-09" iyz="0" izz="1.1e-09"/>
+    </inertial>
+  </link>
+
 	<!-- 
 		Joints 
 	-->
-  <link name="world"/>
-
-<!--   <joint name="fixed" type="fixed">
+  <joint name="world_plane_x" type="planar">
     <parent link="world"/>
-    <child link="body"/>
-    <origin xyz="0 0 ${(footHeight + lowerLegHeight + upperLegHeight)*1.1}" rpy="0 0 0"/>
-  </joint>  -->
+    <child link="plane_x"/>
+    <origin xyz="0 0 ${footHeight + lowerLegHeight + upperLegHeight}" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+  </joint> 
 
+  <joint name="plane_x_body" type="continuous">
+    <parent link="plane_x"/>
+    <child link="body"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+  </joint> 
 
 	<joint name="left_hip" type="revolute">
 		<parent link="body"/>
@@ -215,7 +233,7 @@
 		<child link="left_foot"/>
 		<origin xyz="${lowerLegHeight} 0 0" rpy="0 0 0"/>
 		<axis xyz="0 0 1"/>
-		<limit effort="${footLimitEffort}" velocity="${footLimitVelocity}" lower="${footLimitLowerPosition}" upper="${footLimitUpperPosition}" />
+		<limit effort="${footLimitEffort}" velocity="${footLimitVelocity}" lower="${footLimitLowerPosition*DEG_TO_RAD}" upper="${footLimitUpperPosition*DEG_TO_RAD}" />
 		<dynamics damping="${footDamping}"/>
 	</joint> 
 
@@ -242,7 +260,7 @@
 		<child link="right_foot"/>
 		<origin xyz="${lowerLegHeight} 0 0" rpy="0 0 0"/>
 		<axis xyz="0 0 1"/>
-		<limit effort="${footLimitEffort}" velocity="${footLimitVelocity}" lower="${footLimitLowerPosition}" upper="${footLimitUpperPosition}" />
+		<limit effort="${footLimitEffort}" velocity="${footLimitVelocity}" lower="${footLimitLowerPosition*DEG_TO_RAD}" upper="${footLimitUpperPosition*DEG_TO_RAD}" />
     <dynamics damping="${footDamping}"/>
 	</joint> 
 
@@ -312,14 +330,8 @@
 		</actuator>
 	</transmission>
 
-
-
-
-
-
-
-
 	<!-- Rotational robot holder -->
+<!-- 
   <xacro:property name="rotational_robot_holder_base_length_extra" value="0" />
   <xacro:if value="${robot_floating is 1}">
     <xacro:property name="rotational_robot_holder_base_length_extra" value="0.1" />
@@ -328,14 +340,6 @@
   <xacro:property name="rotational_robot_holder_base_radius" value="${0.2*scale}" />
   <xacro:property name="rotational_robot_holder_holder_radius" value="${0.01*scale}" />
   <xacro:property name="rotational_robot_holder_holder_length" value="${2*scale}" />
-	<!-- <xacro:include filename="$(find gazebo_resources)/models/rotational_robot_holder/urdf/rotational_robot_holder.xacro" /> -->
-
-
-
-
-
-
-
   <link name="rotational_robot_holder_base">
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -405,7 +409,6 @@
     
   </link>
 
-  <!-- Robot to rotational_robot_holder -->
 
   <joint name="rotational_robot_holder_base_to_world" type="fixed">
     <parent link="world"/>
@@ -452,6 +455,6 @@
     <axis xyz="0 0 1"/>
     <limit effort="30" velocity="1.0" lower="0" upper="1" />
   </joint> 
-
+ -->
 
 </robot>

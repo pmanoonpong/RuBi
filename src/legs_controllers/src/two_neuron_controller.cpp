@@ -73,7 +73,7 @@ void TwoNeuronController::callbackSubcriberJointState(
 }
 
 void TwoNeuronController::callbackDynamicParameters(
-    legs_controller::two_neuronConfig &config, uint32_t level) {
+    legs_controller::two_neuronConfig& config, uint32_t level) {
   weight_w1_w1_ = config.weight_self;
   weight_w1_w2_ = config.weight_other;
   weight_w2_w1_ = -config.weight_other;
@@ -139,25 +139,26 @@ void TwoNeuronController::stop() {
 }
 
 void TwoNeuronController::updateRate() {
-  if (ros::service::exists(topic_gazebo_physic_properties_,
-                           false)) {  // Checks if gazebo exists
-    gazebo_msgs::GetPhysicsProperties msg;
-    srv_client_gazebo_physic_properties_.call(msg);
-    if (msg.response.time_step != time_step_ ||
-        msg.response.max_update_rate != real_time_factor_) {
-      ROS_INFO_STREAM("Time changed! Real Time Factor: "
-                      << real_time_factor_ << " Time Step: " << time_step_);
-      real_time_factor_ = msg.response.max_update_rate;
-      time_step_ = msg.response.time_step;
-      update_rate_mutex_.lock();
-      rate_.reset(
-          new ros::Rate(update_rate_ / (time_step_ * real_time_factor_)));
-      update_rate_mutex_.unlock();
+  while (!killed) {
+    if (ros::service::exists(topic_gazebo_physic_properties_,
+                             false)) {  // Checks if gazebo exists
+      gazebo_msgs::GetPhysicsProperties msg;
+      srv_client_gazebo_physic_properties_.call(msg);
+      if (msg.response.time_step != time_step_ ||
+          msg.response.max_update_rate != real_time_factor_) {
+        ROS_INFO_STREAM("Time changed! Real Time Factor: "
+                        << real_time_factor_ << " Time Step: " << time_step_);
+        real_time_factor_ = msg.response.max_update_rate;
+        time_step_ = msg.response.time_step;
+        update_rate_mutex_.lock();
+        rate_.reset(
+            new ros::Rate(update_rate_ / (time_step_ * real_time_factor_)));
+        update_rate_mutex_.unlock();
+      }
     }
+    std::this_thread::sleep_for(std::chrono::microseconds(50));
   }
-  std::this_thread::sleep_for(std::chrono::microseconds(50));
 }
-
 
 /**
  * @brief Runs the controller
@@ -185,4 +186,3 @@ int main() {
 
   return 0;
 }
-
