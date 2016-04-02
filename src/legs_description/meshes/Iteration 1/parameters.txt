@@ -1,0 +1,35 @@
+﻿"knee_angle"= 90
+"ankle_angle" = 80
+"hip_angle" = 30
+
+"spring_ankle_parallel_arm_diameter"= 0.43
+"spring_ankle_parallel_arm_length"= 15
+"spring_ankle_parallel_intern_diameter"= 5.46
+"spring_ankle_parallel_angle"= "ankle_angle"
+"spring_ankle_parallel_turns"= 3
+"spring_ankle_parallel_pitch"= "spring_ankle_parallel_arm_diameter" * 1.01
+"spring_ankle_parallel_cutting_distance"= (1-"spring_ankle_parallel_angle" / 360) * "spring_ankle_parallel_pitch"
+
+"spring_ankle_serial_arm_diameter"= 0.43
+"spring_ankle_serial_arm_length"= 15
+"spring_ankle_serial_intern_diameter"= 5.46
+"spring_ankle_serial_angle"= "ankle_angle"
+"spring_ankle_serial_turns"= 3
+"spring_ankle_serial_pitch"= "spring_ankle_serial_arm_diameter" * 1.01
+"spring_ankle_serial_cutting_distance"= (1-"spring_ankle_serial_angle" / 360) * "spring_ankle_serial_pitch"
+
+"spring_knee_parallel_arm_diameter"= 0.43
+"spring_knee_parallel_arm_length"= 15
+"spring_knee_parallel_intern_diameter"= 5.46
+"spring_knee_parallel_angle"= "knee_angle"
+"spring_knee_parallel_turns"= 3
+"spring_knee_parallel_pitch"= "spring_knee_parallel_arm_diameter" * 1.01
+"spring_knee_parallel_cutting_distance"= (1-"spring_knee_parallel_angle" / 360) * "spring_knee_parallel_pitch"
+
+"spring_knee_serial_arm_diameter"= 0.43
+"spring_knee_serial_arm_length"= 15
+"spring_knee_serial_intern_diameter"= 5.46
+"spring_knee_serial_angle"= "knee_angle"
+"spring_knee_serial_turns"= 3
+"spring_knee_serial_pitch"= "spring_knee_serial_arm_diameter" * 1.01
+"spring_knee_serial_cutting_distance"= (1-"spring_knee_serial_angle" / 360) * "spring_knee_serial_pitch"
