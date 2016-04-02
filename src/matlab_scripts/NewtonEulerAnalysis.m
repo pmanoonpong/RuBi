@@ -35,15 +35,19 @@ Torque(1,1) = Torque(1,2) + [r0c1(1,1)*f01(2,1)-r0c1(2,1)*f01(1,1)] - [r1c1(1,1)
 
 %Solve resulting equations for t=0 and display output
 
-disp('--------------------------------------');
-disp('Torque in link 1:');
-vpa(subs(Torque(1,1),0), 6)
-disp('Torque in link 2:');
-vpa(subs(Torque(1,2),0), 6)
-disp('Torque in link 3:');
-vpa(subs(Torque(1,3),0), 6)
-disp('--------------------------------------');
-    
+% figure
+% hold on
+% for t=0.01:0.02:0.15
+%     Tau1=vpa(subs(Torque(1,1),t), 6);
+%     Tau2=vpa(subs(Torque(1,2),t), 6);
+%     Tau3=vpa(subs(Torque(1,3),t), 6);
+%     plot(t,Tau1, '*')
+%     plot(t,Tau2, '*')
+%     plot(t,Tau3, '*')
+% end
+% hold off
+
+
     
     
     
