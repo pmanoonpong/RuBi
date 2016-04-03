@@ -23,6 +23,8 @@
 
 #include "gazebo_msgs/GetPhysicsProperties.h"
 #include "gazebo_msgs/SetModelConfiguration.h"
+#include "gazebo_msgs/SetModelState.h"
+#include "gazebo_msgs/SpawnModel.h"
 
 #include "legs_controllers/impulse_one_leg.h"
 #include "legs_controllers/impulse_two_legs.h"
@@ -155,7 +157,8 @@ class ImpulseController {
   ros::Subscriber sub_joint_states_;
 
   ros::ServiceClient srv_client_gazebo_physic_properties_,
-      srv_client_gazebo_set_model_configuration_, srv_client_reset_simulation,
+      srv_client_gazebo_set_model_configuration_,
+      srv_client_gazebo_set_model_state_, srv_client_reset_simulation,
       srv_controller_manager_list_, srv_controller_manager_load_,
       srv_controller_manager_switch_;
 
@@ -170,9 +173,10 @@ class ImpulseController {
       topic_position_controller_right_knee_,
       topic_position_controller_right_hip_, topic_joint_states_,
       topic_gazebo_physic_properties_, topic_gazebo_set_model_configuration_,
-      topic_gazebo_reset_simulation_, topic_impulse_one_leg_,
-      topic_impulse_two_legs_, topic_controller_manager_list_,
-      topic_controller_manager_load_, topic_controller_manager_switch_;
+      topic_gazebo_set_model_state_, topic_gazebo_reset_simulation_,
+      topic_impulse_one_leg_, topic_impulse_two_legs_,
+      topic_controller_manager_list_, topic_controller_manager_load_,
+      topic_controller_manager_switch_;
 
   // Step time
   double time_step_;
