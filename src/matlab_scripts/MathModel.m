@@ -16,7 +16,7 @@ bendPhase = 8/13;
 toolX = 0;
 %Leg bent before jumping
 toolY = Ltotal*(bendPhase)*cos(t);
-toolTheta = -pi/2.3*cos(t);
+toolTheta = -pi/2*cos(t);
 %Leg stretched after push-off on running
 %toolY = 0.56;
 %toolTheta = -pi/8;
@@ -39,7 +39,7 @@ g= 9.81;
 %Masses of the links (from 1 to 3)
 m=[0.163;0.17;0.029];
 %Y axis displacement
-hDelta = 0.14;
+hDelta = 0.09;
 %External torque applied to the toes
 TauExt=0;
 %Moments of inertia of the link (from 1 to 3)
@@ -49,7 +49,7 @@ I=[0.0001;0.0001;0.0001];
 [FminY, tmax, F, t]=impulse(hDelta, m, dispCoG, g);
 %External force applied on the toes
 
-for i=1:30
+for i=1:round(tmax,2)*100
 fext=[0; -F(1,i)];
 % disp('Impulse force:');
 % fext
@@ -62,11 +62,11 @@ NewtonEulerAnalysis
 
 % disp('--------------------------------------');
 % disp('Torque in link 1:');
-Tau(i,1)=vpa(subs(Torque(1,1),0), 6);
+Tau(i,1)=vpa(subs(Torque(1,1),0), 3);
 %disp('Torque in link 2:');
-Tau(i,2)=vpa(subs(Torque(1,2),0), 6);
+Tau(i,2)=vpa(subs(Torque(1,2),0), 3);
 %disp('Torque in link 3:');
-Tau(i,3)=vpa(subs(Torque(1,3),0), 6);
+Tau(i,3)=vpa(subs(Torque(1,3),0), 3);
 %disp('--------------------------------------');
     
 
@@ -80,11 +80,11 @@ Tau(i,3)=vpa(subs(Torque(1,3),0), 6);
 
 %disp('--------------------------------------');
 %disp('Angular speed of hip motor (rpm):');
-W(i,1)=vpa((abs(subs(Q1, 0))/t(1,i))/(2*pi)*60, 6);
+W(i,1)=vpa((abs(subs(Q1, 0))/t(1,i))*60/(2*pi), 6);
 %disp('Angular speed of knee motor (rpm):');
-W(i,2)=vpa((abs(subs(Q2, 0))/t(1,i))/(2*pi)*60, 6);
+W(i,2)=vpa((abs(subs(Q2, 0))/t(1,i))*60/(2*pi), 6);
 %disp('Angular speed of ankle motor (rpm):');
-W(i,3)=vpa((abs(subs(Q3, 0))/t(1,i))/(2*pi)*60, 6);
+W(i,3)=vpa((abs(subs(Q3, 0))/t(1,i))*60/(2*pi), 6);
 end
 
 %%
