@@ -82,6 +82,9 @@ ImpulseController::ImpulseController()
   nh_.param<std::string>("gazebo_set_model_configuration_topic",
                          topic_gazebo_set_model_configuration_,
                          "/gazebo/set_model_configuration");
+  nh_.param<std::string>("gazebo_set_model_state_topic",
+                         topic_gazebo_set_model_state_,
+                         "/gazebo/set_model_state");
   nh_.param<std::string>("gazebo_reset_simulation_topic",
                          topic_gazebo_reset_simulation_,
                          "/gazebo/reset_simulation");
@@ -182,6 +185,9 @@ ImpulseController::ImpulseController()
   srv_client_gazebo_set_model_configuration_ =
       nh_.serviceClient<gazebo_msgs::SetModelConfiguration>(
           topic_gazebo_set_model_configuration_);
+  srv_client_gazebo_set_model_state_ =
+      nh_.serviceClient<gazebo_msgs::SetModelState>(
+          topic_gazebo_set_model_state_);
 
   srv_controller_manager_list_ =
       nh_.serviceClient<controller_manager_msgs::ListControllers>(
@@ -216,45 +222,47 @@ void ImpulseController::resetSimulation() {
 
   initial_configuration_msg.request.joint_names.push_back("left_hip");
   initial_configuration_msg.request.joint_positions.push_back(
-      left_hip_initial_pos_);
+      left_hip_initial_pos_ * DEG_TO_RAD);
   initial_configuration_msg.request.joint_names.push_back("left_knee");
   initial_configuration_msg.request.joint_positions.push_back(
-      left_knee_initial_pos_);
+      left_knee_initial_pos_ * DEG_TO_RAD);
   initial_configuration_msg.request.joint_names.push_back("left_ankle");
   initial_configuration_msg.request.joint_positions.push_back(
-      left_ankle_initial_pos_);
+      left_ankle_initial_pos_ * DEG_TO_RAD);
 
   initial_configuration_msg.request.joint_names.push_back("right_hip");
   initial_configuration_msg.request.joint_positions.push_back(
-      right_hip_initial_pos_);
+      right_hip_initial_pos_ * DEG_TO_RAD);
   initial_configuration_msg.request.joint_names.push_back("right_knee");
   initial_configuration_msg.request.joint_positions.push_back(
-      right_knee_initial_pos_);
+      right_knee_initial_pos_ * DEG_TO_RAD);
   initial_configuration_msg.request.joint_names.push_back("right_ankle");
   initial_configuration_msg.request.joint_positions.push_back(
-      right_ankle_initial_pos_);
+      right_ankle_initial_pos_ * DEG_TO_RAD);
 
   srv_client_gazebo_set_model_configuration_.call(initial_configuration_msg);
 
-  //  // Sets initial positions
-  //  setPositionControllers();
+  // Set initial state
+  gazebo_msgs::SetModelState initial_state_msg;
 
-  //  // Sends the starting position
-  //  std_msgs::Float64 motor_position_msg;
-  //  motor_position_msg.data = left_ankle_initial_pos_;
-  //  pub_position_controller_left_ankle_.publish(motor_position_msg);
-  //  motor_position_msg.data = left_knee_initial_pos_;
-  //  pub_position_controller_left_knee_.publish(motor_position_msg);
-  //  motor_position_msg.data = left_hip_initial_pos_;
-  //  pub_position_controller_left_hip_.publish(motor_position_msg);
-  //  motor_position_msg.data = right_ankle_initial_pos_;
-  //  pub_position_controller_right_ankle_.publish(motor_position_msg);
-  //  motor_position_msg.data = right_knee_initial_pos_;
-  //  pub_position_controller_right_knee_.publish(motor_position_msg);
-  //  motor_position_msg.data = right_hip_initial_pos_;
-  //  pub_position_controller_right_hip_.publish(motor_position_msg);
+  double diff_height = 0.085;
 
-  //  std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+  initial_state_msg.request.model_state.model_name = "legs";
+  initial_state_msg.request.model_state.pose.position.z = -diff_height;
+
+  srv_client_gazebo_set_model_state_.call(initial_state_msg);
+
+  // Create another instance
+  gazebo_msgs::SpawnModel spawn_model_msg;
+  spawn_model_msg.request.model_name="legs2";
+  spawn_model_msg.request.robot_namespace="legs2";
+  nh_.getParam("/robot_description", spawn_model_msg.request.model_xml);
+  spawn_model_msg.request.initial_pose.position.x = 1;
+  ros::ServiceClient srv;
+  srv =
+      nh_.serviceClient<gazebo_msgs::SpawnModel>("/gazebo/spawn_urdf_model");
+  srv.call(spawn_model_msg);
+
 }
 
 void ImpulseController::loadPositionAndEffortControllers() {
@@ -567,8 +575,8 @@ bool ImpulseController::callbackServiceImpulseTwoLegs(
     pub_effort_controller_left_hip_.publish(hip_msg);
     pub_effort_controller_right_hip_.publish(hip_msg);
 
-    std::this_thread::sleep_for(
-        std::chrono::duration<double, std::milli>(time_step / (time_step_ * real_time_factor_) * 1000));
+    std::this_thread::sleep_for(std::chrono::duration<double, std::milli>(
+        time_step / (time_step_ * real_time_factor_) * 1000));
   }
 
   return 1;
