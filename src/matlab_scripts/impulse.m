@@ -15,11 +15,11 @@ tmax = mTotal*vDelta/Fmin;
 
 %Reciprocal relationship between force and application time for the desired
 %hDelta
-T = linspace(0.01,0.3,30);
+T = linspace(0.01,round(tmax, 2),round(tmax/0.01, 2));
 i=0;
 figure
 hold on
-for t=0.01:0.01:0.3
+for t=0.01:0.01:round(tmax, 2)
     i=i+1;
     F(1,i) = (mTotal* vDelta)/t;
     plot(t,F(1,i), '*')
