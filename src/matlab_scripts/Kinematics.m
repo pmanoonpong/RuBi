@@ -55,7 +55,7 @@ Ycom3=L(1,1)*cos(Q1)+L(2,1)*cos(Q1+Q2)+(L(3,1)*motorPos)*cos(Q1+Q2+Q3);
 Pcom1=[Xcom0;Ycom0];
 Pcom2=[Xcom1;Ycom1];
 Pcom3=[Xcom2;Ycom2];
-Pcom4=[Xcom3;Ycom3];
+Pcom4=[Xcom3;Ycom3];t
 PosComs=[Pcom1,Pcom2,Pcom3,Pcom4];
 
 %Linear velocities of the centers of mass
