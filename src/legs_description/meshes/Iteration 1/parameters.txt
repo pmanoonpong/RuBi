@@ -1,5 +1,5 @@
 ﻿"ankle_angle" = 90
-"knee_angle"= 120
+"knee_angle"= 50
 "hip_angle" = 30
 
 "ankle_angle_max" = 120
