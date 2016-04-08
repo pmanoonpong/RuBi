@@ -1,5 +1,5 @@
 ﻿"ankle_angle" = 90
-"knee_angle"= 0
+"knee_angle"= 120
 "hip_angle" = 30
 
 "ankle_angle_max" = 120
@@ -30,10 +30,10 @@
 "spring_knee_parallel_arm_diameter"= 0.89
 "spring_knee_parallel_arm_length"= 15
 "spring_knee_parallel_intern_diameter"= 5.46
-"spring_knee_parallel_angle"= "knee_angle"
+"spring_knee_parallel_angle"= -"knee_angle" + 90
 "spring_knee_parallel_turns"= 3
 "spring_knee_parallel_pitch"= "spring_knee_parallel_arm_diameter" * 1.01
-"spring_knee_parallel_cutting_distance"= (1 - (90 + "spring_knee_parallel_angle") / 360) * "spring_knee_parallel_pitch"
+"spring_knee_parallel_cutting_distance"= (1-("spring_knee_parallel_angle") / 360) * "spring_knee_parallel_pitch"
 "spring_knee_parallel_nominal_diameter"= "spring_knee_parallel_arm_diameter" + "spring_knee_parallel_intern_diameter"
 
 "spring_knee_serial_arm_diameter"= 0.89
