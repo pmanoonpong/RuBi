@@ -28,18 +28,18 @@ P4=[X3;Y3];
 Positions=[P1,P2,P3,P4];
 
 %Plot position of the leg (inverted for visualization)
-hold on
-axis([-0.3 0.3 -0.6 0])
-x1=[vpa(subs(P1(1,1), 0)),vpa(subs(P2(1,1),0))];
-y1=-[vpa(subs(P1(2,1), 0)),vpa(subs(P2(2,1),0))];
-plot(x1,y1)
-x2=[vpa(subs(P2(1,1), 0)),vpa(subs(P3(1,1),0))];
-y2=-[vpa(subs(P2(2,1), 0)),vpa(subs(P3(2,1),0))];
-plot(x2,y2)
-x3=[vpa(subs(P3(1,1), 0)),vpa(subs(P4(1,1),0))];
-y3=-[vpa(subs(P3(2,1), 0)),vpa(subs(P4(2,1),0))];
-plot(x3,y3)
-hold off
+% hold on
+% axis([-0.3 0.3 -0.6 0])
+% x1=[vpa(subs(P1(1,1), 0)),vpa(subs(P2(1,1),0))];
+% y1=-[vpa(subs(P1(2,1), 0)),vpa(subs(P2(2,1),0))];
+% plot(x1,y1)
+% x2=[vpa(subs(P2(1,1), 0)),vpa(subs(P3(1,1),0))];
+% y2=-[vpa(subs(P2(2,1), 0)),vpa(subs(P3(2,1),0))];
+% plot(x2,y2)
+% x3=[vpa(subs(P3(1,1), 0)),vpa(subs(P4(1,1),0))];
+% y3=-[vpa(subs(P3(2,1), 0)),vpa(subs(P4(2,1),0))];
+% plot(x3,y3)
+% hold off
 
 %DK model for positions of centers of mass (assuming they are in the center of
 %the links
@@ -55,7 +55,7 @@ Ycom3=L(1,1)*cos(Q1)+L(2,1)*cos(Q1+Q2)+(L(3,1)*motorPos)*cos(Q1+Q2+Q3);
 Pcom1=[Xcom0;Ycom0];
 Pcom2=[Xcom1;Ycom1];
 Pcom3=[Xcom2;Ycom2];
-Pcom4=[Xcom3;Ycom3];t
+Pcom4=[Xcom3;Ycom3];
 PosComs=[Pcom1,Pcom2,Pcom3,Pcom4];
 
 %Linear velocities of the centers of mass

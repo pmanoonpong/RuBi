@@ -16,7 +16,7 @@ for Wmotor=0:round(Wnom)/120:round(Wnom)
     plot(Wmotor,tauOut, 'k*')
 end
 gearRatio = 2;
-for i=25:25
+for i=20:size(W)
    plot(W(i,1)/gearRatio,abs(Tau(i,1)*gearRatio), 'r*'); 
    plot(W(i,2),abs(Tau(i,2)), 'g*'); 
    plot(W(i,3),abs(Tau(i,3)), 'b*'); 

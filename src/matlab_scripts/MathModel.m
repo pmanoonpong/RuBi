@@ -11,7 +11,7 @@ syms t
 Ltotal = 0.57;
 L=[Ltotal*0.46;Ltotal*0.3729;Ltotal*0.1670];
 %Percentage of the Ltotal that the leg bends before jumping
-bendPhase= 0.93;%25/26;
+bendPhase= 8/13;
 %toolPoseInit = Initial position of the toes [toolX,toolY, toolTheta]
 toolX = 0;
 %Leg bent before jumping
@@ -35,18 +35,18 @@ Kinematics;
 
 %DYNAMICS INPUTS: 
 %Gravity (positive in Y axis)
-g= 9.81;
+g= [0;9.81];
 %Masses of the links (from 1 to 3)
 m=[0.163;0.17;0.029];
 %Y axis displacement
-hDelta = 0.09;
+hDelta = 0.08;
 %External torque applied to the toes
 TauExt=0;
 %Moments of inertia of the link (from 1 to 3)
 I=[0.0001;0.0001;0.0001];
 
 %IMPULSE ANALYSIS
-[FminY, tmax, F, t]=impulse(hDelta, m, dispCoG, g);
+[FminY, tmax, F, t]=impulse(hDelta, m, dispCoG);
 %External force applied on the toes
 
 for i=1:round(tmax,2)*100
