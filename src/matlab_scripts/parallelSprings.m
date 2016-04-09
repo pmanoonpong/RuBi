@@ -1,5 +1,3 @@
-%%PARALLEL SPRINGS
-
 clc; clear; close all;
 
 %_______________________________________
@@ -57,35 +55,4 @@ ankleEnergy*100/(kneeEnergy+ankleEnergy)
 
 disp('Height reachable as a transformation to potential energy:');
 deltaH= (KineticE*CteEnergy)/(mTotal*g)
-
-%%
-%SERIES SPRINGS
-
-%Knee
-Kkmax=0.1848;
-TauKmax=Kkmax*75
-Kkmin=0.0873;
-TauKmin=Kkmin*75
-
-Kamax=0.1239;
-TauAmax=Kamax*35
-Kamin=0.0887;
-TauAmin=Kamin*35
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -11,12 +11,12 @@ syms t
 Ltotal = 0.57;
 L=[Ltotal*0.46;Ltotal*0.3729;Ltotal*0.1670];
 %Percentage of the Ltotal that the leg bends before jumping
-bendPhase = 8/13;
+bendPhase= 0.93;%25/26;
 %toolPoseInit = Initial position of the toes [toolX,toolY, toolTheta]
 toolX = 0;
 %Leg bent before jumping
 toolY = Ltotal*(bendPhase)*cos(t);
-toolTheta = -pi/2*cos(t);
+toolTheta = -pi/5*cos(t);
 %Leg stretched after push-off on running
 %toolY = 0.56;
 %toolTheta = -pi/8;
@@ -87,14 +87,14 @@ W(i,2)=vpa((abs(subs(Q2, 0))/t(1,i))*60/(2*pi), 6);
 W(i,3)=vpa((abs(subs(Q3, 0))/t(1,i))*60/(2*pi), 6);
 end
 
-%%
+
 %Peak power calculations
-wKnee = vpa((abs(subs(Q2, 0))/tmax), 3);
-wAnkle = vpa((abs(subs(Q3, 0))/tmax), 3);
-whip = vpa((abs(subs(Q1, 0))/tmax), 3);
-PowerHip = vpa(subs(Torque(1,1),0), 3)*whip
-PowerKnee = vpa(subs(Torque(1,2),0), 3)* wKnee
-PowerAnkle = vpa(subs(Torque(1,3),0), 3)*wAnkle
+% wKnee = vpa((abs(subs(Q2, 0))/tmax), 3);
+% wAnkle = vpa((abs(subs(Q3, 0))/tmax), 3);
+% whip = vpa((abs(subs(Q1, 0))/tmax), 3);
+% PowerHip = vpa(subs(Torque(1,1),0), 3)*whip
+% PowerKnee = vpa(subs(Torque(1,2),0), 3)* wKnee
+% PowerAnkle = vpa(subs(Torque(1,3),0), 3)*wAnkle
 
 
 

@@ -2,7 +2,7 @@
 function [Fmin, tmax, F, T]=impulse(hDelta, m, dispCoG, gravity)
 
 %Total mass of legs
-mTotal = 0.971;
+mTotal = 1;
 %2*[m(1,1)+m(2,1)+m(3,1)];
 %Maximum vertical displacement of the body
 %hDelta=0.01;
