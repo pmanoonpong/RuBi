@@ -7,7 +7,7 @@ clc; clear; close all;
 %Calculus for k2 based on position of com
 Ltotal = 0.57;
 L=[Ltotal*0.46;Ltotal*0.3729;Ltotal*0.1670];
-mTotal= 0.971;
+mTotal= 0.800;
 g = 9.81;
 %Angular change in the springs during normal push-off
 deltaQ3 = pi/2;
@@ -62,9 +62,10 @@ deltaH= (KineticE*CteEnergy)/(mTotal*g)
 %SERIES SPRINGS
 
 %Knee
-Kkmax=0.1848;
+legsMass = 0.8;
+Kkmax=0.1848*legsMass;
 TauKmax=Kkmax*75
-Kkmin=0.0873;
+Kkmin=0.0873*legsMass;
 TauKmin=Kkmin*75
 
 Kamax=0.1239;
@@ -72,9 +73,7 @@ TauAmax=Kamax*35
 Kamin=0.0887;
 TauAmin=Kamin*35
 
-
-
-
+5.86+5.86+5.86+5.87+7.34+7.34+7.34+7.93+7.93+8.94+8.94+8.94+8.94
 
 
 

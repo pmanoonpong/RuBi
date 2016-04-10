@@ -80,16 +80,16 @@ for t=0:0.025:tf
 
     %Plot poses of the leg (inverted for visualization)
     
-%     axis([-0.3 0.3 -0.6 0])
-%     x1=[vpa(subs(P1(1,1), 0)),vpa(subs(P2(1,1),0))];
-%     y1=-[vpa(subs(P1(2,1), 0)),vpa(subs(P2(2,1),0))];
-%     plot(x1,y1, 'Color',[(j/100)*7,(j/100)*7,0])
-%     x2=[vpa(subs(P2(1,1), 0)),vpa(subs(P3(1,1),0))];
-%     y2=-[vpa(subs(P2(2,1), 0)),vpa(subs(P3(2,1),0))];
-%     plot(x2,y2, 'Color',[(j/100)*7,(j/100)*7,0])
-%     x3=[vpa(subs(P3(1,1), 0)),vpa(subs(P4(1,1),0))];
-%     y3=-[vpa(subs(P3(2,1), 0)),vpa(subs(P4(2,1),0))];
-%     plot(x3,y3, 'Color',[(j/100)*7,(j/100)*7,0])
+    axis([-0.3 0.3 -0.6 0])
+    x1=[vpa(subs(P1(1,1), 0)),vpa(subs(P2(1,1),0))];
+    y1=-[vpa(subs(P1(2,1), 0)),vpa(subs(P2(2,1),0))];
+    plot(x1,y1, 'Color',[(j/100)*7,(j/100)*7,0])
+    x2=[vpa(subs(P2(1,1), 0)),vpa(subs(P3(1,1),0))];
+    y2=-[vpa(subs(P2(2,1), 0)),vpa(subs(P3(2,1),0))];
+    plot(x2,y2, 'Color',[(j/100)*7,(j/100)*7,0])
+    x3=[vpa(subs(P3(1,1), 0)),vpa(subs(P4(1,1),0))];
+    y3=-[vpa(subs(P3(2,1), 0)),vpa(subs(P4(2,1),0))];
+    plot(x3,y3, 'Color',[(j/100)*7,(j/100)*7,0])
     
 end 
 hold off
