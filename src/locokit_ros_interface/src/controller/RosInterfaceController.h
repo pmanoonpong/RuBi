@@ -35,28 +35,12 @@ public:
     virtual bool store(FILE* f) const override;
     virtual bool restore(FILE* f) override;
 
-    void setPositionData(Position);
-    void setPhase(double phase);
-    void setSpeed(double speed);
 
 protected:
-    double time_per_tick;
-    double frontPositionSaved;
     double nSensors;
     double nMotors;
     bool initialised;
-    bool ready;
-    double threshold;
-    long ticks_since_init;
-    long ticks_since_reset;
-    std::ofstream outputFile;
-    Position global_position;
-    double distanceMax;
-    int trialNumber;
-    double speedSetpoint;
-    double phaseSetpoint;
-    double rearPositionMax, tiltMax, tiltMin;
-    long rearTicksAtMax, tiltTicksAtMax, tiltTicksAtMin;
+
 
 private:
     double phaseController(double, double);
@@ -65,18 +49,5 @@ private:
     void collectData(double, double, double);
 };
 
-// Simple 2D vector utility class for phase calculations
-class Vector {
-public:
-    double _x, _y;
 
-    Vector(double);
-    Vector(double, double);
-
-    double angle(Vector);
-    double smallestAngle(Vector);
-    double length();
-    double dot(Vector);
-    Vector rotate(double);
-};
 #endif /* ODE_ROBOTS_ROBOTS_LOCOKIT_ROSINTERFACECONTROLLER_H_ */
