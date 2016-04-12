@@ -1,0 +1,16 @@
+include/locokit/actuateMotors.c
+include/locokit/ConnectionClass.cpp
+include/locokit/ConnectionClass.h
+include/locokit/LocoKitInterface.cpp
+include/locokit/LocoKitInterface.h
+src/controller/RosInterfaceController.cpp
+src/controller/RosInterfaceController.h
+src/controller/SpringyBotPhaseController.cpp
+src/controller/SpringyBotPhaseController.h
+src/locokit/locokit_TCP.cpp
+src/locokit/locokit_TCP.h
+src/locokit/robot_configuration.h
+src/main.cpp
+src/main_ai3.cpp
+Makefile
+Makefile.conf
