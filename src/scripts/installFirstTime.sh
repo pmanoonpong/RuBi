@@ -6,8 +6,8 @@ sudo apt-get install python-catkin-tools
 wait
 
 #Installing Gazebo 6
-echo "    Installing Gazebo 6"
-sudo apt-get install gazebo6
+echo "    Installing Gazebo 7"
+sudo apt-get install gazebo7
 sudo apt-get install python-catkin-tools
 wait
 
