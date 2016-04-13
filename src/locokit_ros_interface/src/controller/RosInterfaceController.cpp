@@ -56,7 +56,6 @@ bool LocoKitRosController::store(FILE* f) const
 
 bool LocoKitRosController::restore(FILE* f)
 {
-    Configurable::parse(f);
     return true;
 }
 
