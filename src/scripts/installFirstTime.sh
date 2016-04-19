@@ -7,7 +7,18 @@ wait
 
 #Installing Gazebo 6
 echo "    Installing Gazebo 7"
-sudo apt-get install gazebo7
+# Add the OSRF repository
+if [ ! -e /etc/apt/sources.list.d/gazebo-latest.list ]; then
+  sudo sh -c "echo \"deb http://packages.osrfoundation.org/gazebo/ubuntu ${codename} main\" > /etc/apt/sources.list.d/gazebo-latest.list"
+fi
+
+# Download the OSRF keys
+has_key=`apt-key list | grep "OSRF deb-builder"`
+
+if [ -z "$has_key" ]; then
+  wget --quiet http://packages.osrfoundation.org/gazebo.key -O - | sudo apt-key add -
+fi
+sudo apt-get install gazebo7 libgazebo7-dev
 sudo apt-get install python-catkin-tools
 wait
 
