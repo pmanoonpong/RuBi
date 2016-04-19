@@ -1,0 +1,517 @@
+<?xml version="1.0"?>
+
+<robot name="legs" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+	<!-- Constants -->
+	<xacro:property name="PI" value="3.1415926535897931"/>
+	<xacro:property name="DEG_TO_RAD" value="${PI/180}"/>
+
+	<!-- ROS -->
+	<xacro:property name="update_rate" value="10"/>
+	<xacro:property name="robot_name" value="legs"/>
+
+  <!-- Robot configuration: Miscellaneous -->
+  <xacro:property name="robot_floating" value="0"/>
+
+	<!-- Robot configuration: Transmission -->
+	<xacro:property name="max_real_motor_torque" value="1.0787315"/> <!-- In N*m -->
+
+  <!-- Robot configuration: Geometry -->
+  <xacro:property name="damping" value="0.7" />
+
+  <xacro:property name="upperLegHeight" value="0.262" />
+  <xacro:property name="upperLegDiameter" value="0.02" />
+  <xacro:property name="upperLegLimitUpperPosition" value="90" />
+  <xacro:property name="upperLegLimitLowerPosition" value="-60" />
+  <xacro:property name="upperLegLimitVelocity" value="10" />
+  <xacro:property name="upperLegLimitEffort" value="10" />
+
+  <xacro:property name="lowerLegHeight" value="0.212" />
+  <xacro:property name="lowerLegDiameter" value="0.02" />
+  <xacro:property name="lowerLegLimitUpperPosition" value="0" />
+  <xacro:property name="lowerLegLimitLowerPosition" value="-120" />
+  <xacro:property name="lowerLegLimitVelocity" value="10" />
+  <xacro:property name="lowerLegLimitEffort" value="10" />
+
+  <xacro:property name="footLimitUpperPosition" value="120" />
+  <xacro:property name="footLimitLowerPosition" value="-50" />
+  <xacro:property name="footLimitVelocity" value="10" />
+  <xacro:property name="footLimitEffort" value="10" />
+
+	<!-- Import Gazebo customizations and colors-->
+	<xacro:include filename="$(find legs_description)/urdf/legs.gazebo" />
+	<xacro:include filename="$(find legs_description)/urdf/colors.xacro" />
+
+	<!-- 
+		Left Leg
+	-->
+    <link name="hip">
+      <collision>
+        <origin xyz="0 0 0" rpy="${90*DEG_TO_RAD} 0 0"/>
+        <geometry>
+          <cylinder length="0.180" radius="0.025"/>
+        </geometry>
+      </collision>
+
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://legs_description/meshes/iteration_1/gazebo/hip_visual.stl"/>
+        </geometry>
+        <material name="orange"/>
+      </visual>
+
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="0.156"/>
+        <inertia
+          ixx="0.002" ixy="0.0" ixz="0" 
+          iyy="0" iyz="0.0" 
+          izz="0.002"/>
+      </inertial>
+    </link>
+
+    <link name="left_upper_limb">
+      <collision>
+        <origin xyz="0 0.131 0" rpy="${90*DEG_TO_RAD} 0 0"/>
+        <geometry>
+          <cylinder length="0.262" radius="0.01"/>
+        </geometry>
+      </collision>
+
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://legs_description/meshes/iteration_1/gazebo/left_upper_limb_visual.stl"/>
+        </geometry>
+        <material name="orange"/>
+      </visual>
+
+      <inertial>
+        <origin xyz="0 0 0" rpy="90 0 0"/>
+        <mass value="0.123"/>
+        <inertia
+          ixx="0.002" ixy="0" ixz="-0" 
+          iyy="0" iyz="0" 
+          izz="0.002"/>
+      </inertial>
+    </link>
+
+    <link name="left_lower_limb">
+      <collision>
+        <origin xyz="0 0.131 0" rpy="${90*DEG_TO_RAD} 0 0"/>
+        <geometry>
+          <cylinder length="0.212" radius="0.01"/>
+        </geometry>
+      </collision>
+
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://legs_description/meshes/iteration_1/gazebo/left_lower_limb_visual.stl"/>
+        </geometry>
+        <material name="orange"/>
+      </visual>
+
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="0.115"/>
+        <inertia
+          ixx="0.002" ixy="0" ixz="0.0" 
+          iyy="0" iyz="0" 
+          izz="0.002"/>
+      </inertial>
+    </link>
+
+    <link name="left_foot">
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://legs_description/meshes/iteration_1/gazebo/left_foot_visual.stl"/>
+        </geometry>
+      </collision>
+
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://legs_description/meshes/iteration_1/gazebo/left_foot_visual.stl"/>
+        </geometry>
+        <material name="orange"/>
+      </visual>
+
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="0.021"/>
+        <inertia
+          ixx="0.002" ixy="0" ixz="0.0" 
+          iyy="-0" iyz="0" 
+          izz="0.002"/>
+      </inertial>
+    </link>
+
+    <link name="right_upper_limb">
+      <collision>
+        <origin xyz="0 0.131 0" rpy="${90*DEG_TO_RAD} 0 0"/>
+        <geometry>
+          <cylinder length="0.262" radius="0.01"/>
+        </geometry>
+      </collision>
+
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://legs_description/meshes/iteration_1/gazebo/right_upper_limb_visual.stl"/>
+        </geometry>
+        <material name="orange"/>
+      </visual>
+
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="0.123"/>
+        <inertia
+          ixx="0.002" ixy="0" ixz="-0" 
+          iyy="0" iyz="0" 
+          izz="0.002"/>
+      </inertial>
+    </link>
+
+    <link name="right_lower_limb">
+      <collision>
+        <origin xyz="0 0.131 0" rpy="${90*DEG_TO_RAD} 0 0"/>
+        <geometry>
+          <cylinder length="0.212" radius="0.01"/>
+        </geometry>
+      </collision>
+
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://legs_description/meshes/iteration_1/gazebo/right_lower_limb_visual.stl"/>
+        </geometry>
+        <material name="orange"/>
+      </visual>
+
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="0.115"/>
+        <inertia
+          ixx="0.002" ixy="0" ixz="0.0" 
+          iyy="0" iyz="0" 
+          izz="0.002"/>
+      </inertial>
+    </link>
+
+    <link name="right_foot">
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://legs_description/meshes/iteration_1/gazebo/right_foot_visual.stl"/>
+        </geometry>
+      </collision>
+
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://legs_description/meshes/iteration_1/gazebo/right_foot_visual.stl"/>
+        </geometry>
+        <material name="orange"/>
+      </visual>
+
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="0.021"/>
+        <inertia
+          ixx="0.002" ixy="0" ixz="0" 
+          iyy="0" iyz="0" 
+          izz="0.002"/>
+      </inertial>
+    </link>
+
+  <!-- 
+    Virtual links
+  -->
+  <link name="world"/>
+
+<!--   <link name="world_pris">
+    <inertial>
+      <mass value="2e-06"/>
+      <inertia ixx="1.1e-09" ixy="0" ixz="0" iyy="1.1e-09" iyz="0" izz="1.1e-09"/>
+    </inertial>
+  </link>
+
+  <joint name="world_world_pris" type="prismatic">
+    <origin xyz="0 0 1" rpy="0 0 0"/>
+    <parent link="world"/>
+    <child link="world_pris"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" velocity="1000" lower="0" upper="5" />
+  </joint> 
+
+  <joint name="world_pris_hip" type="continuous">
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <parent link="world_pris"/>
+    <child link="hip"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+  -->
+
+  <joint name="world_hip" type="floating">
+    <origin xyz="0 0 1" rpy="0 0 0"/>
+    <parent link="world"/>
+    <child link="hip"/>
+  </joint> 
+
+	<!-- 
+		Joints 
+	-->
+
+
+  <joint name="left_hip" type="revolute">
+    <parent link="hip"/>
+    <child link="left_upper_limb"/>
+    <origin xyz="0 0.0635 -0.028867" rpy="${-90*DEG_TO_RAD} 0 0"/>
+    <axis xyz="0 0 -1"/>
+    <limit effort="${upperLegLimitEffort}" velocity="${upperLegLimitVelocity}" lower="${upperLegLimitLowerPosition*DEG_TO_RAD}" upper="${upperLegLimitUpperPosition*DEG_TO_RAD}" />
+    <dynamics damping="${damping}"/>
+  </joint>
+
+  <joint name="left_knee" type="revolute">
+    <parent link="left_upper_limb"/>
+    <child link="left_lower_limb"/>
+    <origin xyz="0 0.262 0" rpy="0 0 0"/>
+    <axis xyz="0 0 -1"/>
+    <limit effort="${lowerLegLimitEffort}" velocity="${lowerLegLimitVelocity}" lower="${lowerLegLimitLowerPosition*DEG_TO_RAD}" upper="${lowerLegLimitUpperPosition*DEG_TO_RAD}" />
+    <dynamics damping="${damping}"/>
+  </joint> 
+
+  <joint name="left_ankle" type="revolute">
+    <parent link="left_lower_limb"/>
+    <child link="left_foot"/>
+    <origin xyz="0 0.212 0" rpy="0 0 0"/>
+    <axis xyz="0 0 -1"/>
+    <limit effort="${footLimitEffort}" velocity="${footLimitVelocity}" lower="${footLimitLowerPosition*DEG_TO_RAD}" upper="${footLimitUpperPosition*DEG_TO_RAD}" />
+    <dynamics damping="${damping}"/>
+  </joint> 
+
+  <joint name="right_hip" type="revolute">
+    <parent link="hip"/>
+    <child link="right_upper_limb"/>
+    <origin xyz="0 -0.0635 -0.028867" rpy="${-90*DEG_TO_RAD} 0 0"/>
+    <axis xyz="0 0 -1"/>
+    <limit effort="${upperLegLimitEffort}" velocity="${upperLegLimitVelocity}" lower="${upperLegLimitLowerPosition*DEG_TO_RAD}" upper="${upperLegLimitUpperPosition*DEG_TO_RAD}" />
+    <dynamics damping="${damping}"/>
+  </joint>
+
+  <joint name="right_knee" type="revolute">
+    <parent link="right_upper_limb"/>
+    <child link="right_lower_limb"/>
+    <origin xyz="0 0.262 0" rpy="0 0 0"/>
+    <axis xyz="0 0 -1"/>
+    <limit effort="${lowerLegLimitEffort}" velocity="${lowerLegLimitVelocity}" lower="${lowerLegLimitLowerPosition*DEG_TO_RAD}" upper="${lowerLegLimitUpperPosition*DEG_TO_RAD}" />
+    <dynamics damping="${damping}"/>
+  </joint> 
+
+  <joint name="right_ankle" type="revolute">
+    <parent link="right_lower_limb"/>
+    <child link="right_foot"/>
+    <origin xyz="0 0.212 0" rpy="0 0 0"/>
+    <axis xyz="0 0 -1"/>
+    <limit effort="${footLimitEffort}" velocity="${footLimitVelocity}" lower="${footLimitLowerPosition*DEG_TO_RAD}" upper="${footLimitUpperPosition*DEG_TO_RAD}" />
+    <dynamics damping="${damping}"/>
+  </joint> 
+
+  <transmission name="left_hip_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+      <joint name="left_hip">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="left_hip_motor">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>${max_real_motor_torque}</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <transmission name="left_knee_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+      <joint name="left_knee">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="left_knee_motor">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>${max_real_motor_torque}</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <transmission name="left_ankle_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+      <joint name="left_ankle">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="left_ankle_motor">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>${max_real_motor_torque}</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <transmission name="right_hip_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+      <joint name="right_hip">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="right_hip_motor">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>${max_real_motor_torque}</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <transmission name="right_knee_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+      <joint name="right_knee">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="right_knee_motor">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>${max_real_motor_torque}</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <transmission name="right_ankle_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+      <joint name="right_ankle">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="right_ankle_motor">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>${max_real_motor_torque}</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+<!-- 
+
+  <xacro:property name="rotational_robot_holder_base_length_extra" value="0" />
+  <xacro:if value="${robot_floating is 1}">
+    <xacro:property name="rotational_robot_holder_base_length_extra" value="0.1" />
+  </xacro:if>
+  <xacro:property name="rotational_robot_holder_base_length" value="1" />
+  <xacro:property name="rotational_robot_holder_base_radius" value="0.2" />
+  <xacro:property name="rotational_robot_holder_holder_radius" value="0.01" />
+  <xacro:property name="rotational_robot_holder_holder_length" value="2" />
+
+
+  <link name="rotational_robot_holder_base">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder length="${rotational_robot_holder_base_length}" radius="${rotational_robot_holder_base_radius}"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder length="${rotational_robot_holder_base_length}" radius="${rotational_robot_holder_base_radius}"/>
+      </geometry>
+      <material name="orange"/>
+    </visual>
+
+    <inertial>
+      <mass value="10"/>
+      <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+    </inertial>
+
+  </link>
+
+  <link name="rotational_robot_holder_virtual">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <sphere radius="0.01"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+         <sphere radius="0.01"/>
+      </geometry>
+      <material name="orange"/>
+    </visual>
+
+    <inertial>
+      <mass value="0.01"/>
+      <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1"/>
+    </inertial>
+    
+  </link>
+
+  <link name="rotational_robot_holder_holder">
+    <collision>
+      <origin xyz="${rotational_robot_holder_holder_length/2} 0 0" rpy="0 ${PI/2} 0"/>
+      <geometry>
+        <cylinder length="${rotational_robot_holder_holder_length}" radius="${rotational_robot_holder_holder_radius}"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="${rotational_robot_holder_holder_length/2} 0 0" rpy="0 ${PI/2} 0"/>
+      <geometry>
+         <cylinder length="${rotational_robot_holder_holder_length}" radius="${rotational_robot_holder_holder_radius}"/>
+      </geometry>
+      <material name="orange"/>
+    </visual>
+
+    <inertial>
+      <mass value="0.01"/>
+      <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1"/>
+    </inertial>
+    
+  </link>
+
+  <joint name="rotational_robot_holder_base_to_world" type="fixed">
+    <parent link="world"/>
+    <child link="rotational_robot_holder_base"/>
+    <origin xyz="0 0 ${rotational_robot_holder_base_length/2}" rpy="0 0 0"/>
+  </joint>
+
+
+  <xacro:if value="${robot_floating is 1}">
+    <joint name="rotational_robot_holder_virtual_to_holder" type="fixed">
+      <parent link="rotational_robot_holder_base"/>
+      <child link="rotational_robot_holder_virtual"/>
+    </joint> 
+
+    <joint name="rotational_robot_holder_joint" type="fixed">
+      <parent link="rotational_robot_holder_virtual"/>
+      <child link="rotational_robot_holder_holder"/>
+      <origin xyz="0 0 ${rotational_robot_holder_base_length/2}" rpy="0 0 0"/>
+    </joint>
+  </xacro:if>
+
+  <xacro:if value="${robot_floating is 0}">
+    <joint name="rotational_robot_holder_virtual_to_holder" type="continuous">
+      <parent link="rotational_robot_holder_base"/>
+      <child link="rotational_robot_holder_virtual"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <axis xyz="0 1 0"/>
+      <dynamics damping="0.7"/>
+    </joint> 
+
+    <joint name="rotational_robot_holder_joint" type="continuous">
+      <parent link="rotational_robot_holder_virtual"/>
+      <child link="rotational_robot_holder_holder"/>
+      <origin xyz="0 0 ${rotational_robot_holder_base_length/2}" rpy="0 0 0"/>
+      <axis xyz="0 0 1"/>
+      <dynamics damping="0.7"/>
+    </joint>
+  </xacro:if>
+
+  <joint name="rotational_robot_holder_to_rotot" type="fixed">
+    <parent link="rotational_robot_holder_holder"/>
+    <child link="hip"/>
+    <origin xyz="${rotational_robot_holder_holder_length+0.2} 0 0" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="30" velocity="1.0" lower="0" upper="1" />
+  </joint>  -->
+
+
+</robot>
