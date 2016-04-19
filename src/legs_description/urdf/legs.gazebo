@@ -47,21 +47,21 @@
   <!-- Starting position -->
   <gazebo>
       <static> false </static>
-      <pose> 0 0 ${(footHeight + lowerLegHeight + upperLegHeight)*1.0} 0 0 0 </pose>
+<!--       <pose> 0 0 1 0 0 0 </pose> -->
   </gazebo>
 
 	<!-- Links -->
-	<gazebo reference="body">
+	<gazebo reference="hip">
   	<material>Gazebo/Orange</material>
 	</gazebo>
 
-	<gazebo reference="left_upper_leg">
+	<gazebo reference="left_upper_limb">
 		<mu1>0.2</mu1>
 		<mu2>0.2</mu2>
   	<material>Gazebo/Orange</material>
 	</gazebo>
 
-	<gazebo reference="left_lower_leg">
+	<gazebo reference="left_lower_limb">
 		<mu1>0.2</mu1>
 		<mu2>0.2</mu2>
   	<material>Gazebo/Orange</material>
@@ -73,13 +73,13 @@
   	<material>Gazebo/Orange</material>
 	</gazebo>
 
-	<gazebo reference="right_upper_leg">
+	<gazebo reference="right_upper_limb">
 		<mu1>0.2</mu1>
 		<mu2>0.2</mu2>
   	<material>Gazebo/Orange</material>
 	</gazebo>
 
-	<gazebo reference="right_lower_leg">
+	<gazebo reference="right_lower_limb">
 		<mu1>0.2</mu1>
 		<mu2>0.2</mu2>
   	<material>Gazebo/Orange</material>
