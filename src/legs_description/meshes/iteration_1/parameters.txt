@@ -9,36 +9,36 @@
 "hip_angle_max" = 90
 "hip_angle_min" = -60
 
-"spring_ankle_parallel_arm_diameter"= 0.89
+"spring_ankle_parallel_arm_diameter"= 1.1
 "spring_ankle_parallel_arm_length"= 13
-"spring_ankle_parallel_intern_diameter"= 6.22
+"spring_ankle_parallel_intern_diameter"= 5.7
 "spring_ankle_parallel_angle"= "ankle_angle"
 "spring_ankle_parallel_turns"= 3
 "spring_ankle_parallel_pitch"= "spring_ankle_parallel_arm_diameter" * 1.01
 "spring_ankle_parallel_cutting_distance"= (1-"spring_ankle_parallel_angle" / 360) * "spring_ankle_parallel_pitch"
 "spring_ankle_parallel_nominal_diameter"= "spring_ankle_parallel_arm_diameter" + "spring_ankle_parallel_intern_diameter"
 
-"spring_ankle_serial_arm_diameter"= 0.89
+"spring_ankle_serial_arm_diameter"= 1.91
 "spring_ankle_serial_arm_length"= 10
-"spring_ankle_serial_intern_diameter"= 6.22
+"spring_ankle_serial_intern_diameter"= 5.7
 "spring_ankle_serial_angle"= "90"
 "spring_ankle_serial_turns"= 3
 "spring_ankle_serial_pitch"= "spring_ankle_serial_arm_diameter" * 1.01
 "spring_ankle_serial_cutting_distance"= (1-"spring_ankle_serial_angle" / 360) * "spring_ankle_serial_pitch"
 "spring_ankle_serial_nominal_diameter"= "spring_ankle_serial_arm_diameter" + "spring_ankle_serial_intern_diameter"
 
-"spring_knee_parallel_arm_diameter"= 0.89
-"spring_knee_parallel_arm_length"= 15
-"spring_knee_parallel_intern_diameter"= 5.46
+"spring_knee_parallel_arm_diameter"= 1.1
+"spring_knee_parallel_arm_length"= 13
+"spring_knee_parallel_intern_diameter"= 5.7
 "spring_knee_parallel_angle"= -"knee_angle" + 90
 "spring_knee_parallel_turns"= 3
 "spring_knee_parallel_pitch"= "spring_knee_parallel_arm_diameter" * 1.01
 "spring_knee_parallel_cutting_distance"= (1-("spring_knee_parallel_angle") / 360) * "spring_knee_parallel_pitch"
 "spring_knee_parallel_nominal_diameter"= "spring_knee_parallel_arm_diameter" + "spring_knee_parallel_intern_diameter"
 
-"spring_knee_serial_arm_diameter"= 0.89
+"spring_knee_serial_arm_diameter"= 1.91
 "spring_knee_serial_arm_length"= 10
-"spring_knee_serial_intern_diameter"= 5.46
+"spring_knee_serial_intern_diameter"= 5.7
 "spring_knee_serial_angle"= "90"
 "spring_knee_serial_turns"= 3
 "spring_knee_serial_pitch"= "spring_knee_serial_arm_diameter" * 1.01
