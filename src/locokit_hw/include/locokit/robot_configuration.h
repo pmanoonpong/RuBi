@@ -28,7 +28,7 @@ enum locokitMotor {
     LEFT_KNEE_ID = 4,
     LEFT_ANKLE_ID = 8,
     RIGHT_HIP_ID = 19,
-    RIGHT_KNEE_ID = 20
+    RIGHT_KNEE_ID = 20,
     RIGHT_ANKLE_ID = 21
 };
 

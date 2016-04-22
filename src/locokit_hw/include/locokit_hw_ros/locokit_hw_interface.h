@@ -17,6 +17,8 @@
 #include <locokit/robot_configuration.h>
 
 
+typedef double sensor;
+typedef double motor;
 
 
 class LocokitHW : public hardware_interface::RobotHW
@@ -25,8 +27,8 @@ public:
   LocokitHW(ros::NodeHandle nh);
   bool configure();
   bool start();
-  bool read();
-  void write();
+  bool read(sensor *sensors, int sensors_number);
+  void write(const motor* motors, int motornumber);
   void stop();
 
 private:
