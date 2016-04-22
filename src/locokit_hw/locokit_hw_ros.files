@@ -1,0 +1,11 @@
+src/locokit_hw_interface.cpp
+src/locokit_hw_interface_node.cpp
+include/locokit_hw_ros/locokit_hw_interface.h
+include/locokit_firmware/LocoKitInterface.cpp
+include/locokit_firmware/LocoKitInterface.h
+include/locokit_firmware/ConnectionClass.h
+include/locokit_firmware/ConnectionClass.cpp
+include/locokit/locokit_TCP.h
+include/locokit/locokit_TCP.cpp
+include/locokit/robot_configuration.h
+CMakeLists.txt
