@@ -1,0 +1,21 @@
+#BOM
+
+| Part | Quantity |
+|:-:|:-:|
+| 1 | ankle_left |
+| 1 | ankle_right |
+| 1 | foot_left |
+| 1 | foot_right |
+| 1 | foot_spring_series_holder_left |
+| 1 | foot_spring_series_holder_right |
+| 1 | hip |
+| 1 | hip_motor_holder_left |
+| 1 | hip_motor_holder_right |
+| 2 | hip_pinion |
+| 1 | knee_motor_holder_left |
+| 1 | knee_motor_holder_right |
+| 1 | left_knee_spring_series_holder |
+| 1 | left_knee_upper |
+| 1 | right_knee_spring_series_holder |
+| 1 | right_knee_upper |
+| 4 | T2,5 6mm 19teeth |
