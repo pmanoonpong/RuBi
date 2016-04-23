@@ -1,0 +1,8 @@
+/opt/ros/jade/include
+include/locokit_hw_ros
+include/locokit_firmware
+include/locokit
+include
+src
+GOROBOTS//utils/real_robots/locokit/
+/home/ignaciotb/workspace/gorobots_edu/utils/real_robots/locokit
