@@ -11,9 +11,9 @@ LocokitHW::LocokitHW(ros::NodeHandle nh): nh_(nh), tcp_connected_(false), sensor
 bool LocokitHW::configure()
 {
     //Create the interface
-    //locokit_interface_ = new LocoKitInterface(IP, PORT);
+    locokit_interface_ = new LocoKitInterface(IP, PORT);
 
-    // Establish connection
+    //Establish connection
     if (locokit_interface_->establish_connection() == -1) {
         std::cout << "Error from LocoKitInterface: a connection couldn't be established..."
                   << std::endl;
@@ -21,14 +21,15 @@ bool LocokitHW::configure()
         return false;
     }
     else {
+        //If the connection successes
         std::cout << "Connected to robot!" << std::endl;
         tcp_connected_ = true;
-        // Init variables
+        //Init variables
         step_count_ = 0; // global step counter
         sensor_number_ = locokitSensor::NUMBER_SENSORS;
         motor_number_ = locokitMotor::NUMBER_MOTORS;
 
-        // Stop motors
+        //Stop motors
         locokit_interface_->setActuatorStopped(locokitMotor::LEFT_HIP_ID);
         locokit_interface_->setActuatorStopped(locokitMotor::LEFT_KNEE_ID);
         locokit_interface_->setActuatorStopped(locokitMotor::LEFT_ANKLE_ID);
@@ -37,6 +38,16 @@ bool LocokitHW::configure()
         locokit_interface_->setActuatorStopped(locokitMotor::RIGHT_ANKLE_ID);
 
         //TODO: take robot to initial configuration and set sensors to zero
+
+        //Register hardware interface handlers:
+
+        //Joint state handlers: read the state of a single joint
+        hardware_interface::JointStateHandle state_joint("HIP_LEFT", &pos[locokitMotor::HIP_LEFT],
+                                        &vel[locokitMotor::HIP_LEFT], &eff[locokitMotor::HIP_LEFT]);
+        joint_state_interface.registerHandle(state_joint);
+
+        //Joint command handlers: read and command a single joint
+        //TODO
 
         sleep(1);
         return true;

@@ -1,17 +1,14 @@
 #ifndef LOCOKIT_HW_INTERFACE_H
 #define LOCOKIT_HW_INTERFACE_H
 
-//ROS CONTROL
-#include <hardware_interface/joint_command_interface.h>
-#include <hardware_interface/joint_state_interface.h>
-#include <hardware_interface/robot_hw.h>
-#include <controller_manager/controller_manager.h>
-#include <realtime_tools/realtime_publisher.h>
-#include <std_msgs/Duration.h>
-
-
 //ROS
 #include <ros/ros.h>
+
+//ROS CONTROL
+#include <hardware_interface/robot_hw.h>
+#include <controller_manager/controller_manager.h>
+#include <hardware_interface/joint_command_interface.h>
+#include <hardware_interface/joint_state_interface.h>
 
 //STANDARD
 #include <signal.h>
@@ -38,13 +35,23 @@ public:
 
 private:
   ros::NodeHandle nh_;
-  bool tcp_connected_;
+
   LocoKitInterface* locokit_interface_;
+  bool tcp_connected_;
+  int step_count_;
   int sensor_number_;
   int motor_number_;
-  int step_count_;
   sensor* sensors_;
   motor* motors_;
+
+  hardware_interface::JointStateInterface joint_state_interface;
+  double cmd[locokitMotor::NUMBER_MOTORS];
+  double pos[locokitMotor::NUMBER_MOTORS];
+  double vel[locokitMotor::NUMBER_MOTORS];
+  double eff[locokitMotor::NUMBER_MOTORS];
+
+
+
 };
 
 #endif // ifndef LOCOKIT_HW_INTERFACE_H

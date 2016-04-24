@@ -1,6 +1,10 @@
 #ifndef LOCOKIT_SENSORS_MOTORS_DEFINITION_H
 #define LOCOKIT_SENSORS_MOTORS_DEFINITION_H
 
+#include <vector>
+#include <string>
+#include <map>
+
 //TODO: get real ID of the motors
 
 // Define your sensors here
@@ -39,6 +43,10 @@ namespace locokitMotor{
         RIGHT_ANKLE_ID = 21
     };
 }
+
+//std::map<locokitMotor::, std::string> joint_names;
+
+
 
 // And more than likely you want to define this too
 #define IP "192.168.2.2"
