@@ -5,15 +5,20 @@
 #include <hardware_interface/joint_command_interface.h>
 #include <hardware_interface/joint_state_interface.h>
 #include <hardware_interface/robot_hw.h>
+#include <controller_manager/controller_manager.h>
+#include <realtime_tools/realtime_publisher.h>
+#include <std_msgs/Duration.h>
+
 
 //ROS
 #include <ros/ros.h>
 
 //STANDARD
 #include <signal.h>
+#include <time.h>
 
 //LOCOKIT INTERFACE
-#include <LocoKitInterface.h>
+#include <locokit_firmware/LocoKitInterface.h>
 #include <locokit/robot_configuration.h>
 
 
@@ -27,9 +32,9 @@ public:
   LocokitHW(ros::NodeHandle nh);
   bool configure();
   bool start();
-  bool read(sensor *sensors, int sensors_number);
-  void write(const motor* motors, int motornumber);
-  ~LocokitHW();
+  bool read();
+  void write();
+  virtual ~LocokitHW();
 
 private:
   ros::NodeHandle nh_;
@@ -38,6 +43,8 @@ private:
   int sensor_number_;
   int motor_number_;
   int step_count_;
+  sensor* sensors;
+  motor* motors;
 };
 
 #endif // ifndef LOCOKIT_HW_INTERFACE_H

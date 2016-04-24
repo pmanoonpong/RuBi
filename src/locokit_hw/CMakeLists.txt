@@ -5,13 +5,16 @@ project(locokit_hw)
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(catkin REQUIRED COMPONENTS
+find_package(catkin COMPONENTS
 	roscpp
+        rospy
+        std_msgs
+        controller_manager
 	)
 
 catkin_package(
    INCLUDE_DIRS include
-#  LIBRARIES locokit_hw
+   LIBRARIES locokit_hw
 #  CATKIN_DEPENDS other_catkin_pkg
 #  DEPENDS system_lib
 )

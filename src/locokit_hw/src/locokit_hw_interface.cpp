@@ -1,7 +1,7 @@
 #include "locokit_hw_ros/locokit_hw_interface.h"
 
 
-LocokitHW::LocokitHW(ros::NodeHandle nh): nh_(nh), tcp_connected_(false)
+LocokitHW::LocokitHW(ros::NodeHandle nh): nh_(nh), tcp_connected_(false), sensors(0), motors(0)
 {
     //Initialize parameters
     step_count_ = 0;
@@ -27,13 +27,14 @@ LocokitHW::~LocokitHW()
 bool LocokitHW::configure()
 {
     //Create the interface
-    locokit_interface_ = new LocoKitInterface(IP, PORT);
+    //locokit_interface_ = new LocoKitInterface(IP, PORT);
 
     // Establish connection
     if (locokit_interface_->establish_connection() == -1) {
         std::cout << "Error from LocoKitInterface: a connection couldn't be established..."
                   << std::endl;
         tcp_connected_ = false;
+        return false;
     }
     else {
         std::cout << "Connected to robot!" << std::endl;
@@ -54,6 +55,7 @@ bool LocokitHW::configure()
         //TODO: take robot to initial configuration and set sensors to zero
 
         sleep(1);
+        return true;
     }
 }
 
@@ -70,30 +72,56 @@ bool LocokitHW::start()
 }
 
 
-bool LocokitHW::read(sensor* sensors, int sensors_number)
+bool LocokitHW::read()
 {
-    float measure;
+    //TODO: make it a for loop?
+    float measure = 0.0;
+    bool failed_to_read = false;
 
     //DOUBT: Needs to be scaled to [-1, 1]
-    locokit_interface_->getActuatorPosition(locokitMotor::LEFT_HIP_ID, measure);
-    sensors[locokitSensor::LEFT_HIP_SPEED] = measure;
-    locokit_interface_->getActuatorPosition(locokitMotor::LEFT_KNEE_ID, measure);
-    sensors[locokitSensor::LEFT_KNEE_SPEED] = measure;
-    locokit_interface_->getActuatorPosition(locokitMotor::LEFT_ANKLE_ID, measure);
-    sensors[locokitSensor::LEFT_ANKLE_SPEED] = measure;
-    locokit_interface_->getActuatorPosition(locokitMotor::RIGHT_HIP_ID, measure);
-    sensors[locokitSensor::RIGHT_HIP_SPEED] = measure;
-    locokit_interface_->getActuatorPosition(locokitMotor::RIGHT_KNEE_ID, measure);
-    sensors[locokitSensor::RIGHT_KNEE_SPEED] = measure;
-    locokit_interface_->getActuatorPosition(locokitMotor::RIGHT_ANKLE_ID, measure);
-    sensors[locokitSensor::RIGHT_ANKLE_SPEED] = measure;
+    if(locokit_interface_->getActuatorPosition(locokitMotor::LEFT_HIP_ID, measure)!=-1){
+        sensors[locokitSensor::LEFT_HIP_SPEED] = measure;
+    }
+    else
+        failed_to_read = true;
 
-    // Measure variable
-    return this->sensor_number_;
+    if(locokit_interface_->getActuatorPosition(locokitMotor::LEFT_KNEE_ID, measure)!=-1){
+        sensors[locokitSensor::LEFT_KNEE_SPEED] = measure;
+    }
+    else
+        failed_to_read = true;
+
+    if(locokit_interface_->getActuatorPosition(locokitMotor::LEFT_ANKLE_ID, measure)!=-1){
+        sensors[locokitSensor::LEFT_ANKLE_SPEED] = measure;
+    }
+    else
+        failed_to_read = true;
+
+    if(locokit_interface_->getActuatorPosition(locokitMotor::RIGHT_HIP_ID, measure)!=-1){
+        sensors[locokitSensor::RIGHT_HIP_SPEED] = measure;
+    }
+    else
+        failed_to_read = true;
+
+    if(locokit_interface_->getActuatorPosition(locokitMotor::RIGHT_KNEE_ID, measure)!=-1){
+        sensors[locokitSensor::RIGHT_KNEE_SPEED] = measure;
+    }
+    else
+        failed_to_read = true;
+
+    if(locokit_interface_->getActuatorPosition(locokitMotor::RIGHT_ANKLE_ID, measure)!=-1){
+        sensors[locokitSensor::RIGHT_ANKLE_SPEED] = measure;
+    }
+    else
+        failed_to_read = true;
+
+    if(failed_to_read == false) return true;
+    else
+        return false;
 }
 
 
-void LocokitHW::write(const motor* motors, int motornumber)
+void LocokitHW::write()
 {
     //Create pointer array to be able to cast motor values to float
     motor* corrected_value[locokitMotor::NUMBER_MOTORS];
@@ -109,12 +137,12 @@ void LocokitHW::write(const motor* motors, int motornumber)
     *corrected_value[locokitMotor::ANKLE_RIGHT] = motors[locokitMotor::ANKLE_RIGHT] * 1.0;
 
     //Locokit Interface: set motor PWM
-    locokit_interface_->setActuatorPWM((float)*corrected_value[locokitMotor::HIP_LEFT], LEFT_HIP_ID);
-    locokit_interface_->setActuatorPWM((float)*corrected_value[locokitMotor::KNEE_LEFT], LEFT_KNEE_ID);
-    locokit_interface_->setActuatorPWM((float)*corrected_value[locokitMotor::ANKLE_LEFT], LEFT_ANKLE_ID);
-    locokit_interface_->setActuatorPWM((float)*corrected_value[locokitMotor::HIP_RIGHT], RIGHT_HIP_ID);
-    locokit_interface_->setActuatorPWM((float)*corrected_value[locokitMotor::KNEE_RIGHT], RIGHT_KNEE_ID);
-    locokit_interface_->setActuatorPWM((float)*corrected_value[locokitMotor::ANKLE_RIGHT], RIGHT_ANKLE_ID);
+    locokit_interface_->setActuatorPWM(float(*corrected_value[locokitMotor::HIP_LEFT]), locokitMotor::LEFT_HIP_ID);
+    locokit_interface_->setActuatorPWM(float(*corrected_value[locokitMotor::KNEE_LEFT]), locokitMotor::LEFT_KNEE_ID);
+    locokit_interface_->setActuatorPWM(float(*corrected_value[locokitMotor::ANKLE_LEFT]), locokitMotor::LEFT_ANKLE_ID);
+    locokit_interface_->setActuatorPWM(float(*corrected_value[locokitMotor::HIP_RIGHT]), locokitMotor::RIGHT_HIP_ID);
+    locokit_interface_->setActuatorPWM(float(*corrected_value[locokitMotor::KNEE_RIGHT]), locokitMotor::RIGHT_KNEE_ID);
+    locokit_interface_->setActuatorPWM(float(*corrected_value[locokitMotor::ANKLE_RIGHT]), locokitMotor::RIGHT_ANKLE_ID);
 
 
     // increase time counter
