@@ -74,7 +74,7 @@ bool LocokitHW::read(sensor* sensors, int sensors_number)
 }
 
 
-bool LocokitHW::write(const motor* motors, int motornumber)
+void LocokitHW::write(const motor* motors, int motornumber)
 {
     //motornumber = _motor_number;
     motor* corrected_value[locokitMotor::NUMBER_MOTORS];
@@ -82,17 +82,6 @@ bool LocokitHW::write(const motor* motors, int motornumber)
     // Initialization
     for (int motor = 0; motor < locokitMotor::NUMBER_MOTORS; ++motor)
        corrected_value[motor] = 0;
-
-    std::cout << "Motors value:" << std::endl;
-    std::cout << "   Motor " << locokitMotor::FRONT_LEFT_ID << ": "
-             << std::to_string(motors[0]) << std::endl;
-    std::cout << "   Motor " << locokitMotor::FRONT_RIGHT_ID << ": "
-             << std::to_string(motors[1]) << std::endl;
-    std::cout << "   Motor " << locokitMotor::REAR_LEFT_ID << ": "
-             << std::to_string(motors[2]) << std::endl;
-    std::cout << "   Motor " << locokitMotor::REAR_RIGHT_ID << ": "
-             << std::to_string(motors[3]) << std::endl;
-    std::cout << std::endl;
 
     *corrected_value[locokitMotor::FRONT_LEFT] = motors[locokitMotor::FRONT_LEFT] * 1.0;
     *corrected_value[locokitMotor::FRONT_RIGHT] = motors[locokitMotor::FRONT_RIGHT] * 1.0;
