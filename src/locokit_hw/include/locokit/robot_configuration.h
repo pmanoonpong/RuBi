@@ -19,10 +19,13 @@ enum locokitSensor {
 enum locokitMotor {
     NUMBER_MOTORS = 6,
 
-    FRONT_LEFT = 0,
-    FRONT_RIGHT = 1,
-    REAR_LEFT = 2,
-    REAR_RIGHT = 3,
+    //Index to store values in arrays
+    HIP_LEFT = 0,
+    KNEE_LEFT = 1,
+    ANKLE_LEFT = 2,
+    HIP_RIGHT = 3,
+    KNEE_RIGHT = 4,
+    ANKLE_RIGHT = 5,
 
     LEFT_HIP_ID = 5,
     LEFT_KNEE_ID = 4,

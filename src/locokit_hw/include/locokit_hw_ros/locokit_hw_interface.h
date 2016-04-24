@@ -29,7 +29,7 @@ public:
   bool start();
   bool read(sensor *sensors, int sensors_number);
   void write(const motor* motors, int motornumber);
-  void stop();
+  ~LocokitHW();
 
 private:
   ros::NodeHandle nh_;

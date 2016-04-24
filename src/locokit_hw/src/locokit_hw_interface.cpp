@@ -4,7 +4,25 @@
 LocokitHW::LocokitHW(ros::NodeHandle nh): nh_(nh), tcp_connected_(false)
 {
     //Initialize parameters
+    step_count_ = 0;
 }
+
+
+LocokitHW::~LocokitHW()
+{
+    if(tcp_connected_){
+        // Stop motors
+        locokit_interface_->setActuatorStopped(locokitMotor::LEFT_HIP_ID);
+        locokit_interface_->setActuatorStopped(locokitMotor::LEFT_KNEE_ID);
+        locokit_interface_->setActuatorStopped(locokitMotor::LEFT_ANKLE_ID);
+        locokit_interface_->setActuatorStopped(locokitMotor::RIGHT_HIP_ID);
+        locokit_interface_->setActuatorStopped(locokitMotor::RIGHT_KNEE_ID);
+        locokit_interface_->setActuatorStopped(locokitMotor::RIGHT_ANKLE_ID);
+        //Close TCP connection with robot
+        locokit_interface_->terminate_connection_with_server();
+    }
+}
+
 
 bool LocokitHW::configure()
 {
@@ -25,7 +43,7 @@ bool LocokitHW::configure()
         sensor_number_ = locokitSensor::NUMBER_SENSORS;
         motor_number_ = locokitMotor::NUMBER_MOTORS;
 
-        // Stop mottors just in case
+        // Stop motors
         locokit_interface_->setActuatorStopped(locokitMotor::LEFT_HIP_ID);
         locokit_interface_->setActuatorStopped(locokitMotor::LEFT_KNEE_ID);
         locokit_interface_->setActuatorStopped(locokitMotor::LEFT_ANKLE_ID);
@@ -33,6 +51,7 @@ bool LocokitHW::configure()
         locokit_interface_->setActuatorStopped(locokitMotor::RIGHT_KNEE_ID);
         locokit_interface_->setActuatorStopped(locokitMotor::RIGHT_ANKLE_ID);
 
+        //TODO: take robot to initial configuration and set sensors to zero
 
         sleep(1);
     }
@@ -76,21 +95,30 @@ bool LocokitHW::read(sensor* sensors, int sensors_number)
 
 void LocokitHW::write(const motor* motors, int motornumber)
 {
-    //motornumber = _motor_number;
+    //Create pointer array to be able to cast motor values to float
     motor* corrected_value[locokitMotor::NUMBER_MOTORS];
 
-    // Initialization
     for (int motor = 0; motor < locokitMotor::NUMBER_MOTORS; ++motor)
        corrected_value[motor] = 0;
 
-    *corrected_value[locokitMotor::FRONT_LEFT] = motors[locokitMotor::FRONT_LEFT] * 1.0;
-    *corrected_value[locokitMotor::FRONT_RIGHT] = motors[locokitMotor::FRONT_RIGHT] * 1.0;
-    *corrected_value[locokitMotor::REAR_LEFT] = motors[locokitMotor::REAR_LEFT] * 1.0;
-    *corrected_value[locokitMotor::REAR_RIGHT] = motors[locokitMotor::REAR_RIGHT] * 1.0;
+    *corrected_value[locokitMotor::HIP_LEFT] = motors[locokitMotor::HIP_LEFT] * 1.0;
+    *corrected_value[locokitMotor::KNEE_LEFT] = motors[locokitMotor::KNEE_LEFT] * 1.0;
+    *corrected_value[locokitMotor::ANKLE_LEFT] = motors[locokitMotor::ANKLE_LEFT] * 1.0;
+    *corrected_value[locokitMotor::HIP_RIGHT] = motors[locokitMotor::HIP_RIGHT] * 1.0;
+    *corrected_value[locokitMotor::KNEE_RIGHT] = motors[locokitMotor::KNEE_RIGHT] * 1.0;
+    *corrected_value[locokitMotor::ANKLE_RIGHT] = motors[locokitMotor::ANKLE_RIGHT] * 1.0;
+
+    //Locokit Interface: set motor PWM
+    locokit_interface_->setActuatorPWM((float)*corrected_value[locokitMotor::HIP_LEFT], LEFT_HIP_ID);
+    locokit_interface_->setActuatorPWM((float)*corrected_value[locokitMotor::KNEE_LEFT], LEFT_KNEE_ID);
+    locokit_interface_->setActuatorPWM((float)*corrected_value[locokitMotor::ANKLE_LEFT], LEFT_ANKLE_ID);
+    locokit_interface_->setActuatorPWM((float)*corrected_value[locokitMotor::HIP_RIGHT], RIGHT_HIP_ID);
+    locokit_interface_->setActuatorPWM((float)*corrected_value[locokitMotor::KNEE_RIGHT], RIGHT_KNEE_ID);
+    locokit_interface_->setActuatorPWM((float)*corrected_value[locokitMotor::ANKLE_RIGHT], RIGHT_ANKLE_ID);
 
 
     // increase time counter
-    _step_count++;
+    step_count_++;
 }
 
 
