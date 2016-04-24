@@ -30,7 +30,6 @@ int main( int argc, char** argv ){
 
   //Time variables
   struct timespec ts = {0,0};
-
   if(clock_gettime(CLOCK_REALTIME, &ts) != 0) {
     ROS_FATAL("Failed to poll realtime clock!");
   }
@@ -61,11 +60,21 @@ int main( int argc, char** argv ){
 
   // Construct the controller manager
   ros::NodeHandle nh;
-  //controller_manager::ControllerManager manager(&locokit_robot, nh);
+  controller_manager::ControllerManager manager(&locokit_robot, nh);
 
 
   //Main loop
   while(!g_quit) {
+    // Get the time / period
+    if (!clock_gettime(CLOCK_REALTIME, &ts)) {
+        now.sec = ts.tv_sec;
+        now.nsec = ts.tv_nsec;
+        period = now - last;
+        last = now;
+    } else {
+        ROS_FATAL("Failed to poll realtime clock!");
+        break;
+    }
     //Read the state from the robot
     if(!locokit_robot.read()) {
       g_quit=true;
@@ -73,7 +82,7 @@ int main( int argc, char** argv ){
     }
 
     //Update the controllers
-    //manager.update(now, period);
+    manager.update(now, period);
 
     //Send the command to the robot
     locokit_robot.write();
