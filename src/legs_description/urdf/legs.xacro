@@ -7,12 +7,12 @@
 	<xacro:property name="DEG_TO_RAD" value="${PI/180}"/>
 
 	<!-- ROS -->
-	<xacro:property name="update_rate" value="10"/>
+	<xacro:property name="update_rate" value="1"/>
 	<xacro:property name="robot_name" value="legs"/>
 
   <!-- Robot configuration: Miscellaneous -->
   <xacro:property name="robot_floating" value="0"/>
-  <xacro:property name="scale" value="10"/>
+  <xacro:property name="scale" value="1"/>
   <xacro:property name="mass_scale" value="${pow(scale,3)}"/>
   <xacro:property name="intertia_scale" value="${pow(scale,1.667)}"/>
 
@@ -20,7 +20,7 @@
 	<xacro:property name="max_real_motor_torque" value="1.0787315"/> <!-- In N*m -->
 
   <!-- Robot configuration: Geometry -->
-  <xacro:property name="damping" value="0.7" />
+  <xacro:property name="damping" value="0.1" />
 
   <xacro:property name="upperLegHeight" value="0.262" />
   <xacro:property name="upperLegDiameter" value="0.02" />
@@ -68,8 +68,8 @@
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <mass value="${mass_scale*0.156}"/>
         <inertia
-          ixx="${intertia_scale*3.03e-004}" ixy="${intertia_scale*0.0}" ixz="${intertia_scale*1.44e-008}" 
-          iyy="${intertia_scale*2.78e-005}" iyz="${intertia_scale*0.0}" 
+          ixx="${intertia_scale*3.03e-004}" ixy="0.0" ixz="0.0" 
+          iyy="0.0" iyz="0.0" 
           izz="${intertia_scale*3.14e-004}"/>
       </inertial>
     </link>
@@ -94,8 +94,8 @@
         <origin xyz="0 0 0" rpy="90 0 0"/>
         <mass value="${mass_scale*0.123}"/>
         <inertia
-          ixx="${intertia_scale*1.19e-003}" ixy="${intertia_scale*2.89e-006}" ixz="${intertia_scale*-1.36e-008}" 
-          iyy="${intertia_scale*1.69e-005}" iyz="${intertia_scale*-1.78e-005}" 
+          ixx="${intertia_scale*1.19e-003}" ixy="0.0" ixz="0.0" 
+          iyy="0.0" iyz="0.0" 
           izz="${intertia_scale*1.18e-003}"/>
       </inertial>
     </link>
@@ -120,8 +120,8 @@
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <mass value="${mass_scale*0.115}"/>
         <inertia
-          ixx="${intertia_scale*6.99e-004}" ixy="${intertia_scale*2.44e-005}" ixz="${intertia_scale*0.0}" 
-          iyy="${intertia_scale*1.85e-005}" iyz="${intertia_scale*-1.82e-005}" 
+          ixx="${intertia_scale*6.99e-004}" ixy="0.0" ixz="0.0" 
+          iyy="0.0" iyz="0.0" 
           izz="${intertia_scale*6.94e-004}"/>
       </inertial>
     </link>
@@ -146,9 +146,9 @@
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <mass value="${mass_scale*0.021}"/>
         <inertia
-          ixx="${intertia_scale*2.2e-005}" ixy="${intertia_scale*-9.16e-006}" ixz="${intertia_scale*0.0}" 
-          iyy="${intertia_scale*-9.16e-006}" iyz="${intertia_scale*9.05e-006}" 
-          izz="${intertia_scale*2.88e-005}"/>
+          ixx="0.0" ixy="0.0" ixz="0.0" 
+          iyy="0.0" iyz="0.0" 
+          izz="0.0"/>
       </inertial>
     </link>
 
@@ -172,8 +172,8 @@
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <mass value="${mass_scale*0.123}"/>
         <inertia
-          ixx="${intertia_scale*1.19e-003}" ixy="${intertia_scale*2.89e-006}" ixz="${intertia_scale*-1.36e-008}" 
-          iyy="${intertia_scale*1.69e-005}" iyz="${intertia_scale*-1.78e-005}" 
+          ixx="${intertia_scale*1.19e-003}" ixy="0.0" ixz="0.0" 
+          iyy="0.0" iyz="0.0" 
           izz="${intertia_scale*1.18e-003}"/>
       </inertial>
     </link>
@@ -198,8 +198,8 @@
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <mass value="${mass_scale*0.115}"/>
         <inertia
-          ixx="${intertia_scale*6.99e-004}" ixy="${intertia_scale*2.44e-005}" ixz="${intertia_scale*0.0}" 
-          iyy="${intertia_scale*1.85e-005}" iyz="${intertia_scale*-1.82e-005}" 
+          ixx="${intertia_scale*6.99e-004}" ixy="0.0" ixz="0.0" 
+          iyy="0.0" iyz="0.0" 
           izz="${intertia_scale*6.94e-004}"/>
       </inertial>
     </link>
@@ -224,8 +224,8 @@
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <mass value="${mass_scale*0.021}"/>
         <inertia
-          ixx="${intertia_scale*2.2e-005}" ixy="${intertia_scale*-9.16e-006}" ixz="${intertia_scale*0.0}" 
-          iyy="${intertia_scale*-9.16e-006}" iyz="${intertia_scale*9.05e-006}" 
+          ixx="${intertia_scale*2.2e-005}" ixy="0.0" ixz="0.0" 
+          iyy="0.0" iyz="0.0" 
           izz="${intertia_scale*2.88e-005}"/>
       </inertial>
     </link>
@@ -441,7 +441,7 @@
     </visual>
 
     <inertial>
-      <mass value="0.01"/>
+      <mass value="0.001"/>
       <inertia ixx="0.002" ixy="0.0" ixz="0.0" iyy="0.002" iyz="0.0" izz="0.002"/>
     </inertial>
     
@@ -464,7 +464,7 @@
     </visual>
 
     <inertial>
-      <mass value="0.01"/>
+      <mass value="0.001"/>
       <inertia ixx="0.002" ixy="0.0" ixz="0.0" iyy="0.002" iyz="0.0" izz="0.002"/>
     </inertial>
     
@@ -496,7 +496,6 @@
       <child link="rotational_robot_holder_virtual"/>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <axis xyz="0 1 0"/>
-      <dynamics damping="0.7"/>
     </joint> 
 
     <joint name="rotational_robot_holder_joint" type="continuous">
@@ -504,16 +503,15 @@
       <child link="rotational_robot_holder_holder"/>
       <origin xyz="0 0 ${rotational_robot_holder_base_length/2}" rpy="0 0 0"/>
       <axis xyz="0 0 1"/>
-      <dynamics damping="0.7"/>
     </joint>
   </xacro:if>
 
   <joint name="rotational_robot_holder_to_rotot" type="fixed">
     <parent link="rotational_robot_holder_holder"/>
     <child link="hip"/>
-    <origin xyz="${rotational_robot_holder_holder_length+0.2} 0 0" rpy="0 0 0"/>
+    <origin xyz="${rotational_robot_holder_holder_length+0.2} 0 0" rpy="0 0 ${90*DEG_TO_RAD}"/>
     <axis xyz="0 0 1"/>
-    <limit effort="30" velocity="1.0" lower="0" upper="1" />
+    <limit effort="30" velocity="2.0" lower="0" upper="1" />
   </joint> 
 
 
