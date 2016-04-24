@@ -88,10 +88,9 @@ int main( int argc, char** argv ){
     locokit_robot.write();
   }
 
+  //TODO: clean up when finished
   spinner.stop();
   //ros::shutdown();
-  //TODO: clean up when finished
-
 
   return 0;
 }

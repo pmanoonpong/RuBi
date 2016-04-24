@@ -1,26 +1,10 @@
 #include "locokit_hw_ros/locokit_hw_interface.h"
 
 
-LocokitHW::LocokitHW(ros::NodeHandle nh): nh_(nh), tcp_connected_(false), sensors(0), motors(0)
+LocokitHW::LocokitHW(ros::NodeHandle nh): nh_(nh), tcp_connected_(false), sensors_(0), motors_(0)
 {
     //Initialize parameters
     step_count_ = 0;
-}
-
-
-LocokitHW::~LocokitHW()
-{
-    if(tcp_connected_){
-        // Stop motors
-        locokit_interface_->setActuatorStopped(locokitMotor::LEFT_HIP_ID);
-        locokit_interface_->setActuatorStopped(locokitMotor::LEFT_KNEE_ID);
-        locokit_interface_->setActuatorStopped(locokitMotor::LEFT_ANKLE_ID);
-        locokit_interface_->setActuatorStopped(locokitMotor::RIGHT_HIP_ID);
-        locokit_interface_->setActuatorStopped(locokitMotor::RIGHT_KNEE_ID);
-        locokit_interface_->setActuatorStopped(locokitMotor::RIGHT_ANKLE_ID);
-        //Close TCP connection with robot
-        locokit_interface_->terminate_connection_with_server();
-    }
 }
 
 
@@ -80,37 +64,37 @@ bool LocokitHW::read()
 
     //DOUBT: Needs to be scaled to [-1, 1]
     if(locokit_interface_->getActuatorPosition(locokitMotor::LEFT_HIP_ID, measure)!=-1){
-        sensors[locokitSensor::LEFT_HIP_SPEED] = measure;
+        sensors_[locokitSensor::LEFT_HIP_SPEED] = measure;
     }
     else
         failed_to_read = true;
 
     if(locokit_interface_->getActuatorPosition(locokitMotor::LEFT_KNEE_ID, measure)!=-1){
-        sensors[locokitSensor::LEFT_KNEE_SPEED] = measure;
+        sensors_[locokitSensor::LEFT_KNEE_SPEED] = measure;
     }
     else
         failed_to_read = true;
 
     if(locokit_interface_->getActuatorPosition(locokitMotor::LEFT_ANKLE_ID, measure)!=-1){
-        sensors[locokitSensor::LEFT_ANKLE_SPEED] = measure;
+        sensors_[locokitSensor::LEFT_ANKLE_SPEED] = measure;
     }
     else
         failed_to_read = true;
 
     if(locokit_interface_->getActuatorPosition(locokitMotor::RIGHT_HIP_ID, measure)!=-1){
-        sensors[locokitSensor::RIGHT_HIP_SPEED] = measure;
+        sensors_[locokitSensor::RIGHT_HIP_SPEED] = measure;
     }
     else
         failed_to_read = true;
 
     if(locokit_interface_->getActuatorPosition(locokitMotor::RIGHT_KNEE_ID, measure)!=-1){
-        sensors[locokitSensor::RIGHT_KNEE_SPEED] = measure;
+        sensors_[locokitSensor::RIGHT_KNEE_SPEED] = measure;
     }
     else
         failed_to_read = true;
 
     if(locokit_interface_->getActuatorPosition(locokitMotor::RIGHT_ANKLE_ID, measure)!=-1){
-        sensors[locokitSensor::RIGHT_ANKLE_SPEED] = measure;
+        sensors_[locokitSensor::RIGHT_ANKLE_SPEED] = measure;
     }
     else
         failed_to_read = true;
@@ -129,12 +113,12 @@ void LocokitHW::write()
     for (int motor = 0; motor < locokitMotor::NUMBER_MOTORS; ++motor)
        corrected_value[motor] = 0;
 
-    *corrected_value[locokitMotor::HIP_LEFT] = motors[locokitMotor::HIP_LEFT] * 1.0;
-    *corrected_value[locokitMotor::KNEE_LEFT] = motors[locokitMotor::KNEE_LEFT] * 1.0;
-    *corrected_value[locokitMotor::ANKLE_LEFT] = motors[locokitMotor::ANKLE_LEFT] * 1.0;
-    *corrected_value[locokitMotor::HIP_RIGHT] = motors[locokitMotor::HIP_RIGHT] * 1.0;
-    *corrected_value[locokitMotor::KNEE_RIGHT] = motors[locokitMotor::KNEE_RIGHT] * 1.0;
-    *corrected_value[locokitMotor::ANKLE_RIGHT] = motors[locokitMotor::ANKLE_RIGHT] * 1.0;
+    *corrected_value[locokitMotor::HIP_LEFT] = motors_[locokitMotor::HIP_LEFT] * 1.0;
+    *corrected_value[locokitMotor::KNEE_LEFT] = motors_[locokitMotor::KNEE_LEFT] * 1.0;
+    *corrected_value[locokitMotor::ANKLE_LEFT] = motors_[locokitMotor::ANKLE_LEFT] * 1.0;
+    *corrected_value[locokitMotor::HIP_RIGHT] = motors_[locokitMotor::HIP_RIGHT] * 1.0;
+    *corrected_value[locokitMotor::KNEE_RIGHT] = motors_[locokitMotor::KNEE_RIGHT] * 1.0;
+    *corrected_value[locokitMotor::ANKLE_RIGHT] = motors_[locokitMotor::ANKLE_RIGHT] * 1.0;
 
     //Locokit Interface: set motor PWM
     locokit_interface_->setActuatorPWM(float(*corrected_value[locokitMotor::HIP_LEFT]), locokitMotor::LEFT_HIP_ID);
@@ -147,6 +131,22 @@ void LocokitHW::write()
 
     // increase time counter
     step_count_++;
+}
+
+
+LocokitHW::~LocokitHW()
+{
+    if(tcp_connected_){
+        // Stop motors
+        locokit_interface_->setActuatorStopped(locokitMotor::LEFT_HIP_ID);
+        locokit_interface_->setActuatorStopped(locokitMotor::LEFT_KNEE_ID);
+        locokit_interface_->setActuatorStopped(locokitMotor::LEFT_ANKLE_ID);
+        locokit_interface_->setActuatorStopped(locokitMotor::RIGHT_HIP_ID);
+        locokit_interface_->setActuatorStopped(locokitMotor::RIGHT_KNEE_ID);
+        locokit_interface_->setActuatorStopped(locokitMotor::RIGHT_ANKLE_ID);
+        //Close TCP connection with robot
+        locokit_interface_->terminate_connection_with_server();
+    }
 }
 
 

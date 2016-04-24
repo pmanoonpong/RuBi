@@ -43,8 +43,8 @@ private:
   int sensor_number_;
   int motor_number_;
   int step_count_;
-  sensor* sensors;
-  motor* motors;
+  sensor* sensors_;
+  motor* motors_;
 };
 
 #endif // ifndef LOCOKIT_HW_INTERFACE_H
