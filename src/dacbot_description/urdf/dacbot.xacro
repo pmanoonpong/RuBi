@@ -22,7 +22,7 @@
     Height = Z axis
   -->
   <xacro:property name="scale" value="1" />
-  <xacro:property name="minimum_intertia" value="0.002" /> <!-- <0.001 doesn't work -->
+  <xacro:property name="minimum_intertia" value="2e-03" /> <!-- <0.001 doesn't work -->
 
 	<xacro:property name="bodyWidth" value="${0.085*scale}" />
 	<xacro:property name="bodyLength" value="${0.08*scale}" />
@@ -324,7 +324,7 @@
   <xacro:if value="${robot_floating is 1}">
     <xacro:property name="rotational_robot_holder_base_length_extra" value="0.1" />
   </xacro:if>
-  <xacro:property name="rotational_robot_holder_base_length" value="${(footHeight + lowerLegHeight + upperLegHeight + rotational_robot_holder_base_length_extra)*scale}" />
+  <xacro:property name="rotational_robot_holder_base_length" value="${(footHeight + lowerLegHeight + upperLegHeight + rotational_robot_holder_base_length_extra)}" />
   <xacro:property name="rotational_robot_holder_base_radius" value="${0.2*scale}" />
   <xacro:property name="rotational_robot_holder_holder_radius" value="${0.01*scale}" />
   <xacro:property name="rotational_robot_holder_holder_length" value="${2*scale}" />
