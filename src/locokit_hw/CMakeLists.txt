@@ -7,11 +7,13 @@ project(locokit_hw)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
 	roscpp
+        rospy
+        controller_manager
 	)
 
 catkin_package(
    INCLUDE_DIRS include
-#  LIBRARIES locokit_hw
+   LIBRARIES locokit_hw
 #  CATKIN_DEPENDS other_catkin_pkg
 #  DEPENDS system_lib
 )
@@ -25,19 +27,24 @@ catkin_package(
 include_directories(
     include
     ${catkin_INCLUDE_DIRS}
-    $ENV{GOROBOTS}
     $ENV{GOROBOTS}/utils/real_robots/locokit
 )
+
 set(HEADERS
   include/locokit_hw_ros/locokit_hw_interface.h
-  include/locokit_fimrware/LocoKitInterface.h
+  include/locokit_firmware/LocoKitInterface.h
   include/locokit_firmware/ConnectionClass.h
   include/locokit/robot_configuration.h
-  include/locokit/locokit_TCP.h
 )
 
+set(SOURCES
+    src/locokit_hw_interface_node.cpp
+    include/locokit_firmware/ConnectionClass.cpp
+    include/locokit_firmware/LocoKitInterface.cpp
+    )
+
 ## Declare a C++ executable
-add_executable(locokit_hw_node src/locokit_hw_interface_node.cpp)
+add_executable(locokit_hw_node ${SOURCES} )
 
 ## Specify libraries to link a library or executable target against
  target_link_libraries(locokit_hw_node
