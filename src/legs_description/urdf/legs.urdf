@@ -48,37 +48,37 @@
   </gazebo>
   <!-- Links -->
   <gazebo reference="hip">
-    <material>Gazebo/Orange</material>
+    <material>Gazebo/Grey</material>
   </gazebo>
   <gazebo reference="left_upper_limb">
     <mu1>0.2</mu1>
     <mu2>0.2</mu2>
-    <material>Gazebo/Orange</material>
+    <material>Gazebo/Grey</material>
   </gazebo>
   <gazebo reference="left_lower_limb">
     <mu1>0.2</mu1>
     <mu2>0.2</mu2>
-    <material>Gazebo/Orange</material>
+    <material>Gazebo/Grey</material>
   </gazebo>
   <gazebo reference="left_foot">
     <mu1>2.0</mu1>
     <mu2>2.0</mu2>
-    <material>Gazebo/Orange</material>
+    <material>Gazebo/Grey</material>
   </gazebo>
   <gazebo reference="right_upper_limb">
     <mu1>0.2</mu1>
     <mu2>0.2</mu2>
-    <material>Gazebo/Orange</material>
+    <material>Gazebo/Grey</material>
   </gazebo>
   <gazebo reference="right_lower_limb">
     <mu1>0.2</mu1>
     <mu2>0.2</mu2>
-    <material>Gazebo/Orange</material>
+    <material>Gazebo/Grey</material>
   </gazebo>
   <gazebo reference="right_foot">
     <mu1>2.0</mu1>
     <mu2>2.0</mu2>
-    <material>Gazebo/Orange</material>
+    <material>Gazebo/Grey</material>
   </gazebo>
   <material name="black">
     <color rgba="0.0 0.0 0.0 1.0"/>
@@ -111,140 +111,140 @@
     <collision>
       <origin rpy="1.57079632679 0 0" xyz="0 0 0"/>
       <geometry>
-        <cylinder length="0.180" radius="0.025"/>
+        <cylinder length="0.72" radius="0.1"/>
       </geometry>
     </collision>
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://legs_description/meshes/iteration_1/gazebo/hip_visual.stl"/>
+        <mesh filename="package://legs_description/meshes/iteration_1/gazebo/hip_visual.stl" scale="4 4 4"/>
       </geometry>
       <material name="orange"/>
     </visual>
     <inertial>
       <origin rpy="0 0 0" xyz="0 0 0"/>
-      <mass value="0.156"/>
-      <inertia ixx="3.03e-004" ixy="0.0" ixz="1.44e-008" iyy="2.78e-005" iyz="0.0" izz="3.14e-004"/>
+      <mass value="9.984"/>
+      <inertia ixx="0.00159924358786" ixy="0.0" ixz="7.60036556605e-08" iyy="0.000146729279678" iyz="0.0" izz="0.00165730193593"/>
     </inertial>
   </link>
   <link name="left_upper_limb">
     <collision>
-      <origin rpy="1.57079632679 0 0" xyz="0 0.131 0"/>
+      <origin rpy="1.57079632679 0 0" xyz="0 0.524 0"/>
       <geometry>
-        <cylinder length="0.262" radius="0.01"/>
+        <cylinder length="1.048" radius="0.04"/>
       </geometry>
     </collision>
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://legs_description/meshes/iteration_1/gazebo/left_upper_limb_visual.stl"/>
+        <mesh filename="package://legs_description/meshes/iteration_1/gazebo/left_upper_limb_visual.stl" scale="4 4 4"/>
       </geometry>
       <material name="orange"/>
     </visual>
     <inertial>
       <origin rpy="90 0 0" xyz="0 0 0"/>
-      <mass value="0.123"/>
-      <inertia ixx="1.19e-003" ixy="2.89e-006" ixz="-1.36e-008" iyy="1.69e-005" iyz="-1.78e-005" izz="1.18e-003"/>
+      <mass value="7.872"/>
+      <inertia ixx="0.00628085765528" ixy="1.52535114485e-05" ixz="-7.1781230346e-08" iyy="8.91987347682e-05" iyz="-9.3948963247e-05" izz="0.00622807733885"/>
     </inertial>
   </link>
   <link name="left_lower_limb">
     <collision>
-      <origin rpy="1.57079632679 0 0" xyz="0 0.131 0"/>
+      <origin rpy="1.57079632679 0 0" xyz="0 0.424 0"/>
       <geometry>
-        <cylinder length="0.212" radius="0.01"/>
+        <cylinder length="0.848" radius="0.04"/>
       </geometry>
     </collision>
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://legs_description/meshes/iteration_1/gazebo/left_lower_limb_visual.stl"/>
+        <mesh filename="package://legs_description/meshes/iteration_1/gazebo/left_lower_limb_visual.stl" scale="4 4 4"/>
       </geometry>
       <material name="orange"/>
     </visual>
     <inertial>
       <origin rpy="0 0 0" xyz="0 0 0"/>
-      <mass value="0.115"/>
-      <inertia ixx="6.99e-004" ixy="2.44e-005" ixz="0.0" iyy="1.85e-005" iyz="-1.82e-005" izz="6.94e-004"/>
+      <mass value="7.36"/>
+      <inertia ixx="0.00368934411852" ixy="0.000128783972091" ixz="0.0" iyy="9.76435853972e-05" iyz="-9.60601759043e-05" izz="0.00366295396031"/>
     </inertial>
   </link>
   <link name="left_foot">
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://legs_description/meshes/iteration_1/gazebo/left_foot_visual.stl"/>
+        <mesh filename="package://legs_description/meshes/iteration_1/gazebo/left_foot_visual.stl" scale="4 4 4"/>
       </geometry>
     </collision>
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://legs_description/meshes/iteration_1/gazebo/left_foot_visual.stl"/>
+        <mesh filename="package://legs_description/meshes/iteration_1/gazebo/left_foot_visual.stl" scale="4 4 4"/>
       </geometry>
       <material name="orange"/>
     </visual>
     <inertial>
       <origin rpy="0 0 0" xyz="0 0 0"/>
-      <mass value="0.021"/>
-      <inertia ixx="2.2e-005" ixy="-9.16e-006" ixz="0.0" iyy="-9.16e-006" iyz="9.05e-006" izz="2.88e-005"/>
+      <mass value="1.344"/>
+      <inertia ixx="0.000116116696148" ixy="-4.83467698507e-05" ixz="0.0" iyy="-4.83467698507e-05" iyz="4.776618637e-05" izz="0.000152007311321"/>
     </inertial>
   </link>
   <link name="right_upper_limb">
     <collision>
-      <origin rpy="1.57079632679 0 0" xyz="0 0.131 0"/>
+      <origin rpy="1.57079632679 0 0" xyz="0 0.524 0"/>
       <geometry>
-        <cylinder length="0.262" radius="0.01"/>
+        <cylinder length="1.048" radius="0.04"/>
       </geometry>
     </collision>
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://legs_description/meshes/iteration_1/gazebo/right_upper_limb_visual.stl"/>
+        <mesh filename="package://legs_description/meshes/iteration_1/gazebo/right_upper_limb_visual.stl" scale="4 4 4"/>
       </geometry>
       <material name="orange"/>
     </visual>
     <inertial>
       <origin rpy="0 0 0" xyz="0 0 0"/>
-      <mass value="0.123"/>
-      <inertia ixx="1.19e-003" ixy="2.89e-006" ixz="-1.36e-008" iyy="1.69e-005" iyz="-1.78e-005" izz="1.18e-003"/>
+      <mass value="7.872"/>
+      <inertia ixx="0.00628085765528" ixy="1.52535114485e-05" ixz="-7.1781230346e-08" iyy="8.91987347682e-05" iyz="-9.3948963247e-05" izz="0.00622807733885"/>
     </inertial>
   </link>
   <link name="right_lower_limb">
     <collision>
-      <origin rpy="1.57079632679 0 0" xyz="0 0.131 0"/>
+      <origin rpy="1.57079632679 0 0" xyz="0 0.424 0"/>
       <geometry>
-        <cylinder length="0.212" radius="0.01"/>
+        <cylinder length="0.848" radius="0.04"/>
       </geometry>
     </collision>
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://legs_description/meshes/iteration_1/gazebo/right_lower_limb_visual.stl"/>
+        <mesh filename="package://legs_description/meshes/iteration_1/gazebo/right_lower_limb_visual.stl" scale="4 4 4"/>
       </geometry>
       <material name="orange"/>
     </visual>
     <inertial>
       <origin rpy="0 0 0" xyz="0 0 0"/>
-      <mass value="0.115"/>
-      <inertia ixx="6.99e-004" ixy="2.44e-005" ixz="0.0" iyy="1.85e-005" iyz="-1.82e-005" izz="6.94e-004"/>
+      <mass value="7.36"/>
+      <inertia ixx="0.00368934411852" ixy="0.000128783972091" ixz="0.0" iyy="9.76435853972e-05" iyz="-9.60601759043e-05" izz="0.00366295396031"/>
     </inertial>
   </link>
   <link name="right_foot">
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://legs_description/meshes/iteration_1/gazebo/right_foot_visual.stl"/>
+        <mesh filename="package://legs_description/meshes/iteration_1/gazebo/right_foot_visual.stl" scale="4 4 4"/>
       </geometry>
     </collision>
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://legs_description/meshes/iteration_1/gazebo/right_foot_visual.stl"/>
+        <mesh filename="package://legs_description/meshes/iteration_1/gazebo/right_foot_visual.stl" scale="4 4 4"/>
       </geometry>
       <material name="orange"/>
     </visual>
     <inertial>
       <origin rpy="0 0 0" xyz="0 0 0"/>
-      <mass value="0.021"/>
-      <inertia ixx="2.2e-005" ixy="-9.16e-006" ixz="0.0" iyy="-9.16e-006" iyz="9.05e-006" izz="2.88e-005"/>
+      <mass value="1.344"/>
+      <inertia ixx="0.000116116696148" ixy="-4.83467698507e-05" ixz="0.0" iyy="-4.83467698507e-05" iyz="4.776618637e-05" izz="0.000152007311321"/>
     </inertial>
   </link>
   <!-- 
@@ -253,8 +253,8 @@
   <link name="world"/>
   <!--   <link name="world_pris">
     <inertial>
-      <mass value="2e-06"/>
-      <inertia ixx="1.1e-09" ixy="0" ixz="0" iyy="1.1e-09" iyz="0" izz="1.1e-09"/>
+      <mass value="${mass_scale*2e-06"/>
+      <inertia ixx="${intertia_scale*1.1e-09" ixy="${intertia_scale*0" ixz="${intertia_scale*0" iyy="${intertia_scale*1.1e-09" iyz="${intertia_scale*0" izz="${intertia_scale*1.1e-09"/>
     </inertial>
   </link>
 
@@ -271,20 +271,21 @@
     <parent link="world_pris"/>
     <child link="hip"/>
     <axis xyz="0 1 0"/>
-  </joint> -->
-  <!-- 
+  </joint> 
+
   <joint name="world_hip" type="continuous">
     <origin xyz="0 0 1" rpy="0 0 0"/>
     <parent link="world"/>
     <child link="hip"/>
-  </joint>  -->
+  </joint> 
+  -->
   <!-- 
 		Joints 
 	-->
   <joint name="left_hip" type="revolute">
     <parent link="hip"/>
     <child link="left_upper_limb"/>
-    <origin rpy="-1.57079632679 0 0" xyz="0 0.0635 -0.028867"/>
+    <origin rpy="-1.57079632679 0 0" xyz="0 0.254 -0.115468"/>
     <axis xyz="0 0 -1"/>
     <limit effort="10" lower="-1.0471975512" upper="1.57079632679" velocity="10"/>
     <dynamics damping="0.7"/>
@@ -292,7 +293,7 @@
   <joint name="left_knee" type="revolute">
     <parent link="left_upper_limb"/>
     <child link="left_lower_limb"/>
-    <origin rpy="0 0 0" xyz="0 0.262 0"/>
+    <origin rpy="0 0 0" xyz="0 1.048 0"/>
     <axis xyz="0 0 -1"/>
     <limit effort="10" lower="-2.09439510239" upper="0.0" velocity="10"/>
     <dynamics damping="0.7"/>
@@ -300,7 +301,7 @@
   <joint name="left_ankle" type="revolute">
     <parent link="left_lower_limb"/>
     <child link="left_foot"/>
-    <origin rpy="0 0 0" xyz="0 0.212 0"/>
+    <origin rpy="0 0 0" xyz="0 0.848 0"/>
     <axis xyz="0 0 -1"/>
     <limit effort="10" lower="-0.872664625997" upper="2.09439510239" velocity="10"/>
     <dynamics damping="0.7"/>
@@ -308,7 +309,7 @@
   <joint name="right_hip" type="revolute">
     <parent link="hip"/>
     <child link="right_upper_limb"/>
-    <origin rpy="-1.57079632679 0 0" xyz="0 -0.0635 -0.028867"/>
+    <origin rpy="-1.57079632679 0 0" xyz="0 -0.254 -0.115468"/>
     <axis xyz="0 0 -1"/>
     <limit effort="10" lower="-1.0471975512" upper="1.57079632679" velocity="10"/>
     <dynamics damping="0.7"/>
@@ -316,7 +317,7 @@
   <joint name="right_knee" type="revolute">
     <parent link="right_upper_limb"/>
     <child link="right_lower_limb"/>
-    <origin rpy="0 0 0" xyz="0 0.262 0"/>
+    <origin rpy="0 0 0" xyz="0 1.048 0"/>
     <axis xyz="0 0 -1"/>
     <limit effort="10" lower="-2.09439510239" upper="0.0" velocity="10"/>
     <dynamics damping="0.7"/>
@@ -324,7 +325,7 @@
   <joint name="right_ankle" type="revolute">
     <parent link="right_lower_limb"/>
     <child link="right_foot"/>
-    <origin rpy="0 0 0" xyz="0 0.212 0"/>
+    <origin rpy="0 0 0" xyz="0 0.848 0"/>
     <axis xyz="0 0 -1"/>
     <limit effort="10" lower="-0.872664625997" upper="2.09439510239" velocity="10"/>
     <dynamics damping="0.7"/>
@@ -389,18 +390,17 @@
       <mechanicalReduction>1.0787315</mechanicalReduction>
     </actuator>
   </transmission>
-  <!-- <xacro:include filename="$(find gazebo_resources)/models/rotational_robot_holder/urdf/rotational_robot_holder.xacro" /> -->
   <link name="rotational_robot_holder_base">
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <cylinder length="1" radius="0.2"/>
+        <cylinder length="2.68" radius="0.8"/>
       </geometry>
     </collision>
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <cylinder length="1" radius="0.2"/>
+        <cylinder length="2.68" radius="0.8"/>
       </geometry>
       <material name="orange"/>
     </visual>
@@ -424,21 +424,21 @@
       <material name="orange"/>
     </visual>
     <inertial>
-      <mass value="0.01"/>
+      <mass value="$0.01"/>
       <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1"/>
     </inertial>
   </link>
   <link name="rotational_robot_holder_holder">
     <collision>
-      <origin rpy="0 1.57079632679 0" xyz="1.0 0 0"/>
+      <origin rpy="0 1.57079632679 0" xyz="4.0 0 0"/>
       <geometry>
-        <cylinder length="2" radius="0.01"/>
+        <cylinder length="8" radius="0.04"/>
       </geometry>
     </collision>
     <visual>
-      <origin rpy="0 1.57079632679 0" xyz="1.0 0 0"/>
+      <origin rpy="0 1.57079632679 0" xyz="4.0 0 0"/>
       <geometry>
-        <cylinder length="2" radius="0.01"/>
+        <cylinder length="8" radius="0.04"/>
       </geometry>
       <material name="orange"/>
     </visual>
@@ -447,11 +447,10 @@
       <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1"/>
     </inertial>
   </link>
-  <!-- Robot to rotational_robot_holder -->
   <joint name="rotational_robot_holder_base_to_world" type="fixed">
     <parent link="world"/>
     <child link="rotational_robot_holder_base"/>
-    <origin rpy="0 0 0" xyz="0 0 0.5"/>
+    <origin rpy="0 0 0" xyz="0 0 1.34"/>
   </joint>
   <joint name="rotational_robot_holder_virtual_to_holder" type="continuous">
     <parent link="rotational_robot_holder_base"/>
@@ -463,14 +462,14 @@
   <joint name="rotational_robot_holder_joint" type="continuous">
     <parent link="rotational_robot_holder_virtual"/>
     <child link="rotational_robot_holder_holder"/>
-    <origin rpy="0 0 0" xyz="0 0 0.5"/>
+    <origin rpy="0 0 0" xyz="0 0 1.34"/>
     <axis xyz="0 0 1"/>
     <dynamics damping="0.7"/>
   </joint>
   <joint name="rotational_robot_holder_to_rotot" type="fixed">
     <parent link="rotational_robot_holder_holder"/>
     <child link="hip"/>
-    <origin rpy="0 0 0" xyz="2.2 0 0"/>
+    <origin rpy="0 0 0" xyz="8.2 0 0"/>
     <axis xyz="0 0 1"/>
     <limit effort="30" lower="0" upper="1" velocity="1.0"/>
   </joint>
