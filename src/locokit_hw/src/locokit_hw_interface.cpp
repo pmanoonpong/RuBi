@@ -1,10 +1,27 @@
 #include "locokit_hw_ros/locokit_hw_interface.h"
 
 
-LocokitHW::LocokitHW(ros::NodeHandle nh): nh_(nh), tcp_connected_(false), sensors_(0), motors_(0)
+LocokitHW::LocokitHW(ros::NodeHandle nh): nh_(nh)
 {
     //Initialize parameters
+    tcp_connected_ = false;
     step_count_ = 0;
+
+    for(unsigned int i=0; i<locokitMotor::NUMBER_MOTORS; i++){
+        motors_[i] = 0;
+    }
+    for(unsigned int i=0; i<locokitSensor::NUMBER_SENSORS; i++){
+        sensors_[i] = 0;
+    }
+
+    //Store names of the joints
+    joint_names.insert(std::pair<int, std::string>(locokitMotor::HIP_LEFT, "HIP_LEFT"));
+    joint_names.insert(std::pair<int, std::string>(locokitMotor::KNEE_LEFT, "KNEE_LEFT"));
+    joint_names.insert(std::pair<int, std::string>(locokitMotor::ANKLE_LEFT, "ANKLE_LEFT"));
+    joint_names.insert(std::pair<int, std::string>(locokitMotor::HIP_RIGHT, "HIP_RIGHT"));
+    joint_names.insert(std::pair<int, std::string>(locokitMotor::KNEE_RIGHT, "KNEE_RIGHT"));
+    joint_names.insert(std::pair<int, std::string>(locokitMotor::ANKLE_RIGHT, "ANKLE_RIGHT"));
+
 }
 
 
@@ -42,14 +59,23 @@ bool LocokitHW::configure()
         //Register hardware interface handlers:
 
         //Joint state handlers: read the state of a single joint
-        hardware_interface::JointStateHandle state_joint("HIP_LEFT", &pos[locokitMotor::HIP_LEFT],
-                                        &vel[locokitMotor::HIP_LEFT], &eff[locokitMotor::HIP_LEFT]);
-        joint_state_interface.registerHandle(state_joint);
+        typedef std::map<int, std::string>::iterator it_type;
+        for(it_type iterator = joint_names.begin(); iterator != joint_names.end(); iterator++) {
+            hardware_interface::JointStateHandle state_joint(iterator->second, &sensors_[iterator->first],
+                                                        &vel[iterator->first], &eff[iterator->first]);
+            joint_state_interface_.registerHandle(state_joint);
+        }
 
         //Joint command handlers: read and command a single joint
-        //TODO
+        for(it_type iterator = joint_names.begin(); iterator != joint_names.end(); iterator++){
+            hardware_interface::JointHandle command_joint(joint_state_interface_.getHandle(iterator->second),
+                                                          &motors_[iterator->first]);
+            joint_command_interface_.registerHandle(command_joint);
+        }
 
-        sleep(1);
+        this->registerInterface(&joint_state_interface_);
+        this->registerInterface(&joint_command_interface_);
+
         return true;
     }
 }
