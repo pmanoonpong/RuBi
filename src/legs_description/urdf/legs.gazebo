@@ -52,43 +52,43 @@
 
 	<!-- Links -->
 	<gazebo reference="hip">
-  	<material>Gazebo/Orange</material>
+  	<material>Gazebo/Grey</material>
 	</gazebo>
 
 	<gazebo reference="left_upper_limb">
 		<mu1>0.2</mu1>
 		<mu2>0.2</mu2>
-  	<material>Gazebo/Orange</material>
+  	<material>Gazebo/Grey</material>
 	</gazebo>
 
 	<gazebo reference="left_lower_limb">
 		<mu1>0.2</mu1>
 		<mu2>0.2</mu2>
-  	<material>Gazebo/Orange</material>
+  	<material>Gazebo/Grey</material>
 	</gazebo>
 
 	<gazebo reference="left_foot">
 		<mu1>2.0</mu1>
 		<mu2>2.0</mu2>
-  	<material>Gazebo/Orange</material>
+  	<material>Gazebo/Grey</material>
 	</gazebo>
 
 	<gazebo reference="right_upper_limb">
 		<mu1>0.2</mu1>
 		<mu2>0.2</mu2>
-  	<material>Gazebo/Orange</material>
+  	<material>Gazebo/Grey</material>
 	</gazebo>
 
 	<gazebo reference="right_lower_limb">
 		<mu1>0.2</mu1>
 		<mu2>0.2</mu2>
-  	<material>Gazebo/Orange</material>
+  	<material>Gazebo/Grey</material>
 	</gazebo>
 
 	<gazebo reference="right_foot">
     <mu1>2.0</mu1>
     <mu2>2.0</mu2>
-  	<material>Gazebo/Orange</material>
+  	<material>Gazebo/Grey</material>
 	</gazebo>
 
 </robot>

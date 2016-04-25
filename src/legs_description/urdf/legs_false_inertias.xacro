@@ -252,14 +252,13 @@
     <parent link="world_pris"/>
     <child link="hip"/>
     <axis xyz="0 1 0"/>
-  </joint>
-  -->
-
-  <joint name="world_hip" type="floating">
+  </joint> -->
+<!-- 
+  <joint name="world_hip" type="continuous">
     <origin xyz="0 0 1" rpy="0 0 0"/>
     <parent link="world"/>
     <child link="hip"/>
-  </joint> 
+  </joint>  -->
 
 	<!-- 
 		Joints 
@@ -386,8 +385,8 @@
     </actuator>
   </transmission>
 
-<!-- 
 
+  <!-- Rotational robot holder -->
   <xacro:property name="rotational_robot_holder_base_length_extra" value="0" />
   <xacro:if value="${robot_floating is 1}">
     <xacro:property name="rotational_robot_holder_base_length_extra" value="0.1" />
@@ -396,7 +395,6 @@
   <xacro:property name="rotational_robot_holder_base_radius" value="0.2" />
   <xacro:property name="rotational_robot_holder_holder_radius" value="0.01" />
   <xacro:property name="rotational_robot_holder_holder_length" value="2" />
-
 
   <link name="rotational_robot_holder_base">
     <collision>
