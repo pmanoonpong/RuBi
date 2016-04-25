@@ -21,8 +21,6 @@ int main( int argc, char** argv ){
   ros::NodeHandle locokit_nh("locokit");
 
   LocokitHW locokit_robot(locokit_nh);
-  locokit_robot.configure();
-  locokit_robot.start();
 
   //ROS callback call
   ros::AsyncSpinner spinner(1);
@@ -41,17 +39,21 @@ int main( int argc, char** argv ){
 
   //Loop until initialization is completed
   bool a_correr = false;
-  while(!g_quit && !a_correr) {
-    if(!locokit_robot.configure()) {
+  while(!g_quit && !a_correr){
+    if(!locokit_robot.configure()){
       ROS_ERROR("Could not configure Locokit!");
-    } else if(!locokit_robot.start()) {
+    }
+    else if(!locokit_robot.start()){
       ROS_ERROR("Could not start Locokit!");
-    } else {
+    }
+    else{
+      ROS_INFO("Interface configured and connected");
       ros::Duration(1.0).sleep();
 
-      if(!locokit_robot.read()) {
+      if(!locokit_robot.read()){
         ROS_ERROR("Could not read from Locokit!");
-      } else {
+      }
+      else{
         a_correr = true;
       }
     }
@@ -61,35 +63,41 @@ int main( int argc, char** argv ){
   // Construct the controller manager
   ros::NodeHandle nh;
   controller_manager::ControllerManager manager(&locokit_robot, nh);
-
+  ROS_INFO("Manager created");
 
   //Main loop
-  while(!g_quit) {
+  while(!g_quit && ros::ok()) {
     // Get the time / period
     if (!clock_gettime(CLOCK_REALTIME, &ts)) {
         now.sec = ts.tv_sec;
         now.nsec = ts.tv_nsec;
         period = now - last;
         last = now;
+        ROS_INFO("Real time clock activated");
     } else {
         ROS_FATAL("Failed to poll realtime clock!");
         break;
     }
     //Read the state from the robot
     if(!locokit_robot.read()) {
+      ROS_ERROR("Couldn't read sensors");
       g_quit=true;
       break;
     }
 
     //Update the controllers
     manager.update(now, period);
-
+    ROS_INFO("Updating control manager");
     //Send the command to the robot
+    period.sleep();
     locokit_robot.write();
+    ROS_INFO("Writing locokit actuators");
   }
 
   //TODO: clean up when finished
+  ROS_INFO("Finishing");
   spinner.stop();
+  locokit_robot.~LocokitHW();
   //ros::shutdown();
 
   return 0;
