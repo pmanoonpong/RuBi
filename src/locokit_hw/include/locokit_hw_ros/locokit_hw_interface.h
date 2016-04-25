@@ -32,7 +32,7 @@ public:
   bool configure();
   bool start();
   bool read();
-  void write();
+  bool write();
   virtual ~LocokitHW();
 
 private:

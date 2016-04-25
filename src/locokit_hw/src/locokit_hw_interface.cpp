@@ -8,7 +8,7 @@ LocokitHW::LocokitHW(ros::NodeHandle nh): nh_(nh)
     step_count_ = 0;
 
     for(unsigned int i=0; i<locokitMotor::NUMBER_MOTORS; i++){
-        motors_[i] = 200.5;
+        motors_[i] = 0.0;
     }
     for(unsigned int i=0; i<locokitSensor::NUMBER_SENSORS; i++){
         sensors_[i] = 0;
@@ -143,20 +143,22 @@ bool LocokitHW::read()
 }
 
 
-void LocokitHW::write()
+bool LocokitHW::write()
 {
+    bool failed_write = false;
 
     //Locokit Interface: set motor PWM
-    locokit_interface_->setActuatorPWM((float)motors_[locokitMotor::HIP_LEFT], locokitMotor::LEFT_HIP_ID);
-    locokit_interface_->setActuatorPWM((float)motors_[locokitMotor::KNEE_LEFT], locokitMotor::LEFT_KNEE_ID);
-    locokit_interface_->setActuatorPWM((float)motors_[locokitMotor::ANKLE_LEFT], locokitMotor::LEFT_ANKLE_ID);
-    locokit_interface_->setActuatorPWM((float)motors_[locokitMotor::HIP_RIGHT], locokitMotor::RIGHT_HIP_ID);
-    //locokit_interface_->setActuatorPWM(float(motors_[locokitMotor::KNEE_RIGHT]), locokitMotor::RIGHT_KNEE_ID);
-    //locokit_interface_->setActuatorPWM(float(motors_[locokitMotor::ANKLE_RIGHT]), locokitMotor::RIGHT_ANKLE_ID);
+    if(locokit_interface_->setActuatorPWM((float)motors_[locokitMotor::HIP_LEFT], locokitMotor::LEFT_HIP_ID)== -1) failed_write = true;
+    if(locokit_interface_->setActuatorPWM((float)motors_[locokitMotor::KNEE_LEFT], locokitMotor::LEFT_KNEE_ID)== -1) failed_write = true;
+    if(locokit_interface_->setActuatorPWM((float)motors_[locokitMotor::ANKLE_LEFT], locokitMotor::LEFT_ANKLE_ID)== -1) failed_write = true;
+    if(locokit_interface_->setActuatorPWM((float)motors_[locokitMotor::HIP_RIGHT], locokitMotor::RIGHT_HIP_ID)== -1) failed_write = true;
+    //if(locokit_interface_->setActuatorPWM(float(motors_[locokitMotor::KNEE_RIGHT]), locokitMotor::RIGHT_KNEE_ID)== -1) failed_write = true;
+    //if(locokit_interface_->setActuatorPWM(float(motors_[locokitMotor::ANKLE_RIGHT]), locokitMotor::RIGHT_ANKLE_ID)== -1) failed_write = true;
 
 
     // increase time counter
     step_count_++;
+    return failed_write;
 }
 
 

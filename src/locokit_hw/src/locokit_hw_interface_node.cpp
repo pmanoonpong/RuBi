@@ -31,10 +31,8 @@ int main( int argc, char** argv ){
   if(clock_gettime(CLOCK_REALTIME, &ts) != 0) {
     ROS_FATAL("Failed to poll realtime clock!");
   }
-
-  ros::Time
-    last(ts.tv_sec, ts.tv_nsec),
-    now(ts.tv_sec, ts.tv_nsec);
+  ros::Time last(ts.tv_sec, ts.tv_nsec);
+  ros::Time now(ts.tv_sec, ts.tv_nsec);
   ros::Duration period(1.0);
 
   //Loop until initialization is completed
@@ -57,7 +55,6 @@ int main( int argc, char** argv ){
         a_correr = true;
       }
     }
-    period.sleep();
   }
 
   // Construct the controller manager
@@ -89,7 +86,6 @@ int main( int argc, char** argv ){
     manager.update(now, period);
     ROS_INFO("Updating control manager");
     //Send the command to the robot
-    period.sleep();
     locokit_robot.write();
     ROS_INFO("Writing locokit actuators");
   }
