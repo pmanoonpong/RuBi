@@ -60,17 +60,16 @@ int main( int argc, char** argv ){
   // Construct the controller manager
   ros::NodeHandle nh;
   controller_manager::ControllerManager manager(&locokit_robot, nh);
-  ROS_INFO("Manager created");
 
   //Main loop
   while(!g_quit && ros::ok()) {
+    //ROS_INFO("Loopiiiiing");
     // Get the time / period
     if (!clock_gettime(CLOCK_REALTIME, &ts)) {
         now.sec = ts.tv_sec;
         now.nsec = ts.tv_nsec;
         period = now - last;
         last = now;
-        ROS_INFO("Real time clock activated");
     } else {
         ROS_FATAL("Failed to poll realtime clock!");
         break;
@@ -84,10 +83,8 @@ int main( int argc, char** argv ){
 
     //Update the controllers
     manager.update(now, period);
-    ROS_INFO("Updating control manager");
     //Send the command to the robot
     locokit_robot.write();
-    ROS_INFO("Writing locokit actuators");
   }
 
   //TODO: clean up when finished

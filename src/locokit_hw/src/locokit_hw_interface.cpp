@@ -101,41 +101,29 @@ bool LocokitHW::read()
     bool failed_to_read = false;
 
     //DOUBT: Needs to be scaled to [-1, 1]
-    if(locokit_interface_->getActuatorPosition(locokitMotor::LEFT_HIP_ID, measure)!=-1){
+    if(locokit_interface_->getActuatorPosition(locokitMotor::LEFT_HIP_ID, measure)==-1) failed_to_read = true;
+    else
         sensors_[locokitSensor::LEFT_HIP_SPEED] = measure;
-    }
-    else
-        failed_to_read = true;
 
-    if(locokit_interface_->getActuatorPosition(locokitMotor::LEFT_KNEE_ID, measure)!=-1){
+    if(locokit_interface_->getActuatorPosition(locokitMotor::LEFT_KNEE_ID, measure)==-1) failed_to_read = true;
+    else
         sensors_[locokitSensor::LEFT_KNEE_SPEED] = measure;
-    }
-    else
-        failed_to_read = true;
 
-    if(locokit_interface_->getActuatorPosition(locokitMotor::LEFT_ANKLE_ID, measure)!=-1){
+    if(locokit_interface_->getActuatorPosition(locokitMotor::LEFT_ANKLE_ID, measure)==-1) failed_to_read = true;
+    else
         sensors_[locokitSensor::LEFT_ANKLE_SPEED] = measure;
-    }
-    else
-        failed_to_read = true;
 
-    if(locokit_interface_->getActuatorPosition(locokitMotor::RIGHT_HIP_ID, measure)!=-1){
+    if(locokit_interface_->getActuatorPosition(locokitMotor::RIGHT_HIP_ID, measure)==-1) failed_to_read = true;
+    else
         sensors_[locokitSensor::RIGHT_HIP_SPEED] = measure;
-    }
-    else
-        failed_to_read = true;
 
-    /*if(locokit_interface_->getActuatorPosition(locokitMotor::RIGHT_KNEE_ID, measure)!=-1){
+    /*if(locokit_interface_->getActuatorPosition(locokitMotor::RIGHT_KNEE_ID, measure)==-1) failed_to_read = true;
+    else
         sensors_[locokitSensor::RIGHT_KNEE_SPEED] = measure;
-    }
-    else
-        failed_to_read = true;
 
-    if(locokit_interface_->getActuatorPosition(locokitMotor::RIGHT_ANKLE_ID, measure)!=-1){
-        sensors_[locokitSensor::RIGHT_ANKLE_SPEED] = measure;
-    }
+    if(locokit_interface_->getActuatorPosition(locokitMotor::RIGHT_ANKLE_ID, measure)==-1) failed_to_read = true;
     else
-        failed_to_read = true;
+        sensors_[locokitSensor::RIGHT_ANKLE_SPEED] = measure;
     */
     if(failed_to_read == false) return true;
     else
@@ -147,13 +135,19 @@ bool LocokitHW::write()
 {
     bool failed_write = false;
 
+    //TODO: map values from controller to PWM values
+
     //Locokit Interface: set motor PWM
-    if(locokit_interface_->setActuatorPWM((float)motors_[locokitMotor::HIP_LEFT], locokitMotor::LEFT_HIP_ID)== -1) failed_write = true;
-    if(locokit_interface_->setActuatorPWM((float)motors_[locokitMotor::KNEE_LEFT], locokitMotor::LEFT_KNEE_ID)== -1) failed_write = true;
-    if(locokit_interface_->setActuatorPWM((float)motors_[locokitMotor::ANKLE_LEFT], locokitMotor::LEFT_ANKLE_ID)== -1) failed_write = true;
-    if(locokit_interface_->setActuatorPWM((float)motors_[locokitMotor::HIP_RIGHT], locokitMotor::RIGHT_HIP_ID)== -1) failed_write = true;
-    //if(locokit_interface_->setActuatorPWM(float(motors_[locokitMotor::KNEE_RIGHT]), locokitMotor::RIGHT_KNEE_ID)== -1) failed_write = true;
-    //if(locokit_interface_->setActuatorPWM(float(motors_[locokitMotor::ANKLE_RIGHT]), locokitMotor::RIGHT_ANKLE_ID)== -1) failed_write = true;
+    if(locokit_interface_->setActuatorPWM((float)motors_[locokitMotor::HIP_LEFT], locokitMotor::LEFT_HIP_ID) == -1) failed_write = true;
+    std::cout<<motors_[locokitMotor::HIP_LEFT]<<std::endl;
+    if(locokit_interface_->setActuatorPWM((float)motors_[locokitMotor::KNEE_LEFT], locokitMotor::LEFT_KNEE_ID) == -1) failed_write = true;
+    std::cout<<motors_[locokitMotor::KNEE_LEFT]<<std::endl;
+    if(locokit_interface_->setActuatorPWM((float)motors_[locokitMotor::ANKLE_LEFT], locokitMotor::LEFT_ANKLE_ID) == -1) failed_write = true;
+    std::cout<<motors_[locokitMotor::ANKLE_LEFT]<<std::endl;
+    if(locokit_interface_->setActuatorPWM((float)motors_[locokitMotor::HIP_RIGHT], locokitMotor::RIGHT_HIP_ID) == -1) failed_write = true;
+    std::cout<<motors_[locokitMotor::HIP_RIGHT]<<std::endl;
+    //if(locokit_interface_->setActuatorPWM(float(motors_[locokitMotor::KNEE_RIGHT]), locokitMotor::RIGHT_KNEE_ID) == -1) failed_write = true;
+    //if(locokit_interface_->setActuatorPWM(float(motors_[locokitMotor::ANKLE_RIGHT]), locokitMotor::RIGHT_ANKLE_ID) == -1) failed_write = true;
 
 
     // increase time counter
