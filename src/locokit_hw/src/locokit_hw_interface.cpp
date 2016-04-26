@@ -15,12 +15,12 @@ LocokitHW::LocokitHW(ros::NodeHandle nh): nh_(nh)
     }
 
     //Store names of the joints
-    joint_names.insert(std::pair<int, std::string>(locokitMotor::HIP_LEFT, "HIP_LEFT"));
-    joint_names.insert(std::pair<int, std::string>(locokitMotor::KNEE_LEFT, "KNEE_LEFT"));
-    joint_names.insert(std::pair<int, std::string>(locokitMotor::ANKLE_LEFT, "ANKLE_LEFT"));
-    joint_names.insert(std::pair<int, std::string>(locokitMotor::HIP_RIGHT, "HIP_RIGHT"));
-    //joint_names.insert(std::pair<int, std::string>(locokitMotor::KNEE_RIGHT, "KNEE_RIGHT"));
-    //joint_names.insert(std::pair<int, std::string>(locokitMotor::ANKLE_RIGHT, "ANKLE_RIGHT"));
+    joint_names.insert(std::pair<int, std::string>(locokitMotor::HIP_LEFT, "left_hip"));
+    joint_names.insert(std::pair<int, std::string>(locokitMotor::KNEE_LEFT, "left_knee"));
+    joint_names.insert(std::pair<int, std::string>(locokitMotor::ANKLE_LEFT, "left_ankle"));
+    joint_names.insert(std::pair<int, std::string>(locokitMotor::HIP_RIGHT, "right_hip"));
+    //joint_names.insert(std::pair<int, std::string>(locokitMotor::KNEE_RIGHT, "right_knee"));
+    //joint_names.insert(std::pair<int, std::string>(locokitMotor::ANKLE_RIGHT, "right_ankle"));
 
 }
 
@@ -57,7 +57,6 @@ bool LocokitHW::configure()
         //TODO: take robot to initial configuration and set sensors to zero
 
         //Register hardware interface handlers:
-
         //Joint state handlers: read the state of a single joint
         typedef std::map<int, std::string>::iterator it_type;
         for(it_type iterator = joint_names.begin(); iterator != joint_names.end(); iterator++) {
@@ -100,7 +99,6 @@ bool LocokitHW::read()
     float measure = 0.0;
     bool failed_to_read = false;
 
-    //DOUBT: Needs to be scaled to [-1, 1]
     if(locokit_interface_->getActuatorPosition(locokitMotor::LEFT_HIP_ID, measure)==-1) failed_to_read = true;
     else
         sensors_[locokitSensor::LEFT_HIP_SPEED] = measure;

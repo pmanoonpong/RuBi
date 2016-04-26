@@ -2,7 +2,7 @@
 #define LOCOKIT_SENSORS_MOTORS_DEFINITION_H
 
 //TODO: get real ID of the motors
-
+//Add new ids to .cfg too!
 // Define your sensors here
 
 namespace locokitSensor{
