@@ -1,0 +1,12 @@
+[submodule "src/gazebo_ros_pkgs"]
+	path = src/gazebo_ros_pkgs
+	url = https://github.com/ros-simulation/gazebo_ros_pkgs
+[submodule "src/ros_control"]
+	path = src/ros_control
+	url = https://github.com/ros-controls/ros_control
+[submodule "src/ros_controllers"]
+	path = src/ros_controllers
+	url = https://github.com/ros-controls/ros_controllers
+[submodule "src/control_toolbox"]
+	path = src/control_toolbox
+	url = https://github.com/ros-controls/control_toolbox
