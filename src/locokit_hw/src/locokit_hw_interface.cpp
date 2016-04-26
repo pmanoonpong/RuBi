@@ -14,11 +14,11 @@ LocokitHW::LocokitHW(ros::NodeHandle nh): nh_(nh)
         sensors_[i] = 0;
     }
 
-    //Store names of the joints
-    joint_names.insert(std::pair<int, std::string>(locokitMotor::HIP_LEFT, "left_hip"));
-    joint_names.insert(std::pair<int, std::string>(locokitMotor::KNEE_LEFT, "left_knee"));
-    joint_names.insert(std::pair<int, std::string>(locokitMotor::ANKLE_LEFT, "left_ankle"));
-    joint_names.insert(std::pair<int, std::string>(locokitMotor::HIP_RIGHT, "right_hip"));
+    //Store names of the joint controllers *with _effort??
+    joint_names.insert(std::pair<int, std::string>(locokitMotor::HIP_LEFT, "left_hip_effort"));
+    joint_names.insert(std::pair<int, std::string>(locokitMotor::KNEE_LEFT, "left_knee_effort"));
+    joint_names.insert(std::pair<int, std::string>(locokitMotor::ANKLE_LEFT, "left_ankle_effort"));
+    joint_names.insert(std::pair<int, std::string>(locokitMotor::HIP_RIGHT, "right_hip_effort"));
     //joint_names.insert(std::pair<int, std::string>(locokitMotor::KNEE_RIGHT, "right_knee"));
     //joint_names.insert(std::pair<int, std::string>(locokitMotor::ANKLE_RIGHT, "right_ankle"));
 
