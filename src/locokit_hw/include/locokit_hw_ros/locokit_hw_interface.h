@@ -13,6 +13,8 @@
 //STANDARD
 #include <signal.h>
 #include <time.h>
+#include <string>
+#include <map>
 
 //LOCOKIT INTERFACE
 #include <locokit_firmware/LocoKitInterface.h>
@@ -30,7 +32,7 @@ public:
   bool configure();
   bool start();
   bool read();
-  void write();
+  bool write();
   virtual ~LocokitHW();
 
 private:
@@ -41,16 +43,14 @@ private:
   int step_count_;
   int sensor_number_;
   int motor_number_;
-  sensor* sensors_;
-  motor* motors_;
 
-  hardware_interface::JointStateInterface joint_state_interface;
-  double cmd[locokitMotor::NUMBER_MOTORS];
-  double pos[locokitMotor::NUMBER_MOTORS];
-  double vel[locokitMotor::NUMBER_MOTORS];
-  double eff[locokitMotor::NUMBER_MOTORS];
-
-
+  hardware_interface::JointStateInterface joint_state_interface_;
+  hardware_interface::JointCommandInterface joint_command_interface_;
+  motor motors_[locokitMotor::NUMBER_MOTORS];
+  sensor sensors_[locokitSensor::NUMBER_SENSORS];
+  double vel[locokitSensor::NUMBER_SENSORS];
+  double eff[locokitSensor::NUMBER_SENSORS];
+  std::map<int, std::string> joint_names;
 
 };
 
