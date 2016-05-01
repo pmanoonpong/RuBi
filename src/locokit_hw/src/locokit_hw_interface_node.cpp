@@ -85,8 +85,7 @@ int main( int argc, char** argv ){
     manager.update(now, period);
     //Send the command to the robot
     ROS_INFO("Sending commands");
-    bool success = locokit_robot.write();
-    std::cout<<success<<std::endl;
+    locokit_robot.write();
   }
 
   //TODO: clean up when finished

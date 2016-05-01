@@ -8,6 +8,7 @@ LocokitHW::LocokitHW(ros::NodeHandle nh): nh_(nh)
     step_count_ = 0;
 
     for(unsigned int i=0; i<locokitMotor::NUMBER_MOTORS; i++){
+        motors_prev_[i]=0.0;
         motors_[i] = 0.0;
     }
     for(unsigned int i=0; i<locokitSensor::NUMBER_SENSORS; i++){
@@ -136,12 +137,23 @@ bool LocokitHW::read()
 bool LocokitHW::write()
 {
     bool failed_write = false;
-
+    bool change =false;
     //TODO: map values from controller to PWM values
 
     //Locokit Interface: set motor PWM
+    for(unsigned int i=0; i<locokitMotor::NUMBER_MOTORS; i++){
+        if(motors_prev_[i]!=motors_[i]) change = true;
+    }
+
+    if(change == true){
+        locokit_interface_->setActuatorStopped(locokitMotor::LEFT_HIP_ID);
+        locokit_interface_->setActuatorStopped(locokitMotor::LEFT_KNEE_ID);
+        locokit_interface_->setActuatorStopped(locokitMotor::LEFT_ANKLE_ID);
+        locokit_interface_->setActuatorStopped(locokitMotor::RIGHT_HIP_ID);
+    }
+
     std::cout<<"Sending motor commands"<<std::endl;
-    locokit_interface_->setActuatorPWM(motors_[locokitMotor::HIP_LEFT], locokitMotor::LEFT_HIP_ID);
+    if(locokit_interface_->setActuatorPWM((float)motors_[locokitMotor::HIP_LEFT], locokitMotor::LEFT_HIP_ID) == -1) failed_write = true;
     std::cout<<motors_[locokitMotor::HIP_LEFT]<<std::endl;
     if(locokit_interface_->setActuatorPWM((float)motors_[locokitMotor::KNEE_LEFT], locokitMotor::LEFT_KNEE_ID) == -1) failed_write = true;
     std::cout<<motors_[locokitMotor::KNEE_LEFT]<<std::endl;
@@ -149,8 +161,14 @@ bool LocokitHW::write()
     std::cout<<motors_[locokitMotor::ANKLE_LEFT]<<std::endl;
     if(locokit_interface_->setActuatorPWM((float)motors_[locokitMotor::HIP_RIGHT], locokitMotor::RIGHT_HIP_ID) == -1) failed_write = true;
     std::cout<<motors_[locokitMotor::HIP_RIGHT]<<std::endl;
+
     //if(locokit_interface_->setActuatorPWM(float(motors_[locokitMotor::KNEE_RIGHT]), locokitMotor::RIGHT_KNEE_ID) == -1) failed_write = true;
     //if(locokit_interface_->setActuatorPWM(float(motors_[locokitMotor::ANKLE_RIGHT]), locokitMotor::RIGHT_ANKLE_ID) == -1) failed_write = true;
+
+    for(unsigned int i=0; i<locokitMotor::NUMBER_MOTORS; i++){
+        motors_prev_[i]=motors_[i];
+    }
+    change = false;
 
     // increase time counter
     step_count_++;
