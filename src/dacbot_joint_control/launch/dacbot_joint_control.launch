@@ -1,20 +1,31 @@
 <launch>
 
   <!-- Load joint controller configurations from YAML file to parameter server -->
-  <rosparam file="$(find dacbot_joint_control)/config/dacbot_joint_control.yaml" command="load"/>
 
-  <!-- load the controllers -->
-  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
-    output="screen" ns="/dacbot" args="left_ankle_effort left_knee_effort left_hip_effort right_ankle_effort right_knee_effort right_hip_effort joint_states"/>
+  <!-- Load the URDF into the ROS Parameter Server -->
+  <param name="robot_description"
+   command="xacro --inorder '$(find dacbot_description)/urdf/dacbot.xacro'" />
 
-<!--   <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
-    output="screen" ns="/dacbot" args="legs_controllers joint_states"/> -->
+  <group ns="dacbot">
+
+    <node name="locokit_hw_node" pkg="locokit_hw" type="locokit_hw_node" output="screen">
+    </node>
+
+    <rosparam file="$(find dacbot_joint_control)/config/dacbot_joint_control.yaml" command="load"/>
+
+    <!-- load the controllers -->
+    <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+      output="screen" args="joint_state_controller left_ankle_effort left_knee_effort left_hip_effort right_ankle_effort right_knee_effort right_hip_effort"/>
+
+    <!--   <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+      output="screen" ns="/dacbot" args="legs_controllers joint_states"/> -->
 
 
-  <!-- convert joint states to TF transforms for rviz, etc -->
-  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
-    respawn="false" output="screen">
-    <remap from="/joint_states" to="/dacbot/joint_states" />
-  </node>
+    <!-- convert joint states to TF transforms for rviz, etc -->
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
+      <remap from="/joint_states" to="/dacbot/joint_states" />
+    </node>
+
+  </group>
 
 </launch>

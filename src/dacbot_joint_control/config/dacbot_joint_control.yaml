@@ -1,36 +1,35 @@
-dacbot:
-  # Publish all joint states
-  joint_states:
-    type: joint_state_controller/JointStateController
-    publish_rate: 50  
+# Publish all joint states
+joint_state_controller:
+  type: joint_state_controller/JointStateController
+  publish_rate: 50  
 
-  # Controllers 
-  # legs_controllers:
-  #   type: effort_controllers/JointGroupEffortController
-  #   joints: 
-  #     - left_ankle
-  #     - left_knee
-  #     - left_hip
-  #     - right_ankle
-  #     - right_knee
-  #     - right_hip
+# Controllers 
+# legs_controllers:
+#   type: effort_controllers/JointGroupEffortController
+#   joints: 
+#     - left_ankle
+#     - left_knee
+#     - left_hip
+#     - right_ankle
+#     - right_knee
+#     - right_hip
 
-  left_ankle_effort:
-    type: effort_controllers/JointEffortController
-    joint: left_ankle
-  left_knee_effort:
-    type: effort_controllers/JointEffortController
-    joint: left_knee
-  left_hip_effort:
-    type: effort_controllers/JointEffortController
-    joint: left_hip
+left_ankle_effort:
+  type: effort_controllers/JointEffortController
+  joint: left_ankle
+left_knee_effort:
+  type: effort_controllers/JointEffortController
+  joint: left_knee
+left_hip_effort:
+  type: effort_controllers/JointEffortController
+  joint: left_hip
 
-  right_ankle_effort:
-    type: effort_controllers/JointEffortController
-    joint: right_ankle
-  right_knee_effort:
-    type: effort_controllers/JointEffortController
-    joint: right_knee
-  right_hip_effort:
-    type: effort_controllers/JointEffortController
-    joint: right_hip
+right_ankle_effort:
+  type: effort_controllers/JointEffortController
+  joint: right_ankle
+right_knee_effort:
+  type: effort_controllers/JointEffortController
+  joint: right_knee
+right_hip_effort:
+  type: effort_controllers/JointEffortController
+  joint: right_hip

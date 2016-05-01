@@ -12,7 +12,7 @@ void quitRequested(int sig) {
 int main( int argc, char** argv ){
 
   //Initialize ROS
-  ros::init(argc, argv, "locokit_hw_interface");
+  ros::init(argc, argv, "~");
 
   //Add custom signal handlers
   signal(SIGTERM, quitRequested);
@@ -84,7 +84,9 @@ int main( int argc, char** argv ){
     //Update the controllers
     manager.update(now, period);
     //Send the command to the robot
-    locokit_robot.write();
+    ROS_INFO("Sending commands");
+    bool success = locokit_robot.write();
+    std::cout<<success<<std::endl;
   }
 
   //TODO: clean up when finished

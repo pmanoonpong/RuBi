@@ -14,11 +14,11 @@ LocokitHW::LocokitHW(ros::NodeHandle nh): nh_(nh)
         sensors_[i] = 0;
     }
 
-    //Store names of the joint controllers *with _effort??
-    joint_names.insert(std::pair<int, std::string>(locokitMotor::HIP_LEFT, "left_hip_effort"));
-    joint_names.insert(std::pair<int, std::string>(locokitMotor::KNEE_LEFT, "left_knee_effort"));
-    joint_names.insert(std::pair<int, std::string>(locokitMotor::ANKLE_LEFT, "left_ankle_effort"));
-    joint_names.insert(std::pair<int, std::string>(locokitMotor::HIP_RIGHT, "right_hip_effort"));
+    //Store names of the joint controllers **namespace??
+    joint_names.insert(std::pair<int, std::string>(locokitMotor::HIP_LEFT, "left_hip"));
+    joint_names.insert(std::pair<int, std::string>(locokitMotor::KNEE_LEFT, "left_knee"));
+    joint_names.insert(std::pair<int, std::string>(locokitMotor::ANKLE_LEFT, "left_ankle"));
+    joint_names.insert(std::pair<int, std::string>(locokitMotor::HIP_RIGHT, "right_hip"));
     //joint_names.insert(std::pair<int, std::string>(locokitMotor::KNEE_RIGHT, "right_knee"));
     //joint_names.insert(std::pair<int, std::string>(locokitMotor::ANKLE_RIGHT, "right_ankle"));
 
@@ -60,21 +60,25 @@ bool LocokitHW::configure()
         //Joint state handlers: read the state of a single joint
         typedef std::map<int, std::string>::iterator it_type;
         for(it_type iterator = joint_names.begin(); iterator != joint_names.end(); iterator++) {
-            hardware_interface::JointStateHandle state_joint(iterator->second, &sensors_[iterator->first],
-                                                        &vel[iterator->first], &eff[iterator->first]);
-            joint_state_interface_.registerHandle(state_joint);
-        }
+            std::cout<<iterator->first<<std::endl;
+            hardware_interface::JointStateHandle joint_state_handle_(iterator->second, &sensors_[iterator->first],
+                    &vel[iterator->first], &eff[iterator->first]);
+            joint_state_interface_.registerHandle(joint_state_handle_);
+            std::cout<<"Joint state handler"<<std::endl;
+            std::cout<<joint_state_handle_.getName()<<std::endl;
 
-        //Joint command handlers: read and command a single joint
-        for(it_type iterator = joint_names.begin(); iterator != joint_names.end(); iterator++){
-            hardware_interface::JointHandle command_joint(joint_state_interface_.getHandle(iterator->second),
-                                                          &motors_[iterator->first]);
-            joint_command_interface_.registerHandle(command_joint);
+            effort_joint_interface_.registerHandle(hardware_interface::JointHandle(
+                                                       joint_state_handle_,
+                                                       &motors_[iterator->first]));
         }
 
         this->registerInterface(&joint_state_interface_);
-        this->registerInterface(&joint_command_interface_);
+        this->registerInterface(&effort_joint_interface_);
+        std::vector<std::string> interfaces_registered = this->getNames();
         ROS_INFO("Registering HW interfaces");
+        for (unsigned int i=0; i<interfaces_registered.size(); i++){
+            std::cout<<interfaces_registered[i]<<std::endl;
+        }
         return true;
     }
 }
@@ -136,7 +140,8 @@ bool LocokitHW::write()
     //TODO: map values from controller to PWM values
 
     //Locokit Interface: set motor PWM
-    if(locokit_interface_->setActuatorPWM((float)motors_[locokitMotor::HIP_LEFT], locokitMotor::LEFT_HIP_ID) == -1) failed_write = true;
+    std::cout<<"Sending motor commands"<<std::endl;
+    locokit_interface_->setActuatorPWM(motors_[locokitMotor::HIP_LEFT], locokitMotor::LEFT_HIP_ID);
     std::cout<<motors_[locokitMotor::HIP_LEFT]<<std::endl;
     if(locokit_interface_->setActuatorPWM((float)motors_[locokitMotor::KNEE_LEFT], locokitMotor::LEFT_KNEE_ID) == -1) failed_write = true;
     std::cout<<motors_[locokitMotor::KNEE_LEFT]<<std::endl;
@@ -146,7 +151,6 @@ bool LocokitHW::write()
     std::cout<<motors_[locokitMotor::HIP_RIGHT]<<std::endl;
     //if(locokit_interface_->setActuatorPWM(float(motors_[locokitMotor::KNEE_RIGHT]), locokitMotor::RIGHT_KNEE_ID) == -1) failed_write = true;
     //if(locokit_interface_->setActuatorPWM(float(motors_[locokitMotor::ANKLE_RIGHT]), locokitMotor::RIGHT_ANKLE_ID) == -1) failed_write = true;
-
 
     // increase time counter
     step_count_++;
