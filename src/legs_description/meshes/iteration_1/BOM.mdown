@@ -2,20 +2,22 @@
 
 | Part | Quantity |
 |:-:|:-:|
-| 1 | ankle_left |
-| 1 | ankle_right |
-| 1 | foot_left |
-| 1 | foot_right |
-| 1 | foot_spring_series_holder_left |
-| 1 | foot_spring_series_holder_right |
+| 4 | motor_pulley_T2,5_19teeth |
 | 1 | hip |
-| 1 | hip_motor_holder_left |
-| 1 | hip_motor_holder_right |
 | 2 | hip_pinion |
-| 1 | knee_motor_holder_left |
-| 1 | knee_motor_holder_right |
-| 1 | left_knee_spring_series_holder |
+| 1 | left_hip_lower |
+| 1 | left_ankle_spring_series_with_pulley |
+| 1 | left_ankle_upper |
+| 1 | left_foot |
+| 1 | left_knee_lower |
+| 1 | left_knee_spring_series_with_pulley |
 | 1 | left_knee_upper |
-| 1 | right_knee_spring_series_holder |
+| 1 | right_hip_lower |
+| 1 | right_ankle_spring_series_with_pulley |
+| 1 | right_ankle_upper |
+| 1 | right_foot |
+| 1 | right_knee_lower |
+| 1 | right_knee_spring_series_with_pulley |
 | 1 | right_knee_upper |
-| 4 | T2,5 6mm 19teeth |
+
+
