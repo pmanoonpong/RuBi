@@ -1,0 +1,9 @@
+#BOM
+
+| Part | Quantity |
+|:-:|:-:|
+| 1 | Interface - Robot holder |
+| 1 | Printed Parts - Profile - Robot |
+| 1 | Printed Parts - Profile - Treadmill |
+
+

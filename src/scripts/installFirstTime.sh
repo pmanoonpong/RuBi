@@ -1,6 +1,33 @@
 #!/bin/bash
 
-#Installing Catkin Tools
+# Getting current folder
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+cd $SCRIPT_DIR
+cd ..
+LEGS_FOLDER=$(pwd)
+
+# Pulling the submodules
+echo "    Pulling submodules"
+cd $LEGS_FOLDER
+git submodule update --init --recursive
+
+cd control_toolbox
+git checkout 1.13.2
+cd ..
+
+cd gazebo_ros_pkgs
+git checkout jade-devel
+cd ..
+
+cd ros_control
+git checkout jade-devel
+cd ..
+
+cd ros_controllers
+git checkout jade-devel
+cd ..
+
+# Installing Catkin Tools
 echo "    Installing Catkin Tools"
 sudo apt-get install python-catkin-tools
 wait
@@ -36,10 +63,6 @@ mv gazebo_models models
 
 #Adding the Legs model to the simulator
 echo "    Adding the Legs files to the bashrc"
-SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-cd $SCRIPT_DIR
-cd ..
-LEGS_FOLDER=$(pwd)
 echo "
 
 ### Owns ###
