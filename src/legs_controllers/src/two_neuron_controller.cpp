@@ -10,8 +10,18 @@ TwoNeuronController::TwoNeuronController()
   // Get parameter names
   nh_.param<std::string>("joint_states_topic", topic_joint_states_,
                          "/legs/joint_states");
-  nh_.param<std::string>("legs_topic", topic_legs_,
-                         "/legs/leg_controllers/command");
+  nh_.param<std::string>("left_hip_topic", topic_left_hip_,
+                         "/legs/left_hip_effort/command");
+  nh_.param<std::string>("left_knee_topic", topic_left_knee_,
+                         "/legs/left_knee_effort/command");
+  nh_.param<std::string>("left_ankle_topic", topic_left_ankle_,
+                         "/legs/left_ankle_effort/command");
+  nh_.param<std::string>("right_hip_topic", topic_right_hip_,
+                         "/legs/right_hip_effort/command");
+  nh_.param<std::string>("right_knee_topic", topic_right_knee_,
+                         "/legs/right_knee_effort/command");
+  nh_.param<std::string>("right_ankle_topic", topic_right_ankle_,
+                         "/legs/right_ankle_effort/command");
   nh_.param<std::string>("left_foot_contact_topic", topic_left_foot_contact_,
                          "/legs/bumper/left_foot");
   nh_.param<std::string>("right_foot_contact_topic", topic_right_foot_contact_,
@@ -49,7 +59,12 @@ TwoNeuronController::TwoNeuronController()
       this);
 
   // Publishers
-  pub_legs_ = nh_.advertise<std_msgs::Float64MultiArray>(topic_legs_, 1);
+  pub_left_ankle_ = nh_.advertise<std_msgs::Float64>(topic_left_ankle_, 1);
+  pub_left_knee_ = nh_.advertise<std_msgs::Float64>(topic_left_knee_, 1);
+  pub_left_hip_ = nh_.advertise<std_msgs::Float64>(topic_left_hip_, 1);
+  pub_right_ankle_ = nh_.advertise<std_msgs::Float64>(topic_right_ankle_, 1);
+  pub_right_knee_ = nh_.advertise<std_msgs::Float64>(topic_right_knee_, 1);
+  pub_right_hip_ = nh_.advertise<std_msgs::Float64>(topic_right_hip_, 1);
 
   // Starts ANN
   ann_.setWeight(0, 0, 1.4);
@@ -95,12 +110,8 @@ void TwoNeuronController::step() {
 
   // Depending on the enable, either reflexive signals or CPG-based are sent to
   // the motors
-  std_msgs::Float64MultiArray
-      motors_msg;  // (0) Left ankle, (1) Left knee, (2) Left hip,
-                   // (3) Right ankle, (4) Right knee, (5) Right hip
-  motors_msg.data.resize(6);
+  std_msgs::Float64 motor_msg;
 
-  // Knee adaptation
   double knee_output;
   double hip_output;
   double multiplier(1);
@@ -109,18 +120,21 @@ void TwoNeuronController::step() {
   knee_output = ann_.getOutput(1) * multiplier;
   hip_output = ann_.getOutput(0) * multiplier;
 
-  // (1) Left knee
-  motors_msg.data.at(1) = -knee_output;
-  // (2) Left hip
-  motors_msg.data.at(2) = -hip_output;
+  // Left hip
+  motor_msg.data = -hip_output;
+  pub_left_hip_.publish(motor_msg);
 
-  // (4) Left knee
-  motors_msg.data.at(4) = knee_output;
-  // (5) Left hip
-  motors_msg.data.at(5) = hip_output;
+  // Right hip
+  motor_msg.data = hip_output;
+  pub_right_hip_.publish(motor_msg);
 
-  // Publish the message
-  pub_legs_.publish(motors_msg);
+  // Left knee
+  motor_msg.data = knee_output;
+  pub_left_knee_.publish(motor_msg);
+
+  // Right knee
+  motor_msg.data = -knee_output;
+  pub_right_knee_.publish(motor_msg);
 
   // Spin and update the rate
   ros::spinOnce();
@@ -130,11 +144,17 @@ void TwoNeuronController::step() {
 }
 
 void TwoNeuronController::stop() {
-  std_msgs::Float64MultiArray motors_msg;
-  motors_msg.data.resize(6);
+  std_msgs::Float64 motor_msg;
+  motor_msg.data = 0.0;
 
-  for (int joint = 0; joint < 6; ++joint) motors_msg.data.at(joint) = 0.0;
-  pub_legs_.publish(motors_msg);
+  // Left hip
+  pub_left_hip_.publish(motor_msg);
+  // Right hip
+  pub_right_hip_.publish(motor_msg);
+  // Left knee
+  pub_left_knee_.publish(motor_msg);
+  // Right knee
+  pub_right_knee_.publish(motor_msg);
   ROS_WARN("Two Neuron Controller stoped");
 }
 
