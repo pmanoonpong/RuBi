@@ -15,6 +15,7 @@
 #include <time.h>
 #include <string>
 #include <map>
+#include <vector>
 
 //LOCOKIT INTERFACE
 #include <locokit_firmware/LocoKitInterface.h>
@@ -45,8 +46,10 @@ private:
   int motor_number_;
 
   hardware_interface::JointStateInterface joint_state_interface_;
-  hardware_interface::JointCommandInterface joint_command_interface_;
+  //hardware_interface::JointCommandInterface joint_command_interface_;
+  hardware_interface::EffortJointInterface effort_joint_interface_;
   motor motors_[locokitMotor::NUMBER_MOTORS];
+  motor motors_prev_[locokitMotor::NUMBER_MOTORS];
   sensor sensors_[locokitSensor::NUMBER_SENSORS];
   double vel[locokitSensor::NUMBER_SENSORS];
   double eff[locokitSensor::NUMBER_SENSORS];
