@@ -258,14 +258,14 @@ void ImpulseController::resetSimulation() {
   srv_client_gazebo_set_model_state_.call(initial_state_msg);
 
   // Create another instance
-  gazebo_msgs::SpawnModel spawn_model_msg;
-  spawn_model_msg.request.model_name = "legs2";
-  spawn_model_msg.request.robot_namespace = "legs2";
-  nh_.getParam("/robot_description", spawn_model_msg.request.model_xml);
-  spawn_model_msg.request.initial_pose.position.x = 1;
-  ros::ServiceClient srv;
-  srv = nh_.serviceClient<gazebo_msgs::SpawnModel>("/gazebo/spawn_urdf_model");
-  srv.call(spawn_model_msg);
+//  gazebo_msgs::SpawnModel spawn_model_msg;
+//  spawn_model_msg.request.model_name = "legs2";
+//  spawn_model_msg.request.robot_namespace = "legs2";
+//  nh_.getParam("/robot_description", spawn_model_msg.request.model_xml);
+//  spawn_model_msg.request.initial_pose.position.x = 1;
+//  ros::ServiceClient srv;
+//  srv = nh_.serviceClient<gazebo_msgs::SpawnModel>("/gazebo/spawn_urdf_model");
+//  srv.call(spawn_model_msg);
 }
 
 void ImpulseController::loadPositionAndEffortControllers() {
