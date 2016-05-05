@@ -1,0 +1,12 @@
+# This is an example for give an impulse reading this file
+time_step: 0.01
+
+left_leg:
+  hip: [0.1, 0.2, 0.3]
+  knee: [0.1, 0.2, 0.3]
+  ankle: [0.1, 0.2, 0.3]
+
+right_leg:
+  hip: [0.1, 0.2, 0.3]
+  knee: [0.1, 0.2, 0.3]
+  ankle: [0.1, 0.2, 0.3]

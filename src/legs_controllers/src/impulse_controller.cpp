@@ -103,6 +103,8 @@ ImpulseController::ImpulseController()
                          "/legs/impulse_one_leg");
   nh_.param<std::string>("impulse_two_legs_topic", topic_impulse_two_legs_,
                          "/legs/impulse_two_legs");
+  nh_.param<std::string>("impulse_from_file_topic", topic_impulse_from_file_,
+                         "/legs/impulse_from_file");
 
   // Get update rate from gazebo
   update_rate_mutex_.lock();
@@ -176,6 +178,9 @@ ImpulseController::ImpulseController()
   srv_server_impulse_two_legs_ = nh_.advertiseService(
       topic_impulse_two_legs_,
       &ImpulseController::callbackServiceImpulseTwoLegs, this);
+  srv_server_impulse_from_file_ = nh_.advertiseService(
+      topic_impulse_from_file_,
+      &ImpulseController::callbackServiceImpulseFromFile, this);
 
   srv_client_reset_simulation =
       nh_.serviceClient<std_srvs::Empty>(topic_gazebo_reset_simulation_);
@@ -254,15 +259,13 @@ void ImpulseController::resetSimulation() {
 
   // Create another instance
   gazebo_msgs::SpawnModel spawn_model_msg;
-  spawn_model_msg.request.model_name="legs2";
-  spawn_model_msg.request.robot_namespace="legs2";
+  spawn_model_msg.request.model_name = "legs2";
+  spawn_model_msg.request.robot_namespace = "legs2";
   nh_.getParam("/robot_description", spawn_model_msg.request.model_xml);
   spawn_model_msg.request.initial_pose.position.x = 1;
   ros::ServiceClient srv;
-  srv =
-      nh_.serviceClient<gazebo_msgs::SpawnModel>("/gazebo/spawn_urdf_model");
+  srv = nh_.serviceClient<gazebo_msgs::SpawnModel>("/gazebo/spawn_urdf_model");
   srv.call(spawn_model_msg);
-
 }
 
 void ImpulseController::loadPositionAndEffortControllers() {
@@ -580,4 +583,150 @@ bool ImpulseController::callbackServiceImpulseTwoLegs(
   }
 
   return 1;
+}
+
+bool ImpulseController::callbackServiceImpulseFromFile(
+    legs_controllers::impulse_from_file::Request &req,
+    legs_controllers::impulse_from_file::Response &res) {
+  // Reads the file
+  YAML::Node file;
+  if (!req.path_to_file.empty())
+    file = YAML::LoadFile(req.path_to_file);
+  else
+    file = YAML::LoadFile(ros::package::getPath("legs_controllers") +
+                          "/res/impulse_example.yaml");
+
+  // Sanity check
+  if (!file) {
+    ROS_ERROR_STREAM("File not found");
+    return false;
+  }
+
+  // Loads the parameters
+  // Time step
+  double time_step = file["time_step"].as<double>();
+
+  // Left leg
+  std::vector<double> left_ankle_efforts;
+  std::vector<double> left_knee_efforts;
+  std::vector<double> left_hip_efforts;
+  if (file["left_leg"]) {
+    for (unsigned int effort = 0; effort < file["left_leg"]["ankle"].size();
+         ++effort) {
+      left_ankle_efforts.push_back(
+          file["left_leg"]["ankle"][effort].as<double>());
+      left_knee_efforts.push_back(
+          file["left_leg"]["knee"][effort].as<double>());
+      left_hip_efforts.push_back(file["left_leg"]["hip"][effort].as<double>());
+    }
+    // Adds a 0 in the end
+    left_ankle_efforts.push_back(0);
+    left_knee_efforts.push_back(0);
+    left_hip_efforts.push_back(0);
+  }
+
+  // Right leg
+  std::vector<double> right_ankle_efforts;
+  std::vector<double> right_knee_efforts;
+  std::vector<double> right_hip_efforts;
+  if (file["right_leg"]) {
+    for (unsigned int effort = 0; effort < file["right_leg"]["ankle"].size();
+         ++effort) {
+      right_ankle_efforts.push_back(
+          file["right_leg"]["ankle"][effort].as<double>());
+      right_knee_efforts.push_back(
+          file["right_leg"]["knee"][effort].as<double>());
+      right_hip_efforts.push_back(
+          file["right_leg"]["hip"][effort].as<double>());
+    }
+    // Adds a 0 in the end
+    right_ankle_efforts.push_back(0);
+    right_knee_efforts.push_back(0);
+    right_hip_efforts.push_back(0);
+  }
+
+  // Check if the impulse is for one or two legs
+
+  // Two legs
+  if (!left_ankle_efforts.empty() && !right_ankle_efforts.empty()) {
+    // Set effort controllers
+    setEffortControllers();
+
+    // Sends the commands
+    for (unsigned int step = 0; step < left_ankle_efforts.size(); ++step) {
+      std_msgs::Float64 left_ankle_msg;
+      left_ankle_msg.data = left_ankle_efforts.at(step);
+      std_msgs::Float64 left_knee_msg;
+      left_knee_msg.data = left_knee_efforts.at(step);
+      std_msgs::Float64 left_hip_msg;
+      left_hip_msg.data = left_hip_efforts.at(step);
+
+      std_msgs::Float64 right_ankle_msg;
+      right_ankle_msg.data = right_ankle_efforts.at(step);
+      std_msgs::Float64 right_knee_msg;
+      right_knee_msg.data = right_knee_efforts.at(step);
+      std_msgs::Float64 right_hip_msg;
+      right_hip_msg.data = right_hip_efforts.at(step);
+
+      pub_effort_controller_left_ankle_.publish(left_ankle_msg);
+      pub_effort_controller_right_ankle_.publish(right_ankle_msg);
+
+      pub_effort_controller_left_knee_.publish(left_knee_msg);
+      pub_effort_controller_right_knee_.publish(right_knee_msg);
+
+      pub_effort_controller_left_hip_.publish(left_hip_msg);
+      pub_effort_controller_right_hip_.publish(right_hip_msg);
+
+      std::this_thread::sleep_for(std::chrono::duration<double, std::milli>(
+          time_step / (time_step_ * real_time_factor_) * 1000));
+    }
+  }
+
+  // Only left
+  else if (!left_ankle_efforts.empty() && right_ankle_efforts.empty()) {
+    // Sets the hopping position
+    hoppingPosition();
+
+    // Sends the commands
+    for (unsigned int step = 0; step < left_ankle_efforts.size(); ++step) {
+      std_msgs::Float64 left_ankle_msg;
+      left_ankle_msg.data = left_ankle_efforts.at(step);
+      std_msgs::Float64 left_knee_msg;
+      left_knee_msg.data = left_knee_efforts.at(step);
+      std_msgs::Float64 left_hip_msg;
+      left_hip_msg.data = left_hip_efforts.at(step);
+
+      pub_effort_controller_left_ankle_.publish(left_ankle_msg);
+      pub_effort_controller_left_knee_.publish(left_knee_msg);
+      pub_effort_controller_left_hip_.publish(left_hip_msg);
+
+      std::this_thread::sleep_for(std::chrono::duration<double, std::milli>(
+          time_step / (time_step_ * real_time_factor_) * 1000));
+    }
+  }
+
+  // Only right
+  else if (left_ankle_efforts.empty() && !right_ankle_efforts.empty()) {
+    // Sets the hopping position
+    hoppingPosition();
+
+    // Sends the commands
+    for (unsigned int step = 0; step < right_ankle_efforts.size(); ++step) {
+      std_msgs::Float64 right_ankle_msg;
+      right_ankle_msg.data = right_ankle_efforts.at(step);
+      std_msgs::Float64 right_knee_msg;
+      right_knee_msg.data = right_knee_efforts.at(step);
+      std_msgs::Float64 right_hip_msg;
+      right_hip_msg.data = right_hip_efforts.at(step);
+
+      pub_effort_controller_right_ankle_.publish(right_ankle_msg);
+      pub_effort_controller_right_knee_.publish(right_knee_msg);
+      pub_effort_controller_right_hip_.publish(right_hip_msg);
+
+      std::this_thread::sleep_for(std::chrono::duration<double, std::milli>(
+          time_step / (time_step_ * real_time_factor_) * 1000));
+    }
+  }
+
+  return true;
 }

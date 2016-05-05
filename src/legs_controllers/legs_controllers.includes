@@ -4,3 +4,4 @@ $$(GOROBOTS)/runbotii_dacbot
 /opt/ros/jade/include
 .
 ../../devel/include/
+srv
