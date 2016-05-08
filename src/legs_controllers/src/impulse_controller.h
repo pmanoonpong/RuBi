@@ -12,8 +12,12 @@
 #include <mutex>
 #include <thread>
 
+// Yaml
+#include <yaml-cpp/yaml.h>
+
 // ROS
 #include "ros/ros.h"
+#include "ros/package.h"
 
 #include "dynamic_reconfigure/server.h"
 
@@ -28,6 +32,7 @@
 
 #include "legs_controllers/impulse_one_leg.h"
 #include "legs_controllers/impulse_two_legs.h"
+#include "legs_controllers/impulse_from_file.h"
 #include "legs_controllers/impulse_controllerConfig.h"
 
 #include "controller_manager_msgs/ListControllers.h"
@@ -143,6 +148,16 @@ class ImpulseController {
       legs_controllers::impulse_two_legs::Request& req,
       legs_controllers::impulse_two_legs::Response& res);
 
+  /**
+   * @brief callbackServiceImpulseFromFile
+   * @param req
+   * @param res
+   * @return
+   */
+  bool callbackServiceImpulseFromFile(
+      legs_controllers::impulse_from_file::Request& req,
+      legs_controllers::impulse_from_file::Response& res);
+
  private:
   // ROS
   ros::NodeHandle nh_;
@@ -162,7 +177,8 @@ class ImpulseController {
       srv_controller_manager_list_, srv_controller_manager_load_,
       srv_controller_manager_switch_;
 
-  ros::ServiceServer srv_server_impulse_one_leg_, srv_server_impulse_two_legs_;
+  ros::ServiceServer srv_server_impulse_one_leg_, srv_server_impulse_two_legs_,
+      srv_server_impulse_from_file_;
 
   std::string topic_effort_controller_left_ankle_,
       topic_effort_controller_left_knee_, topic_effort_controller_left_hip_,
@@ -176,7 +192,7 @@ class ImpulseController {
       topic_gazebo_set_model_state_, topic_gazebo_reset_simulation_,
       topic_impulse_one_leg_, topic_impulse_two_legs_,
       topic_controller_manager_list_, topic_controller_manager_load_,
-      topic_controller_manager_switch_;
+      topic_controller_manager_switch_, topic_impulse_from_file_;
 
   // Step time
   double time_step_;

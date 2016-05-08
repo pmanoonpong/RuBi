@@ -13,6 +13,7 @@ find_package(catkin REQUIRED COMPONENTS
     sensor_msgs
     gazebo_msgs
     dynamic_reconfigure
+    roslib
     )
 
 ## System dependencies are found with CMake's conventions
@@ -60,6 +61,7 @@ add_service_files(
    FILES
    impulse_one_leg.srv
    impulse_two_legs.srv
+   impulse_from_file.srv
 )
 
 ## Generate actions in the 'action' folder
@@ -160,7 +162,7 @@ add_executable(impulse_controller_node
     src/impulse_controller.cpp
     )
 target_link_libraries(impulse_controller_node
-    ${catkin_LIBRARIES}
+    ${catkin_LIBRARIES} yaml-cpp
     )
 add_dependencies(impulse_controller_node
     ${${PROJECT_NAME}_EXPORTED_TARGETS} ${PROJECT_NAME}_gencfg

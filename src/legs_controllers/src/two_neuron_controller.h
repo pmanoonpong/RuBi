@@ -14,7 +14,7 @@
 
 // ROS
 #include "ros/ros.h"
-#include "std_msgs/Float64MultiArray.h"
+#include "std_msgs/Float64.h"
 #include "sensor_msgs/JointState.h"
 #include "dynamic_reconfigure/server.h"
 #include "legs_controllers/two_neuronConfig.h"
@@ -56,7 +56,8 @@ class TwoNeuronController {
 
   /**
    * @brief updateRate Updates the frequency at which the controller is updated.
-   * This parameter is got from a default parameter from the launch file and, in the
+   * This parameter is got from a default parameter from the launch file and, in
+   * the
    * case of being used with gazebo, from the simulator perse.
    */
   void updateRate();
@@ -76,10 +77,12 @@ class TwoNeuronController {
   ros::NodeHandle nh_;
   ros::Subscriber sub_joint_states_, sub_left_foot_contact_,
       sub_right_foot_contact_;
-  ros::Publisher pub_legs_;
+  ros::Publisher pub_left_hip_, pub_left_knee_, pub_left_ankle_, pub_right_hip_,
+      pub_right_knee_, pub_right_ankle_;
   ros::ServiceClient srv_client_gazebo_physic_properties_;
 
-  std::string topic_legs_,
+  std::string topic_left_hip_, topic_left_knee_, topic_left_ankle_,
+      topic_right_hip_, topic_right_knee_, topic_right_ankle_,
       topic_joint_states_, topic_left_foot_contact_, topic_right_foot_contact_,
       topic_gazebo_physic_properties_;
 
@@ -97,7 +100,7 @@ class TwoNeuronController {
       DynamicReconfigServer;
   std::shared_ptr<DynamicReconfigServer> param_reconfig_server_;
   DynamicReconfigServer::CallbackType param_reconfig_callback_;
-  boost::recursive_mutex param_reconfig_mutex_; // Must be boost
+  boost::recursive_mutex param_reconfig_mutex_;  // Must be boost
 
   // Controller: common
   double left_hip_pos_, left_knee_pos_, left_ankle_pos_, right_hip_pos_,
