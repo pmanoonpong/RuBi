@@ -25,7 +25,7 @@
 *.synctex.gz
 *.toc
 *.fuse*
-*.pdf
+report.pdf
 *-blx.bib
 *.fls
 
