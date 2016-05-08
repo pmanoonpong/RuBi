@@ -88,7 +88,6 @@ bool LocokitHW::start()
   if(!tcp_connected_) {
     ROS_ERROR("Could not connect to WiFi network.");
     return false;
-    //TODO: exit program here
   }
 
   return true;
@@ -137,7 +136,7 @@ bool LocokitHW::write()
     bool failed_write = false;
     bool change =false;
 
-    //TODO: map values from controller to PWM values
+    //TODO: map values from controller to PWM values [-0.9,0.9]->[-1024,1024]
 
     //Locokit Interface: set motor PWM
     for(unsigned int i=0; i<locokitMotor::NUMBER_MOTORS; i++){
