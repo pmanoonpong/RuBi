@@ -1,5 +1,5 @@
 %---Document Class---%
-\documentclass[12pt]{report}
+\documentclass[10pt]{report}
 
 %---Packages---%
 \usepackage[utf8]{inputenc} %Danish letters
@@ -27,7 +27,12 @@
 
 %---Fonts---%
 \renewcommand\textbullet{\ensuremath{\bullet}}
+
+%\usepackage{fontspec}
+%\setmainfont{Arial}
+
 \usepackage[default]{raleway}
+%\usepackage{inconsolata}
 \usepackage[T1]{fontenc}
 
 %---Page Setup---%
@@ -55,11 +60,11 @@
 
 %--- Bibliography ---%
 \usepackage[backend=bibtex,bibencoding=ascii]{biblatex}
-\addbibresource{chapters/cha_bibliography/bibliography.bib}
+\addbibresource{chapters/cha_bibliography/bibliography}
 
 
 %---Begin Document---%
-\newcommand{\documentTitle}{Design, simulation and development of a bipedal locomotion platform  for human-like gaits studies}
+\newcommand{\documentTitle}{Design, simulation and development of a bipedal locomotion platform for human-like gaits studies}
 \newcommand{\documentType}{Master Thesis}
 
 \newcommand{\institute}{University of Southern Denmark}
@@ -77,13 +82,20 @@
     \pagenumbering{arabic} % Remove warnings of number page
     \setcounter{page}{2}
 
-    \tableofcontents\thispagestyle{empty}\vfill % No number page
-	%\tableofcontents
+    %\tableofcontents\thispagestyle{empty}\vfill % No number page
+	\tableofcontents
 
 	\include{chapters/cha_introduction/introduction}
-    \include{chapters/cha_mechanical_design/cha_mechanical_design}
+    \include{chapters/cha_analysis/cha_analysis}
+    \include{chapters/cha_kinematic_and_dynamic_model/kinematic_and_dynamic_model}
+    \include{chapters/cha_design/cha_design}
+    \include{chapters/cha_simulation/cha_simulation}
+    \include{chapters/cha_implementation/cha_implementation}
+    \include{chapters/cha_experiments/cha_experiments}
+    \include{chapters/cha_economical_aspects/cha_economical_aspects}
+    \include{chapters/cha_results/cha_results}
     \include{chapters/cha_discussion/cha_discussion}
     \include{chapters/cha_conclusions/conclusions}
-    \include{chapters/cha_simulation/cha_simulation}
+
     \printbibliography
 \end{document}          
