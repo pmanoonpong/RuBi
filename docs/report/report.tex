@@ -59,8 +59,9 @@
 \lstset{style=customc}
 
 %--- Bibliography ---%
-\usepackage[backend=bibtex,bibencoding=ascii]{biblatex}
-\addbibresource{chapters/cha_bibliography/bibliography}
+\usepackage[backend=bibtex ,bibencoding=ascii]{biblatex}
+\addbibresource{chapters/cha_bibliography/bibliography.bib}
+\nocite{*}
 
 
 %---Begin Document---%
@@ -85,7 +86,7 @@
     %\tableofcontents\thispagestyle{empty}\vfill % No number page
 	\tableofcontents
 
-	\include{chapters/cha_introduction/introduction}
+    \include{chapters/cha_introduction/introduction}
     \include{chapters/cha_analysis/cha_analysis}
     \include{chapters/cha_kinematic_and_dynamic_model/kinematic_and_dynamic_model}
     \include{chapters/cha_design/cha_design}
