@@ -6,10 +6,6 @@
 
   <group ns="legs">
 
-    <!-- Load HW interface -->
-    <node name="locokit_hw_node" pkg="locokit_hw" type="locokit_hw_node" output="screen">
-    </node>
-
     <!-- Load joint controller configurations from YAML file to parameter server -->
     <rosparam file="$(find legs_joint_control)/config/legs_joint_control.yaml" command="load"/>
 

@@ -36,6 +36,7 @@ bool LocokitHW::configure()
         std::cout << "Error from LocoKitInterface: a connection couldn't be established..."
                   << std::endl;
         tcp_connected_ = false;
+        std::this_thread::sleep_for(std::chrono::seconds(1));
         return false;
     }
     else {

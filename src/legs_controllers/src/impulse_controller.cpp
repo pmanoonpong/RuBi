@@ -245,6 +245,7 @@ void ImpulseController::resetSimulation() {
   initial_configuration_msg.request.joint_positions.push_back(
       right_ankle_initial_pos_ * DEG_TO_RAD);
 
+
   srv_client_gazebo_set_model_configuration_.call(initial_configuration_msg);
 
   // Set initial state
@@ -340,8 +341,6 @@ std::string ImpulseController::getName(CONTROLLER controller) {
       return "position";
     case (EFFORT):
       return "effort";
-    default:
-      return "";
   }
 }
 
@@ -359,8 +358,6 @@ std::string ImpulseController::getName(JOINT joint) {
       return "right_knee_";
     case (RIGHT_HIP):
       return "right_hip_";
-    default:
-      return "";
   }
 }
 

@@ -1,0 +1,17 @@
+<launch>
+
+  <!-- Load the URDF into the ROS Parameter Server -->
+  <param name="robot_description"
+   command="xacro --inorder '$(find legs_description)/urdf/legs.xacro'" />
+
+  <group ns="legs">
+
+    <!-- Load HW interface -->
+    <node name="locokit_hw_node" pkg="locokit_hw" type="locokit_hw_node" output="screen">
+    </node>
+
+    <!-- Load the joint controllers -->
+    <include file="$(find legs_joint_control)/launch/legs_joint_control.launch"/>
+  </group>
+
+</launch>

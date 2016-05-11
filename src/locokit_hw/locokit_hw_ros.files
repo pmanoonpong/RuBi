@@ -9,3 +9,4 @@ include/locokit/locokit_TCP.h
 include/locokit/locokit_TCP.cpp
 include/locokit/robot_configuration.h
 CMakeLists.txt
+package.xml
