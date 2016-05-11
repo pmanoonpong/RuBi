@@ -16,6 +16,8 @@
 #include <string>
 #include <map>
 #include <vector>
+#include <chrono>
+#include <thread>
 
 //LOCOKIT INTERFACE
 #include <locokit_firmware/LocoKitInterface.h>

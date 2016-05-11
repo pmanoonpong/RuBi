@@ -1,12 +1,11 @@
 #include "locokit_hw_ros/locokit_hw_interface.h"
 #include "locokit_hw_interface.cpp"
 
-bool g_quit = false;
+sig_atomic_t g_quit(false);
 
 void quitRequested(int sig) {
   g_quit = true;
 }
-
 
 
 int main( int argc, char** argv ){
@@ -63,7 +62,6 @@ int main( int argc, char** argv ){
 
   //Main loop
   while(!g_quit && ros::ok()) {
-    //ROS_INFO("Loopiiiiing");
     // Get the time / period
     if (!clock_gettime(CLOCK_REALTIME, &ts)) {
         now.sec = ts.tv_sec;
