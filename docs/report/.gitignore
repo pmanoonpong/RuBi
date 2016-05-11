@@ -9,6 +9,8 @@
 *.run.xml
 *.synctex.gz
 *.toc
+*.lof
+*.lot
 
 #Sublime Text
 *.sublime*
