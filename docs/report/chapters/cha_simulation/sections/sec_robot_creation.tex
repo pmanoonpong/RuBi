@@ -40,9 +40,16 @@ The figure \ref{fig:moments_of_inertia} shows the representation of these in the
   \end{subfigure}
 \end{figure}
 
-It is important to notice that the visual models and moments of inertia have been exported from the correct reference frame.
-In the case of the ankle, for example, the STL file and the moments of inertia are calculated from the reference frame positioned in the middle of the rotational axis of the ankle, pointing the Z axis to the rotational axis and Y to the biggest extension of the part.
-This can be seen in the figure PUT THE FUCKING FIGURE FROM SOLIDWORKS HERE JORGE.
+It is important to notice that the visual models and moments of inertia have been exported from the correct coordinate system.
+In the case of the ankle, for example, the STL file and the moments of inertia are calculated from the coordinate system positioned in the middle of the rotational axis of the ankle, pointing the Z axis to the rotational axis and Y to the biggest extension of the part.
+This can be seen in the figure \ref{fig:solidworks_ankle_coodinate_system}.
+
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=0.9\linewidth]{figures/solidworks_ankle_coordinate_system}
+  \caption{Coordinate system of the left ankle in SolidWorks}
+  \label{fig:solidworks_ankle_coodinate_system}
+\end{figure}
 
 Finally, in the Xacro file the information that lacks the URDF and that must be added in Gazebo, have to be put.
 In this file information as colors for the links can be added.
