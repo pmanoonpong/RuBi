@@ -12,7 +12,7 @@
 
   <!-- Robot configuration: Miscellaneous -->
   <xacro:property name="robot_floating" value="0"/>
-  <xacro:property name="rotational_holder" value="0"/>
+  <xacro:property name="rotational_holder" value="1"/>
   <xacro:property name="scale" value="1"/>
   <xacro:property name="mass_scale" value="${pow(scale,3)}"/>
   <xacro:property name="intertia_scale" value="${pow(scale,1.667)}"/>
@@ -400,9 +400,9 @@
     <xacro:if value="${robot_floating is 1}">
       <xacro:property name="rotational_robot_holder_base_length_extra" value="0.1" />
     </xacro:if>
-    <xacro:property name="rotational_robot_holder_base_length" value="${scale*0.67}" />
-    <xacro:property name="rotational_robot_holder_base_radius" value="${scale*0.2}" />
-    <xacro:property name="rotational_robot_holder_holder_radius" value="${scale*0.01}" />
+    <xacro:property name="rotational_robot_holder_base_length" value="${scale*0.54}" />
+    <xacro:property name="rotational_robot_holder_base_radius" value="${scale*0.1}" />
+    <xacro:property name="rotational_robot_holder_holder_radius" value="${scale*0.005}" />
     <xacro:property name="rotational_robot_holder_holder_length" value="${scale*2}" />
 
     <link name="rotational_robot_holder_base">
@@ -422,8 +422,11 @@
       </visual>
 
       <inertial>
-        <mass value="10"/>
-        <inertia ixx="0.002" ixy="0.0" ixz="0.0" iyy="0.002" iyz="0.0" izz="0.002"/>
+        <mass value="0.001"/>
+        <inertia
+          ixx="2e-005" ixy="0.0" ixz="0.0" 
+          iyy="0.0" iyz="0.0" 
+          izz="2e-005"/>
       </inertial>
 
     </link>
@@ -446,9 +449,11 @@
 
       <inertial>
         <mass value="0.001"/>
-        <inertia ixx="0.002" ixy="0.0" ixz="0.0" iyy="0.002" iyz="0.0" izz="0.002"/>
-      </inertial>
-      
+        <inertia
+          ixx="2e-005" ixy="0.0" ixz="0.0" 
+          iyy="0.0" iyz="0.0" 
+          izz="2e-005"/>
+        </inertial>
     </link>
 
     <link name="rotational_robot_holder_holder">
@@ -469,9 +474,11 @@
 
       <inertial>
         <mass value="0.001"/>
-        <inertia ixx="0.002" ixy="0.0" ixz="0.0" iyy="0.002" iyz="0.0" izz="0.002"/>
-      </inertial>
-      
+        <inertia
+          ixx="2e-005" ixy="0.0" ixz="0.0" 
+          iyy="0.0" iyz="0.0" 
+          izz="2e-005"/>
+        </inertial>
     </link>
 
     <joint name="rotational_robot_holder_base_to_world" type="fixed">
@@ -513,7 +520,7 @@
     <joint name="rotational_robot_holder_to_rotot" type="fixed">
       <parent link="rotational_robot_holder_holder"/>
       <child link="hip"/>
-      <origin xyz="${rotational_robot_holder_holder_length+0.2} 0 0" rpy="0 0 ${90*DEG_TO_RAD}"/>
+      <origin xyz="${rotational_robot_holder_holder_length+0.1} 0 0" rpy="0 0 ${90*DEG_TO_RAD}"/>
       <axis xyz="0 0 1"/>
       <limit effort="30" velocity="2.0" lower="0" upper="1" />
     </joint> 
