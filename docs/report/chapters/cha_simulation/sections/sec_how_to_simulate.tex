@@ -1,6 +1,12 @@
 %!TEX root = ../../../report.tex
 \section{How to simulate} % (fold)
 \label{sec:how_to_simulate}
-Make a short description of what to do in order to simulate the robot and interact with it.
+The actions for starting the simulation are minimal and, with everything installed, just a terminal shall be opened and the user have to insert:
 
+\begin{lstlisting}
+roslaunch legs_gazebo legs_world.launch
+\end{lstlisting}
+
+The launch file will load ROS Control along with the simulation.
+From that moment the user can run the controllers and the legs will move equally than in the real robot.
 % section how_to_simulate (end)
