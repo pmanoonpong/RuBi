@@ -37,8 +37,8 @@
   <xacro:property name="lowerLegLimitVelocity" value="10" />
   <xacro:property name="lowerLegLimitEffort" value="10" />
 
-  <xacro:property name="footLimitUpperPosition" value="120" />
-  <xacro:property name="footLimitLowerPosition" value="-50" />
+  <xacro:property name="footLimitUpperPosition" value="30" />
+  <xacro:property name="footLimitLowerPosition" value="-80" />
   <xacro:property name="footLimitVelocity" value="10" />
   <xacro:property name="footLimitEffort" value="10" />
 
