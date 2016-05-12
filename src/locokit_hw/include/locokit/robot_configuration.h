@@ -32,11 +32,11 @@ namespace locokitMotor{
         ANKLE_RIGHT = 5,
 
         LEFT_HIP_ID = 5,
-        LEFT_KNEE_ID = 4,
-        LEFT_ANKLE_ID = 8,
-        RIGHT_HIP_ID = 19,
-        RIGHT_KNEE_ID = 7,
-        RIGHT_ANKLE_ID = 11
+        LEFT_KNEE_ID = 8,
+        LEFT_ANKLE_ID = 4,
+        RIGHT_HIP_ID = 7,
+        RIGHT_KNEE_ID = 11,
+        RIGHT_ANKLE_ID = 19
     };
 }
 
