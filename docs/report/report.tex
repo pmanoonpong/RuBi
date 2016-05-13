@@ -11,10 +11,11 @@
 \usepackage{listings}
 \usepackage{setspace}
 \usepackage{mathtools}  %Equations
-\usepackage[hidelinks]{hyperref} %Emails in Title
-
 \usepackage[usenames,dvipsnames]{xcolor}
-
+\usepackage[hidelinks]{hyperref} %Emails in Title
+\usepackage[toc,page]{appendix}
+\usepackage[final]{pdfpages}
+\usepackage{multicol}
 
 %---Colors---%
 \definecolor{chapterColor}{HTML}{004685}
@@ -103,6 +104,11 @@
     \include{chapters/cha_results/cha_results}
     \include{chapters/cha_discussion/cha_discussion}
     \include{chapters/cha_conclusions/conclusions}
+
+    \begin{appendices}
+        %\include{chapters/cha_appendices/cha_profile_selection}
+        \includepdf{chapters/cha_appendices/profile_selection.pdf}
+    \end{appendices}
 
     \printbibliography
 \end{document}          
