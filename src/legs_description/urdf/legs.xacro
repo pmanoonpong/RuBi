@@ -12,10 +12,10 @@
 
   <!-- Robot configuration: Miscellaneous -->
   <xacro:property name="robot_floating" value="0"/>
-  <xacro:property name="rotational_holder" value="1"/>
+  <xacro:property name="rotational_holder" value="0"/>
   <xacro:property name="scale" value="1"/>
   <xacro:property name="mass_scale" value="${pow(scale,3)}"/>
-  <xacro:property name="intertia_scale" value="${pow(scale,1.667)}"/>
+  <xacro:property name="intertia_scale" value="${pow(scale,5)}"/>
 
 	<!-- Robot configuration: Transmission -->
 	<xacro:property name="max_real_motor_torque" value="1.0787315"/> <!-- In N*m -->
