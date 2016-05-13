@@ -20,22 +20,25 @@ The period from the take-off of the toes to the instant in which the maximum hei
 The rest of the cycle, including fall and landing are not described here.
 This phase is analyzed following the equations of a static projectile motion for the vertical launch case, expressed in \ref{eq:vertical_motion} and \ref{eq:vertical_energy}.
 
-\begin{equation}
-\label{eq:vertical_motion}	
-	h(t) = V_o t sin(\theta) - \cfrac{1}{2} g t^2 
-\end{equation}
+%\begin{equation}
+%\label{eq:vertical_motion}	
+%	h(t) = V_o t sin(\theta) - \cfrac{1}{2} g t^2 
+%\end{equation}
 
 \begin{equation}
 \label{eq:vertical_energy}
 	m g \Delta h = \cfrac{1}{2} m \Delta V^2
 \end{equation}
 
-The equation \ref{eq:vertical_energy} is an energy balance analysis for the flight phase. 
-If computed for $t=tmax$, mining that the maximum height has been reached, it can be rearranged to show the variation in velocity between the take-off and the maximum height instants
+The equation \ref{eq:vertical_energy} is an energy balance analysis for the flight phase, that can be rearranged as showed in \ref{eq:deltaV}
 
 \begin{equation}
+\label{eq:deltaV}
 	\Delta V = \sqrt{2 g \Delta h}
 \end{equation}
+
+This equation can be used to input the desired displacement in the CoG of the robot during the free flight period and obtain the necessary velocity at take-off $V_{toff}$, which is the one the robot hast to reach in the impulse phase.
+This can be done since $V_{final} = 0$ and therefore $\Delta V = Ṿ_{toff}$.
 
 \paragraph{The impulse phase}
 From the initial position at the beginning of the jump to the instant when the toes of the standing foot take off the ground and the ground reaction force ceases.
@@ -46,6 +49,18 @@ The change in momentum in the robot of mass $m$ caused by the application of a v
 \label{eq:impulse}
 	F  t = m  \Delta V	
 \end{equation} 
+
+Substituting equation \ref{eq:deltaV} in \ref{eq:impulse}, the necessary impulse to reach the desired maximum height can be computed.
+However, since the force applied to the mass and the application period cannot be decoupled from the result of the equation, an energy analysis has to be carried out together with a posterior optimization of the two values for the desired design of the robot as follows:
+
+\begin{equation}
+\label{eq:work}
+	W = \int_{t_{toff}}^{t_{f}} F(t)\,\mathrm{d}t = \cfrac{1}{2} m \Delta V^2 = F_{min} S
+\end{equation}
+
+Equation \ref{eq:work} describes how the work performed on the robot during the impulse phase can relate to the change in its kinetics energy. 
+This equation, derived also from Newton's second law would only apply to rigid bodies without internal degrees of freedom, which is not the case.
+However, it has been assumed that the displacement given by $S$ is the vertical one of the CoM of the robot during the impulse and that it is small enough to be a valid assumption in order to use this procedure.
 
 
 % subsubsection static_jumping_dynamics (end)
