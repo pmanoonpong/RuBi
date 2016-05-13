@@ -1,6 +1,24 @@
 %!TEX root = ../../../report.tex
 \section{Robot definition} % (fold)
 \label{sec:robot_definition}
-SDF vs URDF vs Xacro
+As in May of 2016, ROS Jade ecosystem has different formats to describe a robot.
+These are SDF, URDF and Xacro.
+At some point they are all transformed to a unique sort of format but the decision of how to express the robot for the simulation is needed from the beginning.
 
+
+\begin{enumerate}
+  \item \textbf{URDF \footnote{http://wiki.ros.org/urdf}}: is an open standard used in all the simulators mentioned or others like RobWork \cite{robwork}. 
+  It allows to define all the properties of a single robot but lacks other which are important when simulating. 
+  It is mainly used for visual representations or schematic robot definitions.
+  \item \textbf{Xacro \footnote{http://wiki.ros.org/xacro}}: is a parametric format that easy the writing of the URDF.
+  It allows logic conditions like \textit{if, for} and from ROS Jade any virtual python condition.
+  This code is then compiled into a URDF automatically which give Xacro complete interoperability with URDF readers.
+  \item \textbf{SDF \footnote{http://sdformat.org}}: adapted to the current requirements of the simulation environments.
+  With it can be defined from \textit{worlds} to air properties in the case or UAV simulations.
+\end{enumerate}
+
+Despite SDF contains more information, there are several tools in ROS Jade that make use of URDF.
+Two of them are RViz and ROS Control, explained in the section \ref{sub:ros_control}.
+As this last one is a pillar of the framework itself, the decision of making use of URDF as format for describing the robot was taken.
+However, the robots developed have been written in Xacro due to the tools that easy the coding of the robot.
 % section robot_definition (end)

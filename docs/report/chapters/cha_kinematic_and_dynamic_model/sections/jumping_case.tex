@@ -5,7 +5,7 @@
 Modeling the dynamics of walking gaits in a bipedal robot with 6 DOF has proved significantly complex and time consuming, even for the two-dimensional case.
 However, it is necessary in order to calculate the most extreme torque and velocity values to apply to every joint during the motion and thus gauge the required motors for the application.
 In order to ease the task, instead of calculating the motion equations for the walking or running cases, it was resolved to model the dynamics of the jump case.
-This was decided under the assumption that a structure able to perform a static, vertical jump of determined characteristics on one leg could be able to fulfill the power requirements necessary for running, both from an actuation and a structural point of view.
+This was decided under the assumption that a structure able to perform a static, vertical jump of a certain height $h$ and determined characteristics on one leg could be able to fulfill the power requirements necessary for running, both from an actuation and a structural point of view.
 This assumption was built upon the findings introduced in \cite{jump-run1} and \cite{jump-run2}.
 
 \subsubsection{Vertical jump dynamics} % (fold)
@@ -15,11 +15,35 @@ Therefore the jump analysis here will be carried out in resemblance of the human
 The jump case analyzed here can be described according to \cite{jump-dynamics1} as a static, squat jump over one foot with take-off and without counter-movement (SJ-NAS).
 The whole jump cycle has been divided into two phases with different analysis: an impulse and a flight period.
 
-\paragraph{The impulse phase}
-From the initial position at the beginning of the jump to the instant when the toes of the standing foot take off the ground and the ground reaction force ceases.
-The change in momentum caused by the application of the a vertical force with the feet to the ground F during a period t is given in equation
+\paragraph{The flight phase}
+The period from the take-off of the toes to the instant in which the maximum height $h_{max}$ has been reached. 
+The rest of the cycle, including fall and landing are not described here.
+This phase is analyzed following the equations of a static projectile motion for the vertical launch case, expressed in \ref{eq:vertical_motion} and \ref{eq:vertical_energy}.
 
 \begin{equation}
+\label{eq:vertical_motion}	
+	h(t) = V_o t sin(\theta) - \cfrac{1}{2} g t^2 
+\end{equation}
+
+\begin{equation}
+\label{eq:vertical_energy}
+	m g \Delta h = \cfrac{1}{2} m \Delta V^2
+\end{equation}
+
+The equation \ref{eq:vertical_energy} is an energy balance analysis for the flight phase. 
+If computed for $t=tmax$, mining that the maximum height has been reached, it can be rearranged to show the variation in velocity between the take-off and the maximum height instants
+
+\begin{equation}
+	\Delta V = \sqrt{2 g \Delta h}
+\end{equation}
+
+\paragraph{The impulse phase}
+From the initial position at the beginning of the jump to the instant when the toes of the standing foot take off the ground and the ground reaction force ceases.
+The change in momentum in the robot of mass $m$ caused by the application of a vertical force with the foot to the ground $F$ during a period $t$ is given by equation \ref{eq:impulse}, derived from the second law of motion of Newton.
+
+
+\begin{equation}
+\label{eq:impulse}
 	F  t = m  \Delta V	
 \end{equation} 
 
