@@ -1,7 +1,29 @@
+%!TEX root = ../../../report.tex
+
 \section{The jumping case} % (fold)
 \label{sec:jumping_case}
 Modeling the dynamics of walking gaits in a bipedal robot with 6 DOF has proved significantly complex and time consuming, even for the two-dimensional case.
-However, it is necessary to calculate the most extreme torque and velocity values to apply to every joint during the motion and thus gauge the required motors for the application.
-In order to ease the task, instead of calculating the motion equations for the walking or running cases, it was decided to model the physics of the static jumping case.
-This was decided under the assumption that a structure able to perform a static, vertical jump of determined characteristics on one leg could be able to fulfill the power requirements necessary for running. Both in from an actuation and structural point of view.
+However, it is necessary in order to calculate the most extreme torque and velocity values to apply to every joint during the motion and thus gauge the required motors for the application.
+In order to ease the task, instead of calculating the motion equations for the walking or running cases, it was resolved to model the dynamics of the jump case.
+This was decided under the assumption that a structure able to perform a static, vertical jump of determined characteristics on one leg could be able to fulfill the power requirements necessary for running, both from an actuation and a structural point of view.
+This assumption was built upon the findings introduced in \cite{jump-run1} and \cite{jump-run2}.
+
+\subsubsection{Vertical jump dynamics} % (fold)
+\label{ssub:static_jumping_dynamics}
+As explained in section \ref{sec:dimensions}, the dimensions of the robot and its parameters have been conceived to imitate human characteristics and capabilities.
+Therefore the jump analysis here will be carried out in resemblance of the human case, based on \cite{jump-dynamics1} and aiming at applying the results to a robot platform, as in \cite{jump-dynamics2}.
+The jump case analyzed here can be described according to \cite{jump-dynamics1} as a static, squat jump over one foot with take-off and without counter-movement (SJ-NAS).
+The whole jump cycle has been divided into two phases with different analysis: an impulse and a flight period.
+
+\paragraph{The impulse phase}
+From the initial position at the beginning of the jump to the instant when the toes of the standing foot take off the ground and the ground reaction force ceases.
+The change in momentum caused by the application of the a vertical force with the feet to the ground F during a period t is given in equation
+
+\begin{equation}
+	F  t = m  \Delta V	
+\end{equation} 
+
+
+% subsubsection static_jumping_dynamics (end)
+
 % section The_jumping_case (end)
