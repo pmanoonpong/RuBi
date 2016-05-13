@@ -4,7 +4,7 @@
 %OUTPUTS THE NECESSARY TORQUES IN ONE LEG FOR THE DESIRED JUMP 
 
 clear; clc;
-%close all;
+close all;
 
 %DYNAMICS INPUTS: 
 %Gravity (positive in Y axis)
@@ -28,8 +28,7 @@ dispCoG = Ltotal - Ltotal*(bendPhase);
 
 %IMPULSE ANALYSIS
 [FminY, tmax, F, t]=impulse(hDelta, m, dispCoG);
-
-
+%%
 %KINEMATICS INPUTS FOR THE MODEL
 %External force applied on the toes
 fext=[0; -FminY];
