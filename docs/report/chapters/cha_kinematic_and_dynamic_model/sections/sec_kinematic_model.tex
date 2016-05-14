@@ -2,10 +2,48 @@
 
 \section{Kinematic model}
 \label{sec_kinematic_model}
-The kinematics model of the robot has to describe the motion of every joint in time disregarding dynamic parameters.
+The kinematics model of the robot describes the motion of every joint in time disregarding dynamic parameters.
 It is used here to compute position, velocity and acceleration of the limbs for given trajectories of the toes, which are the contact point with the ground in the presented study case, through the forward kinematics.
 Also the inverse kinematic model is constructed as a tool for the posterior computation of the dynamics model and its application to model the necessary actuators.
 The model has been obtained through direct application of trigonometry instead of using the D-H parameters given its simplicity.
 To do so, as explained before the case has been reduced to a two-dimensional study and the robot legs has been analyzed as a kinematic chain of three degrees of freedom.
-The main reference frame has been placed attached to the hip with its Y axis parallel to the ground, as if this was the base of a robotic arm, and the toe was the tool, has shown in Figure  
+The main reference frame has been placed attached to the hip with its Y axis parallel to the ground, as if this was the base of a robotic arm, and the toe was the tool, has shown in Figure \ref{fig:kinematics}.
 
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.4\textwidth]{figures/kinematics_model.pdf}
+	\caption{Schematic model of one leg}
+	\label{fig:kinematics}
+\end{figure}
+
+This Figure depicts the schematic representation of only one leg, since the other one is equivalent.
+The variables $q_{i}$ represent the angles of the joints with respect to their fully-stretched positions, to simplify the obtainment of the forward kinematic model, while the angle $\theta$ is used to express the orientation of the ankle in an absolute way. 
+From Figure \ref{fig:kinematics}, the forward kinematic model in \ref{eq:forward_kinematics} can be easily obtained.
+
+\begin{equation}
+\label{eq:forward_kinematics}
+	\begin{align*}
+		x_{0} &= 0 \\
+		y_{0} &= 0 \\
+		x_{1} &= l_{1} \sin(q_{1}) \\
+		y_{1} &= l_{1} \cos(q_{1}) \\
+		x_{2} &= l_{1} \sin(q_{1}) + l_{2} \sin(q_{1}+q_{2}) \\
+		y_{2} &= l_{1} \cos(q_{1}) + l_{2} \cos(q_{1}+q_{2}) \\
+		x_{3} &= l_{1} \sin(q_{1}) + l_{2} \sin(q_{1}+q_{2}) + l_{3} \sin(q_{1}+q_{2}+q_{3}) \\
+		y_{3} &= l_{1} \cos(q_{1}) + l_{2} \cos(q_{1}+q_{2}) + l_{3} \cos(q_{1}+q_{2}+q_{3}) \\
+	\end{align*}
+\end{equation}
+
+$x_{i}, y_{i}$ represent the coordinates of the joints, named $P_{i}$ in the schematic.
+
+
+\begin{equation}
+\label{eq:forward_kinematics}
+	\begin{align*}
+		x_{2} &= x_{3} - l_{3} \sin(\theta) \\
+		y_{2} &= y_{3} - l_{3} \cos(\theta) \\
+		q_{1} &= \arctan(\cfrac{x_{2}}{y_{2}}) - \arccos(\cfrac{x_{2}^2 + y_{2}^2 + l_{1}^2 - l_{2}^2}{2 l_{1} \sqrt{x_{2}^2 + y_{2}^2}}) \\
+		q_{2} &= \pi - \arccos(\cfrac{l_{1}^2 + l_{2}^2 - x_{2} - y_{2}}{2 l_{1} l_{2}}) \\
+		q_{3} &= \theta - q_{1} - q_{2} \\
+	\end{align*}
+\end{equation}
