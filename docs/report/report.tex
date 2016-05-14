@@ -1,5 +1,5 @@
 %---Document Class---%
-\documentclass[11pt]{report}
+\documentclass[12pt]{report}
 
 %---Packages---%
 \usepackage[utf8]{inputenc} %Danish letters
@@ -14,7 +14,6 @@
 \usepackage[usenames,dvipsnames]{xcolor}
 \usepackage[hidelinks]{hyperref} %Emails in Title
 \usepackage[toc,page]{appendix}
-\usepackage[final]{pdfpages}
 \usepackage{multicol}
 
 %---Colors---%
@@ -32,7 +31,9 @@
 %\usepackage{fontspec}
 %\setmainfont{Arial}
 
-\usepackage[default]{raleway}
+
+\usepackage{iwona}
+%\usepackage[default]{raleway}
 %\usepackage{inconsolata}
 \usepackage[T1]{fontenc}
 \renewcommand\textbullet{\ensuremath{\bullet}}
@@ -105,10 +106,22 @@
     \include{chapters/cha_discussion/cha_discussion}
     \include{chapters/cha_conclusions/conclusions}
 
+    \printbibliography
+
     \begin{appendices}
-        %\include{chapters/cha_appendices/cha_profile_selection}
-        \includepdf{chapters/cha_appendices/profile_selection.pdf}
+        \section{Profile selection}
+        \label{app:profile_selection}
+            \includegraphics[width=177mm]{chapters/cha_appendices/profile_selection.pdf}
+
+        \section{Mechanical drawings}
+        \label{app:mechanical_drawings}
+            \includegraphics[width=\linewidth]{chapters/cha_appendices/hip_rod.PDF}
+            \break
+            \includegraphics[width=\linewidth]{chapters/cha_appendices/knee_rod.PDF}
+            \break
+            \includegraphics[width=\linewidth]{chapters/cha_appendices/hip_structure.PDF}
+            \break
+            \includegraphics[width=\linewidth]{chapters/cha_appendices/knee_structure.PDF}
     \end{appendices}
 
-    \printbibliography
 \end{document}          
