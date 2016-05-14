@@ -1,2 +1,11 @@
+%!TEX root= ../../../report.tex
+
 \section{Kinematic model}
 \label{sec_kinematic_model}
+The kinematics model of the robot has to describe the motion of every joint in time disregarding dynamic parameters.
+It is used here to compute position, velocity and acceleration of the limbs for given trajectories of the toes, which are the contact point with the ground in the presented study case, through the forward kinematics.
+Also the inverse kinematic model is constructed as a tool for the posterior computation of the dynamics model and its application to model the necessary actuators.
+The model has been obtained through direct application of trigonometry instead of using the D-H parameters given its simplicity.
+To do so, as explained before the case has been reduced to a two-dimensional study and the robot legs has been analyzed as a kinematic chain of three degrees of freedom.
+The main reference frame has been placed attached to the hip with its Y axis parallel to the ground, as if this was the base of a robotic arm, and the toe was the tool, has shown in Figure  
+
