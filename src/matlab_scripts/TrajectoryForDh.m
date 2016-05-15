@@ -28,7 +28,7 @@ dispCoG = Ltotal - Ltotal*(bendPhase);
 
 %IMPULSE ANALYSIS
 [FminY, tmax, F, t]=impulse(hDelta, m, dispCoG);
-%%
+
 %KINEMATICS INPUTS FOR THE MODEL
 %External force applied on the toes
 fext=[0; -FminY];
@@ -43,14 +43,16 @@ toolThetaO=-pi/2;
 toolThetaF= -pi/8;
 
 figure
+xlabel('X axis (m)');
+ylabel('Inverted Y axis (m)');
 hold on
 j=0;
 for t=0:0.025:tf
     j=j+1;
     toolY(j) = toolYo + ((toolYf - toolYo)/(tf-to))*(t - to);
-    plot(t, toolY(j), '+');
+    %plot(t, toolY(j), '+');
     toolTheta(j) = toolThetaO + ((toolThetaF - toolThetaO)/(tf-to))*(t - to);
-    plot(t, toolTheta(j), '+');
+    %plot(t, toolTheta(j), '+');
     
     
     X2=toolX-L(3,1)*sin(toolTheta(j));
@@ -78,6 +80,10 @@ for t=0:0.025:tf
     Positions=[P1,P2,P3,P4];
 
     %Plot poses of the leg (inverted for visualization)
+%     plot(P1(1,1), P1(2,1));
+%     plot(P2(1,1), P2(2,1));
+%     plot(P3(1,1), P3(2,1));
+%     plot(P4(1,1), P4(2,1));
     
     axis([-0.3 0.3 -0.6 0])
     x1=[vpa(subs(P1(1,1), 0)),vpa(subs(P2(1,1),0))];
@@ -92,6 +98,6 @@ for t=0:0.025:tf
     
 end 
 hold off
-
+%%
 fullSimulation
  

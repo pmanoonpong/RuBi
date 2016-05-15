@@ -46,8 +46,8 @@ Following the same approach, the inverse kinematic model can be computed for one
 	\begin{aligned}
 		x_{2} &= x_{3} - l_{3} \sin(\theta) \\
 		y_{2} &= y_{3} - l_{3} \cos(\theta) \\
-		q_{1} &= \arctan(\cfrac{x_{2}}{y_{2}}) - \arccos(\cfrac{x_{2}^2 + y_{2}^2 + l_{1}^2 - l_{2}^2}{2 l_{1} \sqrt{x_{2}^2 + y_{2}^2}}) \\
-		q_{2} &= \pi - \arccos(\cfrac{l_{1}^2 + l_{2}^2 - x_{2} - y_{2}}{2 l_{1} l_{2}}) \\
+		q_{1} &= \arctan \left(\frac{x_{2}}{y_{2}}\right) - \arccos \left(\frac{x_{2}^2 + y_{2}^2 + l_{1}^2 - l_{2}^2}{2 l_{1} \sqrt{x_{2}^2 + y_{2}^2}}\right) \\
+		q_{2} &= \pi - \arccos \left(\frac{l_{1}^2 + l_{2}^2 - x_{2} - y_{2}}{2 l_{1} l_{2}}\right) \\
 		q_{3} &= \theta - q_{1} - q_{2} \\
 	\end{aligned}
 \end{equation}
