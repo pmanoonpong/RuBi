@@ -74,7 +74,7 @@ dV3=[diff(V3(1,1),t);diff(V3(2,1),t)];
 
 Accelerations=[dV0,dV1,dV2,dV3];
 
-%Differentiation of the direct kinematics model for angular dynamics
+%Differentiation of the inverse kinematic model for angular dynamics
 %Joint velocities
 dQ1= diff(Q1, t);
 dQ2= diff(Q2, t);

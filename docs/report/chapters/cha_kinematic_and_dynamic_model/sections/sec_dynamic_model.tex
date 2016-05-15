@@ -1,2 +1,18 @@
+%!TEX root= ../../../report.tex
 \section{Dynamic model}
 \label{sec_dynamic_model}
+The goal of this step is to calculate the relationship between an external force applied in the toe (ground reaction force) and the necessary torques in the joints for dealing with that external disruption.
+This relation can be expressed as a set of second order differential equations represented for the general case as in equation \ref{eq:dynamics_eq1}.
+
+\begin{equation}
+	\label{eq:dynamics_eq1}
+	B(q)\ddot{q} + C(q,\dot{q}) + g(q) = \tau
+\end{equation}
+
+Where $B(q)$ is the inertia matrix, $c(q,\dot{q})$ contains the centrifugal and coriolis acceleration terms and $g(q)$ represents gravity, as in \cite{dynamics1} and \cite{dynamics2}.
+
+Once the kinematics of the robot has been computed, the dynamic parameters of its components must be added to the equations of motion in order to fully model the robot.
+
+
+
+
