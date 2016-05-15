@@ -18,5 +18,23 @@ For an open kinematic chain as this, three methodologies to obtain the above equ
 	\item The Newton-Euler algorithm, through which the dynamics of the system can be expressed in terms of forces and moments applied in each member of the chain.
 \end{itemize}
 
+It was finally decided to apply the third option due to the fact that it was faster to implement than the E-L algorithm and more reliable than the Energy method.
+The recursive Newton-Euler algorithm is founded in classical mechanics and its a recursive method that computes in two steps the velocities and accelerations of every component of a kinematic chain and their forces and torques on the joints.
+In \ref{eq:N-E_eq1}, the equations of motion for an individual link are shown.
 
+\begin{equation}
+\label{eq:N-E_eq1}
+	\begin{aligned}
+		f_{i-1, i} - f_{i,i+1} + m_{i} g - m{i} \dot{V}_{ci} &= 0 \\
+		N_{i - 1 , i} - N_{i , i + 1} - ( r_{i - 1 , i} + r_{i , Ci} ) \times f_{i - 1 , i} + ( - r_{i , Ci} ) \times ( - f_{i , i + 1}) - \dot{I}_{i} \omega_{i} - \omega_{i} \times ( I_{i} \omega_{i} ) &= 0 \\
+	\end{aligned}
+\end{equation}
 
+These equations contain the coupling forces and moments applied to the link by the immediate ones, however, they cannot be used with them. 
+The closed-form equations must be derived from them so that they can be applied to the algorithm.
+This is done by substituting the coupling forces in the final set of 6 equations obtained for $i=3$ and substituting 
+
+\begin{equation}
+\label{eq:torques}
+	N_{i - 1 , i} = \tau_{i}
+\end{equation}
