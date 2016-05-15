@@ -1,0 +1,41 @@
+%!TEX root = ../../../../report.tex
+\subsection{Impact force} % (fold)
+\label{sub:impact_force}
+In order to calculate the physical dimensions of some of the components, a bounding conditions have to be defined.
+The presented case shows a peak of energy when landing after being jumped a estimated height.
+This energy in then transmitted from the first contact point, the footprint, to the rest of the system, causing efforts that must be absorbed.
+The components of the system must receive that energy under a controlled behavior -this is elastic deformations- assuring a longer life cycle of the legs.
+
+Thus, some input parameters to calculate the impact force are assumed.
+From this force will be sized all the consecutive components in the deformation chain.
+Despite the deformation is of the whole system, the security coefficient assumed in here is going to be the calculation of all the components for that maximum force.
+
+From the formula of the mechanical energy:
+\begin{equation}
+  E_{mechanical} = m g \Delta h + \frac{1}{2} m v^{2}
+\end{equation}
+
+The kinetic energy is negligible and only the energy form falling a certain height is supposed.
+This energy is then translated into force by supposing a deformation of the whole body:
+\begin{equation}
+\label{eq:impact_force}
+  F_{impact} = \frac{m g \Delta h}{t_{impact\_displacement}}
+\end{equation}
+
+The equation \ref{eq:impact_force} gives the force for sizing all the components.
+Based on the input parameters defined in the appendix \ref{app:profile_selection} which are:
+\begin{center}
+\begin{tabular}{c | c}
+  Parameter & Value \\
+  \hline
+  Total mass [kg] & 1.5 \\
+  Jumping height [m] & 0.1 \\
+  Impact displacement [m] & 0.005
+\end{tabular}
+\end{center}
+
+The impact force is then:
+\begin{equation}
+  F_{impact} = \frac{m g \Delta h}{t_{impact\_displacement}} = 294.40 N 
+\end{equation}
+% subsection impact_force (end)

@@ -16,6 +16,7 @@
 \usepackage[hidelinks]{hyperref} %Emails in Title
 \usepackage[toc,page]{appendix}
 \usepackage{multicol}
+\usepackage{pdfpages}
 
 %---Colors---%
 \definecolor{chapterColor}{HTML}{004685}
@@ -31,7 +32,6 @@
 %---Fonts---%
 %\usepackage{fontspec}
 %\setmainfont{Arial}
-
 
 \usepackage{iwona}
 %\usepackage[default]{raleway}
@@ -112,17 +112,21 @@
     \begin{appendices}
         \section{Profile selection}
         \label{app:profile_selection}
-            \includegraphics[width=177mm]{chapters/cha_appendices/profile_selection.pdf}
+            \includegraphics[width=177mm]{chapters/cha_appendices/profile_selection}
 
         \section{Mechanical drawings}
         \label{app:mechanical_drawings}
-            \includegraphics[width=\linewidth]{chapters/cha_appendices/hip_rod.PDF}
+            \includegraphics[width=\linewidth]{chapters/cha_appendices/hip_rod}
             \break
-            \includegraphics[width=\linewidth]{chapters/cha_appendices/knee_rod.PDF}
+            \includegraphics[width=\linewidth]{chapters/cha_appendices/knee_rod}
             \break
-            \includegraphics[width=\linewidth]{chapters/cha_appendices/hip_structure.PDF}
+            \includegraphics[width=\linewidth]{chapters/cha_appendices/hip_structure}
             \break
-            \includegraphics[width=\linewidth]{chapters/cha_appendices/knee_structure.PDF}
+            \includegraphics[width=\linewidth]{chapters/cha_appendices/knee_structure}
+
+        \section{Order list}
+        \label{app:order_list}
+            \includepdf[pages=1-2]{chapters/cha_appendices/order_list}
     \end{appendices}
 
 \end{document}          
