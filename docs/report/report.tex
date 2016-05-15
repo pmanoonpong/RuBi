@@ -15,6 +15,7 @@
 \usepackage[hidelinks]{hyperref} %Emails in Title
 \usepackage[toc,page]{appendix}
 \usepackage{multicol}
+\usepackage{pdfpages}
 
 %---Colors---%
 \definecolor{chapterColor}{HTML}{004685}
@@ -121,6 +122,10 @@
             \includegraphics[width=\linewidth]{chapters/cha_appendices/hip_structure}
             \break
             \includegraphics[width=\linewidth]{chapters/cha_appendices/knee_structure}
+
+        \section{Order list}
+        \label{app:order_list}
+            \includepdf[pages=1-2]{chapters/cha_appendices/order_list}
     \end{appendices}
 
 \end{document}          
