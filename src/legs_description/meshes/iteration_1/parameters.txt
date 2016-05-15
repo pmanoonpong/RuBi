@@ -1,6 +1,6 @@
-﻿"ankle_angle" = 90
-"knee_angle"= 0
-"hip_angle" = 0
+﻿"ankle_angle" = 70
+"knee_angle"= 70
+"hip_angle" = 30
 
 "ankle_angle_max" = 120
 "ankle_angle_min" = 50
