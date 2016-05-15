@@ -1,7 +1,7 @@
 %!TEX root= ../../../report.tex
 \section{Dynamic model}
 \label{sec_dynamic_model}
-The goal of this step is to calculate the relationship between an external force applied in the toe (ground reaction force) and the necessary torques in the joints for dealing with that external disruption.
+The goal of this step is to calculate the relationship between an external force applied to the toe (ground reaction force while jumping) and the necessary torques in the joints for dealing with that external disruption.
 This relation can be expressed as a set of second order differential equations represented for the general case as in equation \ref{eq:dynamics_eq1}.
 
 \begin{equation}
@@ -9,10 +9,14 @@ This relation can be expressed as a set of second order differential equations r
 	B(q)\ddot{q} + C(q,\dot{q}) + g(q) = \tau
 \end{equation}
 
-Where $B(q)$ is the inertia matrix, $c(q,\dot{q})$ contains the centrifugal and coriolis acceleration terms and $g(q)$ represents gravity, as in \cite{dynamics1} and \cite{dynamics2}.
+Where $B(q)$ is the inertia matrix, $c(q,\dot{q})$ contains the centrifugal and coriolis acceleration terms and $g(q)$ represents gravity, as in \cite{dynamics1} and \cite{dynamics2}. 
+For an open kinematic chain as this, three methodologies to obtain the above equation where object of study:
 
-Once the kinematics of the robot has been computed, the dynamic parameters of its components must be added to the equations of motion in order to fully model the robot.
-
+\begin{itemize}
+	\item A simplified Euler-Lagrange algorithm, as introduced in \cite{E-L1}, which makes use of the Lagrangian formulation to describe the behavior of the system through work and energy.
+	\item The so called Energy Method, presented in \cite{asada} and consisting in finding the relation between the force in the end-effector and the joint torques through the Jacobian of the kinematic chain.
+	\item The Newton-Euler algorithm, through which the dynamics of the system can be expressed in terms of forces and moments applied in each member of the chain.
+\end{itemize}
 
 
 
