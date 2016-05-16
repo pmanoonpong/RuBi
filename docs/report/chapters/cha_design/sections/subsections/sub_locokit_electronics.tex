@@ -1,17 +1,6 @@
 %!TEX root = ../../../../report.tex
 
-\subsection{Locokit actuators} % (fold)
+\subsection{Locokit electronics} % (fold)
 \label{sub:locokit_electronics}
-In chapter \ref{cha:mathematical_model}, the necessary characteristics of the actuators have been calculated.
-In this section, the resulting theoretical requirements are used to select the final motor $+$ gearbox combination utilized.
-It must be mentioned at this point that the actuators and their interface were assumed at the beginning of the project to be a very hard constraint in the design from an economic point of view. 
-This means that the conception of the robot structure has been influenced by this criteria towards the adaption of the final prototype characteristics (such as final size or mass) to the application range of the available motors at our disposal.
-This fact has converted the design in an iterative process of optimization whose final result is a robot that matches the available actuators and not the other way around, as it should be in theory.
-In the view of the this, the BLDC motor $+$ gearbox present in the Locokit robot construction kit, introduced in \cite{locokit} are used in the Rubi prototype.
-
-The flat motors model is 339260 from Maxon motor, whose datasheet can be found in \cite{maxon_motor}, and the planetary gearhead is the number 143976 in datasheet \cite{maxon_gear}.
-The electromechanical constants of the motors, together with its nominal supply values or the output power and torque of both the motor and the gearbox can be found in these documents. 
-However, the electronics of the motors is designed to constantly overdrive them at $24V$, which has been taken into account when calculating their output.
-Furthermore, each motor counts three hall effect sensors able to provide accurate relative position measurements.
 
 % subsection locokit_electronics (end)
