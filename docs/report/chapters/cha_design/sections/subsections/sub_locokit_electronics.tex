@@ -1,6 +1,37 @@
 %!TEX root = ../../../../report.tex
 
-\subsection{Locokit electronics} % (fold)
+\subsection{Embedded electronics} % (fold)
 \label{sub:locokit_electronics}
+The Locokit main processor is a standard Gumstix Overo Air board with a 600MHz OMAP3, 512MB RAM and WiFi \cite{gumstix}.
+It is mounted on a expansion board that provides interfaces as I2C, USB or GPIOs along with some on-board sensors not used here and the connection to the power board.
+The power board was designed to allow a stable voltage of 24V and a maximum current of 10A with an efficiency of 90-95$\%$, as stated in \cite{locokit-electronics}.
+It also makes available the connectors for the six-wire bus connection to the motor boards.
+The communication between the main processor and each ARM7 in the motor boards is carried out through a system of common registers that are updated in every cycle of transfer, and for which each BLDC board only reads its assigned slots.
+The addresses of these registers are given through the external switches on the bottom of every motor board.
+The current configuration is given in table \ref{tab:motor_boards_addresses}.
+
+\begin{table}
+\begin{center}
+\begin{tabular}{c | c}
+  Controlled joint & Register address \\
+  \hline
+  Right hip & 7 \\
+  Right knee & 11 \\
+  Right ankle & 19 \\
+  Left hip & 5 \\
+  Left knee & 8\\
+  Left ankle & 4 
+\end{tabular}
+\caption{Internal register addresses of motor boards}
+\label{tab:motor_boards_addresses}
+\end{center}
+\end{table}
+
+Each ARM7 reads the motor commands and writes the sensory feedback information on its register, reducing computation load in the main processor and simplifying the extension of the system with more motor boards to a simple connection.
+As a result, the LocoKit electronics platform provides a reliable power supply and time critical control of actuators, an easily extensible and reconfigurable architecture, communication capabilities with external equipment and possibilities for sensory feedback handling.
+All these features made it optimal for the expected requirements of the Rubi robot hardware, and led to its use on the project. 
+
+%Add power requirements calculations?
+
 
 % subsection locokit_electronics (end)
