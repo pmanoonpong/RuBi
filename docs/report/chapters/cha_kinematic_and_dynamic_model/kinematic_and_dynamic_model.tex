@@ -2,17 +2,18 @@
 \chapter{Mathematical model of the robot} % (fold)
 \label{cha:mathematical_model}
 
-At first, the motivation to start the development of the mathematical model was the seek of a set of equations with which calculating the power required for the actuators could be easily achievable.
+The motivation to start the development of the mathematical model was the seek of a set of equations with which calculating the requirements for the actuators could be easily achievable.
+This task finally evolved towards the creation of a small toolbox that can be extended to the creation of classic control algorithms based on the robot mathematical model.
 The main goal was to compute the necessary data to select joint actuators able to keep up with the requirements of the application.
-However, by definition to do so the application needed to be defined to the extent that these dimensions could be obtained.
-This chapter contains the definition of the task the final robot would be subject to, together with and explanation of the assumptions made in order to simplify the resulting model. 
+However, by definition, to do so the application needed to be defined to the extent that these dimensions could be obtained.
+Thus, this chapter contains the definition of the task Rubi is expected to be able to perform, the control model defined for it and an explanation of the assumptions made in order to simplify the resulting model. 
 After, the necessary kinematic model of the robot is presented as an intermediary step to compute the simplified dynamic model of the robot, which is introduced next to it.
-All the algorithms described in this chapter have been implemented in MATLAB and can be found in appendix. %\ref{}.
+All the algorithms described in this chapter have been implemented in MATLAB and can be found in appendix. \ref{}.
 
+\input{chapters/cha_kinematic_and_dynamic_model/sections/sec_actuators}
 \input{chapters/cha_kinematic_and_dynamic_model/sections/jumping_case}
 \input{chapters/cha_kinematic_and_dynamic_model/sections/sec_kinematic_model}
 \input{chapters/cha_kinematic_and_dynamic_model/sections/sec_dynamic_model}
-\input{chapters/cha_kinematic_and_dynamic_model/sections/sec_actuators}
 \input{chapters/cha_kinematic_and_dynamic_model/sections/sec_springs}
 \input{chapters/cha_kinematic_and_dynamic_model/sections/sec_dynamic_controller}
 % chapter kinematic_and_dynamic_model (end)
