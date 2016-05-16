@@ -1,2 +1,24 @@
+%!TEX root= ../../../report.tex
+
 \section{Actuators}
 \label{sec_actuators}
+The previous calculations in this chapter have been carried out primarily in order to define the load requirements of the application the actuators will be used for.
+In the present case, as explained, the application consists in walking and running gaits generation for the robot Rubi at a wide, not-fully-determined range of speeds. 
+Due to the complexity of modeling such a wide task requirements, it was decided to study the case of the robot hopping on one leg assuming that the drive requirements for walking/running would be accomplished by actuators able to perform this action.
+
+Considerations about the mechanical transformations of the motor output power before being driven to the load such as transmission mechanisms are not detailed here, but in \ref{sub:pulleys_and_belts}.
+The present explanations are for the motor shaft and gearbox selection.
+
+Generally, the process of selection of electric motors entails answering the following queries about the load and the available power supply:
+
+\begin{itemize}
+\label{list:motor_selection}
+	\item Torques applied by the load to the motor shaft
+	\item Accelerations involved
+	\item Inertias of the masses 
+	\item Maximum voltage and current available 
+	\item Type of operation (continuous, intermittent, reversing)
+\end{itemize}
+
+The first three points in \ref{list:motor_selection} have been answered in the previous pages of this chapter.
+Due to the intermittent operation nature of the application, and aiming at constructing as further work an on-board electronics set, batteries have been selected to supply the necessary power to the motors.

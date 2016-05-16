@@ -7,5 +7,7 @@ For the sake of feasibility it was decided to utilize electric motors for supply
 It can be demonstrated from \ref{} %cite actuators section here when finished 
 that the requirements of the defined application for every joint in the robot can be accomplished by the BLDC motor + gearbox present in the Locokit robot construction kit, introduced in \cite{locokit}.
 The flat motors model is 339260 from Maxon motor, whose datasheet can be found in \cite{maxon_motor}, and the planetary gearhead is the number 143976 in datasheet \cite{maxon_gear}.
+The electromechanical constants of the motors, together with its nominal supply values or output power and torque of both the motor and the gearbox can be found in these documents. 
+However, the electronics of the motors is designed to constantly overdrive them at $24V$, which has to be taken into account when calculating their output.
 
 % subsection locokit_electronics (end)
