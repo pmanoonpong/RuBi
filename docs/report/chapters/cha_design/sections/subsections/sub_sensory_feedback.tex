@@ -2,7 +2,24 @@
 
 \subsection{Sensory feedback} % (fold)
 \label{sub:sensory_feedback}
+As stated in the initial description of the project in \ref{sec:overall_description}, the first prototype of Rubi has been designed to provide the necessary capabilities to be controlled by an existing neural controller developed in \cite{dacbot1} and already tested in the DACbot robot.
+The cited control algorithm requires as inputs the angular positions of all the joints in can actuate, besides ground contact signals from the feet for its reflex-based controller part.
+All the documentation regarding the handling of the sensor readings software-wise is to be found in section \ref{sec:software}.
 
 
+\subsubsection{Joint position information} % (fold)
+\label{ssub:joint_position_feedback}
+To provide the physical readings of the angular positions of the joints, the built-in hall sensors in the motors are utilized. 
+Three wires transmit the hall effect sensors signals to the motor board for each joint, where they are written in the internal register and transferred to the main processor for its posterior treatment.
+% subsubsection joint_position_feedback (end)
+
+\subsubsection{Ground contact signal} % (fold)
+\label{ssub:ground_contact_feedback}
+One contact switch model Omron D2F-01F-T has been placed on the edge of the sole of each foot, under the heel in order to detect when the feet are standing on the ground. 
+Their wiring has been extended to the main processor board, but the necessary pull-up resistors have not been implemented since the input pins on the processor could not be set up.
+The necessary mapping between the processor's GPIOS handlers and the physical pins on the board could not be found.
+Therefore this last step is left as further work.
+Alternatives to the use of the main board pins are discussed in chapter \ref{cha:discussion}, in case they cannot be used.
+% subsubsection ground_contact_feedback (end)
 
 % subsection sensory_feedback (end)
