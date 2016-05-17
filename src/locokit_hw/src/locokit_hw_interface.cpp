@@ -22,7 +22,6 @@ LocokitHW::LocokitHW(ros::NodeHandle nh): nh_(nh)
     joint_names.insert(std::pair<int, std::string>(locokitMotor::HIP_RIGHT, "right_hip"));
     joint_names.insert(std::pair<int, std::string>(locokitMotor::KNEE_RIGHT, "right_knee"));
     joint_names.insert(std::pair<int, std::string>(locokitMotor::ANKLE_RIGHT, "right_ankle"));
-
 }
 
 
@@ -90,7 +89,6 @@ bool LocokitHW::start()
     ROS_ERROR("Could not connect to WiFi network.");
     return false;
   }
-
   return true;
 }
 

@@ -2,16 +2,45 @@
 \subsection{ROS Control-to-Hardware interface} % (fold)
 \label{sub:ros_control_hardware_locokit_interface}
 The Locokit embedded electronics comes along a standard C library called LocoAPI designed for an easy interaction and use of the capabilities of the Locokit hardware, as presented in \cite{locokit}.
-This library has been utilized to implement the basic functionalities for the hardware in Rubi without any modification.
-However, it can be easily edited or extended in order to add further functionalities if needed, which was considered a great advantage during the selection of the hardware platform.
+This library has been utilized to implement the basic hardware functionalities in Rubi without any modification.
+However, it can be easily edited or extended in order to add new ones if needed, which was considered a great advantage during the selection of the hardware platform.
 
 The Locokit can be configured to offer a wireless interface between its main processor and an external computer creating and add-hoc WiFi network in the Gumstix.
 Besides, it offers a ready-to-use $C$ application based on the LocoAPI to work as the server side when interfacing the hardware. \ref{} %add actuateMotors.c to code stack?
 Its setup and use instructions can be found in the Locokit documentation, supplied with the kit.
 This left the client side of the wireless connection as the one that needed to be created.
 An existing client application built as an "AbstractController" for the LPZrobots framework was already available. 
-However, as explained before, to eliminate any dependency with LPZrobots and in order to use it with ROS Control, it was rewritten as an instantiation of "RobotHW" making use of the LocoKitInterface and ConnectionClass $C++$ classes provided.
+However, as explained before, to eliminate any dependency with LPZrobots and in order to use it within ROS Control, it was rewritten as an instantiation of "RobotHW" making use of the LocoKitInterface and ConnectionClass $C++$ classes provided.
 
-%initialization of enconders for sensory feedback!
+\subsubsection{The Locokit HW interface node} % (fold)
+\label{ssub:the_locokit_hw_interface}
+The resulting ROS node currently implements the functions listed in \ref{list:locoHW_functions}.
+They are fully operative and have been tested before assembling the actuators to the joints.
+
+\begin{itemize}
+\label{list:locoHW_functions}
+	\item Setup of wireless connection: connect to the TCP websocket created in the server side. It requires the IP and port on the server side.
+	\item Registration of HW interface handlers for ROS Controller Manager: currently Effort commands and Joint State readings can be transmitted.
+	\item Transmission of motor commands to motor boards in HW side: PWM signal values. It requires the physical addresses of all the motor boards connected.
+	\item Reception of joint state readings from motor boards: encoder tics for relative position
+	\item Real-time handling of information transfer from/to Controller Manager
+\end{itemize}
+
+The node can be extended with new standard/customized HW interface handlers and more functions from the "LocokitInterface" class for future applications.
+However, it lacks some capabilities that will be of relevance for an optimal functioning of the Rubi robot and that failed be implemented due to time constraints or lack of resources. 
+The main ones are listed in \ref{list:locoHW_functions_left}.
+
+\begin{itemize}
+\label{list:locoHW_functions_left}
+	\item A configuration function for initializing the encoders to zero in a predefined position.
+	\item A new data flow channel to manage the sensory feedback information from non-built-in sensors, at the ground contact switches.
+	\item If necessary, a mapping between the Effort command values received from the controller and the valid PWM signals sent to the motors.  
+\end{itemize}
+
+
+
+% subsubsection the_locokit_hw_interface (end)
+
+%initialization of encoders for sensory feedback!
 
 % subsection ros_control_hardware_locokit_interface (end)

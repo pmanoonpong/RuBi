@@ -56,7 +56,7 @@ int main( int argc, char** argv ){
     }
   }
 
-  // Construct the controller manager
+  //Construct the controller manager
   ros::NodeHandle nh;
   controller_manager::ControllerManager manager(&locokit_robot, nh);
 
@@ -86,7 +86,7 @@ int main( int argc, char** argv ){
     locokit_robot.write();
   }
 
-  //TODO: clean up when finished
+  //Clean up when finished
   ROS_INFO("Finishing");
   spinner.stop();
   locokit_robot.~LocokitHW();
