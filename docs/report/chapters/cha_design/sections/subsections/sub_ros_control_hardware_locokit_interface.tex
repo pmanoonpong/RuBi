@@ -1,6 +1,19 @@
 %!TEX root = ../../../../report.tex
-\subsection{Controller to Hardware interface} % (fold)
+\subsection{ROS Control-to-Hardware interface} % (fold)
 \label{sub:ros_control_hardware_locokit_interface}
+The Locokit embedded electronics comes along a standard C library called LocoAPI designed for an easy interaction and use of the capabilities of the Locokit hardware, as presented in \cite{locokit}.
+This library has been utilized to implement the basic functionalities for the hardware in Rubi without any modification.
+However, it can be easily edited or extended in order to add further functionalities if needed, which was considered a great advantage during the selection of the hardware platform.
+
+The Locokit can be configured to offer a wireless interface between its main processor and an external computer creating and add-hoc WiFi network in the Gumstix.
+Besides, it offers a ready-to-use $C$ application based on the LocoAPI to work as the server side when interfacing the hardware. \ref{} %add actuateMotors.c to code stack?
+Its setup and use instructions can be found in the Locokit documentation, supplied with the kit.
+This left the client side of the wireless connection as the one that needed to be created.
+An existing client application built as an "AbstractController" for the LPZrobots framework was already available. 
+However, as explained before, to eliminate any dependency with LPZrobots and in order to use it with ROS Control, it was rewritten as an instantiation of "RobotHW" making use of the LocoKitInterface and ConnectionClass $C++$ classes provided.
+
+
+
 
 %initialization of enconders for sensory feedback!
 

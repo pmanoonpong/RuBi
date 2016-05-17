@@ -14,9 +14,9 @@ The architecture of the simulation, hardware, controllers and transmissions modu
 	\label{fig:ros_control_gazebo}
 \end{figure}
 
-This architecture is meant to handle all the intermediary steps between the generation of joint commands for the robot by the custom controllers and their use in the platform, as well as for the feedback information flow in the opposite direction.
+This architecture is meant to handle in real-time all the intermediary steps between the generation of joint commands for the robot by the custom controllers and their use in the platform, as well as for the feedback information flow in the opposite direction.
 The idea behind it is that for most of the actuator and sensor types in a robot joint, the basic commands and readings can be abstracted to a few kinds, being currently implemented position, velocity and effort instances.
-ROS control offers a set of controllers and transmissions for deal with their transfer through the Hardware Resource Interface Layer, the Control Manager and the Controller modules in Figure \ref{fig:ros_control_gazebo}.
+ROS control offers a set of controllers and transmissions for dealing with their transfer through the Hardware Resource Interface Layer, the Control Manager and the Controller modules in Figure \ref{fig:ros_control_gazebo}.
 That leaves the "hardware interface" modules as the only part that needs to be defined by the user since they are platform dependent.
 The interface with the real robot is discussed in \ref{sub:ros_control_hardware_locokit_interface}, while the one with the simulation is introduced in \ref{cha:simulation}.
 
