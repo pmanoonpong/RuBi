@@ -27,14 +27,14 @@ Due to the resistance of the carbon fiber in pure compression is bigger than in 
 \label{ssub:profile_study}
   The bending effort causes two sort of problems: (1) the possible break in the supporting point and (2) the deformation suffered by the beam.
   The break will occur when the tensions created will be over the ultimate tension in compression or tension of the selected material.
-  This comes defined in the equation \ref{eq:tension} for simetric sections and when an only torque is being applied.
+  This comes defined in the equation \ref{eq:tension} for symmetric sections and when an only torque is being applied.
   \begin{equation}
   \label{eq:tension}
     \sigma _{compression} = \sigma _{tension} = \frac{M h_{CG}}{I_x}
   \end{equation}
 
-  Meanwhile the deformation in the extreme can be calculated with the equation \ref{eq:deformation} if the case is simplified to the occured in the figure PUT A FUCCKING PICTURE.
-  This is, when the legs is completely streched, that will cause the biggest stresses.
+  Meanwhile the deformation in the extreme can be calculated with the equation \ref{eq:deformation} if the case is simplified to the occurred in the figure PUT A FUCCKING PICTURE.
+  This is, when the legs is completely stretched, that will cause the biggest stresses.
 
   \noindent\begin{minipage}{0.2\textwidth}% adapt widths of minipages to your needs
     \includegraphics[width=\linewidth]{figures/sdu_logo.pdf}
@@ -48,7 +48,13 @@ Due to the resistance of the carbon fiber in pure compression is bigger than in 
   \end{minipage}
 
 
-  For the selected profiles the equations that define the $\sigma _{compression}$ are shown:
+  For the selected profiles the equations that define the compression $\sigma _{compression}$ and tension efforts $\sigma _{tension}$, along with the deformation in the direcction of the applied force $y_L$ are shown, being:
+
+  \begin{enumerate}
+    \item $h_{CG}$: height of the center of gravity of the semihalf section from the geometrical center of the section.
+
+    \item $E$: Elastic module.
+  \end{enumerate}
 
 
   \noindent\begin{minipage}{0.2\textwidth}% adapt widths of minipages to your needs
@@ -59,7 +65,7 @@ Due to the resistance of the carbon fiber in pure compression is bigger than in 
     \begin{equation}
       \begin{align*}
       \sigma _{compression} = \sigma _{tension} &= \frac{M h_{CG}}{I_x} = \frac{4 r_2}{\pi(r_2 ^4 - r_1 ^4)} M \\
-      y_L &= \frac{P L^2}{3EI} = \frac{P L^2}{3EI} \\
+      y_L &= \frac{P L^2}{3EI} = \frac{4 P L^2}{3 E \pi(r_2 ^4 - r_1 ^4)}\\
       h_{CG} &= r_2 \\
       I_x = I_y &= \frac{\pi}{4} (r_2 ^4 - r_1 ^4)
       \end{align*}
@@ -74,6 +80,7 @@ Due to the resistance of the carbon fiber in pure compression is bigger than in 
     \begin{equation}
     \begin{align*}
       \sigma _{compression} = \sigma _{tension} &= \frac{M h_{CG}}{I_x} = \frac{4}{\pi r_1 ^3} M\\
+      y_L &= \frac{P L^2}{3EI} = \frac{4 P L^2}{3 E \pi r_1 ^4}\\
       h_{CG} &= r_1 \\
       I_x = I_y &= \frac{\pi r_1 ^4}{4}
       \end{align*}
@@ -89,14 +96,20 @@ Due to the resistance of the carbon fiber in pure compression is bigger than in 
     \begin{align*}
       \sigma _{compression} = \sigma _{tension} &= \frac{M h_{CG}}{I_x} = \frac{6 d}{(d^4 - k^4)}\\
       h_{CG} &= \frac{d}{2} \\
+      y_L &= \frac{P L^2}{3EI} = \frac{4 P L^2}{E (d^4 - k^4)}\\
       I_x = I_y &= \frac{1}{12} (d^4 - k^4)
       \end{align*}
     \end{equation}
   \end{minipage}
-
-
 % subsubsection profile_study (end)
 
+\subsubsection{Profile selection} % (fold)
+\label{ssub:profile_selection}
+With the presented formulas have been applied to all the profiles of the provider.
+These results have been the approved or discarded based on a \textit{maximum deformation} and \textit{ultimate tension} criteria.
+The calculations are shown in the appendix \ref{app:profile_selection}, and the results turn out to be for both sections, upper and lower limb, a Tube of 20 mm external diameter with 2 mm thickness.
+
+% subsubsection profile_selection (end)
 
 
 
