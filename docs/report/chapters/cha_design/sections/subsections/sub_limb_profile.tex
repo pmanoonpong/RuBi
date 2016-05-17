@@ -8,8 +8,15 @@ Carbon fiber is an ideal material to achieve this conditions of weight and stres
 The provider was chosen due to the previous experiences that the Mærsk Mc-Kinney Møller Institute had with carbon fiber orders.
 
 The section profile offered \footnote{http://www.easycomposites.co.uk/\#!/cured-carbon-fibre-products/} are: \textit{Rod}, \textit{Tube}, \textit{Box}. The \textit{Stripe} and the \textit{Angle} are discarded due to its asymmetrical geometry that will will lead to less predictable scenarios.
-The study case is show in the figure PUT A FUCKING PICTURE IN HERE JORGE, where the impact force can be decomposed in a pure bending effort and a pure compression.
+The study case is show in the figure \ref{fig:impact_decomposition}, where the impact force can be decomposed in a pure bending effort and a pure compression.
 Due to the resistance of the carbon fiber in pure compression is bigger than in bending, only this last case has been studied.
+
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=.3\textwidth]{figures/impact_decomposition.pdf}
+  \caption{Impact force decomposed}
+  \label{fig:impact_decomposition}
+\end{figure}
 
 \subsubsection{Torque calculation} % (fold)
 \label{ssub:torque_calculation}
@@ -33,32 +40,33 @@ Due to the resistance of the carbon fiber in pure compression is bigger than in 
     \sigma _{compression} = \sigma _{tension} = \frac{M h_{CG}}{I_x}
   \end{equation}
 
-  Meanwhile the deformation in the extreme can be calculated with the equation \ref{eq:deformation} if the case is simplified to the occurred in the figure PUT A FUCCKING PICTURE.
+  Meanwhile the deformation in the extreme can be calculated with the equation \ref{eq:deformation} if the case is simplified to the occurred in the figure \ref{fig:impact_decomposition}.
   This is, when the legs is completely stretched, that will cause the biggest stresses.
 
-  \noindent\begin{minipage}{0.2\textwidth}% adapt widths of minipages to your needs
-    \includegraphics[width=\linewidth]{figures/sdu_logo.pdf}
-  \end{minipage}%
-  \hfill%
-  \begin{minipage}{0.8\textwidth}
-    \begin{equation}
-    \label{eq:deformation}
-      y_L = \frac{P z^2}{6EI}(3L-z) = \frac{P L^2}{6EI}(2L) = \frac{P L^2}{3EI}
-    \end{equation}
-  \end{minipage}
+  \begin{figure}[ht!]
+    \centering
+    \includegraphics[width=\textwidth]{figures/bending_case.pdf}
+    \caption{Simplified representation of the bending case}
+    \label{fig:bending case}
+  \end{figure}
+
+  \begin{equation}
+  \label{eq:deformation}
+    y_L = \frac{P z^2}{6EI}(3L-z) = \frac{P L^2}{6EI}(2L) = \frac{P L^2}{3EI}
+  \end{equation}
 
 
   For the selected profiles the equations that define the compression $\sigma _{compression}$ and tension efforts $\sigma _{tension}$, along with the deformation in the direcction of the applied force $y_L$ are shown, being:
 
   \begin{enumerate}
-    \item $h_{CG}$: height of the center of gravity of the semihalf section from the geometrical center of the section.
+    \item $h_{CG}$: height of the center of gravity of the semi-half section from the geometrical center of the section.
 
     \item $E$: Elastic module.
   \end{enumerate}
 
 
   \noindent\begin{minipage}{0.2\textwidth}% adapt widths of minipages to your needs
-      \includegraphics[width=\linewidth]{figures/sdu_logo.pdf}
+      \includegraphics[width=\linewidth]{figures/profile_cylinder.pdf}
   \end{minipage}%
   \hfill%
   \begin{minipage}{0.8\textwidth}
@@ -73,7 +81,7 @@ Due to the resistance of the carbon fiber in pure compression is bigger than in 
   \end{minipage}
 
   \noindent\begin{minipage}{0.2\textwidth}% adapt widths of minipages to your needs
-      \includegraphics[width=\linewidth]{figures/sdu_logo.pdf}
+      \includegraphics[width=\linewidth]{figures/profile_tube.pdf}
   \end{minipage}%
   \hfill%
   \begin{minipage}{0.8\textwidth}
@@ -88,7 +96,7 @@ Due to the resistance of the carbon fiber in pure compression is bigger than in 
   \end{minipage}
 
   \noindent\begin{minipage}{0.2\textwidth}% adapt widths of minipages to your needs
-      \includegraphics[width=\linewidth]{figures/sdu_logo.pdf}
+      \includegraphics[width=\linewidth]{figures/profile_squared.pdf}
   \end{minipage}%
   \hfill%
   \begin{minipage}{0.8\textwidth}

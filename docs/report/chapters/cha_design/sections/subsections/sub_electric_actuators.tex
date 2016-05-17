@@ -36,7 +36,7 @@ In order to extended the existing motor flex interfaces, a simple extension PCB 
 The board for the left leg, whose schematic can be seen in \ref{fig:pcb1} \footnote{For the right leg the schematic has been mirrored}, contains a flex connector, like the one originally found on the motor boards, mapped to an 8-pin Molex connector with a 1.8 meter long wiring used to extend the connection.
 Its purpose its to be mounted over the joints, closed enough to the motors so that their original wiring can be used, as in Figure \ref{fig:pcb2}, and transfer the signals to the motor board out of the structure, as in Figure \ref{fig:electronics1}.
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \label{fig:pcbs}
 \centering
 	\begin{subfigure}[b]{0.5\textwidth}
@@ -57,7 +57,7 @@ A distinctive color has been chosen for the wiring of each motor just to ease th
 Every motor board is labeled with the name of the joint it drives and matched to the appropriate address from the main processor by software, as explained in \ref{sub:ros_control_hardware_locokit_interface}.
 This means that if a BLDC motor board is going to be changed, both its physical connection, label and internal address have to be changed accordingly.
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \centering
 	\begin{subfigure}[b]{0.4\textwidth}
 		\includegraphics[width=\textwidth]{figures/photo_electronics_2.jpg}
