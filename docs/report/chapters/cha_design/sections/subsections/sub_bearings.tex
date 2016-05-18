@@ -4,10 +4,13 @@
 \label{sub:bearings}
 In the section \ref{sub:impact_force} the force for sizing the bearings of the knee and the ankle was calculated.
 The bearing elected would be such that allow dynamic loads of more than the impact force while keeping as small as possible to reduce the added weight to the robot.
-On the other hand, the internal dimeter comes defines by the rod diameter calculated in the section \ref{sub:rods}.
+On the other hand, the internal diameter comes defines by the rod diameter calculated in the section \ref{sub:rods}.
 
-An estimation of nominal life of the bearing can be done from the Dynamic Load Rating (C), the Dynamic Equivalent Load (P) and the Life Rime Coefficient for a Ball Bearing (p) (being p=3 for balls bearings). 
+An estimation of nominal life of the bearing can be done from the Dynamic Load Rating (C), the Dynamic Equivalent Load (P) and the Life Rime Coefficient for a Ball Bearing (p) (being p=3 for balls bearings).
+The equation \ref{eq:service_life_bearing}, shows the nominal life of one selected bearing \footnote{http://dk.rs-online.com/web/p/kuglelejer/8937420/}.
+It is also worth to mention that the Dynamic Equivalent Load (P) is divided by the number of bearings in which the force is spread.
 \begin{equation}
+  \label{eq:service_life_bearing}
   L_{10} = \frac{10^{6}}{60 n} \left(\frac{C}{P}\right)^{p} = \frac{10^{6}}{60 n} \left(\frac{403}{294.4}\right)^{3} = 
 \end{equation}
 
