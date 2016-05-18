@@ -2,10 +2,10 @@
 
 \section{Analysis of vertical jump} % (fold)
 \label{sec:jumping_case}
-Modeling the dynamics of walking gaits in a bipedal robot with 6 DOF has proved significantly complex and time consuming, even for the planar case.
-However, it is essential for the obtainment of the most extreme torque and velocity values to apply to each joint during the motion, necessary to gauge the required actuators for the application.
+Modeling the dynamics of walking gaits in a bipedal robot with 6 DOF has proved significantly complex and time consuming, even for the two-dimensional case.
+However, it is essential for the obtainment of the most extreme torque and rotational velocity values to apply to each joint during the motion, necessary to gauge the required actuators for the application.
 In order to ease the task, instead of calculating the motion equations for the walking or running cases, it was resolved to model the dynamics of the vertical jump case.
-This was decided under the assumption that a structure able to perform a static, vertical jump of a certain height $h$ and determined characteristics on one leg could be able to fulfill the power requirements necessary for running, both from an actuation and a structural point of view.
+This was decided under the assumption that a platform able to perform a static, vertical jump of a certain height $h$ and determined characteristics on one leg could be able to fulfill the power requirements necessary for running, both from an actuation and a structural point of view.
 This assumption was built upon the findings introduced in \cite{jump-run1} and \cite{jump-run2}.
 
 \subsubsection{Vertical jump dynamics} % (fold)
@@ -24,7 +24,7 @@ Three assumptions have been made regarding the bodies in contact during the land
 The whole jump cycle has been divided into two phases with different analysis: an impulse and an aerial period.
 
 \begin{figure}[ht!]
-    \centeringx
+    \centering
     \begin{subfigure}[b]{0.3\textwidth}
         \includegraphics[width=\textwidth]{figures/launch_phase.png}
         \caption{Launch phase}
@@ -73,7 +73,7 @@ This can be done since $V_{final} = 0$ and therefore $\Delta V = V_{toff}$.
 
 \paragraph{The impulse phase}
 From the initial position at the beginning of the jump, depicted in \ref{fig:launch_phase}, to the instant when the toes of the standing foot take off the ground and the ground reaction force ceases, shown in \ref{fig:takeoff_phase}.
-The change in momentum in the robot, of mass $m$, caused by the application of a vertical force with the foot to the ground $F$ during a period $t$ is given by equation \ref{eq:impulse}, derived from the second law of motion of Newton.
+The change in momentum in the robot, of total mass $m$, caused by the application of a vertical force with the foot to the ground $F$ during a period $t$ is given by equation \ref{eq:impulse}, derived from the second law of motion of Newton.
 
 \begin{equation}
 \label{eq:impulse}

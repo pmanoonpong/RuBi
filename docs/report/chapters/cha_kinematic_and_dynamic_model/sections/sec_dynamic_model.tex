@@ -2,7 +2,7 @@
 \section{Dynamic model}
 \label{sec_dynamic_model}
 The goal of this step is to calculate the relationship between an external force applied to the toe (ground reaction force while jumping) and the necessary torques in the joints for dealing with that external disruption.
-This relation can be expressed as a set of second order differential equations represented for the general case as in equation \ref{eq:dynamics_eq1}.
+This relation can be expressed as a set of second order differential equations represented for the general case as in equation \ref{eq:dynamics_eq1}. 
 
 \begin{equation}
 	\label{eq:dynamics_eq1}
@@ -10,6 +10,7 @@ This relation can be expressed as a set of second order differential equations r
 \end{equation}
 
 Where $B(q)$ is the inertia matrix, $c(q,\dot{q})$ contains the centrifugal and coriolis acceleration terms and $g(q)$ represents gravity, as in \cite{dynamics1} and \cite{dynamics2}. 
+It must be remarked here that the constructed model does not introduce joint friction terms.
 For an open kinematic chain as this, three methodologies to obtain the above equation where object of study:
 
 \begin{itemize}

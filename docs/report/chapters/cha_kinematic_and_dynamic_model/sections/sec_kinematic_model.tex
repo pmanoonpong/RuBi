@@ -37,9 +37,20 @@ From Figure \ref{fig:kinematics}, the forward kinematic model in \ref{eq:forward
 	\end{aligned}
 \end{equation}
 
-The variables $x_{i}, y_{i}$ represent the coordinates of the joints, named $P_{i}$ in the schematic.
-Once computed, the linear velocity and acceleration of every joint can be obtained by derivation of the forward kinematic model.
-Following the same approach, the inverse kinematic model can be computed for one leg, yielding equation \ref{eq:inverse_kinematics}.
+The variables $x_{i}, y_{i}$ represent the position coordinates of the joints in the right leg, named $P_{i}$ in the schematic in Figure \ref{fig:kinematics} and $P'_{i}$ for the left leg (not depicted).
+Once computed, the linear velocity and acceleration of every joint can be obtained by derivation of the forward kinematic model and represented as $\dot{P}_{i}$ and $\ddot{P}_{i}$.
+
+%Add space state vector
+
+The model presented is the most basic one and does not contain the degrees of freedom that could be introduced by springs in the actuators.
+This is due to two reasons:
+
+\begin{itemize}
+	\item Their configuration can be changed to series, parallel or none in both knees and ankles.
+	\item The study of the jump case regarding the parameterization of the actuators has been carried out in the most disadvantageous scenario from the energetic point of view, which in this case means no springs.
+\end{itemize}
+
+Following the same approach, the inverse kinematic model can be computed for the right leg, yielding equation \ref{eq:inverse_kinematics}.
 
 \begin{equation}
 \label{eq:inverse_kinematics}
