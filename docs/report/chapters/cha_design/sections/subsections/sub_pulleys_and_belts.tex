@@ -2,17 +2,17 @@
 \subsection{Pulleys and belts} % (fold)
 \label{sub:pulleys_and_belts}
 The section \ref{sec:joints} is dedicated to analyze and define what kind of motors and trasmision system is going to be used for each joint.
-In the case of the knee and the ankle, the combination \textit{motor + gearbox + belt and pulleys} is chosen due to the preference of having the active actuator in the highest part of the link with the withdrawal of transfer the movement the the lowest.
-This system has been design along with the torsional springs disussed in the section \ref{sub:compliance} where the rotation from the motor must feed the rotation of a serial rotational spring.
-This implies the design of a system in which pulley and spring holder must be gathered.
+In the case of the knee and the ankle, the combination \textit{motor + gearbox + belt and pulleys} is chosen due to the preference of having the active actuator in the highest part of the link with the withdrawal of having to transfer the movement the lowest.
+This system has been designed along with the torsional springs disussed in the section \ref{sub:compliance} where the rotation from the motor must feed the rotation of a serial rotational spring.
+A system in which pulley and spring holder are joined, have to be done then.
 The design of the pulley itself though, has been studied in terms of two factors: \textit{precision and backlash reduction} and \textit{integration with the serial rotational spring}.
 
 \subsubsection{Precision and backlash reduction} % (fold)
 \label{ssub:precision_and_backlash_reduction}
-The goal of this design was to optimize the pulley to get a lack of backlash.
+The goal of this design is to optimize the pulley in order to to get a lack of backlash.
 Despite the platform is going to be used mainly for self-learning controllers (e.g. based on neuronal networks) and then the mechanical optimization is not a priority, the reduction of mechanical uncertainty is always good.
 
-After analyze all the current market several non-backlash solutions are found.
+After analyze all the current solutions in the market, several non-backlash solutions are found.
 Stands out the Gates GT3 Synchronous Belts \footnote{http://www.gates.com/products/industrial/industrial-belts/synchronous-belts/powergrip-gt3-belts} that is assured to be suitable for the presented application.
 The withdrawals of this design are the lack of time for ordering such parts and the increase in the final price of the product. 
 However there is another important factor, the integration that must be done with the serial rotational spring.
@@ -20,7 +20,7 @@ However there is another important factor, the integration that must be done wit
 
 \subsubsection{Integration with the serial rotational spring} % (fold)
 \label{ssub:integration_with_the_serial_rotational}
-Another solution is to design the pulley itself which would let to have a complete control of the design and manufacturability giving the possibility of integrate in a unique part design, the pulley for the transmission system and the spring holder.
+Another solution is to design and manufacture the pulley itself which would let to have a complete control of the design and manufacturability giving the possibility of integrate in a unique part design, the pulley for the transmission system and the spring holder.
 
 At first, the GT3 design from Gates was intended to be designed.
 However, its design is described in U.S. Patent Number 4,515,577, which doesn't allow its use.
@@ -31,7 +31,7 @@ The physical properties of the pulleys as the number of teeth, width, etc... hav
 As decided before, the pulley will belong to a part that will also have the task of holding the rotational serial spring.
 This implies that the part will be designed to be 3D printed and thus, the criteria of design oriented to manufacturability must be applied.
 
-Based on both ISO norms cited before and after some iterations based on experimental tests the pulley T2,5 of 19 teeth gave the expected behavior.
+Based on both ISO norms cited before and after some iterations based on experimental tests, the pulley T2,5 of 19 teeth gave the expected behavior.
 Both pulleys are the same so no reduction is given from the motor shaft to he other.
 In the figure \ref{fig:motor_pulley}, a detail of the designed pulleys can be seen.
 % subsubsection integration_with_the_serial_rotational (end)
@@ -39,9 +39,9 @@ In the figure \ref{fig:motor_pulley}, a detail of the designed pulleys can be se
 \subsubsection{Belts} % (fold)
 \label{ssub:belts}
 From \ref{ssub:integration_with_the_serial_rotational} a system pulleys-belt using T2,5 teeth profile was selected.
-For the design of the belt system, an open belt whose initial tension can be adjusted with a zip-tie has been chosen.
-This allows to adjust the tension in any moment without increasing the costs plus easy the maintenance.
-No initial tensioning of the belts studies were carried out.
+For the design of the belt system, an open belt whose initial tension can be adjusted with a zip-tie is chosen.
+This allows to adjust the tension in any moment without increasing the costs plus it easy the maintenance.
+No initial tensioning of the belts studies were carried out and it is expected that the user finds out the correct value by experimenting.
 % subsubsection belts (end)
 
 % subsection pulleys_and_belts (end)
