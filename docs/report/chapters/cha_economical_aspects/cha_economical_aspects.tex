@@ -1,6 +1,15 @@
 %!TEX root = ../../report.tex
 \chapter{Economical aspects} % (fold)
 \label{cha:economical_aspects}
+In this sections the economical aspects of the thesis are detailed.
+These are: \textbf{Labor cost} (table \ref{tab:labor_cost}), \textbf{Equipment cost} (table \ref{tab:equipment_cost}), \textbf{Software cost}: (table \ref{tab:sofware_cost}) and \textbf{Material cost} (table \ref{tab:material_cost}).
+The depreciation has been calculated using the formula \ref{eq:depreciation}:
+\begin{equation}
+  \label{eq:depreciation}
+  Attriburable\ cost  = \frac{Cost \cdot \% of use \cdot Duration}{Depreciation}
+\end{equation}
+Some of the values found in the next tables are induced from other data or extracted from forums which make this results, not as quantitative data, but qualitative.
+The table \ref{tab:material_cost}, is further detailed in the appendix \ref{app:order_list}, however it include some items that were not ordered (e.g. a Locokit Kit or a 3D printer PLA spool).
 
 \begin{table}[htbp]
 \caption{Labor cost}
@@ -31,20 +40,6 @@ Tools & 740 & 100.00\% & 1 & 60 & 12.33 \\ \hline
 \end{tabular}}
 \end{center}
 \label{tab:equipment_cost}
-\end{table}
-
-\begin{table}[htbp]
-\caption{Software cost}
-\begin{center}
-\resizebox{\textwidth}{!}{\begin{tabular}{l|r|r|r|r|r}
-
-\multicolumn{6}{c}{\Large Software Cost} \\
-\multicolumn{1}{c|}{\textbf{Description}} & \multicolumn{1}{c|}{\textbf{Cost [DKK]}} & \multicolumn{1}{c|}{\textbf{\% of use}} & \multicolumn{1}{c|}{\textbf{Duration [months]}} & \multicolumn{1}{c}{\textbf{Depreciation [months]}} & \multicolumn{1}{c|}{\textbf{Attributable Cost [DKK]}}\\ \hline
-Solidworks 2014 Educational Version & 570 & 100.00\% & 2 & 12 & 95 \\ \hline
-\multicolumn{4}{l}{} & Total [DKK] & 95 \\
-\end{tabular}}
-\end{center}
-\label{tab:sofware_cost}
 \end{table}
 
 \begin{table}[htbp]
@@ -101,6 +96,19 @@ LocoKit  & 1 & 18,592.00 & 18,592.00 \\ \hline
 \label{tab:material_cost}
 \end{table}
 
+\begin{table}[htbp]
+\caption{Software cost}
+\begin{center}
+\resizebox{\textwidth}{!}{\begin{tabular}{l|r|r|r|r|r}
+
+\multicolumn{6}{c}{\Large Software Cost} \\
+\multicolumn{1}{c|}{\textbf{Description}} & \multicolumn{1}{c|}{\textbf{Cost [DKK]}} & \multicolumn{1}{c|}{\textbf{\% of use}} & \multicolumn{1}{c|}{\textbf{Duration [months]}} & \multicolumn{1}{c}{\textbf{Depreciation [months]}} & \multicolumn{1}{c|}{\textbf{Attributable Cost [DKK]}}\\ \hline
+Solidworks 2014 Educational Version & 570 & 100.00\% & 2 & 12 & 95 \\ \hline
+\multicolumn{4}{l}{} & Total [DKK] & 95 \\
+\end{tabular}}
+\end{center}
+\label{tab:sofware_cost}
+\end{table}
 
 \begin{table}[htbp]
 \caption{Total cost}
@@ -116,6 +124,5 @@ Indirect Cost (20\%) & kr 12,821.94 \\ \hhline{=|=}
 \end{center}
 \label{tab:total_cost}
 \end{table}
-
 
 % chapter economical_aspects (end)
