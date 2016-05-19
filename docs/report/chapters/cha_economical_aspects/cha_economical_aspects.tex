@@ -4,25 +4,55 @@
 
 \begin{table}[htbp]
 \caption{Labor cost}
-\resizebox{\textwidth}{!}{\begin{tabular}{|l|l|r|r|r|}
-\hline
-\multicolumn{ 5}{|c|}{Labor Cost} \\ \hline
-\multicolumn{1}{|c|}{Full Name} & \multicolumn{1}{c|}{Category} & \multicolumn{1}{c|}{Dedicated hours [h]} & \multicolumn{1}{c|}{Cost per hour [DKK/h]} & \multicolumn{1}{c|}{Cost [DKK]} \\ \hline
+\resizebox{\textwidth}{!}{\begin{tabular}{l|l|r|r|r}
+\multicolumn{ 5}{c}{\Large Labor Cost} \\
+\multicolumn{1}{c|}{\textbf{Full Name}} & \multicolumn{1}{c|}{\textbf{Category}} & \multicolumn{1}{c|}{\textbf{Dedicated hours [h]}} & \multicolumn{1}{c|}{\textbf{Cost per hour [DKK/h]}} & \multicolumn{1}{c}{\textbf{Cost [DKK]}} \\ \hline
 Jorge Rodriguez & Engineer & 120 & 130 & 15600 \\ \hline
 Ignacio Torroba & Engineer & 120 & 130 & 15600 \\ \hline
 Jørgen Christiensen & Senior Engineer & 20 & 200 & 4000 \\ \hline
 Poramate  & Senior Engineer & 20 & 200 & 4000 \\ \hline
- &  & \multicolumn{1}{l|}{} & Total [DKK] & 39200 \\ \hline
+\multicolumn{3}{l}{} & Total [DKK] & 39200 \\
 \end{tabular}}
 \label{tab:labor_cost}
 \end{table}
 
 \begin{table}[htbp]
+\caption{Equipment cost}
+\begin{center}
+\resizebox{\textwidth}{!}{\begin{tabular}{l|r|r|r|r|r}
+\multicolumn{6}{c}{\Large Equipment Cost} \\
+\multicolumn{1}{c|}{\textbf{Description}} & \multicolumn{1}{c|}{\textbf{Cost [DKK]}} & \multicolumn{1}{c|}{\textbf{\% of use}} & \multicolumn{1}{c|}{\textbf{Duration [months]}} & \multicolumn{1}{c}{\textbf{Depreciation [months]}} & \multicolumn{1}{c|}{\textbf{Attributable Cost [DKK]}}\\ \hline
+3D Printer & 2380 & 5.00\% & 0.5 & 36 & 1.65 \\ \hline
+LocoKit  & 18592 & 100.00\% & 3 & 36 & 1,549.33 \\ \hline
+Workstation Dell M3800 & 5972 & 100.00\% & 2 & 36 & 331.78 \\ \hline
+Toshiba SATELLITE P50-B-11M & 2653 & 100.00\% & 2 & 36 & 147.39 \\ \hline
+Tools & 740 & 100.00\% & 1 & 60 & 12.33 \\ \hline
+\multicolumn{4}{l}{} & Total [DKK] & 2,042.49 \\ 
+\end{tabular}}
+\end{center}
+\label{tab:equipment_cost}
+\end{table}
+
+\begin{table}[htbp]
+\caption{Software cost}
+\begin{center}
+\resizebox{\textwidth}{!}{\begin{tabular}{l|r|r|r|r|r}
+
+\multicolumn{6}{c}{\Large Software Cost} \\
+\multicolumn{1}{c|}{\textbf{Description}} & \multicolumn{1}{c|}{\textbf{Cost [DKK]}} & \multicolumn{1}{c|}{\textbf{\% of use}} & \multicolumn{1}{c|}{\textbf{Duration [months]}} & \multicolumn{1}{c}{\textbf{Depreciation [months]}} & \multicolumn{1}{c|}{\textbf{Attributable Cost [DKK]}}\\ \hline
+Solidworks 2014 Educational Version & 570 & 100.00\% & 2 & 12 & 95 \\ \hline
+\multicolumn{4}{l}{} & Total [DKK] & 95 \\
+\end{tabular}}
+\end{center}
+\label{tab:sofware_cost}
+\end{table}
+
+\begin{table}[htbp]
 \caption{Material cost}
-\begin{tabular}{|l|r|r|r|}
-\hline
-\multicolumn{4}{|c|}{Material Cost} \\ \hline
-\multicolumn{1}{|c|}{Item} & \multicolumn{1}{c|}{Quantity} & \multicolumn{1}{c|}{Unitary cost [DKK]} & \multicolumn{1}{c|}{Cost [DKK]} \\ \hline
+\begin{tabular}{l|r|r|r}
+
+\multicolumn{4}{c}{\Large Material Cost} \\
+\multicolumn{1}{c|}{\textbf{Item}} & \multicolumn{1}{c|}{\textbf{Quantity}} & \multicolumn{1}{c|}{\textbf{Unitary cost [DKK]}} & \multicolumn{1}{c}{\textbf{Cost [DKK]}} \\ \hline
 20mm(18mm) Carbon Fibre Tube & 1 & 192.51 & 192.51 \\ \hline
 10mm(8mm) Carbon Fibre & 1 & 99.21 & 99.21 \\ \hline
 8mm(6mm) Carbon Fibre Tube & 1 & 91.97 & 91.97 \\ \hline
@@ -66,42 +96,9 @@ Torsion springs & 1 & 66.51 & 66.51 \\ \hline
 Torsion springs & 1 & 66.51 & 66.51 \\ \hline
 3D printer filament & 1 & 140.00 & 140.00 \\ \hline
 LocoKit  & 1 & 18,592.00 & 18,592.00 \\ \hline
- & \multicolumn{1}{l|}{} & Total [DKK] & 22,772.19 \\ \hline
+\multicolumn{2}{l}{} & Total [DKK] & 22,772.19 \\
 \end{tabular}
 \label{tab:material_cost}
-\end{table}
-
-
-\begin{table}[htbp]
-\caption{Equipment cost}
-\begin{center}
-\resizebox{\textwidth}{!}{\begin{tabular}{|l|r|r|r|r|r|}
-\hline
-\multicolumn{6}{|c|}{Equipment Cost} \\ \hline
-\multicolumn{1}{|c|}{Description} & \multicolumn{1}{c|}{Cost [DKK]} & \multicolumn{1}{c|}{\% of use} & \multicolumn{1}{c|}{Duration [months]} & \multicolumn{1}{c|}{Depreciation [months]} & \multicolumn{1}{c|}{Attributable Cost [DKK]]}\\ \hline
-3D Printer & 2380 & 5.00\% & 0.5 & 36 & 1.65 \\ \hline
-LocoKit  & 18592 & 100.00\% & 3 & 36 & 1,549.33 \\ \hline
-Workstation Dell M3800 & 5972 & 100.00\% & 2 & 36 & 331.78 \\ \hline
-Toshiba  & 2653 & 100.00\% & 2 & 36 & 147.39 \\ \hline
-Tools & 740 & 100.00\% & 1 & 60 & 12.33 \\ \hline
- & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & Total [DKK] & 2,042.49 \\ \hline
-\end{tabular}}
-\end{center}
-\label{tab:equipment_cost}
-\end{table}
-
-\begin{table}[htbp]
-\caption{Software cost}
-\begin{center}
-\resizebox{\textwidth}{!}{\begin{tabular}{|l|r|r|r|r|r|}
-\hline
-\multicolumn{6}{|c|}{Software Cost} \\ \hline
-\multicolumn{1}{|c|}{Description} & \multicolumn{1}{c|}{Cost [DKK]} & \multicolumn{1}{c|}{\% of use} & \multicolumn{1}{c|}{Duration [months]} & \multicolumn{1}{c|}{Depreciation [months]} & \multicolumn{1}{c|}{Attributable Cost [DKK]]}\\ \hline
-Solidworks 2014 Educational Version & 570 & 100.00\% & 2 & 12 & 95 \\ \hline
- & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} & Total [DKK] & 95 \\ \hline
-\end{tabular}}
-\end{center}
-\label{tab:sofware_cost}
 \end{table}
 
 
