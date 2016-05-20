@@ -8,17 +8,18 @@ The determination of the geometrical dimensions for a robot model is in general 
 However the inertial parameters of a robot will be the result of the selection of these dimensions, together with the materials utilized for the implementation and the configuration of the elements on the structure, among others.
 Here, the goal of the adjustment of the final inertial parameters is not to mimic the dynamics of human legs as with the kinematics, but to reduce the power requirements for locomotion while ensuring robustness and reliability.
 The main inertial parameters object of study here are the mass of the links, the positions of their CoM and their inertia moments.
-Other parameters with an influence in the model dynamics such as frictions or delays introduced by transmissions are not discussed here due to the complexity of its determination at this stage of the project.
+Other parameters with an influence in the model dynamics such as friction forces or delays introduced by transmissions are not discussed here due to the complexity of its determination at this stage of the project.
 
-\subsection{Mass of the limbs} % (fold)
+\subsection{Mass of the links} % (fold)
 \label{sub:mass_of_the_limbs}
 The mass of each limb $i$ will depend on the materials used, their geometry and their density together with any other component added to the link (actuators, electronics, transmissions).
 As explained before, keeping the overall mass of the frame as low as possible while guaranteeing the fulfillment of all the structural requirements such as resistance and resilience has been one of the main goals of the analyses conducted in the design of RuBi.
 This criteria led to the allocation of the embedded electronics off the robot and aim at small electric actuators as the lightest possible solution for the actuation. 
-The calculations to select the limb material and profile are to be found in \ref{sub:limb_profile}.
-The final masses per limb have been obtained as an approximate sum of the components that constitute them, due to the complexity of measuring them directly or using system identification techniques. 
+The calculations to select the limb materials and profiles are to be found in \ref{sub:limb_profile}.
+The final values of mass per limb have been obtained as an approximate sum of the components that constitute them, due to the complexity of measuring them directly or using system identification techniques. 
 They can be seen in %\ref{} reference to Results table and Implementation section
 And they have been assumed to be concentrated in the CoM of each link for the computation of the dynamic model.
+
 % subsection mass_of_the_limbs (end) 
 
 \subsection{Centers of mass} % (fold)
@@ -32,6 +33,7 @@ Their coordinates are given referred to a local reference frame attached to each
 Its direct influence in the dynamics of the system is shown in \ref{sec_dynamic_model}, equation \ref{eq:N-E_eq1}.
 The coordinates of the CoM of the limbs have been estimated during the design through the 3D CAD design software tool SolidWorks \cite{solidworks}.
 Their final values can be found in %\ref{} reference to Results table and Implementation section
+
 % paragraph limbs_center_of_mass (end)
 
 \paragraph{Center of mass of the frame} % (fold)
@@ -45,18 +47,18 @@ The trade-off between these two criteria has been tried to be found.
 As for the limbs, the coordinates of the CoM of the structure have been computed through SolidWorks and their final values can be found in %\ref{} reference to Results table and Implementation section
 
 % paragraph center_of_mass_of_the_frame (end)
+
 % subsection centers_of_mass (end)
 
 \subsection{Moments of inertia} % (fold)
 \label{par:moments_of_inertia}
-The inertia moments of each limb will be the result of the distribution of the masses with respect to the joint axis.
-Keep the CoM close to the joints to reduce them!--> smaller torque required for same angular accelerations***
-
+The inertia tensor of each limb will be the result of their distribution of masses with respect to the joint axis.
+Since the kinematics analysis of the robot has been reduced to a planar case for both legs, as discussed in \ref{sec_kinematic_model}, the tensors have been reduced to a scalar value, their $I_{zz}$ component for the defined reference system.
+The influence of the inertia moments of the limbs in the dynamics of the system can be seen in equation \ref{eq:N-E_eq1} where is, as per definition, the proportion between angular acceleration around the axis and torque applied.
+This relationship yields another design criteria for the robot: the minimization of the inertia moments of the limbs in order to reduce the required torque applied for moving the limbs.
+As for the previous magnitudes, the final inertia moments have been calculated with the CAD model in SolidWorks, and can be found in %\ref{}
+Their role in the simulation model developed in Gazebo is discussed in \ref{cha:simulation}. 
 
 % subsection moments_of_inertia (end)
-
-
-
-%Friction model and transmissions delays not included because of its complexity
 
 % section physical_properties (end)
