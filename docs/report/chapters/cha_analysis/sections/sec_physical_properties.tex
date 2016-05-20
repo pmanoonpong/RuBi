@@ -2,13 +2,60 @@
 
 \section{Inertial dimensions of the frame} % (fold)
 \label{sec:physical_properties}
+This section presents the theoretical guidelines followed during the design of RuBi regarding its dynamic model.
+The calculations carried out are to be found in chapters \ref{cha:mathematical_model} and \ref{cha:design}. 
 The determination of the geometrical dimensions for a robot model is in general a deterministic task in which all the parameters can be selected without dependencies or limitations.
 However the inertial parameters of a robot will be the result of the selection of these dimensions, together with the materials utilized for the implementation and the configuration of the elements on the structure, among others.
 Here, the goal of the adjustment of the final inertial parameters is not to mimic the dynamics of human legs as with the kinematics, but to reduce the power requirements for locomotion while ensuring robustness and reliability.
-This section presents the theoretical guidelines followed during the design of RuBi regarding its dynamics.
-The calculations carried out are to be found in chapters \ref{cha:mathematical_model} and \ref{cha:design}. 
+The main inertial parameters object of study here are the mass of the links, the positions of their CoM and their inertia moments.
+Other parameters with an influence in the model dynamics such as frictions or delays introduced by transmissions are not discussed here due to the complexity of its determination at this stage of the project.
 
-%Mass, CoM position, inertia matrix, 
+\subsection{Mass of the limbs} % (fold)
+\label{sub:mass_of_the_limbs}
+The mass of each limb $i$ will depend on the materials used, their geometry and their density together with any other component added to the link (actuators, electronics, transmissions).
+As explained before, keeping the overall mass of the frame as low as possible while guaranteeing the fulfillment of all the structural requirements such as resistance and resilience has been one of the main goals of the analyses conducted in the design of RuBi.
+This criteria led to the allocation of the embedded electronics off the robot and aim at small electric actuators as the lightest possible solution for the actuation. 
+The calculations to select the limb material and profile are to be found in \ref{sub:limb_profile}.
+The final masses per limb have been obtained as an approximate sum of the components that constitute them, due to the complexity of measuring them directly or using system identification techniques. 
+They can be seen in %\ref{} reference to Results table and Implementation section
+And they have been assumed to be concentrated in the CoM of each link for the computation of the dynamic model.
+% subsection mass_of_the_limbs (end) 
+
+\subsection{Centers of mass} % (fold)
+\label{sub:centers_of_mass}
+
+\paragraph{Limbs center of mass} % (fold)
+\label{par:limbs_center_of_mass}
+Limbs center of mass
+The position of the center of mass of each limb referred to its joint rotational axis is a function of its masses, their distributions and its geometry.
+Their coordinates are given referred to a local reference frame attached to each joint, with its $Z$ axis perpendicular to the sagital plane and its $X$ and $Y$ axes parallel to its equivalents in the main reference frame in the hip, shown in Figure \ref{fig:kinematics}.
+Its direct influence in the dynamics of the system is shown in \ref{sec_dynamic_model}, equation \ref{eq:N-E_eq1}.
+The coordinates of the CoM of the limbs have been estimated during the design through the 3D CAD design software tool SolidWorks \cite{solidworks}.
+Their final values can be found in %\ref{} reference to Results table and Implementation section
+% paragraph limbs_center_of_mass (end)
+
+\paragraph{Center of mass of the frame} % (fold)
+\label{par:center_of_mass_of_the_frame}
+Frame center of mass
+The location of the frame center of mass plays a very important role in the stability of the robot \cite{rojas}.
+Its theoretical placement when standing still should be in the sagital plane of the structure, as close to the hip as possible, similar to humans (accounting that there is no torso).
+A robust locomotion should result in a controlled and limited motion of the CoM. 
+A high positioning of the CoM in the structure would make it more sensitive to the actuators influence, allowing a better balance control, while a lower placement in the structure could increase its robustness against inertial phenomenas.
+The trade-off between these two criteria has been tried to be found.
+As for the limbs, the coordinates of the CoM of the structure have been computed through SolidWorks and their final values can be found in %\ref{} reference to Results table and Implementation section
+
+% paragraph center_of_mass_of_the_frame (end)
+% subsection centers_of_mass (end)
+
+\subsection{Moments of inertia} % (fold)
+\label{par:moments_of_inertia}
+The inertia moments of each limb will be the result of the distribution of the masses with respect to the joint axis.
+Keep the CoM close to the joints to reduce them!--> smaller torque required for same angular accelerations***
+
+
+% subsection moments_of_inertia (end)
+
+
 
 %Friction model and transmissions delays not included because of its complexity
 
