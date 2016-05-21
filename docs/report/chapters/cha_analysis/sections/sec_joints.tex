@@ -1,5 +1,5 @@
 %!TEX root = ../../../report.tex
-\section{Joints} % (fold)
+\section{Joints design} % (fold)
 \label{sec:joints}
 Following the idea of mimicking the human lower-body structure it was decided to implement three actuated rotational joints per leg although some research was conducted on the use of passive ankles as in \cite{dacbot1}, \cite{phides} or \cite{mabel}.
 However, the results introduced in \cite{grimmer} from their analysis of joint actuation for prosthetics limbs proved the importance of the actuation in the ankles for running.
@@ -31,7 +31,7 @@ The analysis of the actuators requirements is to be found in \ref{cha:mathematic
 
 % subsection actuators (end)
 
-\subsection{Transmission} % (fold)
+\subsection{Torque transmission} % (fold)
 \label{sub:transmission}
 As introduced in \ref{sub:moments_of_inertia}, the reduction of the moments of inertia in the limbs in order to minimize the torque requirements for motion was set as a priority.
 This led to the study of methods to displace the CoM of the limbs as close to their joints axes as possible, thus reducing their inertias.
@@ -50,7 +50,7 @@ However it was assumed here that the ANN controllers that would drive the RuBi p
 
 % subsection transmission (end)
 
-\subsection{Compliance} % (fold)
+\subsection{Joints compliance} % (fold)
 \label{sub:compliance}
 The advantages of the incorporation of compliance in legged locomotion have been broadly demonstrated in \cite{compliance_thesis} and \cite{grimmer}.
 Compliance in running and walking gait generation is used to reduce actuators requirements through the minimization energy consumption.
@@ -58,14 +58,14 @@ Furthermore, it helps isolate the joints of the structure from the impact forces
 This section deals with the study and selection of the configuration of the elastic actuators and their distribution in the legs.
 The numerical estimation of the actual springs to be used in the robot can be seen in \ref{sec_springs}.
 
-\subsubsection{Elastic actuator configuration} % (fold)
+\subsubsection{Elastic actuators configuration} % (fold)
 \label{ssub:elastic_actuator_configuration}
 Several elastic actuator configurations have been defined in the literature, from which four ones have been studied here and are shown in Figure \ref{fig:series_actuators}.
-The most detailed study of the influence of each of these configurations in energy storage and power consumption in human locomotion has been found in \cite{grimmer}.
+The most detailed analysis of the influence of each of these configurations in energy storage and power consumption in human locomotion has been found in \cite{grimmer}.
 In that paper, the normalized power requirements with the different configurations have been tested for a range of gaits, easing the process of finding the optimal configuration and its parameters for a specific gait and velocity.
 However, the fact that RuBi is not being designed for a specific gait or velocity, but as a platform to study the transition between gaits and velocity adaption, makes the estimation of the best configuration an under-determined problem.
 This reasoning led to the implementation of a new feature in RuBi, the full reconfigurability of the compliance in its actuators.
-This capability allows for the possibility of studying more in the real platform the influence of the elastic actuators on its performance and its control, giving RuBi a whole new set of uses.
+This capability allows for the possibility of studying in the real platform the influence of the elastic actuators on its performance and its control, giving RuBi a whole new set of uses.
 
 \begin{figure}[h]
 \label{fig:series_actuators}
@@ -103,46 +103,86 @@ This capability allows for the possibility of studying more in the real platform
 %Protection against impact forces on landing phase
 % subsubsection elastic_actuator_configuration (end)
 
-\subsubsection{Compliance distribution and possible configurations} % (fold)
+\subsubsection{Compliance distribution and implementation} % (fold)
 \label{ssub:compliance_distribution_and_possible_configurations}
-Following their results, it was decided to implement springs in the ankle and knee joints, but not in the hip since their advantages were proved neglectable.
+The results in \cite{grimmer} demonstrate that the implementation of compliance in any of its variants in knees and ankles influences notably the peak power and energy requirements both for walking and running.
+They also seem to prove that the contribution to the reduction of energy consumption and power requirements of the hip is neglectable.
+These findings have been used to justify the implementation of elastic actuators in knees and ankles, but not in the hip joints, actuated through direct transmission.
 
+Several models from literature have been subject to a comparative analysis for their use in RuBi, being the main ones shown in Figure \ref{fig:compliance} for the ankle actuation (equivalent for the knees).
+These schematics depict the three major design choices made so far, summarized in \ref{list:design_criterias}.
+A short summary of the conclusions reached by these studies is introduced below.
 
+\begin{itemize}
+\label{list:design_criterias}
+  \item Reduction of limbs inertias by placing the actuators up on the links.
+  \item Use of transmission to solve the transfer of power motor-joint.
+  \item Introduction of compliance through the use of springs.
+\end{itemize}
 
+\paragraph{SEA 1 and 2} % (fold)
+\label{par:sea_1_2}
+\ref{fig:series1} depicts an unidirectional SEA that has to be implemented together with a counterpart, which could be a passive spring or another actuator.
+In that case the actuator task would only be the retraction of the foot to reduce its angle with respect to the lower leg, while the passive spring function would imitate the calf muscle.
+This approach would be closer to the real functioning of the muscles in the legs, as explained in \ref{sec:bipedal_walking_and_running_gaits}.
+However this configuration was discarded due to the complexity in the realization of a correct mapping between the angular displacement of the motor pulley and the ankle joint.
 
+The configuration in Figure \ref{fig:series2} was found in \cite{biobiped}.
+It solves the problem found for \ref{par:sea_1} changing the configuration of the motor and introducing a fixed pulley.
+The influence of the relationship between $L_{B}$ and $L_{A}$ in the ratio between motor and joint torques was studies for this configuration in order to find the optimal dimensions.
+However, this solution was discarded in favor of the current one, which demonstrated to be simpler to implement.
+% paragraph sea_1_2 (end)
 
+\paragraph{SEA 3} % (fold)
+\label{par:sea_3}
+The spring configuration in \ref{fig:series3} was found in \cite{grimmer} for a prosthetic ankle design (meaning that the configuration should be adapted for the knee).
+It was just used as a study case and source of ideas. 
+% paragraph sea_3 (end)
+
+\paragraph{SEA 4} % (fold)
+\label{par:sea_4}
+The configuration in \ref{fig:series4} was also found in \cite{biobiped} and is known as bidirectional SEA.
+It was considered the most optimal to mimic the human musculature on the legs and its implementation through springs attached to the belts or with elastic bands (bungee cords) like the utilized in \cite{imperial_college} was object of analysis.
+% paragraph sea_4 (end)
+
+\paragraph{SEA 5} % (fold)
+\label{par:sea_5}
+The configuration called SEA 5 and shown in Figure \ref{fig:series5} was the selected one.
+The original idea was taken from \cite{phides} but has been modified to ease its construction and provide more robustness to the final design.
+In \cite{phides} this elastic transmission is implemented with torsion bars for the joints axes, while RuBi uses torsion springs placed around more resistant axis to transmit the motion.
+% paragraph sea_5 (end)
 
 \begin{figure}[hb!]
 \label{fig:compliance}
   \begin{subfigure}{.19\textwidth}
     \centering
-    \includegraphics[width=\linewidth]{figures/illustration_serial_pulley.pdf}
-    \caption{Serial pulley}
-    \label{fig:series_pulley}
-  \end{subfigure}
-  \begin{subfigure}{.19\textwidth}
-    \centering
-    \includegraphics[width=\linewidth]{figures/illustration_serial_rotational.pdf}
-    \caption{Series rotational}
-    \label{fig:series_rotational}
-  \end{subfigure}
-  \begin{subfigure}{.19\textwidth}
-    \centering
     \includegraphics[width=\linewidth]{figures/illustration_serial_direct_i.pdf}
-    \caption{Series direct 1}
-    \label{fig:series_direct_i}
+    \caption{SEA 1}
+    \label{fig:series1}
+  \end{subfigure}
+  \begin{subfigure}{.19\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/illustration_serial_pulley.pdf}
+    \caption{SEA 2}
+    \label{fig:series2}
   \end{subfigure}
   \begin{subfigure}{.19\textwidth}
     \centering
     \includegraphics[width=\linewidth]{figures/illustration_serial_direct_ii.pdf}
-    \caption{Series direct 2}
-    \label{fig:series_direct_ii}
+    \caption{SEA 3}
+    \label{fig:series3}
   \end{subfigure}
   \begin{subfigure}{.19\textwidth}
     \centering
     \includegraphics[width=\linewidth]{figures/illustration_serial_elastic_band.pdf}
-    \caption{Series elastic band}
-    \label{fig:series_elastic_band}
+    \caption{SEA 4}
+    \label{fig:series4}
+  \end{subfigure}
+  \begin{subfigure}{.19\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/illustration_serial_rotational.pdf}
+    \caption{SEA 5}
+    \label{fig:series5}
   \end{subfigure}
 \end{figure}  
 % subsubsection compliance_distribution_and_possible_configurations (end)
