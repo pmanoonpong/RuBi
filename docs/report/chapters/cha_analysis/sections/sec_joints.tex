@@ -55,13 +55,48 @@ The pitfall of this implementation, however, is the introduction of delays in th
 Modeling these uncertainties for a classic locomotion controller based on the motion equations is proved a complex task. 
 However it was assumed here that the ANN controllers that would drive the RuBi platform would be able to adapt to them without a model of the robot.
 
-%Reduction of the moments of inertia
-%Introduction of delays and loss of accuracy 
-
 % subsection transmission (end)
 
 \subsection{Compliance} % (fold)
 \label{sub:compliance}
+The advantages of the incorporation of compliance in legged locomotion have been broadly demonstrated \cite{compliance_thesis} and \cite{grimmer}.
+Compliance can be used to reduce actuators requirements through the minimization energy consumption.
+Furthermore, they help isolate the joints of the structure from the impact forces created during the landing phase, reinforcing the mechanical capabilities of the structure.
+
+Several elastic actuator configurations have been defined in the literature, from which the four ones studies here are shown in Figure \ref{fig:series_actuators}.
+The most detailed study of the influence of each of these configurations in energy storage in human locomotion has been found in \cite{grimmer}.
+
+\begin{figure}[hb!]
+\label{fig:series_actuators}
+\centering
+  \begin{subfigure}{.15\textwidth}
+    %\centering
+    \includegraphics[width=0.6\linewidth]{figures/ddact.pdf}
+    \caption{DD}
+    \label{fig:series_pulley}
+  \end{subfigure}
+  \begin{subfigure}{.15\textwidth}
+    %\centering
+    \includegraphics[width=0.63\linewidth]{figures/SEAact.pdf}
+    \caption{SEA}
+    \label{fig:series_rotational}
+  \end{subfigure}
+  \begin{subfigure}{.15\textwidth}
+    %\centering
+    \includegraphics[width=\linewidth]{figures/PEAact.pdf}
+    \caption{PEA}
+    \label{fig:series_direct_i}
+  \end{subfigure}
+  \begin{subfigure}{.15\textwidth}
+    %\centering
+    \includegraphics[width=\linewidth]{figures/SEA+PEAact.pdf}
+    \caption{SEA+PEA}
+    \label{fig:series_direct_ii}
+  \end{subfigure}
+  \caption{Four configurations for elastic actuators as from \cite{grimmer}}
+\end{figure}  
+
+
 
 %Flexible vs stiff drive train
 %Power peak and average consumption comparisons --> energy storage 
