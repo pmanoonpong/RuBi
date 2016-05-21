@@ -12,13 +12,6 @@ The design of the joints entailed the addressing of three main areas
   \item Implementation of dedicated compliance
 \end{itemize}
 
-% \begin{figure}[ht!]
-%   \centering
-%   \includegraphics[width=\textwidth]{figures/20160518_195014.jpg}
-%   \caption{Might help}
-%   \label{fig:figure1}
-% \end{figure}
-
 \subsection{Actuators} % (fold)
 \label{sub:actuators}
 In humans, the actuation of the joints is mostly provided by pairs of agonist-antagonist skeletal muscles linked to the bones through the tendons \cite{anatomy}.
@@ -59,19 +52,27 @@ However it was assumed here that the ANN controllers that would drive the RuBi p
 
 \subsection{Compliance} % (fold)
 \label{sub:compliance}
-The advantages of the incorporation of compliance in legged locomotion have been broadly demonstrated \cite{compliance_thesis} and \cite{grimmer}.
-Compliance can be used to reduce actuators requirements through the minimization energy consumption.
-Furthermore, they help isolate the joints of the structure from the impact forces created during the landing phase, reinforcing the mechanical capabilities of the structure.
+The advantages of the incorporation of compliance in legged locomotion have been broadly demonstrated in \cite{compliance_thesis} and \cite{grimmer}.
+Compliance in running and walking gait generation is used to reduce actuators requirements through the minimization energy consumption.
+Furthermore, it helps isolate the joints of the structure from the impact forces created during the landing phase, reinforcing the mechanical capabilities of the structure.
+This section deals with the study and selection of the configuration of the elastic actuators and their distribution in the legs.
+The numerical estimation of the actual springs to be used in the robot can be seen in \ref{sec_springs}.
 
-Several elastic actuator configurations have been defined in the literature, from which the four ones studies here are shown in Figure \ref{fig:series_actuators}.
-The most detailed study of the influence of each of these configurations in energy storage in human locomotion has been found in \cite{grimmer}.
+\subsubsection{Elastic actuator configuration} % (fold)
+\label{ssub:elastic_actuator_configuration}
+Several elastic actuator configurations have been defined in the literature, from which four ones have been studied here and are shown in Figure \ref{fig:series_actuators}.
+The most detailed study of the influence of each of these configurations in energy storage and power consumption in human locomotion has been found in \cite{grimmer}.
+In that paper, the normalized power requirements with the different configurations have been tested for a range of gaits, easing the process of finding the optimal configuration and its parameters for a specific gait and velocity.
+However, the fact that RuBi is not being designed for a specific gait or velocity, but as a platform to study the transition between gaits and velocity adaption, makes the estimation of the best configuration an under-determined problem.
+This reasoning led to the implementation of a new feature in RuBi, the full reconfigurability of the compliance in its actuators.
+This capability allows for the possibility of studying more in the real platform the influence of the elastic actuators on its performance and its control, giving RuBi a whole new set of uses.
 
-\begin{figure}[hb!]
+\begin{figure}[h]
 \label{fig:series_actuators}
 \centering
   \begin{subfigure}{.15\textwidth}
     %\centering
-    \includegraphics[width=0.6\linewidth]{figures/ddact.pdf}
+    \includegraphics[width=0.63\linewidth]{figures/ddact.pdf}
     \caption{DD}
     \label{fig:series_pulley}
   \end{subfigure}
@@ -97,10 +98,18 @@ The most detailed study of the influence of each of these configurations in ener
 \end{figure}  
 
 
-
 %Flexible vs stiff drive train
 %Power peak and average consumption comparisons --> energy storage 
 %Protection against impact forces on landing phase
+% subsubsection elastic_actuator_configuration (end)
+
+\subsubsection{Compliance distribution and possible configurations} % (fold)
+\label{ssub:compliance_distribution_and_possible_configurations}
+Following their results, it was decided to implement springs in the ankle and knee joints, but not in the hip since their advantages were proved neglectable.
+
+
+
+
 
 
 \begin{figure}[hb!]
@@ -136,6 +145,7 @@ The most detailed study of the influence of each of these configurations in ener
     \label{fig:series_elastic_band}
   \end{subfigure}
 \end{figure}  
+% subsubsection compliance_distribution_and_possible_configurations (end)
 
 % subsection compliance (end)
 
