@@ -23,28 +23,32 @@ In the equation \ref{eq:general_inertia}, the generalized expression of the mome
   I = \iiint_V \rho(u,v,w) |r^{2}| \,dx\,dy\,dz
 \end{equation}
 
-If the equation \ref{eq:general_inertia} is taken as the moment of inertia from the first link, the scaled one would be:
+If the equation \ref{eq:general_inertia} is taken as the moment of inertia from the first link, the scaled one would be the shown in the equation \ref{eq:general_inertia_2}:
 \begin{equation}
 \label{eq:general_inertia_2}
   I' = \iiint_{V'} \rho(u,v,w)' |r^{'2}| \,dx'\,dy'\,dz'
 \end{equation}
 
-Supposing an scale factor of $s$ and knowing that:
+Supposing a scale factor of $s$ and as stated in the equations from \ref{eq:dx} to \ref{eq:dz}:
 
 \begin{multicols}{3}
   \begin{equation}
+  \label{eq:dx}
     \,dx=s \,dx'
   \end{equation}\break
   \begin{equation}
+  \label{eq:dy}
     \,dy=s \,dy'
   \end{equation}\break
   \begin{equation}
+  \label{eq:dz}
     \,dz=s \,dz'
   \end{equation}\break
 \end{multicols}
 
-Then can be deduced that $r$ increase proportionally with $s$ as shown in the figure \ref{fig:dimensional_analysis}:
+Then can be deduced that $r$ increases proportionally with $s$ as shown in the figure \ref{fig:dimensional_analysis} and presented in the equation \ref{eq:dr}:
 \begin{equation}
+  \label{eq:dr}
   \,r=s \,r'
 \end{equation}
 
@@ -55,19 +59,20 @@ Then can be deduced that $r$ increase proportionally with $s$ as shown in the fi
   \label{fig:dimensional_analysis}
 \end{figure}
 
-Assuming a constant density across all the scaled bodies, and particularizing for the moment of inertia of the center of gravity:
+Assuming a constant density across all the scaled bodies, and particularizing for the moment of inertia of the center of gravity the moment of interia is given then by \ref{eq:general_inertia_3}:
 \begin{equation}
+  \label{eq:general_inertia_3}
   I'_{CG} = \iiint_{V'} \rho(u,v,w)' |r^{'2}| \,dx'\,dy'\,dz' = s^{3} r_{CG}^{'2} m
 \end{equation}
 
-A correlation can be obtained then from:
+A correlation can be obtained for the inertia then as shown in \ref{eq:inertia_scale}:
 
 \begin{equation}
 \label{eq:inertia_scale}
   I' = \frac{s^{3} r_{CG}^{'2} m}{r_{CG}^{2} m} I = s^{5} I
 \end{equation}
 
-And lately:
+And lately the mas can be correlated as in \ref{eq:mass_scale}:
 \begin{equation}
 \label{eq:mass_scale}
   m' = V' \frac{m}{V} = s^{3}m
