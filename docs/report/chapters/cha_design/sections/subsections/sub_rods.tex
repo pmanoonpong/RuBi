@@ -14,14 +14,38 @@ Three mechanical efforts bound its design:
 
   \subsubsection{Shear analysis} % (fold)
   \label{ssub:shear_analysis}
-
+  The maximum shear stress is found in the diameter of the cylinder (y=0) and is:
+  
+  \noindent\begin{minipage}{0.2\textwidth}% adapt widths of minipages to your needs
+  \includegraphics[width=\linewidth]{figures/profile_tube.pdf}
+  \end{minipage}%
+  \hfill%
+  \begin{minipage}{0.8\textwidth}
+    \begin{equation}
+    \begin{aligned}
+      \gamma_{yz} &= \frac{Q_y M_{x}^A*}{b(y) I_x} = \frac{Q}{r^2}\\
+      M_{x}^{A_{y=0}} &= \frac{\pi r_1^2}{2} \\
+      b(y=0) &= 2 r_1 \\
+      I_x &= \frac{\pi r_1^4}{4}
+      \end{aligned}
+    \end{equation}
+  \end{minipage}
+  Given a tangent force Q, the shear stress can be calculated.
+  If this is over the ultimate strength, the cylinder will break.
   % subsubsection shear_analysis (end)
 
   \subsubsection{Bending} % (fold)
   \label{ssub:bending}
   The beding analisys follows the one carried out in the section \ref{ssub:profile_study} for a cylinder.
-  PUT SOMETHING IN HERE RELATED WITH THE INITIAL TENSION OF THE BELTS.
+  The equivalent force in this case is given by the tension of the belts, mainly the initial (thought there are other tensions that appear when the belts moves).
+  Due to feasibility reasons an the lack of measurements units, some experimental tests trying differnt tensions and axis where carried out giving good results with a 3 mm rod or more.
   % subsubsection bending (end)
 
-
+  \subsubsection{Sizing} % (fold)
+  \label{ssub:sizing}
+  The studies above have been tested for different diameters of rod starting from the smallest size given by the provider and increasing until both conditions are satisfied, due to the requirements of low weight.
+  In case of using steel as material, the ultimate strength is supposed to be 250 MPa \footnote{https://en.wikipedia.org/wiki/A36_steel}.
+  And for the case of a rod of 3 mm of diameter, both stresses are under the restrictions.
+  Thus, 3 mm rods are going to be used.
+  % subsubsection sizing (end)
 % section rods (end)

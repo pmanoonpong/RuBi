@@ -2,7 +2,64 @@
 
 \subsection{Example controllers} % (fold)
 \label{sub:example_controllers}
+From the \textit{Controller manager} from ROS Control, different joint controllers can be handled.
+In the example controllers the position controller and the effort controllers are used for individually for each joint.
+This joint controllers offer then a topic (e.g. /rubi/left\_ankle\_position) that the user can use to move the actuators.
+This are created from a unique package called \textit{rubi\_joint\_controllers}.
+It is worth to say that the position controllers are implemented with a PID and that these values have been adjusted experimentally with the simulations for each joint.
 
+Two type of controllers are given that show a different range of options to use with the robot are presented.
+Both are gathered in a sole package called \textit{rubi\_controllers}, which gives a more tidy and resource-shared environment rather than having a package for each controller.
+This also makes really easy to deploy a new controller by removing all the creation process of a new package.
+In order to start a new piece of code this must be created and then added in the \textit{CMakeLists.txt} from where also some examples are included.
 
+The presented code follows the ROS conventions and the code style is the \textit{Google style} offered by the clang-code-model.
+This creates a congruent workspace supervised by a git repository.
+
+\subsubsection{Two neuron controller} % (fold)
+\label{ssub:two_neuron_controller}
+This first example controller shows how to:
+\begin{enumerate}
+    \item Use GoRobots.
+    \item Make use of dynamic reconfigure.
+    \item Adapts its behavior depending on gazebo real time factor.
+\end{enumerate}
+For the first, an example of how to link C++ code from GoRobots is shown in the \textit{CMakeLists.txt}.
+This system is easier and more powerful than the current \textit{Makefiles} currently used in GoRobots.
+The Artificial Neuronal Network (ANN) library is used to create a bi-neuronal network that creates the CPG signals of the actuators.
+Furthermore, the synaptic weights can be modified by making use of the ROS feature \textit{Dynamic Reconfigurable Parameters}.
+These offer an interface in order to change, on the fly, the the values of the created parameters.
+In the figure SHOW PICTURE WITH RQT WITH THE CPG SIGNALS, an RQT workspace containing the CPG signals and the dynamic reconfigurable parameters modifiers is depicted.
+
+\begin{figure}[tb]
+    \centering
+    %\includegraphics[width=\textwidth]{figures/rqt_interface}
+    \caption{RQT workspace containing the CPG signals and the dynamic recofigurable parameters.}
+    \label{fig:rqt_interface}
+\end{figure}
+
+This are also used to change the behavior of the ANN in order to be adapted to changes in Gazebo.
+Gazebo uses can accelerate and decelerate the speed at which the time is passing through.
+This is adjusted with a \textit{real time factor} that is read by the node and used to adjust the frequencies of the CPGs.
+% subsubsection two_neuron_controller (end)
+
+\subsubsection{Impulse controller} % (fold)
+\label{ssub:impulse_controller}
+Among other things this node shows how to:
+\begin{enumerate}
+    \item Load and unload different joint controllers.
+    \item Give some wrappings for set of controllers (hoping position).
+    \item Offer services for jumping: given a file or given the values and impulse time.
+\end{enumerate}
+This node implements some methods that enable it to change on-the-fly the controllers of each individual joint.
+Furthermore, three combinations of individual joint controllers are given being these: (1) all in position mode, (2) all in effort mode and (3) left leg in position mode and right in effort mode.
+The last one is useful when hoping, a moment in which a leg must hold a position and the other keep pushing in order to jump.
+
+Three different services are implemented that impulse the robot in the sake of rise it from the floor.
+The first two, are \textit{impulse\_one\_leg} and \textit{impulse\_two\_legs} which given a torque for each joint and an impulse time, it gives the possibility to jump either with one or two legs.
+Both services load the necessary joint controllers in order to achieve the desired movements.
+The third one offers sort of the same service but the parameters are read from a file instead.
+This is handy when combined with the dynamic controller developed in MatLab and explained in the section \ref{sec_dynamic_model}.
+% subsubsection impulse_controller (end)
 
 % subsection example_controllers (end)
