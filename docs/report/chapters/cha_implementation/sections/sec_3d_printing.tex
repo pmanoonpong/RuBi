@@ -1,15 +1,16 @@
 %!TEX root = ../../../report.tex
 \section{3D printing} % (fold)
 \label{sec:3d_printing}
-The parts modeled for the project and shown in the section \ref{sub:computer_aided_design}, have been printed using Fused Filament Fabrication (FFF).
+The parts modeled for the project and shown in section \ref{sub:computer_aided_design}, have been printed using Fused Filament Fabrication (FFF).
 The 3D printer used is a M Prime One \footnote{https://github.com/M-Prime/M\_Prime\_One} with a 0.4 mm noozle.
 All the parts have been printed at 0.2 mm layer height.
 
-The use of this technology is justify by the fact that makes the iterative process between design and manufacturing both fast and cheap.
+The use of this technology is justify by the fact that makes the iterative process between design and manufacturing both fast and cheap. \todo{Fast and low-cost prototyping}
 All the parts have been individually adjusted until the clearances have been as expected.
 Furthermore, this enable the user not only to replicate the parts with out any considered extra cost, but allows the robot to be easily replicated in other places.
 
 When manufacturing, some of the parts have needed material support.
+\todo{Why the material support? Tell how you've managed to print the most complex stuff}
 The figure \ref{fig:photo_material_support} depicts two feet, one with material support and the other with it removed.
 In the figure \ref{fig:photo_3d_printed} a detail of actual parts 3D printed and assembled in the robot are shown.
 
@@ -36,7 +37,10 @@ In the figure \ref{fig:photo_3d_printed} a detail of actual parts 3D printed and
   In the case of the Fused Filament Fabrication (FFF), the material is extruded equally in both sides of the arc, as shown in \ref{fig:arc_compensation}. 
   However, in the side of the smaller curve, less material is needed.
   This correction can be calculated with:
+
+  \todo{Label and reference the equations}
   $$ r=\frac{t+\sqrt{t^2+4R^2}}{2}$$
+
   being:
   \begin{enumerate}
     \item t: noozle diameter
