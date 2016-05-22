@@ -2,13 +2,33 @@
 
 \section{Springs}
 \label{sec_springs}
-This section deals with the calculations carried out in order to model the influence of the implemented compliance in terms of energy storage and power requirements minimization.
+This section deals with the calculations carried out in order to model the influence of the implemented compliance in terms of energy efficiency and joints torque requirements.
 As explained in \ref{sec:joints}, the selection of the elastic actuators installed and its configuration on RuBi have been left as a customizable feature for research purposes.
 This, together with the fact that RuBi has not been designed to optimize a specific type of gait made pointless the calculation of optimal values of springs.
 Thus, the following is just a theoretical frame presented to provide an easy method to compute the influence of the springs in the performance once the user has selected them.
+It was meant to be used for the experiments devised on compliance influence in hopping locomotion, introduced in \ref{cha:experiments}.
 
+\subsection{Power contribution of passive actuators} % (fold)
+\label{sub:torque_contribution_of_passive_actuators}
+All the springs that can be implemented in RuBi are torsional, as shown in \ref{sub:spring_integration}, whose general equations for torque and energy storage are shown in \ref{eq:torsion_spring}. 
 
+\begin{equation}
+\label{eq:torsion_spring}
+\begin{aligned}
+	\tau_{S} &= -K \Delta \theta \\
+	U_{S} &= \frac{1}{2}K \Delta \theta^2
+\end{aligned}
+\end{equation}
 
+The contribution of the springs torques to the system actuation is therefore modeled introducing the torque equation in \ref{eq:torsion_spring} on the right side of \ref{eq:dynamics_eq1}, which would yield equation \ref{eq:dynamics_eq2}.
+Where the torques vector has been divided into the motors and springs inputs.
 
-%Furthermore, all the studies conducted in the influence of compliance in legged locomotion have been carried out over empirical data recorded for the specific task under analysis.
-%All the studies found to optimize the value of springs focus only in a specific velocity and pattern --> we want a wide range of speed and both walk and run
+\begin{equation}
+	\label{eq:dynamics_eq2}
+	B(q)\ddot{q} + C(q,\dot{q})\dot{q} + g(q) = \tau_{M} + \tau_{S}
+\end{equation}
+
+The values of $\Delta \theta_{i}$ can be obtained through forward kinematics for given trajectories, while $\tau_{i}$ can be computed from equation \ref{eq:dynamics_eq1} given the ground contact force model, which is the only external force applied to the system.
+Thus, the first formula in \ref{eq:torsion_spring} can be used to calculate the necessary $K$ for a desired joint trajectory and force model, for instance.
+Knowing $k_{i}$ and $\Delta \theta_{i}$, the energy stored by each spring in the joints can be calculated and utilized for analyzing their influence on the performance of the robot per gait cycle.
+
