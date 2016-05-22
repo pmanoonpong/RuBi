@@ -1,12 +1,12 @@
 %!TEX root= ../../../report.tex
 
-\section{Springs}
+\section{Springs influence in the actuators}
 \label{sec_springs}
-This section deals with the calculations carried out in order to model the influence of the implemented compliance in terms of energy efficiency and joints torque requirements.
-As explained in \ref{sec:joints}, the selection of the elastic actuators installed and its configuration on RuBi have been left as a customizable feature for research purposes.
+This section deals with the calculations carried out in order to model the influence of the implemented compliance in terms of energy efficiency and joint torque requirements.
+As explained in \ref{sec:joints}, the selection of the elastic actuators installed and their configuration on RuBi has been left as a customizable feature for research purposes.
 This, together with the fact that RuBi has not been designed to optimize a specific type of gait made pointless the calculation of optimal values of springs.
 Thus, the following is just a theoretical frame presented to provide an easy method to compute the influence of the springs in the performance once the user has selected them.
-It was meant to be used for the experiments devised on compliance influence in hopping locomotion, introduced in \ref{cha:experiments}.
+It was meant to be used for the experiments devised on compliance influence in hopping motion, presented in \ref{cha:experiments}.
 
 \subsection{Torque and energy contribution of passive actuators} % (fold)
 \label{sub:torque_contribution_of_passive_actuators}
@@ -29,6 +29,50 @@ Where the torques vector has been divided into the motors and springs inputs.
 \end{equation}
 
 The values of $\Delta \theta_{i}$ can be obtained through forward kinematics for given trajectories, while $\tau_{i}$ can be computed from equation \ref{eq:dynamics_eq1} given the ground contact force model, which is the only external force applied to the system.
-Thus, the first formula in \ref{eq:torsion_spring} can be used to calculate the necessary $K$ for a desired joint trajectory and force model, for instance.
-Knowing $k_{i}$ and $\Delta \theta_{i}$, the energy stored by each spring in the joints can be calculated and utilized for analyzing their influence on the performance of the robot per gait cycle.
+Thus, the first formula in \ref{eq:torsion_spring} can be used to calculate the optimal $K$ for a desired joint trajectory and force model, for instance.
+Knowing $k_{i}$ and $\Delta \theta_{i}$, the energy stored per gait cycle by each spring can be computed and utilized for studying their influence on the performance of the robot.
 
+\subsection{Joint kinetics} % (fold)
+\label{sec:joint_kinetics}
+The motor power requirements for each joint can be calculated through equation \ref{eq:motor_power} for direct drive transmission.
+This formula does not include inertias, frictions or any other efficiency coefficients. 
+
+\begin{equation}
+\label{eq:motor_power}
+	P_{m} = \dot{\theta}_{m} \tau_{m}
+\end{equation}
+
+By definition of \ref{eq:motor_power}, the value of $P_{m}$ can be positive (motor thrusting) or negative (motor dumping).
+Thus, the peak power in the motion cycle can be computed as the its maximum absolute value.
+Besides, the equation of motor power is used in \ref{eq:energy_requirement} for calculating the overall energy requirements for a whole motion cycle, employing only absolute values as well.
+
+\begin{equation}
+\label{eq:energy_requirement}
+ 	E_{cycle} = \int{P_{m+}(t) dt} + \int{P_{m-}(t) dt}
+ \end{equation} 
+
+\subsubsection{Influence of elastic actuation} % (fold)
+\label{sub:influence_of_elastic_actuation}
+The above presented are general formulations.
+However, the introduction of elastic transmission between motor and load through springs modify the computation of motor power.
+The changes resulting from implementing the configurations shown in Figure \ref{fig:sea}, \ref{fig:pea} and \ref{fig:sea_pea} yield equations \ref{eq:SEA_power}, \ref{eq:PEA_power} and \ref{eq:SEA_PEA_power} respectively, as per \cite{grimmer}.
+For a complete and detailed description of the parameters in these equations, the reader is referred to the cited paper.
+
+\begin{equation}
+\label{eq:SEA_power}
+	P_{m} = \tau_{m} \left(\dot{\theta}_{t} + \frac{\dot{M}_{ex}}{K_{s}}\right)
+\end{equation}
+
+\begin{equation}
+\label{eq:PEA_power}
+	P_{m} = (F_{ex} + (K_{p} \Delta \theta_{t})) \dot{\theta}_{t}
+\end{equation}
+
+\begin{equation}
+\label{eq:SEA_PEA_power}
+	P_{m} = \left(F_{ex} + (K_{p} \Delta \theta_{m}) \left(\theta_{t} + \frac{\dot{F}_{ex}}{K_{s}}\right)\right)
+\end{equation}
+
+% subsubsection influence_of_elastic_actuation (end)
+
+% section joint_kinetics (end)
