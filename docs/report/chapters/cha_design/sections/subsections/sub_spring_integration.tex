@@ -7,12 +7,20 @@ The figure \ref{fig:series_actuators} shows the analyzed configurations and thei
 Due to the role that RuBi takes inside of the project, it is decided that all the configurations can be taken.
 This is possible by making a system that allows to put elastic components in series and parallel that are easily replaceable.
 
+\subsubsection{SEA configuration} % (fold)
+\label{ssub:sea_configuration}
+
 In the section commented above, it is also determined the use of rotational springs for both series and parallel passive actuators.
 This gives a more constrained design that is later used as a feature.
 For example, in the section \ref{sub:pulleys_and_belts} is explained how the the pulley is integrated in a part that has the task of both being the place to put the spring and being the pulley.
 The figure \ref{fig:serial_spring_pulley} shows this design.
 This design shows the implementation of the SEA configurations that can be adjusted by changing the physical properties of the spring.
+% subsubsection sea_configuration (end)
 
+\subsubsection{PEA configuration} % (fold)
+\label{ssub:pea_configuration}
+
+% subsubsection pea_configuration (end)
 The parallel spring is implemented by adding a spring directly attached to both parts of the joint.
 The problem of the parallel passive actuators is the need of loading the spring for movements in which is maybe not appropriated.
 As an example, the rest position of the parallel spring in the ankle could to be placed when the foot is at 90 degrees with its consecutive link, so the robot can be stood up without applying any extra torque in the motors to keep balance.
@@ -32,5 +40,15 @@ This gives the different PEA configurations by just changing the physical proper
 
 \todo{Springs holders dimensions: the biggest among the ordered ones}
 \todo{A big range of springs have been ordered for the reasons in \ref{sec_springs}}
+
+\subsubsection{SEA + PEA configuration} % (fold)
+\label{ssub:sea_pea_configuration}
+
+% subsubsection sea_pea_configuration (end)
+
+\subsubsection{DD configuration } % (fold)
+\label{ssub:dd_configuration}
 Finally if no parallel spring is used and a spring stiff enough that doesn't add compliance to the system is placed, a DD configuration is achieved.
+% subsubsection dd_configuration (end)
+
 % subsection spring_integration (end)
