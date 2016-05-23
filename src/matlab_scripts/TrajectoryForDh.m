@@ -10,9 +10,9 @@ close all;
 %Gravity (positive in Y axis)
 g= [0; 9.81];
 %Masses of the links (from 1 to 3)
-m=[0.163;0.17;0.029];
+m=[0.123;0.115;0.021];
 %Y axis displacement
-hDelta = 0.08;
+hDelta = 0.05;
 %External torque applied to the toes
 TauExt=0;
 %Moments of inertia of the link (from 1 to 3)
@@ -38,7 +38,7 @@ tf = tmax;
 
 %Leg before and after jumping
 toolYo = Ltotal*(bendPhase);
-toolYf = 0.56;
+toolYf = 0.55;
 toolThetaO=-pi/2;
 toolThetaF= -pi/8;
 

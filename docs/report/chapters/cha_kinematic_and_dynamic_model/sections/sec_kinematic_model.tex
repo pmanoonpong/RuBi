@@ -21,7 +21,7 @@ This representation has been chosen to ease the construction of the mathematical
 The figure above depicts the schematic representation of only one leg, since the other one is equivalent. 
 The system is said to be in single support phase since there would be just one foot in contact to the ground.
 In the analyzed case, the swinging leg (not represented in Figure \ref{fig:kinematics}) would be static and could be considered an additional link with no degrees of freedom.
-The variables $q_{i}$ represent the angles of the joints with respect to their fully-stretched positions to simplify the obtainment of the forward kinematic model, while the angle $\theta$ is used to express the orientation of the ankle in an absolute manner. 
+The variables $q_{i}$ represent the angles of the joints with respect to their fully-stretched positions to simplify the obtainment of the forward kinematic model, while the angle $\Theta$ is used to express the orientation of the ankle in an absolute manner. 
 From Figure \ref{fig:kinematics}, the forward kinematic model in \ref{eq:forward_kinematics} can be easily obtained.
 
 
@@ -54,16 +54,15 @@ This is due to two reasons:
 
 Following the same approach, the inverse kinematic model can be computed for the right leg, yielding equation \ref{eq:inverse_kinematics}.
 
-\todo{change notation for $\theta$ ?}
 
 \begin{equation}
 \label{eq:inverse_kinematics}
 	\begin{aligned}
-		x_{2} &= x_{3} - l_{3} \sin(\theta) \\
-		y_{2} &= y_{3} - l_{3} \cos(\theta) \\
+		x_{2} &= x_{3} - l_{3} \sin(\Theta) \\
+		y_{2} &= y_{3} - l_{3} \cos(\Theta) \\
 		q_{1} &= \arctan \left(\frac{x_{2}}{y_{2}}\right) - \arccos \left(\frac{x_{2}^2 + y_{2}^2 + l_{1}^2 - l_{2}^2}{2 l_{1} \sqrt{x_{2}^2 + y_{2}^2}}\right) \\
 		q_{2} &= \pi - \arccos \left(\frac{l_{1}^2 + l_{2}^2 - x_{2} - y_{2}}{2 l_{1} l_{2}}\right) \\
-		q_{3} &= \theta - q_{1} - q_{2} \\
+		q_{3} &= \Theta - q_{1} - q_{2} \\
 	\end{aligned}
 \end{equation}
 

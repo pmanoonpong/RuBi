@@ -20,6 +20,33 @@ Furthermore, each motor counts three hall effect sensors able to provide accurat
 % subsubsection the_bldc_motors (end)
 
 
+\subsubsection{BLDC motor boards} % (fold)
+\label{ssub:bldc_motor_boards}
+Each BLDC motor in the Locokit comes with a motor board able to control it, designed for 24V and 48W.
+They consist of a 48MHz ARM7 processor for time critical control and motor commutation, as stated in \cite{locokit-electronics}, together with 4 general purpose I/O inputs for local sensor interface.
+Furthermore, they have two available 8-pin interfaces for the motors, one of them with a standard flex connector used in most of Maxon flat motors.
+
+% subsubsection bldc_motor_boards (end)
+
+\subsubsection{Extension PCBs} % (fold)
+\label{ssub:extension_pcbs}
+Following the idea of reducing weight and inertias in the structure as explained in chapter \ref{cha:analysis}, it was decided to place all the electronics off-board.
+In order to extend the existing motor flex interfaces, a simple extension PCB was manufactured for each device.
+The boards have been designed with Eagle following the requirements of current when sizing the width of the paths given by the supplier.
+The design lacks of vias which reduces the complexity and facilitates the manufacturing.
+The board for the left leg, whose schematic can be seen in \ref{fig:pcb1} \footnote{For the right leg the schematic has been mirrored}, contains a flex connector, like the one originally found on the motor boards, mapped to an 8-pin Molex connector where the wiring to the BLDC board is connected.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.5\textwidth]{figures/expansion_board.pdf}
+	\caption{Left leg extension PCB schematic}
+	\label{fig:pcb1}
+\end{figure}
+
+% subsubsection extension_pcbs (end)
+
+
+% subsection electric_actuators (end)
 \subsection{Suitability of the motor model for the application} % (fold)
 \label{sub:suitability_of_the_motor_model_for_the_application}
 The algorithm designed to prove if the selected motor model fulfills the requirements of the application has been called Algorithm 1 and it is detailed in \ref{list:algorithm_1}.
@@ -32,16 +59,16 @@ Algorithm 1:
 \item Manually set the values of $P_{3}(t_{0})$ and $P_{3}(t_{f})$ to use in equation \ref{eq:toe_trajectory}.
 \item Compute the inverse kinematics model for the given trajectory equation. This yields as outputs $q_{j}(t)$, where j = 1,...,N being N = number of joints.
 \item Compute forward kinematics to obtain $P_{j}(t)$.
-\item Derive the models and apply equation \ref{eq:angular_magnitudes} to obtain $\dot{P}_{j}$, $\ddot{P}_{j}$, $\omega_{j}$, $\omega_{j}$, $\dot{\omega}_{j}$,
+\item Derive the two mentioned models and apply equation \ref{eq:angular_magnitudes} to obtain $\dot{P}_{j}$, $\ddot{P}_{j}$, $\omega_{j}$, $\omega_{j}$, $\dot{\omega}_{j}$,
 \item Set $\Delta h$ and use the impulse equations \ref{eq:deltaV} and \ref{eq:impulse} to obtain a set of couple values of $(F_{i}, t_{i})$ as in Figure \ref{fig:f-t}.
-\item For each couple until $(F_{min}, t_{max})$, obtained from \ref{eq:work}, compute the torques $\tau_{i,j}$ for each joint through \ref{eq:dynamics_eq1} and $\theta_{i,j}$ as in \ref{eq:joint_vel}.
+\item For each couple until $(F_{min}, t_{max})$, obtained from \ref{eq:work}, compute the torques $\tau_{i,j}$ for each joint through \ref{eq:dynamics_eq1} and $\theta_{i,j}$ as in \ref{eq:joint_vel}. \footnote{Eq. \ref{eq:joint_vel} introduced the assumption that the joint velocities are constant for simplicity}
 \item Compute the Torque/Speed curve for the motor + gearbox model as per equation \ref{eq:motor_curve}.
-\item Plot the obtained pairs of values $(\theta_{i,j}, \tau_{i,j})$ over the motor curve and analyze the results.
+\item Plot the obtained pairs of values $(\dot{\theta}_{i,j}, \tau_{i,j})$ over the motor curve and analyze the results.
 \end{enumerate}
 
 \begin{equation}
 \label{eq:joint_vel}
-	\theta_{i,j} =\frac{ \abs{ \theta_{j}(t_{f}) - \theta_{j}(t_{o}) } }{ t_{i} }
+	\dot{\theta}_{i,j} =\frac{ \abs{ \theta_{j}(t_{f}) - \theta_{j}(t_{o}) } }{ t_{i} }
 \end{equation}
 
 \begin{equation}
@@ -82,25 +109,31 @@ P_{3}(t_{f}) &= \left[\!
 \end{aligned}
 \end{equation*}
 
-The results can be seen in Figure \ref{fig:alg1_results} for the jumping leg.
+The results can be seen in Figure \ref{fig:alg1_results} for a jumping leg.
 It can be seen that, for the obtained $(\theta_{i,j}, \tau_{i,j})$ values for the given $\Delta h$, the closer they get to the theoretical $(F_{min}, t_{max})$, the more the application points approach the lower-left corner of the graph.
 The aimed situation here is that in which the application points for the three motors lay under the motor curve, which occurs for values next to the couple $(4.1191N, 0.1700s)$
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=1.1\textwidth]{figures/algorithm1.pdf}
+	\includegraphics[width=0.9\textwidth]{figures/algorithm1.pdf}
 	\caption{Results of Algorithm 1 for the given inputs (not all the $(\theta_{i,j}, \tau_{i,j})$ pairs are plotted)}
 	\label{fig:alg1_results}
 \end{figure}
 
-The results from the presented algorithm helped notice that the motor model would not be able to accomplish the requirements of the application on the hip joints, due to its, in general, lower velocity and higher torque values.
-Thus, the algorithm was used to approximate the required ratio of the gear system implemented in \ref{sub:gears}.
+\paragraph{The transmission on the hips} % (fold)
+\label{par:the_hip_joint_gears}
+The results from the presented algorithm helped notice that the presented motor model would not be able to accomplish the requirements of the application on the hip joints, due to its, in general, lower velocity and higher torque values.
+Thus, the algorithm was used to approximate the required ratio of the gear system described in \ref{sub:gears}, used to adequate its output to the task.
 The final ratio implemented and used for the results in \ref{fig:alg1_results} is $w=2$. 
 However, it was calculated for the geometrical and inertial parameters of a different iteration than the last one, resulting in a non-optimal value for the final robot.
-A repetition of the process yielded an optimal gear ratio of $w=1.2$.
+A repetition of the process yielded an optimal gear ratio of $w=1.2$, for which the best application points of the three motors would be closer to the motor line.
 
-%Not perfect method!
-%It was used to detect that the hip needed a gear transmission
+% paragraph the_hip_joint_gears (end)
+
+The presented method does not aim at providing exact results since its based in several assumptions and simplifications from its basis.
+It was conceived due to the necessity of assessing the utility of the existing actuators to the designed application.
+Ideally, its results would have been tested by comparing them to the real data collected from the experimentation with the final prototype. 
+However, the delay in some essential components of the robot prevented from testing and improving the model used for the algorithm, together with its validity.
 
 % paragraph example_of_use (end)
 
@@ -108,41 +141,3 @@ A repetition of the process yielded an optimal gear ratio of $w=1.2$.
 
 
 % subsection suitability_of_the_motor_model_for_the_application (end)
-
-
-
-
-
-
-
-
-
-
-
-\subsubsection{BLDC motor boards} % (fold)
-\label{ssub:bldc_motor_boards}
-Each BLDC motor in the Locokit comes with a motor board able to control it, designed for 24V and 48W.
-They consist of a 48MHz ARM7 processor for time critical control and motor commutation, as stated in \cite{locokit-electronics}, together with 4 general purpose I/O inputs for local sensor interface.
-Furthermore, they have two available 8-pin interfaces for the motors, one of them with a standard flex connector used in most of Maxon flat motors.
-
-% subsubsection bldc_motor_boards (end)
-
-\subsubsection{Extension PCBs} % (fold)
-\label{ssub:extension_pcbs}
-Following the idea of reducing weight and inertias in the structure as explained in chapter \ref{cha:analysis}, it was decided to place all the electronics off-board.
-In order to extend the existing motor flex interfaces, a simple extension PCB was manufactured for each device.
-The boards have been designed with Eagle following the requirements of current when sizing the width of the paths given by the supplier.
-The design lacks of vias which reduces the complexity and facilitates the manufacturing.
-The board for the left leg, whose schematic can be seen in \ref{fig:pcb1} \footnote{For the right leg the schematic has been mirrored}, contains a flex connector, like the one originally found on the motor boards, mapped to an 8-pin Molex connector where the wiring to the BLDC board is connected.
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.5\textwidth]{figures/expansion_board.pdf}
-	\caption{Left leg extension PCB schematic}
-	\label{fig:pcb1}
-\end{figure}
-
-% subsubsection extension_pcbs (end)
-
-
-% subsection electric_actuators (end)

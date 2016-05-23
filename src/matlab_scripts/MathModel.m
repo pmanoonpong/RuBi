@@ -3,7 +3,7 @@
 %PERFORMS THE IMPULSE ANALYSIS FOR THE VERTICAL JUMP CASE 
 %OUTPUTS THE NECESSARY TORQUES IN ONE LEG FOR THE DESIRED JUMP 
 
-clear; clc; close all;
+clear; clc; %close all;
 
 %KINEMATICS INPUTS FOR THE MODEL
 syms t
@@ -16,7 +16,7 @@ bendPhase= 8/13;
 toolX = 0;
 %Leg bent before jumping
 toolY = Ltotal*(bendPhase)*cos(t);
-toolTheta = -pi/5*cos(t);
+toolTheta = -pi/2*cos(t);
 %Leg stretched after push-off on running
 %toolY = 0.56;
 %toolTheta = -pi/8;
@@ -32,14 +32,14 @@ dispCoG = Ltotal - Ltotal*(bendPhase);
 %ANALYSIS OF POSITIONS, VELOCITIES AND ACCELERATIONS IN CARTESIAN AND JOINT
 %SPACE FOR ALL THE JOINTS
 Kinematics;
-
+%%
 %DYNAMICS INPUTS: 
 %Gravity (positive in Y axis)
 g= [0;9.81];
 %Masses of the links (from 1 to 3)
-m=[0.163;0.17;0.029];
+m=[0.123;0.115;0.021];
 %Y axis displacement
-hDelta = 0.08;
+hDelta = 0.05;
 %External torque applied to the toes
 TauExt=0;
 %Moments of inertia of the link (from 1 to 3)
@@ -48,7 +48,7 @@ I=[0.0001;0.0001;0.0001];
 %IMPULSE ANALYSIS
 [FminY, tmax, F, t]=impulse(hDelta, m, dispCoG);
 %External force applied on the toes
-
+%%
 for i=1:round(tmax,2)*100
 fext=[0; -F(1,i)];
 % disp('Impulse force:');

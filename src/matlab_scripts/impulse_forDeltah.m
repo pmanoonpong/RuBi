@@ -3,8 +3,9 @@ function [Fmin, tmax, F, T]=impulse(hDelta, m, dispCoG)
 
 figure
 hold on
+for hDelta = 0.01:0.02:0.1
 %Total mass of legs
-mTotal = 0.707;
+mTotal = 1;
 gravity = -9.81;
 %2*[m(1,1)+m(2,1)+m(3,1)];
 %Maximum vertical displacement of the body
@@ -22,9 +23,19 @@ T = linspace(0.01,round(tmax, 2),round(tmax/0.01, 2));
 i=0;
 
 for t=0.01:0.01:round(tmax, 2)
-    i=i+1;
-    F(1,i) = (mTotal* vDelta)/t;
-    plot(t, F(1,i), '*');
+    if(t==0.01)
+        tprev=t;
+        i=i+1;
+        F(1,i) = (mTotal* vDelta)/t;
+    else
+        tnow=t;
+        i=i+1;
+        F(1,i) = (mTotal* vDelta)/tnow;
+        x=[F(1,i-1),F(1,i)];
+        y=[tprev, tnow];
+        plot(y,x, 'k');
+        tprev = t;
+    end 
 end
 %title('Force-Time Plot')
 xlabel('Application time (seconds)')
@@ -35,6 +46,7 @@ ylabel('Force applied (Newtons)')
 % y=[150, -150];
 % x=[0, 0];
 % plot(x,y,'k');
+end
 
 hold off
 
