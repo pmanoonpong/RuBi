@@ -17,10 +17,106 @@ The flat motors model is 339260 from Maxon motor, whose datasheet can be found i
 The electromechanical constants of the motors, together with its nominal supply values or the output power and torque of both the motor and the gearbox can be found in these documents. 
 However, the electronics of the motors is designed to constantly overdrive them at $24V$, which has been taken into account when calculating their output.
 Furthermore, each motor counts three hall effect sensors able to provide accurate relative position measurements.
-
-\todo{Add here motor curves from experiments}
-
 % subsubsection the_bldc_motors (end)
+
+
+\subsection{Suitability of the motor model for the application} % (fold)
+\label{sub:suitability_of_the_motor_model_for_the_application}
+The algorithm designed to prove if the selected motor model fulfills the requirements of the application has been called Algorithm 1 and it is detailed in \ref{list:algorithm_1}.
+The theoretical framework constructed in \ref{cha:mathematical_model} has been applied here to prove if the motors described above (without accounting on springs or indirect transmission) can be used to perform the vertical jumps described in \ref{sec:jumping_case}.
+And if so, which height can be reached.
+
+Algorithm 1:
+\begin{enumerate}
+\label{list:algorithm_1}
+\item Manually set the values of $P_{3}(t_{0})$ and $P_{3}(t_{f})$ to use in equation \ref{eq:toe_trajectory}.
+\item Compute the inverse kinematics model for the given trajectory equation. This yields as outputs $q_{j}(t)$, where j = 1,...,N being N = number of joints.
+\item Compute forward kinematics to obtain $P_{j}(t)$.
+\item Derive the models and apply equation \ref{eq:angular_magnitudes} to obtain $\dot{P}_{j}$, $\ddot{P}_{j}$, $\omega_{j}$, $\omega_{j}$, $\dot{\omega}_{j}$,
+\item Set $\Delta h$ and use the impulse equations \ref{eq:deltaV} and \ref{eq:impulse} to obtain a set of couple values of $(F_{i}, t_{i})$ as in Figure \ref{fig:f-t}.
+\item For each couple until $(F_{min}, t_{max})$, obtained from \ref{eq:work}, compute the torques $\tau_{i,j}$ for each joint through \ref{eq:dynamics_eq1} and $\theta_{i,j}$ as in \ref{eq:joint_vel}.
+\item Compute the Torque/Speed curve for the motor + gearbox model as per equation \ref{eq:motor_curve}.
+\item Plot the obtained pairs of values $(\theta_{i,j}, \tau_{i,j})$ over the motor curve and analyze the results.
+\end{enumerate}
+
+\begin{equation}
+\label{eq:joint_vel}
+	\theta_{i,j} =\frac{ \abs{ \theta_{j}(t_{f}) - \theta_{j}(t_{o}) } }{ t_{i} }
+\end{equation}
+
+\begin{equation}
+\label{eq:motor_curve}
+	\tau_{m} = \tau_{stall} - \omega_{m}\left(\frac{\tau_{stall}}{\omega_{n}}\right)
+\end{equation}
+
+\paragraph{Use case} % (fold)
+\label{par:example_of_use}
+As with any kind of DC motor, the goal is that the operation points lay under the torque/speed curve for a given application.
+In this case, the operation point to study has been chosen to be the initial instant of the launch phase during the jump, given by $t_{0}=0s$, because it has been assumed to be the most requiring one of the whole jump cycle.
+The input data for the test conducted with the algorithm can be seen in \ref{eq:input_a1}.
+
+\begin{equation*}
+\label{eq:input_a1}
+\begin{aligned}[c]
+P_{3}(t_{0}) &= \left[\!
+				    \begin{array}{c}
+				      0 \\
+				      0.3508 \\
+				      -\frac{\pi}{2}
+				    \end{array}
+				  \!\right]
+\end{aligned}
+\qquad
+\begin{aligned}[c]
+P_{3}(t_{f}) &= \left[\!
+				    \begin{array}{c}
+				      0 \\
+				      L \\
+				      0
+				    \end{array}
+				  \!\right]
+\end{aligned}
+\qquad
+\begin{aligned}[c]
+\Delta h &= 0.05 \\
+\end{aligned}
+\end{equation*}
+
+The results can be seen in Figure \ref{fig:alg1_results} for the jumping leg.
+It can be seen that, for the obtained $(\theta_{i,j}, \tau_{i,j})$ values for the given $\Delta h$, the closer they get to the theoretical $(F_{min}, t_{max})$, the more the application points approach the lower-left corner of the graph.
+The aimed situation here is that in which the application points for the three motors lay under the motor curve, which occurs for values next to the couple $(4.1191N, 0.1700s)$
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1.1\textwidth]{figures/algorithm1.pdf}
+	\caption{Results of Algorithm 1 for the given inputs (not all the $(\theta_{i,j}, \tau_{i,j})$ pairs are plotted)}
+	\label{fig:alg1_results}
+\end{figure}
+
+The results from the presented algorithm helped notice that the motor model would not be able to accomplish the requirements of the application on the hip joints, due to its, in general, lower velocity and higher torque values.
+Thus, the algorithm was used to approximate the required ratio of the gear system implemented in \ref{sub:gears}.
+The final ratio implemented and used for the results in \ref{fig:alg1_results} is $w=2$. 
+However, it was calculated for the geometrical and inertial parameters of a different iteration than the last one, resulting in a non-optimal value for the final robot.
+A repetition of the process yielded an optimal gear ratio of $w=1.2$.
+
+%Not perfect method!
+%It was used to detect that the hip needed a gear transmission
+
+% paragraph example_of_use (end)
+
+
+
+
+% subsection suitability_of_the_motor_model_for_the_application (end)
+
+
+
+
+
+
+
+
+
 
 
 \subsubsection{BLDC motor boards} % (fold)
