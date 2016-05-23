@@ -30,12 +30,12 @@ Some comparisons can be found in the literature as \cite{nogueiracomparative} or
 \end{figure}
 
 The device is mainly targeted to be used in the AI department at the Maersk Mc-Kinney Møller Institute, where the toolbox GoRobots is developed.
-This is a set of tools, from neuronal networks to genetic algorithms, written in C++ than are supposed to be simulator-independent.
+This is a set of tools, from a neuronal networks API to a genetic algorithm engine, written in C++ than are supposed to be simulator-independent.
 In order to achieve the first condition of reducing the effort of the user when switching from the simulation to real life, ROS \cite{ros} has been used as the software toolbox.
-The whole set of tools provided along with its easy extendability give the opportunity to use the controllers developed with GoRobots in both platforms.
+The whole set of tools provided in ROS along with its easy extendability give the opportunity to use the controllers and tools already developed in GoRobots.
 
 Despite all three simulators have a C++ interface that would allow to interface with ROS, in it there is already a simulation integrated: Gazebo.
-This reduces the learning curve of the new user and the installation process is easier due to it is included in the Open Source Robotics Foundation (OSRF) repositories.
+This reduces the learning curve of a new user and the installation process is easier due to it is included in the Open Source Robotics Foundation (OSRF) repositories.
 
 Regarding the second condition, Gazebo has the feature of change the physics engine in the beginning of the simulation, has multiphysics support (fluids, electromagnetism...), it allows to load external geometries from STL or Collada and, the most important, has an active community behind it providing support and documentation. These are the reasons for taking Gazebo as the simulator for the platform.
 
