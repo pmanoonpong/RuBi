@@ -1,13 +1,16 @@
 %!TEX root = ../../report.tex
 \chapter{Mechatronic design} % (fold)
 \label{cha:design}
+Designing a bipedal is a complex task that has been subdivided and analyzed in the chapter \ref{cha:analysis}.
+From those results the design of RuBi can be broken down into three pieces: electronics, mechanics and software.
+When designing from a holistic point of view, this three combined give a positive synergy which is the burden of this chapter.
+The first of the three sections starts with the design of the electronics: from the selection of the motors based on \ref{sec:joints} and \ref{cha:mathematical_model} to the custom interfaces developed in order to reduce the weight.
+Continues with the mechanical design that gathers all the constraints got from the sections \ref{sec:dimensions} and \ref{sec:physical_properties}, carries out its own mechanical analyses, like stress, durability, feasibility, design oriented to manufacturing... and concludes into a 3D model making a compromise between the requirements and manufacturability.
+The last section is software, and it deals with how the control of the robot has been done.
+This system is meant to be used in both the simulation and the real robot, based on ROS and with an easy interface with the already used libraries within the Maersk Mc-Kinney Møller Institute.
 
-This section deals with the mechanical design of the robot.
-Based on the analysis performed in the chapter \ref{cha:analysis}, the mechancal design takes its results and carries out a specific analysis of each component.
-Then, the conclusions are translated into a 3D model making a compromise between the requirements and manufacturability.
-
-\input{chapters/cha_design/sections/sec_mechanics}
 \input{chapters/cha_design/sections/sec_electronics}
+\input{chapters/cha_design/sections/sec_mechanics}
 \input{chapters/cha_design/sections/sec_software}
 
 % chapter design (end)chapters/cha_design/
