@@ -36,7 +36,7 @@ The analysis of the actuators requirements is to be found in \ref{cha:mathematic
 As introduced in \ref{sub:moments_of_inertia}, the reduction of the moments of inertia in the limbs in order to minimize the torque requirements for motion was set as a priority.
 This led to the study of methods to displace the CoM of the limbs as close to their joints axes as possible, thus reducing their inertias.
 The solution was to place the actuators, the heaviest components of the design, as close to the upper part of the frame as possible, which would also result in the allocation of the CoM of the frame upper in the sagital plane.
-An schematic example of this idea can be seen in the Figures in \ref{fig:compliance} for the ankle actuation, where the motor has been placed under the knee axis. 
+An schematic example of this idea can be seen in the Figures in \ref{fig:compliance_series} for the ankle actuation, where the motor has been placed under the knee axis. 
 The same principle has been applied to the knee actuation, as can be seen in the final implementation. 
 For the hip, however, it was not necessary to install a transmission system, but a gear mechanism whose justification is to be found in \ref{cha:mathematical_model}.
 
@@ -109,7 +109,7 @@ The results in \cite{grimmer} demonstrate that the implementation of compliance 
 They also seem to prove that the contribution to the reduction of energy consumption and power requirements of the hip is neglectable.
 These findings have been used to justify the implementation of elastic actuators in knees and ankles, but not in the hip joints, actuated through direct transmission.
 
-Several models from literature have been subject to a comparative analysis for their use in RuBi, being the main ones shown in Figure \ref{fig:compliance} for the ankle actuation (equivalent for the knees).
+Several models from literature have been subject to a comparative analysis for their use in RuBi, being the main ones shown in Figure \ref{fig:compliance_series} for the ankle actuation (equivalent for the knees).
 These schematics depict the three major design choices made so far, summarized in \ref{list:design_criterias}.
 A short summary of the conclusions reached by these studies is introduced below.
 
@@ -153,7 +153,8 @@ In \cite{phides} this elastic transmission is implemented with torsion bars for 
 % paragraph sea_5 (end)
 
 \begin{figure}[hb!]
-\label{fig:compliance}
+\label{fig:compliance_series}
+\centering
   \begin{subfigure}{.19\textwidth}
     \centering
     \includegraphics[width=\linewidth]{figures/illustration_serial_direct_i.pdf}
@@ -186,6 +187,38 @@ In \cite{phides} this elastic transmission is implemented with torsion bars for 
   \end{subfigure}
   \caption{SEA configurations studied}
 \end{figure}  
+
+
+
+\paragraph{PEA 1} % (fold)
+\label{par:pea_1}
+The configuration in \ref{fig:parallel1} 
+% paragraph pea_1 (end)
+
+\paragraph{PEA 2} % (fold)
+\label{par:pea_2}
+The configuration called PEA 2 and shown in Figure \ref{fig:parallel2} was the selected one.
+
+% paragraph pea_2 (end)
+
+\begin{figure}[hb!]
+\label{fig:compliance_parallel}
+\centering
+  \begin{subfigure}{.19\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/illustration_parallel_prismatic.pdf}
+    \caption{PEA 1}
+    \label{fig:parallel1}
+  \end{subfigure}
+  \begin{subfigure}{.19\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/illustration_parallel_rotational.pdf}
+    \caption{PEA 2}
+    \label{fig:parallel2}
+  \end{subfigure}
+  \caption{PEA configurations studied}
+\end{figure}  
+
 \todo{Add parallel spring configuration and explanation}
 \todo{Short introduction of benefices and pitfalls of SEA and PEA configurations}
 % subsubsection compliance_distribution_and_possible_configurations (end)
