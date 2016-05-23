@@ -4,10 +4,10 @@
 Based on the requirements of weight and its distribution defined in the analysis of the joints \ref{sec:joints}, the links have been decided to have in the upper extreme the actuators. 
 This leads to use a transmission system, such as belt and pulleys, which leaves for the rest of link a structural function that can also adopt the task of wiring placement.
 Thus, a light weight section that satisfy the conditions of deformation and stress maximum will be chosen.
-Carbon fiber is an ideal material to achieve this conditions of weight and stress so an quantitative analysis has been made calculating the optimal solution and then rounding it for all the possible profiles offered by the given provider.
-The provider was chosen due to the previous experiences that the Mærsk Mc-Kinney Møller Institute had with carbon fiber orders.
+Carbon fiber is an ideal material to achieve these conditions of weight and stress so an quantitative analysis has been made calculating the optimal solution and then rounding it for all the possible profiles offered by the given provider.
+The provider was chosen due to previous experiences that the Mærsk Mc-Kinney Møller Institute had with carbon fiber orders.
 
-The section profile offered \footnote{http://www.easycomposites.co.uk/\#!/cured-carbon-fibre-products/} are: \textit{Rod}, \textit{Tube}, \textit{Box}. The \textit{Stripe} and the \textit{Angle} are discarded due to its asymmetrical geometry that will will lead to less predictable scenarios.
+The section profile offered\footnote{http://www.easycomposites.co.uk/\#!/cured-carbon-fibre-products/} are: \textit{Rod}, \textit{Tube}, \textit{Box}. The \textit{Stripe} and the \textit{Angle} are discarded due to its asymmetrical geometry that will will lead to less predictable scenarios.
 The study case is show in the figure \ref{fig:impact_decomposition}, where the impact force can be decomposed in a pure bending effort and a pure compression.
 Due to the resistance of the carbon fiber in pure compression is bigger than in bending, only this last case has been studied.
 This studies should not completly follow the behaviour in real life due to the carbon fiber is not an isomorphic material.
@@ -30,14 +30,14 @@ However, the high security factor taken into account is expected to overcome thi
     \sigma _{compression} = \sigma _{tension} = \frac{M h_{CG}}{I_x}
   \end{equation}
 
-  Meanwhile the deformation in the extreme can be calculated with the equation \ref{eq:deformation} if the case is simplified to the occurred in the figure \ref{fig:impact_decomposition}.
-  This is, when the legs is completely stretched, what will cause the biggest stresses.
+  Meanwhile the deformation in the extreme can be calculated with the equation \ref{eq:deformation} if the case is simplified to the occurred in the figure \ref{fig:bending_case}.
+  This is, when the leg is completely stretched, what will cause the biggest stresses.
 
   \begin{figure}[ht!]
     \centering
     \includegraphics[width=\textwidth]{figures/bending_case.pdf}
     \caption{Simplified representation of the bending case}
-    \label{fig:bending case}
+    \label{fig:bending_case}
   \end{figure}
 
   \begin{equation}
@@ -46,7 +46,7 @@ However, the high security factor taken into account is expected to overcome thi
   \end{equation}
 
 
-  For the selected profiles the equations that define the compression $\sigma _{compression}$ and tension efforts $\sigma _{tension}$, along with the deformation in the direcction of the applied force $y_L$ are shown, being:
+  For the selected profiles the equations that define the compression ($\sigma _{compression}$) and tension efforts ($\sigma _{tension}$), along with the deformation in the direcction of the applied force ($y_L$) are shown, being:
 
   \begin{enumerate}
     \item $h_{CG}$: height of the center of gravity of the semi-half section from the geometrical center of the section.
@@ -116,7 +116,7 @@ However, the high security factor taken into account is expected to overcome thi
 \subsubsection{Final limb parameters} % (fold)
 \label{ssub:final_limb_parameters}
 Following the criteria from the sections \ref{sec:dimensions} and \ref{sec:physical_properties} of size and materials, the presented formulas and the have been applied to all the profiles of the provider.
-An iterative processes based on the outputs of the mathematical model \ref{cha:mathematical_model} has given a result the limb lengths shown in the table \ref{tab:limb_lengths}.
+An iterative process based on the outputs of the mathematical model \ref{cha:mathematical_model} has given as a result the limb lengths shown in the table \ref{tab:limb_lengths}.
 
 \begin{table}[ht!]
 \centering
@@ -124,13 +124,13 @@ An iterative processes based on the outputs of the mathematical model \ref{cha:m
 \label{tab:limb_lengths}
 \begin{tabular}{r|l}
   \textbf{Limb} & \textbf{Length [m]} \\ \hline
-  Foot & 0.095 \\ \hline
+  Foot length & 0.095 \\ \hline
+  Foot width & 0.030 \\ \hline
   Lower limb & 0.212 \\ \hline
-  Upper limb & 0.262    
+  Upper limb & 0.262 \\ \hline
+  Hip width & 0.150     
 \end{tabular}
 \end{table}
-
-\todo{Add hip and foot width with small explanation}
 
 Then, the profiles have been analyzed calculating the torque from \ref{ssub:torque_calculation} and then applying the section \ref{ssub:profile_study} for each iteration.
 The calculations of the last iteration are shown in the appendix \ref{app:profile_selection}.
