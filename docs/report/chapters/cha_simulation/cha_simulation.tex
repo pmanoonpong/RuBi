@@ -1,10 +1,12 @@
 %!TEX root = ../../report.tex
-
 \chapter{Simulation} % (fold)
 \label{cha:simulation}
-This chapter is meant to answer the questions what, why and how a simulator takes part in the framework.
-Starts with a motivation section \ref{sec:sim_motivation} which defines the scope of the simulator
- in the project, followed by a comparison of simulators \ref{sec:sim_comparison_of_simulators} and how to define a robot and its environment in it \ref{sec:robot_definition}; in the next section \ref{sec:robot_creation} is explained how the simulation model of the legs has been created and how to add new features, whilst the creation of the environment is dealt in the section \ref{sec:environment_creation}; finishes with a how-to dedicated section for launching the simulation from scratch in \ref{sec:how_to_simulate}.
+Within the goals of the framework is the creation of an ecosystem among software and hardware whose last target is to facilitate the researcher the test of new controllers.
+The process of testing new code in locomotion is usually slow due to the inherent problems of the hardware: maintenance, adjustments, bringing up the robot...
+Which breaks the workflow of the user and force to spend a time that should be used in the actual development of the program.
+The RuBi framework includes a simulator and its simulation model in order to tackle this problem.
+The sections of this chapter include from a comparison of simulators to the explanation of how to start developing, passing through the creation of the robot and other tools implemented like dimensional analysis or a rotational holder for the device.
+
 \input{chapters/cha_simulation/sections/sec_motivation}
 \input{chapters/cha_simulation/sections/sec_comparision_of_simulators}
 \input{chapters/cha_simulation/sections/sec_robot_definition}
@@ -12,5 +14,4 @@ Starts with a motivation section \ref{sec:sim_motivation} which defines the scop
 \input{chapters/cha_simulation/sections/sec_dimensional_analysis}
 \input{chapters/cha_simulation/sections/sec_environment_creation}
 \input{chapters/cha_simulation/sections/sec_how_to_simulate}
-
 % chapter simulation (end)
