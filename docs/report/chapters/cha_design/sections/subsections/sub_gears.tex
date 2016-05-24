@@ -1,17 +1,15 @@
 %!TEX root = ../../../../report.tex
 \subsection{Gears} % (fold)
 \label{sub:gears}
-The gears have been optimized based on a trade-off between manufacturability and performance.
-As defined in the analysis chapter \ref{cha:analysis}, the hip will be designed without any passive actuator and the motor will be as close as possible to the joint.
-This makes the geared transmission the most appropriated.
 When sizing the motors in \ref{cha:mathematical_model}, the same kind of motor for all the the joints was chosen reducing then the number of unique parts and increasing the modularity.
-A reduction of 2:1 was needed then for the hip as calculated in \ref{sub:actuators}.
+However, a reduction of $2:1$ was found to be needed for the hip joints during the calculations carried out in \ref{sub:suitability_of_the_motor_model_for_the_application}.
+As defined in the analysis chapter \ref{cha:analysis}, the hip will be designed without any passive actuator and the motor will be as close as possible to the joint, which made a geared transmission the most appropriated option.
 
-An smaller teeth size has been sought in order to reduce the backlash and assuring that there are always teeth in contact.
-The size of the teeth has been defined by the smaller precision of the 3D printer in which they will be printed.
-
+The gears have been optimized based on a trade-off between manufacturability and performance.
+An small teeth size was sought in order to reduce the backlash and assuring that there are always teeth in contact.
+The size of the teeth has been defined by the smaller precision of the 3D printer in which they were printed.
 The gears have been designed with the \textit{Coarse Pitch Involute 20 deg} standard due to its easy manufacturability.
-Despite a \textit{herringbone} gear was considered, the simple \textit{spur} was chosen due to it facilitates the assembly and can be adapted to unpredicted problems in the manufacturing and assembly processes. 
+Despite a \textit{herringbone} gear was considered, the simple \textit{spur} was chosen since it facilitated the assembly and could be adapted to unpredicted problems in the manufacturing and assembly processes. 
 In the figure \ref{fig:teeth_detail}, a detail of the teeth is shown.
 
 \begin{figure}[ht!]
@@ -22,6 +20,6 @@ In the figure \ref{fig:teeth_detail}, a detail of the teeth is shown.
 \end{figure}
 
 There was not a FEM or stress analysis and the experimental method was preferred due to the current unpredictable mechanical efforts of the 3D printed parts.
-In the appendix \ref{app:hip_gears}, all the properties of the gears are found.
+In the appendix \ref{app:hip_gears}, all the properties of the gears are to be found.
 
 % subsection gears (end)
