@@ -23,7 +23,8 @@
 \usepackage{tablefootnote}
 \usepackage{multirow}
 \usepackage{todonotes}
-\usepackage{mathtools}
+%Use of \abs from mathtools
+\DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
 
 %---Colors---%
 \definecolor{chapterColor}{HTML}{004685}
@@ -35,9 +36,6 @@
 \sectionfont{\color{sectionColor}}
 \subsectionfont{\color{subSectionColor}}
 \color{defaultColor}
-
-%Use of \abs from mathtools
-\DeclarePairedDelimiter\abs{\lvert}{\rvert}%
 
 %---Fonts---%
 %\usepackage{fontspec}
