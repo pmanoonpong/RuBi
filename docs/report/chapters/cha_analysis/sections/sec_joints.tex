@@ -152,7 +152,7 @@ The original idea was taken from \cite{phides} but has been modified to ease its
 In \cite{phides} this elastic transmission is implemented with torsion bars for the joints axes, while RuBi uses torsion springs placed around more resistant axis to transmit the motion.
 % paragraph sea_5 (end)
 
-\begin{figure}[hb!]
+\begin{figure}[ht!]
 \centering
   \begin{subfigure}{.19\textwidth}
     \centering
@@ -192,16 +192,20 @@ In \cite{phides} this elastic transmission is implemented with torsion bars for 
 
 \paragraph{PEA 1} % (fold)
 \label{par:pea_1}
-The configuration in \ref{fig:parallel1} 
+The configuration in \ref{fig:parallel1} shows a compression spring (or extension spring depending the placement) connected within the two links.
+This direct connection act as a parallel spring and has the advantage of being a very flexible systems in term of changing the physical parameters of the spring. 
+However its design is discarded in favor of the rotational due to the previous election of the rotational series spring.
 % paragraph pea_1 (end)
 
 \paragraph{PEA 2} % (fold)
 \label{par:pea_2}
 The configuration called PEA 2 and shown in Figure \ref{fig:parallel2} was the selected one.
+This is congruent with the series spring what will facilitate its integration when designing.
+It also has the advantage of having common interfaces which would lead to the use of the same spring in the series and parallel configuration, saving thus money and time.
 
 % paragraph pea_2 (end)
 
-\begin{figure}[hb!]
+\begin{figure}[ht!]
 \label{fig:compliance_parallel}
 \centering
   \begin{subfigure}{.19\textwidth}
@@ -219,8 +223,10 @@ The configuration called PEA 2 and shown in Figure \ref{fig:parallel2} was the s
   \caption{PEA configurations studied}
 \end{figure}  
 
-\todo{Add parallel spring configuration and explanation}
-\todo{Short introduction of benefices and pitfalls of SEA and PEA configurations}
+Based on the experiments carried out in \cite{grimmer}, can be deduced that both PEA and SEA configurations have the advantages of reduce the peak and energy requirements of the motors.
+This causes a general improvement of the system due to if smaller motors are needed, the weight will be less and thus the structure can be also reduced.
+When comparing both configurations though, it is not exactly clear what are the benefices and the pitfalls of SEA, PEA and SEA+PEA.
+This is why a system that allows to have all the configurations is decided which would let the user to choose and implement its own configurations (SEA, PEA or SEA+PEA) and study their behaviors along with the controllers.
 % subsubsection compliance_distribution_and_possible_configurations (end)
 
 % subsection compliance (end)
