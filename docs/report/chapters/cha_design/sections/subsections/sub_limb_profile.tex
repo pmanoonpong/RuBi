@@ -46,7 +46,7 @@ However, the high security factor taken into account is expected to overcome thi
   \end{equation}
 
 
-  For the selected profiles the equations that define the compression ($\sigma _{compression}$) and tension efforts ($\sigma _{tension}$), along with the deformation in the direcction of the applied force ($y_L$) are shown, being:
+  For the selected profiles the equations that define the compression ($\sigma _{compression}$) and tension efforts ($\sigma _{tension}$), along with the deformation in the direcction of the applied force ($y_L$) are shown in the table \ref{tab:section_study}, being:
 
   \begin{enumerate}
     \item $h_{CG}$: height of the center of gravity of the semi-half section from the geometrical center of the section.
@@ -54,51 +54,19 @@ However, the high security factor taken into account is expected to overcome thi
     \item $E$: Elastic module.
   \end{enumerate}
 
+  \begin{table}[ht!]
+  \centering
+  \caption{Stress and deformation analysis for the sections given}
+  \label{tab:section_study}
+  \begin{tabular}{c|c|c|c|c}
+    \textbf{Section} & \textbf{$I$} & \textbf{$h_{CG}$} & \textbf{$y_L$} & \textbf{$\sigma$} \\ \hline
+    \raisebox{-.5\height}{\includegraphics[width=0.25\linewidth]{figures/profile_cylinder.pdf}} & $\frac{\pi}{4} (r_2 ^4 - r_1 ^4)$ & $r_2$ & $\frac{4 P L^2}{3 E \pi(r_2 ^4 - r_1 ^4)}$ & ${\pi(r_2 ^4 - r_1 ^4)} M$ \\ \hline
 
-  \noindent\begin{minipage}{0.2\textwidth}% adapt widths of minipages to your needs
-      \includegraphics[width=\linewidth]{figures/profile_cylinder.pdf}
-  \end{minipage}%
-  \hfill%
-  \begin{minipage}{0.8\textwidth}
-    \begin{equation}
-      \begin{aligned}
-      \sigma _{compression} = \sigma _{tension} &= \frac{M h_{CG}}{I_x} = \frac{4 r_2}{\pi(r_2 ^4 - r_1 ^4)} M \\
-      y_L &= \frac{P L^2}{3EI} = \frac{4 P L^2}{3 E \pi(r_2 ^4 - r_1 ^4)}\\
-      h_{CG} &= r_2 \\
-      I_x = I_y &= \frac{\pi}{4} (r_2 ^4 - r_1 ^4)
-      \end{aligned}
-    \end{equation}
-  \end{minipage}
+    \raisebox{-.5\height}{\includegraphics[width=0.25\linewidth]{figures/profile_tube.pdf}} & $\frac{\pi r_1 ^4}{4}$ & $r_1$ & $\frac{P L^2}{3EI} = \frac{4 P L^2}{3 E \pi r_1 ^4}$ & $\frac{4}{\pi r_1 ^3} M$ \\ \hline
 
-  \noindent\begin{minipage}{0.2\textwidth}% adapt widths of minipages to your needs
-      \includegraphics[width=\linewidth]{figures/profile_tube.pdf}
-  \end{minipage}%
-  \hfill%
-  \begin{minipage}{0.8\textwidth}
-    \begin{equation}
-    \begin{aligned}
-      \sigma _{compression} = \sigma _{tension} &= \frac{M h_{CG}}{I_x} = \frac{4}{\pi r_1 ^3} M\\
-      y_L &= \frac{P L^2}{3EI} = \frac{4 P L^2}{3 E \pi r_1 ^4}\\
-      h_{CG} &= r_1 \\
-      I_x = I_y &= \frac{\pi r_1 ^4}{4}
-      \end{aligned}
-    \end{equation}
-  \end{minipage}
-
-  \noindent\begin{minipage}{0.2\textwidth}% adapt widths of minipages to your needs
-      \includegraphics[width=\linewidth]{figures/profile_squared.pdf}
-  \end{minipage}%
-  \hfill%
-  \begin{minipage}{0.8\textwidth}
-    \begin{equation}
-    \begin{aligned}
-      \sigma _{compression} = \sigma _{tension} &= \frac{M h_{CG}}{I_x} = \frac{6 d}{(d^4 - k^4)}\\
-      h_{CG} &= \frac{d}{2} \\
-      y_L &= \frac{P L^2}{3EI} = \frac{4 P L^2}{E (d^4 - k^4)}\\
-      I_x = I_y &= \frac{1}{12} (d^4 - k^4)
-      \end{aligned}
-    \end{equation}
-  \end{minipage}
+    \raisebox{-.5\height}{\includegraphics[width=0.33\linewidth]{figures/profile_squared.pdf}} & $\frac{1}{12} (d^4 - k^4)$ & $\frac{d}{2}$ & $\frac{4 P L^2}{E (d^4 - k^4)}$ & $\frac{6 d}{(d^4 - k^4)}$ \\ \hline
+  \end{tabular}
+  \end{table}
 % subsubsection profile_study (end)
 
 \subsubsection{Torque calculation} % (fold)
@@ -107,8 +75,7 @@ However, the high security factor taken into account is expected to overcome thi
   This torque is different in the lower and the upper limb due to the upper limb takes the distance from the foot to the hip while the other one is only from the foot to the knee:
   \begin{equation}
   \begin{aligned}
-     M_{lower\ limb} = F \cdot d = 294.4 \cdot 0.2126 = 62.57 Nm\\
-     M_{upper\ limb} = F \cdot d = 294.4 \cdot (0.2126 + 0.2622) = 139.73 Nm
+     M_{lower\ limb} = F \cdot l_{link(s)\ length}
   \end{aligned}
   \end{equation}
 % subsubsection torque_calculation (end)
