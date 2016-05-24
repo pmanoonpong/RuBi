@@ -1,13 +1,13 @@
 %!TEX root = ../../report.tex
 \chapter{Mechatronic design} % (fold)
 \label{cha:design}
-Designing a bipedal is a complex task that has been subdivided and analyzed in the chapter \ref{cha:analysis}.
-From those results the design of RuBi can be broken down into three pieces: electronics, mechanics and software.
-When designing from a holistic point of view, this three combined give a positive synergy which is the burden of this chapter.
-The first of the three sections starts with the design of the electronics: from the selection of the motors based on \ref{sec:joints} and \ref{cha:mathematical_model} to the custom interfaces developed in order to reduce the weight.
-Continues with the mechanical design that gathers all the constraints got from the sections \ref{sec:dimensions} and \ref{sec:physical_properties}, carries out its own mechanical analyses, like stress, durability, feasibility, design oriented to manufacturing... and concludes into a 3D model making a compromise between the requirements and manufacturability.
-The last section is software, and it deals with how the control of the robot has been done.
-This system is meant to be used in both the simulation and the real robot, based on ROS and with an easy interface with the already used libraries within the Maersk Mc-Kinney Møller Institute.
+The results of the conceptual studies conducted in chapter \ref{cha:analysis} laid the goals and criteria to lead the design process of the first prototype of RuBi.
+The actual implementation of these ideas in the fields of electronics, mechanics and software is described here.
+When designing from a holistic point of view, these three areas combined give a positive synergy which is the burden of this chapter.
+The first of the three sections starts with the design of the electronic hardware: from the selection of the motors based on \ref{sec:joints} and \ref{cha:mathematical_model} to the expansion interfaces installed in order to reduce the weight and finally the sensory feedback system.
+It follows the mechanical design of the limbs components, in which the constraints defined in \ref{sec:dimensions} and \ref{sec:physical_properties} are applied, together with the structural and production-oriented calculations required.
+It concludes with an presentation of the CAD design process carried out, in which a comprise between the components ideal capabilities and the current production capacity in this project has been tried to be reached.
+In the last section, devoted to the software-related development except for the simulation environment, the architecture implemented for the robot control system is presented.
 
 \input{chapters/cha_design/sections/sec_electronics}
 \input{chapters/cha_design/sections/sec_mechanics}
