@@ -106,9 +106,43 @@ Within the presented theoretical frame, the energy stored by the virtual spring 
 However, the right side of equation \ref{eq:eq_spring} cannot be decoupled.
 Instead, the configuration and number of springs for several series of the same experiment could be changed, and their influence on the obtained $E_{eq}$ compared to assess their contribution to the overall energy storage capacity of the leg.
 A high-speed vision system to provide the height measurements for the experiment, following the model presented in \cite{hs_vision}, is put forward here for consideration. 
-
 % subsubsection experiment_2 (end)
 
 % section vertical_jump_experimentation (end)
+
+\section{Simulation experiments} % (fold)
+\label{sec:simulation_experiments}
+In the section \ref{sub:example_controllers}, the example controllers were presented.
+Among them, the impulse controller, creates a set of torques that generate an impulse.
+This impulse is not controlled in anyway but permits a fast look to the order of magnitud of the forces necessary in order to jump.
+The cotroller has only been tested in the simulation and in the figure \ref{fig:gazebo_jumping}, RuBi is shown jumping after receive the impulse shown in the table \ref{tab:impulse_controller_inputs}. 
+Whilst to have real conclusion of the jumping capabilities this needs to be tested in the real robot, the simulation shows to be usefull for conceptual testing of the controllers.
+
+\begin{table}[tb]
+    \caption{Input parameters for the impulse controller that produce a jump in the robot}
+    \label{tab:impulse_controller_inputs}
+    \centering
+
+    \begin{tabular}{c|c}
+    \textbf{Parameter} & \textbf{Value} \\
+    \hline
+        Hip's torque & -10 N \\
+    \hline
+        Knee's torque & 10 N \\
+    \hline
+        Ankle's torque & -10 N \\
+    \hline
+        Application time & 0.5 s \\
+    \end{tabular}
+\end{table}
+
+\begin{figure}[hb]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/gazebo_jumping.png}
+    \caption{Screenshot of the robot taken when jumping by using the impulse controller}
+    \label{fig:gazebo_jumping}
+\end{figure}
+
+% section simulation_experiments (end)
 
 % chapter experiments (end)

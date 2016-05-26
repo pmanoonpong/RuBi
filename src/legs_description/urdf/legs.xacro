@@ -12,7 +12,7 @@
 
   <!-- Robot configuration: Miscellaneous -->
   <xacro:property name="robot_floating" value="0"/>
-  <xacro:property name="rotational_holder" value="0"/>
+  <xacro:property name="rotational_holder" value="1"/>
   <xacro:property name="scale" value="1"/>
   <xacro:property name="mass_scale" value="${pow(scale,3)}"/>
   <xacro:property name="intertia_scale" value="${pow(scale,5)}"/>

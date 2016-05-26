@@ -1,8 +1,30 @@
 %!TEX root = ../../report.tex
 \chapter{Discussion} % (fold)
 \label{cha:discussion}
+% a reference to the main purpose of the study
+The purpose of the project was the construction of a robust, low-cost
+and reconfigurable bipedal locomotion platform for human-like walking and running gait
+generation and control studies.
 
-%Alternatives to the use of the main board's input pins
-%Development of an ground-contact force model --> the current one is a Normal function
+% a generalized review of the most important findings - summary of results
+This has been achieved by making a framework consisting of a real robot and a simulation environment all gathered within ROS.
+The system stands out for facilitating the implementation of locomotion controllers and the possibility of testing them in the simulation and in the real robot.
+Another big feature is the possibility of testing different spring configuration which will lead to more adaptable controllers.
 
+% possible explanations for the findings in general
+This can be done thanks to a interchangeable spring system that accepts passive actuators for a big range of torsional springs enabling the user the use of SEA configurations, PEA or SEA+PEA.
+A handy option for changing the resting position of the parallel springs is also offered which gives a big set of possibilities for studying human-like gaits.
+From the mechanical perspective the bulk of the parts are 3D printed which reduces price, construction time and the maintainability costs while the rest of the parts are following standards and thus are easy to find.
+The use of a proved and robust electronic system is a perfect match for the software tools provided and the support and third party tools given by ROS.
+This creates a positive synergy among the mechatronic design and its implementation.
+
+% comparison with expected results and other studies
+With the example controllers provided, the actuators have been tested in both real life and simulation.
+The assembly of the robot has shown to be feasible and the given assembly manuals facilitate its replication.
+However, not all the expected experiments can be carried out.
+The passive actuators of RuBi didn't arrive when expected and this planning error has impeded the practice of jumping or walking experiments.
+Though this have been done in the simulation, this has been proved to be a tool for qualitative analysis and not quantitative.
+Further work must be done on testing the capabilities and robustness of the system.
+
+% limitations of the overall study that restrict the extent to which the findings can be generalized
 % chapter discussion (end)
