@@ -1,5 +1,5 @@
 %---Document Class---%
-\documentclass[12pt]{report}
+\documentclass[12pt]{book}
 
 %---Packages---%
 \usepackage[utf8]{inputenc} %Danish letters
@@ -76,35 +76,30 @@
 \nocite{*}
 
 
-%---Begin Document---%
+%---Title---%
 \newcommand{\documentTitle}{Design, simulation and development of a bipedal locomotion platform for human-like gaits studies}
 \newcommand{\documentType}{Master Thesis}
 
 \newcommand{\institute}{University of Southern Denmark}
 \newcommand{\department}{Faculty of Engineering}
 \newcommand{\program}{MSc in Engineering, Robot Systems}
-%\newcommand{\course}{Robot System Design}
 
 \newcommand{\authorOne}{Jorge Rodriguez Marin}
 \newcommand{\authorTwo}{Ignacio Torroba Balmori}
 
 %---Begin Document---%
 \begin{document}
-    \pagenumbering{gobble} % Remove warnings of number page
-	\include{chapters/cha_frontmatter/title}
+    \frontmatter
+    \include{chapters/cha_frontmatter/title}
     \include{chapters/cha_frontmatter/dedication}
     \include{chapters/cha_frontmatter/abstract} 
     \include{chapters/cha_frontmatter/acknowledgement}
-    \pagenumbering{arabic} % Remove warnings of number page
-    \setcounter{page}{2}
-
-    %\tableofcontents\thispagestyle{empty}\vfill % No number page
-    %\onehalfspacing
     \singlespacing
-	\tableofcontents
+    \tableofcontents
     \listoftables
     \listoffigures
 
+    \mainmatter
     \include{chapters/cha_introduction/introduction}
     \include{chapters/cha_state_of_the_art/cha_state_of_the_art}
     \include{chapters/cha_analysis/cha_analysis}
