@@ -5,46 +5,57 @@
 The first attempts to accomplish artificial walking machines in the mid-1950s were based on stiff structures and kinematic control.
 There has been more than 50 years of development in several technology fields between them and the current soft, compliant and torque-controlled legged robots.
 Among the main advances that gave rise to the evolution of the autonomous walking robots, three considered essential and of great relevance for this thesis are listened in \ref{list:leg_advances} and further discussed here.
-Thanks to them, nowadays 
+Thanks to them, nowadays the research in legged robotics goes hand in hand with the study of biological locomotion systems in the attempt to imitate existing features present in nature.
 
 \begin{itemize}
 \label{list:leg_advances}
 	\item The realization of the importance that a dynamic and active control has on the walking behavior, as opposed to rigid, kinematics-based motion.
 	\item The conception of the embodied AI. The influence of the body in the process of thinking.
-	\item The improvements in sensors/actuators performance, material science, computing power and power sources.
+	\item The improvements in sensors/actuators performance, material science, embedded computing power and power sources.
 \end{itemize}
 
-\subsection{Dynamics of legged locomotion} % (fold)
+\subsection{The relevance of the dynamics} % (fold)
 \label{sub:dynamics_control}
 Stiff position control for kinematic trajectory planning has lately demonstrated impressive capabilities for instance during the last DARPA learning locomotion challenge.
 However, the limitations of this kind of control such as the need of a very detailed knowledge  about both the robot state vector and the environment have been also exposed.
 Thus, it seems clear that the solution for robust and adaptive motion platforms has to go through the development of dynamics-based control models.
 The first big steps in dynamic legged locomotion control took place in the 90's in the Leg Laboratory, at the MIT Artificial Intelligence Laboratory carried out by Marc Raibert and his team.
 Their findings about the importance of active balance for stability and the possibility of creating simple and generalizable control algorithms for complex dynamic legged systems \cite{mit_leg_lab1} pushed the development of walking robots to a new stage.
-Besides, they were among the pioneers in the realization of the influence of the mechanical design together with the control in the generation of behaviors in locomotion.
-
-Since this first approach, ...
+Besides, they were among the pioneers in the realization of the influence of the mechanical design together with the control in the generation of complex behaviors in locomotion.
+A paradigmatic example of the importance of the biomechanics and the body dynamics in the control of machines intended for locomotion is the well-known passive walker developed by McGeer \cite{passive_walking} and shown in \ref{fig:passive_walker}. 
+The achievement of a human-like, efficient walking behavior without any kind control structure gave birth to the concept of morphological computation.
 
 % subsection dynamics_control (end)
+\begin{figure}[h]
+	\centering
+	\begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/passive_walker.jpg}
+        \caption{McGeer passive walker}
+        \label{fig:passive_walker}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/Stickybot.jpg}
+        \caption{Stickybot robot, Standford University}
+        \label{fig:stickybot}
+    \end{subfigure}
+\caption{Examples of bio inspired mechanics in locomotion}
+\label{fig:figure1}
+\end{figure}
 
 \subsection{Embodied AI and locomotion} % (fold)
 \label{sub:the_embodiment_}
 The embodiment concept came up in the Artificial Intelligence field in the 1980's as a mean to explore the influence of the body and its characteristics in the process of thinking. 
-In the very convenient words of Rolf Pfeifer and Fumiya Iida, "How does walking relate to thinking".
-As introduce in \cite{pfeifer}, the original intention of artificial intelligence was not only to develop clever algorithms, but also to understand natural forms of intelligence that have more to do with the interaction with the real world.
+Its aim could be expressed as the search for the answer to the question, in the very convenient words of Rolf Pfeifer and Fumiya Iida, "How does walking relate to thinking?".
+As introduced in \cite{pfeifer}, the original intention of artificial intelligence was not only to develop clever algorithms, but also to understand natural forms of intelligence that have more to do with the interaction with the real world.
 
-The advent of this new approach in AI caused by itself an enormous boost in the locomotion field in robotics since researchers started working with mobile robots.
-In the seek of the answer to the famous question "Why don’t plants have brains?", thehe believe that the answer could be their absence of movement led to the general use of the already available wheeled robots.
+The advent of this new approach in AI caused by itself an enormous boost in the locomotion field in robotics since it made researchers start working with mobile robots.
+The general initial conviction that locomotion and orientation were somehow the underlying driving forces in the development of cognition, in the evolution of the brain, led to the general use of the already available wheeled robots \cite{pfeifer}.
+In the seek of the answer to the famous question "Why don’t plants have brains?", by D. Wolpert, the belief that the reason could be their incapacity for displacement led to an increasing use of mobile robots as a research tool.
 
-
-
-turn to nature as a source of inspiration and helped see the importance of the mechanics in the behavior
-
-
-%R. Peiffer paper
-%Passive walkers
-%Compliance
-%Inspiration from nature
+Besides, the embodied AI brought about the turn to nature for inspiration in biological systems under the belief that the results of Darwinian evolution and the principle of ecological balance had created systems of greater complexity and optimality worth studying and mimicking.
+With all this, it came the understanding that complex behavior could arise from the synergistic combination of simple algorithms and the physical characteristics of the body.
+Since then, mechanical compliance in the actuation, soft materials and bio inspired controllers such as CPGs for instance have been widely studied and implemented in walking machines. 
+An example of this concept is the Stickybot, created Biomimetics and Dexterous Manipulation Lab, at Standford University, shown in Figure \ref{fig:stickybot}.
 % subsection the_embodiment_ (end)
 
 \subsection{Main advances in hardware} % (fold)
