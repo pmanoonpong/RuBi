@@ -3,26 +3,21 @@
 \label{sec_dynamic_model}
 The goal of this step is to calculate the relationship between an external force applied to the toe (ground reaction force while jumping) and the necessary torques in the joints for dealing with that external disruption.
 This relation can be expressed as a set of second order differential equations represented for the general case as in equation \ref{eq:dynamics_eq1}. 
-
 \begin{equation}
 	\label{eq:dynamics_eq1}
 	B(q)\ddot{q} + C(q,\dot{q})\dot{q} + g(q) = \tau
 \end{equation}
-
 Where $B(q)$ is the inertia matrix, $c(q,\dot{q})$ contains the centrifugal and coriolis acceleration terms and $g(q)$ represents gravity, as in \cite{dynamics1} and \cite{dynamics2}. 
 It must be remarked here that the constructed model does not introduce joint friction terms.
 For an open kinematic chain as this, three methodologies to obtain the above equation where object of study:
-
 \begin{itemize}
 	\item A simplified Euler-Lagrange algorithm, as introduced in \cite{E-L1}, which makes use of the Lagrangian formulation to describe the behavior of the system through work and energy.
 	\item The so called Energy Method, presented in \cite{asada} and consisting in finding the relation between the force in the end-effector and the joint torques through the Jacobian of the kinematic chain.
 	\item The Newton-Euler algorithm, through which the dynamics of the system can be expressed in terms of forces and moments applied in each member of the chain.
 \end{itemize}
-
 It was finally decided to apply the third option due to the fact that it was faster to implement than the E-L algorithm and more reliable than the Energy method.
 The Newton-Euler algorithm is founded in classical mechanics and its a recursive method that computes in two steps the velocities and accelerations of every component of a kinematic chain and their forces and torques on the joints.
 In \ref{eq:N-E_eq1}, the equations of motion for an individual link are shown.
-
 \begin{equation}
 \label{eq:N-E_eq1}
 	\begin{aligned}
@@ -31,11 +26,9 @@ In \ref{eq:N-E_eq1}, the equations of motion for an individual link are shown.
 		i = 1,..., N 
 	\end{aligned}
 \end{equation}
-
 These equations contain the coupling forces and moments applied to the link by the immediate ones, however, they cannot be used with them. 
 $\omega_{i}$ and $\dot{\omega_{i}}$ represent respectively the angular velocity and acceleration vectors of link $i$ and can be obtained from the joint velocities and accelerations, computed in the previous section, as in equation \ref{eq:angular_magnitudes}.
 $I_{i}$ are the inertia matrices of the links, calculated in SolidWorks for the final design of Rubi.
-
 \begin{equation}
 \label{eq:angular_magnitudes}	
 	\begin{aligned}
@@ -43,32 +36,25 @@ $I_{i}$ are the inertia matrices of the links, calculated in SolidWorks for the 
 		\dot{\omega_{i}} &= \dot{\omega_{i-1}} + \xi_{i}[\ddot{q}_{i}Z_{base}^i + \dot{q}_{i}\omega_{i-1} \times Z_{base}^i]
 	\end{aligned}
 \end{equation}
-
 The closed-form equations must be derived from them so that they can be applied to the algorithm.
 This is done by substituting the coupling forces in the final set of 6 equations obtained for $N=3$ and substituting \ref{eq:torques} in the resulting equations.
-
 \begin{equation}
 \label{eq:torques}
 	N_{i - 1 , i} = \tau_{i}
 \end{equation}
-
 Equation \ref{eq:torques} is valid only for the planar case.
 After these steps, a set of three equations of the form \ref{eq:dynamics_eq1} is obtained. 
 As parameters, they contain the masses of the links, their vectorial positions, the gravity term and their inertia matrices. 
 
 \todo{add final motion equations?}
-
 This set of equations calculates the necessary torques on the joints as a function of the joints displacements and the external forces and torques applied on the system, as represented in \ref{eq:tau_q}.
-
 \begin{equation}
 \label{eq:tau_q}
 	\tau(t)_{i} = f(q_{i}(t), \dot{q}_{i}(t), \ddot{q}_{i}(t), \tau_{ext}, F_{ext})
 \end{equation}
-
 However, in order to use it the functions that model the trajectories of joints in the joint space must be approximated.
 For the ideal static, vertical jump case under study here, the movement of the toe has been constrained to a vertical displacement along the $Y$ axis in order to simplify this task.
 Thus, the trajectory of the end-effector of the kinematic chain, $P_{3}$ in Figure \ref{fig:f-t}, can be easily approximated as a function of the form shown in 
-
 \begin{equation}
 \label{eq:toe_trajectory}
 	\begin{aligned}
@@ -77,15 +63,8 @@ Thus, the trajectory of the end-effector of the kinematic chain, $P_{3}$ in Figu
     \theta(t) &= \theta(t_{o}) + \cfrac{\theta(t_{f}) - \theta(t_{o})}{(t_{f} - t_{o}) (t - t_{o})} 
     \end{aligned}
 \end{equation}
-
 Therefore, if equation \ref{eq:toe_trajectory} is used as the input to the inverse kinematic model, the joint displacements will become dependent on the linear displacement of $P_{3}$, and equations \ref{eq:tau_q} will be rewritten as \ref{eq:tau_p}.
-
 \begin{equation}
 \label{eq:tau_p}
 	\tau(t)_{i} = f(P_{3}(t), \tau_{ext}, F_{ext})
 \end{equation}
-
-
-
-
-

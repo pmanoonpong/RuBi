@@ -2,32 +2,31 @@
 
 \section{Actuators design}
 \label{sec_actuators}
-The following sections present the calculations carried out to define the load requirements of the application the actuators will be used for.
-\footnote{For an introduction to the actual hardware implemented in the prototype, the user is referred to section \ref{sec:electronics}}.
+The following sections present the calculations carried out to define the load requirements of the application the actuators will be used for\footnote{For an introduction to the actual hardware implemented in the prototype, the user is referred to section \ref{sec:electronics}}.
 In the present case, the operation consists in the generation of walking and running gaits for the planar robot Rubi at a wide, not-specified range of speeds. 
 Due to the complexity of modeling such wide and uncertain task requirements, it was decided to study the case of the robot hopping on one leg assuming that the drive requirements for walking/running would be accomplished by actuators able to perform this action.
 
 Considerations about the mechanical transformations of the motor output power before being driven to the load such as transmission mechanisms are not detailed here, but in \ref{sub:pulleys_and_belts}.
 The present explanations are for the motor and gearbox selection.
 
-Following feasibility and availability criteria, it was decided to utilize electric motors for the construction of the robot, as in many other similar cases in the literature \cite{runbot1}, \cite{phides} and \cite{biobiped}.
+Following feasibility and availability criteria, it was decided to utilize electric motors for the construction of the robot, as in many other similar cases in the literature like \cite{runbot1}, \cite{phides} or \cite{biobiped}.
 Generally, the process of selection of electric motors entails answering the following queries about the load:
 
 \begin{itemize}
 \label{list:motor_selection}
-	\item Torques applied by the load to the motor shaft for every link $\tau_{i}$
-	\item Accelerations involved $\ddot{q_{i}}$
-	\item Inertias of the masses $I_{i}$
+	\item Torques applied by the load to the motor shaft for every link $\tau_{i}$.
+	\item Accelerations involved $\ddot{q_{i}}$.
+	\item Inertias of the masses $I_{i}$.
 	%\item Maximum voltage and current supply available 
-	\item Type of operation (continuous, intermittent, reversing)
-	\item Actuator size constraints
+	\item Type of operation (continuous, intermittent, reversing).
+	\item Actuator size constraints.
 \end{itemize}
 
 The first three points in \ref{list:motor_selection} have been answered in sections \ref{sec:jumping_case}, \ref{sec_kinematic_model} and \ref{sec_dynamic_model}.
 %Move next paragraph to electronics section?
 The expected experiments for Rubi to be used are not meant to be of a long duration, which means that low numbers of cycles are expected per use corresponding to an intermittent application.
 Besides, as explained in the power requirements sections of \cite{grimmer} Manuscript I, high power peaks per cycle specially in knees and ankles are expected.
-For the above reason, and aiming at constructing as further work an on-board electronics set, batteries \ref{} %type of batteries
+For the above reason, and aiming at constructing as further work an on-board electronics set, batteries \ref{}. \todo{type of batteries}
 have been selected to supply the necessary power to the motors.
 Finally, the physical dimensions of the motors such as weight and volume are a key factor to be consider in the design of moving platforms. 
 Naturally, the aim here has always been to find a motor+gearbox combination to keep the overall weight of the robot as low as possible, since it was assumed that it would be the heaviest part in the structure.
