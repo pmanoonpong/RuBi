@@ -93,7 +93,7 @@
     \pagenumbering{gobble} % Remove warnings of number page
 	\include{chapters/cha_frontmatter/title}
     \include{chapters/cha_frontmatter/dedication}
-    \include{chapters/cha_frontmatter/abstract}
+    \include{chapters/cha_frontmatter/abstract} 
     \include{chapters/cha_frontmatter/acknowledgement}
     \pagenumbering{arabic} % Remove warnings of number page
     \setcounter{page}{2}
@@ -117,35 +117,6 @@
     \include{chapters/cha_results/cha_results}
     \include{chapters/cha_discussion/cha_discussion}
     \include{chapters/cha_conclusions/conclusions}
-
     \printbibliography
-
-    \begin{appendices}
-        \section{Profile selection}
-        \label{app:profile_selection}
-            \includegraphics[width=177mm]{chapters/cha_appendices/profile_selection}
-
-        \section{Mechanical drawings}
-        \label{app:mechanical_drawings}
-            \includegraphics[width=\linewidth]{chapters/cha_appendices/hip_rod}
-            \break
-            \includegraphics[width=\linewidth]{chapters/cha_appendices/knee_rod}
-            \break
-            \includegraphics[width=\linewidth]{chapters/cha_appendices/hip_structure}
-            \break
-            \includegraphics[width=\linewidth]{chapters/cha_appendices/knee_structure}
-
-        \section{CAD parameters}
-        \label{app:cad_parameters}
-            \includepdf[pages=1]{chapters/cha_appendices/cad_parameters}
-
-        \section{Order list}
-        \label{app:order_list}
-            \includepdf[pages=1-2]{chapters/cha_appendices/order_list}
-
-        \section{Gears of the hip}
-        \label{app:hip_gears}
-            \includepdf[pages=1-2]{chapters/cha_appendices/hip_gears_parameters}
-    \end{appendices}
-
+    \include{chapters/cha_appendices/cha_appendices}
 \end{document}          
