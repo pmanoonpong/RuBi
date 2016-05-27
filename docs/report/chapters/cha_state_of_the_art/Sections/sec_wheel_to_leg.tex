@@ -2,17 +2,20 @@
 
 \section{From the wheel to the leg} % (fold)
 \label{sec:from_the_wheel_to_the_leg}
-While the wheel is a young human invention meant to facilitate terrestrial motion, legged locomotion has been the result of millions of years of adaption of the species from aquatic to terrestrial fields.
-Even though other forms of motion emerged during the same process, including limbless or rolling, the tetrapod and quadrupedal motion is the one that has proved the best performance in terrestrial displacement in relative velocity or jump length, for instance.
+While the wheel is a young human invention meant to facilitate terrestrial motion, legged locomotion has been the result of millions of years of adaption of the species from the aquatic to a terrestrial field.
+During this time, even though other forms of motion on the ground emerged, including limbless or rolling, the tetrapod and quadrupedal motion are the ones that have proved the best performances in terrestrial displacements in terms of relative velocity or jump length, for instance.
 
-\subsection{The wheel in robotics} % (fold)
+\subsection{Discovering the wheel (in robotics)} % (fold)
 \label{sub:the_wheel_in_robotics}
 Despite the facts above, it was the wheel the mean chosen to implement the ability to move around on the first mobile robots such as Walter's tortoises or the John Hopkins University robot Beast \cite{first_mobile_robot}, \cite{second_mobile_robot}.
 This could be explained due to the fact that, as an artificial human creation, the modeling and control of the wheel could be fully mastered during its evolution process, easing its implementation in robotic platforms.
-Some examples of this are shown in Figure \ref{fig:mobile_robots}, which depicts three different applications of wheeled robots.
+Some examples of this are shown in Figure \ref{fig:mobile_robots}, which depicts three current applications of the wheel in robot platforms.
 
-The Rover "Spirit", in \ref{fig:mobile_rover}, is a good example of the possibilities and limits entailed by wheel-based locomotion.
-It was successfully launched on Mars surface in 2004, which can be considered one of the most challenging and unpredictable environment a robot can be subject to, and it stayed active and operative until 2010.
+Although the wheel was chosen as the motion mean to face what can be considered one of the most challenging and unpredictable environment a robot can be subject to, the surface of a new planet, it was not the only option. 
+The Space General Corporation firstly studied the use of multi-legged autonomous platforms for lunar exploration in the early 1960's \cite{legged_mot_history1}.
+However, their use was eventually discarded due to its poor adaptability due to a too low number of DOF.
+The "Spirit" robot in \ref{fig:mobile_rover}, within the NASA's Mars Exploration Rover mission, is the example of the current solution to extraplanetary exploration and a good example of the possibilities and limits entailed by wheel-based locomotion.
+It was successfully launched on Mars surface in 2004 and it stayed active and operative until 2010.
 However, the end of the mission came from the hand of the terrain. 
 A very low-cohesion area of soil made the wheels of the device loose traction and eventually get trapped, preventing from recovering the control of the vehicle and bringing about the end of the mission.
 
@@ -21,7 +24,7 @@ As a service robot, it must fulfill strict safety standards and guarantee a secu
 Thanks to its wheels configuration, it can achieve an agile mobility, fast reaction capacity and a big load capacity.
 
 The EMIEW 2, in \ref{fig:mobile_hitachi}, is an example of midpoint between wheeled and legged locomotion.
-Although its motion relies on steering wheels, their placement at the end of two leg-like limbs provides with some of the advantages of bipedal motion, such as active suspension or impact absorption.
+Although its motion relies on steering wheels, their placement at the end of two leg-like lower-limbs provides with some of the advantages of bipedal motion, such as active suspension or impact absorption.
 
 \begin{figure}[h]
 \label{fig:mobile_robots}
@@ -50,7 +53,7 @@ Although its motion relies on steering wheels, their placement at the end of two
 \subsection{Achieving legged motion} % (fold)
 \label{sub:legged_motion_in_robotics}
 In spite of the great successes attained in the field of wheeled-robotics, possible thanks to the development in engines and the increasing computing capacity of processors, mobile robots based on wheels have not been able to achieve performances in motion comparable to the ones found in nature.
-Specially in uneven terrains, velocity, agility and efficiency are still problems under study.
+Specially in uneven terrains, velocity, maneuverability, and efficiency are still problems under study.
 Besides, the absence of wheels in nature as a result of darwinian evolution ultimately led to questioning \cite{dawkins} if they are truly the best mean to overcome the challenges that displacements in uneven, unknown surfaces yield for robots.
 In words of Richard Dawkins \cite{dawkins} "[the wheel] is dependent for maximum efficiency on a prior invention – the road (or other smooth, hard surface)". 
 Figure \ref{fig:biped_robots} contains three of the most advanced stages in legged locomotion nowadays.
