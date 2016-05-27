@@ -1,7 +1,10 @@
 %!TEX root = ../../report.tex
 \chapter{Conclusions and further work} % (fold)
 \label{cha:conclusions}
-As a general conclusion, 
+As a general conclusion, the creation of an coherent simulation environment and the construction of a robust, low-cost and reconfigurable bipedal locomotion platform has been achieved.
+The ultimate goal was to contribute on the on-going line of research in locomotion control at the AI department at the Maersk Mc-Kinney Møller Institute, and RuBi offers a good compromise between possibilities and affordability.
+From the bringing up of the robot to the set up of the simulation environment,  including easy manufacturability and maintenance or code examples, RuBi is focused in facilitate the development of new locomotion controllers to the researcher or student.
+The platform creates a red line between the actual controller and its test, which ultimately will increase the workflow and the possible experiments to be carried out in the research path of the university.
 
 % It should recall the issues raised in the introduction - what was the purpose of the piece of writing?
 
@@ -9,33 +12,51 @@ As a general conclusion,
 
 % and come to a clear conclusion.
 
-
+Besides the achieved results, there is plenty of room for improvement and, following the chronology order of the report, some further work is suggested for each of the chapters.
 %%% Mathematical model
 % Development of an ground-contact force model --> the current one is a Normal function
+The mathematical model took as an assumption the constraint of having the hip and the tip toe remaining over the same vertical line.
+By having the exact mechanical properties of the links, as moments of inertia, center of gravity and mass, a model which holds the center of gravity vertically constrained could be obtained.
+Furthermore, a the current force model \todo{no tengo ni idea de que es esto nacho, ayuddaaaa} is based on a normal function and could be improved by using a ground-contact force model.
 
 %%% Mechanics
 % Analyze all the mechanical stresses of individual parts and an assembly analysis
 % Improve fastening for motor interfaces
 % Improve foot shape in order to help the step
-% Reinforce fragil sections in 3D printed parts
+% Reinforce fragile sections in 3D printed parts
 % Develop a method to tension the belts
-% Reimplement parallel spring holder to make it easier
+% Re-implement parallel spring holder to make it easier
 % Add more features to the structure
 % Implement a jumping platform
+In the mechanical side, an individual mechanical analysis of all the designed part could lead to a general improvement in the mechanical properties of the robot.
+In this line, based on the future experiences with the real robot, the reinforcement of the most fragile parts could be done. 
+The fastening of the motor interfaces can be improved as it has shown to be a valid design but with some leaks when clamping.
+Other future improvements could be: develop a method to measure the tension of the belts, re-implement the parallel spring holder to make easier the change of the spring, add more features to the test bench or design a jumping platform to measure the evolution of the force in the tip toe when giving a vertical impulse.
 
 %%% Electronics
 % Alternatives to the use of the main board's input pins
 % Implement a method to read easily from I/O
 % Add more sensors to the robot: IMU
 % Add absolute encoders or improve the initialization
-% Reduce the network latency by using 5Ghz or by using ethernet
+% Reduce the network latency by using 5Ghz or by using Ethernet
 % Study the general latency of the system and how it affect to the measurements
 % Develop a easier and safer system for powering the robot
+The electronic implementation of RuBi has proved to be robust and valid, but the set of possibilities that offers has not been exploited.
+The implementation of a method to read easily from the I/O pins could lead to add more sensors as IMUs or light sensors to improve self-awareness.
+The motors have relative encoders and its initialization is made by taking the joints to the mechanical limit, though a touchless system to reset the encoders could be implemented with hall effect sensors.
+The robot could not be tested for experiments like walking though it is expected that the WiFi connection might not give the required performance. 
+The use of the 5Ghz band or an wired Ethernet connection can solve this problem.
+Finally, an easier and safer way to power the robot could be developed in order to avoid the LiPo batteries and all its pitfalls.
 
 %%% Simulation
 % Add springs to the simulation
-% Improve the simulation by modifying physic parameters until reach reailty-like results
+% Improve the simulation by modifying physic parameters until reach reality-like results
 % Add color and textures to the simulation
 % Implement more experiments within the simulation
+Ultimately, the simulation model of RuBi was designed with direct drive transmission in the joints.
+The addition of springs to the model could lead to more realistic results, though this has to be tested.
+The adjustment of certain simulation values as the time step or some in the model of the robot, as the dynamic rotational friction, have to be done based on results taken from the real robot.
+The model can also be improved by attaching more realistic visual characteristics like adding colors and textures to the parts.
+The possibilities of Gazebo have not been squeezed so the inclusion of new simulation environments, sensors or other models is left to further research.
 
 % chapter conclusions (end)
