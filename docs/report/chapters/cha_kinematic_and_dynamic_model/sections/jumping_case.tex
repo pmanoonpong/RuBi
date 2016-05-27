@@ -17,13 +17,14 @@ Three assumptions have been made regarding the bodies in contact during the land
 
 \begin{itemize}
 \label{list:assumptions_jump}
-    \item No slipping occurs
-    \item Absence rebounding 
-    \item There are no structural deformations 
+    \item No slipping occurs.
+    \item Absence rebounding.
+    \item There are no structural deformations.
 \end{itemize}
 
 The whole jump cycle has been divided into two phases with different analysis: an impulse and an aerial period.
 
+\todo{Put this figures in vectorial}
 \begin{figure}[ht!]
     \centering
     \begin{subfigure}[b]{0.3\textwidth}
@@ -47,15 +48,15 @@ The whole jump cycle has been divided into two phases with different analysis: a
 
 
 \paragraph{The aerial phase}
-The period from the take-off of the toes to the instant in which the maximum height $h_{max}$ has been reached, which can takes place between the instants represented in \ref{fig:takeoff_phase} and \ref{fig:aerial_phase}. 
+The period from the take-off of the toes to the instant in which the maximum height $h_{max}$ has been reached, which takes place between the instants represented in \ref{fig:takeoff_phase} and \ref{fig:aerial_phase}. 
 The rest of the cycle, including fall and landing are not described here.
 During the whole period the robot is considered a rigid solid.
 This phase is analyzed following the equations of a static projectile motion for the vertical launch case, expressed in \ref{eq:vertical_motion} and \ref{eq:vertical_energy}.
 
-%\begin{equation}
-%\label{eq:vertical_motion}	
-%	h(t) = V_o t sin(\theta) - \cfrac{1}{2} g t^2 
-%\end{equation}
+\begin{equation}
+\label{eq:vertical_motion}	
+	h(t) = V_o t sin(\theta) - \cfrac{1}{2} g t^2 
+\end{equation}
 
 \begin{equation}
 \label{eq:vertical_energy}
@@ -85,6 +86,7 @@ Substituting equation \ref{eq:deltaV} in \ref{eq:impulse}, the necessary impulse
 However, since the force applied to the mass and the application period cannot be decoupled from the result of the equation, an energy analysis has to be carried out together with a posterior optimization of the two values for the desired design of the robot.
 Solving equation \ref{eq:impulse} for a small range of application time values and after computing \ref{eq:deltaV} with increasing values of $\Delta h$ in the range $[0.01,0.1]$ meters yields a reciprocal graph whose positive quadrant can be seen in Figure \ref{fig:f-t}
 
+\todo{Put this figure in vectorial}
 \begin{figure}[ht!]
 	\centering
 	\includegraphics[width=0.8\textwidth]{figures/force-timePlot.png}

@@ -1,7 +1,7 @@
 %!TEX root = ../../report.tex
 \chapter{Conclusions and further work} % (fold)
 \label{cha:conclusions}
-As a general conclusion, the creation of an coherent simulation environment and the construction of a robust, low-cost and reconfigurable bipedal locomotion platform has been achieved.
+As a general conclusion, the creation of a coherent simulation environment and the construction of a robust, low-cost and reconfigurable bipedal locomotion platform has been achieved.
 The ultimate goal was to contribute on the on-going line of research in locomotion control at the AI department at the Maersk Mc-Kinney Møller Institute, and RuBi offers a good compromise between possibilities and affordability.
 From the bringing up of the robot to the set up of the simulation environment,  including easy manufacturability and maintenance or code examples, RuBi is focused in facilitate the development of new locomotion controllers to the researcher or student.
 The platform creates a red line between the actual controller and its test, which ultimately will increase the workflow and the possible experiments to be carried out in the research path of the university.
@@ -14,7 +14,7 @@ The platform creates a red line between the actual controller and its test, whic
 
 Besides the achieved results, there is plenty of room for improvement and, following the chronology order of the report, some further work is suggested for each of the chapters.
 %%% Mathematical model
-% Development of an ground-contact force model --> the current one is a Normal function
+% Development of a ground-contact force model --> the current one is a Normal function
 The mathematical model took as an assumption the constraint of having the hip and the tip toe remaining over the same vertical line.
 By having the exact mechanical properties of the links, as moments of inertia, center of gravity and mass, a model which holds the center of gravity vertically constrained could be obtained.
 Furthermore, a the current force model \todo{no tengo ni idea de que es esto nacho, ayuddaaaa} is based on a normal function and could be improved by using a ground-contact force model.
@@ -45,7 +45,7 @@ The electronic implementation of RuBi has proved to be robust and valid, but the
 The implementation of a method to read easily from the I/O pins could lead to add more sensors as IMUs or light sensors to improve self-awareness.
 The motors have relative encoders and its initialization is made by taking the joints to the mechanical limit, though a touchless system to reset the encoders could be implemented with hall effect sensors.
 The robot could not be tested for experiments like walking though it is expected that the WiFi connection might not give the required performance. 
-The use of the 5Ghz band or an wired Ethernet connection can solve this problem.
+The use of the 5Ghz band or a wired Ethernet connection can solve this problem.
 Finally, an easier and safer way to power the robot could be developed in order to avoid the LiPo batteries and all its pitfalls.
 
 %%% Simulation
