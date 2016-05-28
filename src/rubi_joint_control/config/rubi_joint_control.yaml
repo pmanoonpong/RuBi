@@ -4,7 +4,7 @@ joint_states:
   publish_rate: 50  
 
 # Controllers 
-# leg_controllers:
+# rubi_controllers:
 #   type: effort_controllers/JointGroupEffortController
 #   joints: 
 #     - left_ankle
