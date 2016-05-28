@@ -43,6 +43,11 @@ In order to facilitate the development of new controllers two example controller
 
 To deploy a new controller just add the source into the <b>src</b> folder and add it into the CMakeList.txt. Is a ROS package, so more information can be found in Google. One of the example controllers show how to use GoRobots in it.
 
+Remember that for using GoRobots an environmental variable called <i>GOROBOTS</i> must exist. This can be done by adding to the <i>.bashrc</i> file found in the home folder:
+``` bash
+export GOROBOTS=/path/to/gorobots
+```
+
 All the packages in the catkin environment are compiled introducing the next comand in any of the sub-directories of the project:
 ``` bash
 catkin build
