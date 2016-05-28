@@ -17,12 +17,12 @@ The general advice is to have two simulation models: one for visual purposes and
 
 In the case of the links of presented robot, the visual models are obtained directly by exporting the parts from SolidWorks whilst the collision models are made of primitive gazebo shapes (cubes, cylinders, spheres...) for the whole body but the feet.
 Due to the robot is not meant to hit anything, the possible collisions in the body are not a priority, then each link is represented as a cylinder of the same length of the CAD model and of a radius enough to cover the whole part.
-An example can be seen in the figure \ref{fig:collision_model}.
+An example can be seen in the Figure \ref{fig:collision_model}.
 
 The moments of inertia of each individual link are obtained directly from SolidWorks.
 The CAD model includes the materials and thus the masses.
 From these, the program is able to calculate the moments of inertia.
-The figure \ref{fig:moments_of_inertia} shows the representation of these in the simulation.
+The Figure \ref{fig:moments_of_inertia} shows the representation of these in the simulation.
 
 
 \begin{figure}[hb!]
@@ -43,7 +43,7 @@ The figure \ref{fig:moments_of_inertia} shows the representation of these in the
 
 It is important to notice that the visual models and moments of inertia have been exported from the correct coordinate system.
 In the case of the ankle, for example, the STL file and the moments of inertia are calculated from the coordinate system positioned in the middle of the rotational axis of the ankle, pointing the Z axis to the rotational axis and Y to the biggest extension of the part.
-This can be seen in the figure \ref{fig:solidworks_ankle_coodinate_system}.
+This can be seen in the Figure \ref{fig:solidworks_ankle_coodinate_system}.
 
 \begin{figure}[ht!]
   \centering
