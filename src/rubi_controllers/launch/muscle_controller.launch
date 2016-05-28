@@ -1,0 +1,13 @@
+<launch>
+    <node pkg="rubi_controllers" name="muscle_controller_node" type="muscle_controller_node" respawn="true" output="screen">
+      <param name="joint_states_topic" value="/rubi/joint_states"/>
+      <param name="left_hip_topic" value="/rubi/left_hip_effort/command"/>
+      <param name="left_knee_topic" value="/rubi/left_knee_effort/command"/>
+      <param name="left_ankle_topic" value="/rubi/left_ankle_effort/command"/>
+      <param name="right_hip_topic" value="/rubi/right_hip_effort/command"/>
+      <param name="right_knee_topic" value="/rubi/right_knee_effort/command"/>
+      <param name="right_ankle_topic" value="/rubi/right_ankle_effort/command"/>
+      <param name="left_foot_contact_topic" value="/rubi/bumper/left_foot"/>
+      <param name="right_foot_contact_topic" value="/rubi/bumper/right_foot"/>
+    </node>
+</launch>

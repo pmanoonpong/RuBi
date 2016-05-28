@@ -1,0 +1,19 @@
+<package>
+  <name>rubi_gazebo</name>
+  <version>0.1.0</version>
+  <description>rubi_gazebo</description>
+  <maintainer email="jorod14@student.sdu.dk">Jorge Rodriguez</maintainer>
+
+  <license>BSD</license>
+
+  <author email="jorod14@student.sdu.dk">Jorge Rodriguez</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <run_depend>rubi_description</run_depend>
+  <run_depend>rubi_joint_control</run_depend> 
+  <run_depend>gazebo_ros</run_depend> 
+
+  <export>
+  </export>
+</package>

@@ -2,15 +2,15 @@
 
   <!-- Load the URDF into the ROS Parameter Server -->
   <param name="robot_description"
-   command="xacro --inorder '$(find legs_description)/urdf/legs.xacro'" />
+   command="xacro --inorder '$(find rubi_description)/urdf/rubi.xacro'" />
 
-  <group ns="legs">
+  <group ns="rubi">
     <!-- Load HW interface -->
     <node name="locokit_hw_node" pkg="locokit_hw" type="locokit_hw_node" output="screen">
     </node>
   </group>
   
   <!-- Load the joint controllers -->
-    <include file="$(find legs_joint_control)/launch/legs_joint_control.launch"/>
+    <include file="$(find rubi_joint_control)/launch/rubi_joint_control.launch"/>
 
 </launch>

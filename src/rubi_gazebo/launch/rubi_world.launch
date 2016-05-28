@@ -1,0 +1,38 @@
+<launch>
+
+	<!-- these are the arguments you can pass this launch file, for example paused:=true -->
+	<arg name="paused" default="true"/>
+	<arg name="use_sim_time" default="true"/>
+	<arg name="gui" default="true"/>
+	<arg name="headless" default="false"/>
+	<arg name="debug" default="false"/>
+
+	<!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
+	<include file="$(find gazebo_ros)/launch/empty_world.launch">
+		<arg name="world_name" value="$(find rubi_gazebo)/worlds/rubi.world"/>
+		<arg name="debug" value="$(arg debug)" />
+		<arg name="gui" value="$(arg gui)" />
+		<arg name="paused" value="$(arg paused)"/>
+		<arg name="use_sim_time" value="$(arg use_sim_time)"/>
+		<arg name="headless" value="$(arg headless)"/>
+		<arg name="physics" default="ode"/>
+	</include>
+
+	<!-- Load the URDF into the ROS Parameter Server -->
+	<param name="robot_description"
+	 command="xacro --inorder '$(find rubi_description)/urdf/rubi.xacro'" />
+
+	<!-- Run a python script to the send a service call to gazebo_ros to spawn a URDF robot -->
+	<node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+	args="-urdf -model rubi -param robot_description"/>
+
+	<!-- ros_control rubi launch file -->
+	<include file="$(find rubi_joint_control)/launch/rubi_joint_control.launch"/>
+
+	<!-- rviz controller -->
+	<!-- <include file="$(find rubi_joint_control)/launch/rubi_rviz.launch"/> -->
+
+	<!-- GoRobots controller -->
+	<!-- <include file="$(find rubi_controllers)/launch/muscle_controller.launch"/>	 -->
+
+</launch>
