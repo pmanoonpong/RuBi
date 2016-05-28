@@ -3,6 +3,8 @@
 <h2>Description</h2>
 RuBi is a study framework for human-like gaits part of the master thesis of Ignacio Torroba and Jorge Rodriguez. The idea is to create a robot that can perform actions like walking, running or jumping both in simulation in real life. One of the main advantages is the possibility of changing the springs in order to study SEA, PEA or SEA+PEA configurations with different springs.
 
+![alt tag](https://github.com/RuBi-Robot/RuBi/blob/master/media/Renders/Legs-Camera%201.25.jpg)
+
 In here, the description of the structure of the project is presented. The how-to for starting the simulation or bring up the robot can also be found in here. Some example controllers are given too.
 
 It is supposed that you have a ROS Jade installed and working. This has only been tested in Ubuntu 15.04 and 14.04 under ROS Jade. To install it you can follow the official guides to be found in: http://wiki.ros.org/jade/Installation/Ubuntu. Remember that ROS Jade ONLY supports Trusty (14.04), Utopic (14.10) and Vivid (15.04) for Debian packages.
