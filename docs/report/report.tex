@@ -25,6 +25,7 @@
 \usepackage{todonotes}
 \usepackage{gensymb}
 
+%--- Miscellaneous ---%
 \DeclarePairedDelimiter{\abs}{\lvert}{\rvert} %Use of \abs from mathtools
 
 %---Colors---%
@@ -50,6 +51,7 @@
 \setlength{\parindent}{0em}
 \setlength{\parskip}{1em}
 
+%--- Listing ---%
 \lstdefinestyle{customc}{
     belowcaptionskip=1\baselineskip,
     breaklines=true,
@@ -65,14 +67,12 @@
     numbers=left,
     numberstyle=\tiny\color{gray},
 }
-
 \lstset{style=customc}
 
 %--- Bibliography ---%
 \usepackage[backend=bibtex ,bibencoding=ascii]{biblatex}
 \addbibresource{chapters/cha_bibliography/bibliography.bib}
 \nocite{*}
-
 
 %---Title---%
 \newcommand{\documentTitle}{Design, simulation and development of a bipedal locomotion platform for human-like gaits studies}
@@ -85,9 +85,8 @@
 \newcommand{\authorOne}{Jorge Rodriguez Marin}
 \newcommand{\authorTwo}{Ignacio Torroba Balmori}
 
-%---Begin Document---%
+%---Document---%
 \begin{document}
-
     \frontmatter
     \include{chapters/cha_frontmatter/title}
     \include{chapters/cha_frontmatter/dedication}
