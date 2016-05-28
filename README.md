@@ -73,6 +73,7 @@ This will load the Locokit interface, the model, the joint controllers and the p
 <b>Supervisors: </b>
   * Poramate Manoonpong: poma@mmmi.sdu.dk
   * Jørgen Christian Larsen: jcla@mmmi.sdu.dk
+
 <b>Students: </b>
   * Jorge Rodriguez Marin: jorge.rguez.marin@gmail.com
   * Ignacio Torroba Balmori: ignaciotorroba@hotmail.com
