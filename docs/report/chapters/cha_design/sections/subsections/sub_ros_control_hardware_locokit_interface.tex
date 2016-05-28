@@ -2,11 +2,11 @@
 \subsection{ROS Control-to-Hardware interface} % (fold)
 \label{sub:ros_control_hardware_locokit_interface}
 The Locokit embedded electronics comes along a standard C library called LocoAPI designed for an easy interaction and use of the capabilities of its hardware, as presented in \cite{locokit}.
-This library has been utilized to implement the basic hardware functionalities in Rubi without any modification.
+This library has been utilized to implement the basic hardware functionalities in RuBi without any modification.
 However, it can be easily edited or extended in order to add new ones if needed, which was considered a great advantage during the selection of the hardware platform.
 
 The Locokit can be configured to offer a wireless interface between its main processor and an external computer creating and add-hoc WiFi network in the Gumstix.
-Besides, it offers a ready-to-use $C$ application based on the LocoAPI to work as the server side when interfacing the hardware. \ref{} %add actuateMotors.c to code stack?
+Besides, it offers a ready-to-use $C$ application based on the LocoAPI to work as the server side when interfacing the hardware. \ref{} \todo{add actuateMotors.c to code stack?}
 Its setup and use instructions can be found in the Locokit documentation, supplied with the kit.
 This left the client side of the wireless connection as the one that needed to be created.
 An existing client application built as an "AbstractController" for the LPZrobots framework was already available. 
@@ -22,12 +22,12 @@ They are fully operative and have been tested before assembling the actuators to
 	\item Setup of wireless connection: connect to the TCP websocket created in the server side. It requires the IP and port on the server side.
 	\item Registration of HW interface handlers for ROS Controller Manager: currently Effort commands and Joint State readings can be transmitted.
 	\item Transmission of motor commands to motor boards in HW side: PWM signal values. It requires the physical addresses of all the motor boards connected.
-	\item Reception of joint state readings from motor boards: encoder tics for relative position
-	\item Real-time handling of information transfer from/to the Controller Manager
+	\item Reception of joint state readings from motor boards: encoder tics for relative position.
+	\item Real-time handling of information transfer from/to the Controller Manager.
 \end{itemize}
 
 The node can be extended with new standard/customized HW interface handlers and more functions from the "LocokitInterface" class for future applications.
-However, it lacks some capabilities that will be of relevance for an optimal functioning of the Rubi robot and that failed be implemented due to time constraints or lack of resources. 
+However, it lacks some capabilities that will be of relevance for an optimal functioning of the RuBi robot and that failed be implemented due to time constraints or lack of resources. 
 The main ones are listed in \ref{list:locoHW_functions_left}.
 
 \begin{itemize}

@@ -8,9 +8,9 @@ This joint controllers offer then a topic (e.g. /rubi/left\_ankle\_position) tha
 This are created from a unique package called \textit{rubi\_joint\_controllers}.
 It is worth to say that the position controllers are implemented with a PID and that these values have been adjusted experimentally with the simulations for each joint.
 
-Two type of controllers are given that show a different range of options to use with the robot are presented.
+Two type of controllers are given that show a different range of options to use with the robot.
 Both are gathered in a sole package called \textit{rubi\_controllers}, which gives a more tidy and resource-shared environment rather than having a package for each controller.
-This also makes really easy to deploy a new controller by removing all the creation process of a new package.
+This also makes really easy the deployment a new controller by removing all the creation process of a new package.
 In order to start a new piece of code this must be created and then added in the \textit{CMakeLists.txt} from where also some examples are included.
 
 The presented code follows the ROS conventions and the code style is the \textit{Google style} offered by the clang-code-model.
