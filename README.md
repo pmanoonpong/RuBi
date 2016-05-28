@@ -5,6 +5,8 @@ This is the repository in which RuBi has been develop. RuBi is a study framework
 
 In here, the description of the structure of the project is described. The how-to for starting the simulation or bring up the robot can also be found in here. Some example controllers are given too.
 
+It is supposed that you have a ROS Jade installed and working. This has only been tested in Ubuntu 15.04 and 14.04 under ROS Jade. To install it you can follow the official guides to be found in: http://wiki.ros.org/jade/Installation/Ubuntu. Remember that ROS Jade ONLY supports Trusty (14.04), Utopic (14.10) and Vivid (15.04) for Debian packages.
+
 <h2>Project structure</h2>
 The project has three basic folders:
   * <b>docs</b>: in here all the documents used for the deployment of the project are found. The master thesis is under the folder "report".
