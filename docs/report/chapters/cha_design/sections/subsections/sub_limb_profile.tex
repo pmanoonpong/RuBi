@@ -1,17 +1,17 @@
 %!TEX root = ../../../../report.tex
-\subsection{Limb profile} % (fold)
+\subsection{Limbs profile} % (fold)
 \label{sub:limb_profile}
-Based on the requirements of weight and its distribution defined in the analysis of the joints \ref{sec:joints}, the links have been decided to have in the upper extreme the actuators. 
-This leads to use a transmission system, such as belt and pulleys, which leaves for the rest of link a structural function that can also adopt the task of wiring placement.
-Thus, a light weight section that satisfy the conditions of deformation and stress maximum will be chosen.
-Carbon fiber is an ideal material to achieve these conditions of weight and stress so a quantitative analysis has been made calculating the optimal solution and then rounding it for all the possible profiles offered by the given provider.
+Based on the requirements of weight and its desired distribution defined in the structural analysis of the robot, in the joints study in \ref{sec:joints} it was decided to place the actuators as further up in the limbs as possible.
+This left the functionality of the limb as the frame to hold the joint components on both ends plus the actuator, also working as a placement for the wiring.
+Thus, a lightweight section that satisfies the conditions of deformation and stress was needed.
+Carbon fiber seemed to be an ideal material to achieve these conditions of weight and stress, so a generic quantitative analysis was carried out to calculate the optimal profile with this material between the ones offered by the available provider.
 The provider was chosen due to previous experiences that the Mærsk Mc-Kinney Møller Institute had with carbon fiber orders.
 
-The section profile offered\footnote{http://www.easycomposites.co.uk/\#!/cured-carbon-fibre-products/} are: \textit{Rod}, \textit{Tube}, \textit{Box}. The \textit{Stripe} and the \textit{Angle} are discarded due to its asymmetrical geometry that will will lead to less predictable scenarios.
-The study case is show in the Figure \ref{fig:impact_decomposition}, where the impact force can be decomposed in a pure bending effort and a pure compression.
-Due to the resistance of the carbon fiber in pure compression is bigger than in bending, only this last case has been studied.
-This studies should not completly follow the behaviour in real life due to the carbon fiber is not an isomorphic material.
-However, the high security factor taken into account is expected to overcome this assumption.
+The section profile offered\footnote{http://www.easycomposites.co.uk/\#!/cured-carbon-fibre-products/} are: \textit{Rod}, \textit{Tube}, \textit{Box}. The \textit{Stripe} and the \textit{Angle} were discarded due to their asymmetrical geometry that would lead to less predictable scenarios.
+The study case is show in the Figure \ref{fig:impact_decomposition}, where the impact force could be decomposed into pure bending and pure compression effort components.
+Since the resistance of the carbon fiber in pure compression is greater than in under a bending effort, only this last case has been studied because of it is the most possible cause of failure.
+This study does not completely model the behavior in real life of the limb due to the fact that carbon fiber is not an isomorphic material.
+However, the high security factor taken into account is expected to overcome this.
 
 \begin{figure}[ht!]
   \centering
@@ -22,8 +22,8 @@ However, the high security factor taken into account is expected to overcome thi
 
 \subsubsection{Profile study} % (fold)
 \label{ssub:profile_study}
-  The bending effort causes two sort of problems: (1) the possible break in the supporting point and (2) the deformation suffered by the beam.
-  The break will occur when the tensions created will be over the ultimate tension in compression or tension of the selected material.
+  The bending effort causes two types of problems: (1) the possible break in the supporting point and (2) the deformation suffered by the beam.
+  The break will occur when the internal tensions created will be over the ultimate tension in compression or tension of the selected material.
   This comes defined in the equation \ref{eq:tension} for symmetric sections and when an only torque is being applied.
   \begin{equation}
   \label{eq:tension}
@@ -62,7 +62,7 @@ However, the high security factor taken into account is expected to overcome thi
     \textbf{Section} & \textbf{$I$} & \textbf{$h_{CG}$} & \textbf{$y_L$} & \textbf{$\sigma$} \\ \hline
     \raisebox{-.5\height}{\includegraphics[width=0.25\linewidth]{figures/profile_cylinder.pdf}} & $\frac{\pi}{4} (r_2 ^4 - r_1 ^4)$ & $r_2$ & $\frac{4 P L^2}{3 E \pi(r_2 ^4 - r_1 ^4)}$ & ${\pi(r_2 ^4 - r_1 ^4)} M$ \\ \hline
 
-    \raisebox{-.5\height}{\includegraphics[width=0.25\linewidth]{figures/profile_tube.pdf}} & $\frac{\pi r_1 ^4}{4}$ & $r_1$ & $\frac{P L^2}{3EI} = \frac{4 P L^2}{3 E \pi r_1 ^4}$ & $\frac{4}{\pi r_1 ^3} M$ \\ \hline
+    \raisebox{-.5\height}{\includegraphics[width=0.25\linewidth]{figures/profile_tube.pdf}} & $\frac{\pi r_1 ^4}{4}$ & $r_1$ & $\frac{4 P L^2}{3 E \pi r_1 ^4}$ & $\frac{4}{\pi r_1 ^3} M$ \\ \hline
 
     \raisebox{-.5\height}{\includegraphics[width=0.33\linewidth]{figures/profile_squared.pdf}} & $\frac{1}{12} (d^4 - k^4)$ & $\frac{d}{2}$ & $\frac{4 P L^2}{E (d^4 - k^4)}$ & $\frac{6 d}{(d^4 - k^4)}$ \\ \hline
   \end{tabular}

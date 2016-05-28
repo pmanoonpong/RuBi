@@ -132,26 +132,7 @@ The influence of the relationship between $L_{B}$ and $L_{A}$ in the ratio betwe
 However, this solution was discarded in favor of the current one, which demonstrated to be simpler to implement.
 % paragraph sea_1_2 (end)
 
-\paragraph{SEA 3} % (fold)
-\label{par:sea_3}
-The spring configuration in \ref{fig:series3} was found in \cite{grimmer} for a prosthetic ankle design (meaning that the configuration should be adapted for the knee).
-It was just used as a study case and source of ideas. 
-% paragraph sea_3 (end)
-
-\paragraph{SEA 4} % (fold)
-\label{par:sea_4}
-The configuration in \ref{fig:series4} was also found in \cite{biobiped} and is known as bidirectional SEA.
-It was considered the most optimal to mimic the human musculature on the legs and its implementation through springs attached to the belts or with elastic bands (bungee cords) like the utilized in \cite{imperial_college} was object of analysis.
-% paragraph sea_4 (end)
-
-\paragraph{SEA 5} % (fold)
-\label{par:sea_5}
-The configuration called SEA 5 and shown in Figure \ref{fig:series5} was the selected one.
-The original idea was taken from \cite{phides} but has been modified to ease its construction and provide more robustness to the final design.
-In \cite{phides} this elastic transmission is implemented with torsion bars for the joints axes, while RuBi uses torsion springs placed around more resistant axis to transmit the motion.
-% paragraph sea_5 (end)
-
-\begin{figure}[ht!]
+\begin{figure}[h]
 \centering
   \begin{subfigure}{.19\textwidth}
     \centering
@@ -187,22 +168,24 @@ In \cite{phides} this elastic transmission is implemented with torsion bars for 
   \label{fig:compliance_series}
 \end{figure}  
 
+\paragraph{SEA 3} % (fold)
+\label{par:sea_3}
+The spring configuration in \ref{fig:series3} was found in \cite{grimmer} for a prosthetic ankle design (meaning that the configuration should be adapted for the knee).
+It was just used as a study case and source of ideas. 
+% paragraph sea_3 (end)
 
+\paragraph{SEA 4} % (fold)
+\label{par:sea_4}
+The configuration in \ref{fig:series4} was also found in \cite{biobiped} and is known as bidirectional SEA.
+It was considered the most optimal to mimic the human musculature on the legs and its implementation through springs attached to the belts or with elastic bands (bungee cords) like the utilized in \cite{imperial_college} was object of analysis.
+% paragraph sea_4 (end)
 
-\paragraph{PEA 1} % (fold)
-\label{par:pea_1}
-The configuration in \ref{fig:parallel1} shows a compression spring (or extension spring depending the placement) connected within the two links.
-This direct connection act as a parallel spring and has the advantage of being a very flexible system in terms of changing the physical parameters of the spring. 
-However its design was discarded in favor of the rotational due to the previous election of the rotational series spring.
-% paragraph pea_1 (end)
-
-\paragraph{PEA 2} % (fold)
-\label{par:pea_2}
-The configuration called PEA 2 and shown in Figure \ref{fig:parallel2} was the selected one.
-This is congruent with the series spring what will facilitate its integration when designing.
-It also has the advantage of having common interfaces which would lead to the possibility of using the same springs for series and parallel configurations, saving thus money and time.
-
-% paragraph pea_2 (end)
+\paragraph{SEA 5} % (fold)
+\label{par:sea_5}
+The configuration called SEA 5 and shown in Figure \ref{fig:series5} was the selected one.
+The original idea was taken from \cite{phides} but has been modified to ease its construction and provide more robustness to the final design.
+In \cite{phides} this elastic transmission is implemented with torsion bars for the joints axes, while RuBi uses torsion springs placed around more resistant axis to transmit the motion.
+% paragraph sea_5 (end)
 
 \begin{figure}[ht!]
 \label{fig:compliance_parallel}
@@ -221,6 +204,22 @@ It also has the advantage of having common interfaces which would lead to the po
   \end{subfigure}
   \caption{PEA configurations studied}
 \end{figure}  
+
+\paragraph{PEA 1} % (fold)
+\label{par:pea_1}
+The configuration in \ref{fig:parallel1} shows a compression spring (or extension spring depending the placement) connected within the two links.
+This direct connection act as a parallel spring and has the advantage of being a very flexible system in terms of changing the physical parameters of the spring. 
+However its design was discarded in favor of the rotational due to the previous election of the rotational series spring.
+% paragraph pea_1 (end)
+
+\paragraph{PEA 2} % (fold)
+\label{par:pea_2}
+The configuration called PEA 2 and shown in Figure \ref{fig:parallel2} was the selected one.
+This is congruent with the series spring what will facilitate its integration when designing.
+It also has the advantage of having common interfaces which would lead to the possibility of using the same springs for series and parallel configurations, saving thus money and time.
+
+% paragraph pea_2 (end)
+
 
 % Based on the experiments carried out in \cite{grimmer}, can be deduced that both PEA and SEA configurations have the advantages of reduce the peak and energy requirements of the motors.
 % This causes a general improvement of the system due to if smaller motors are needed, the robot will be lighter and thus the structure of the link will weight less too.
