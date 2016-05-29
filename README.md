@@ -33,6 +33,7 @@ As explained before, inside of "src/scripts/" a script to be run the first time 
 ``` bash
 git clone URL_of_the_project
 cd (path_to_project)/src/scripts
+chmod +x install_first_time.sh
 ./install_first_time.sh
 ```
 <h2>Robot definition</h2>
