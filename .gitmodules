@@ -10,6 +10,3 @@
 [submodule "src/control_toolbox"]
 	path = src/control_toolbox
 	url = https://github.com/ros-controls/control_toolbox
-[submodule "src/realtime_tools"]
-	path = src/realtime_tools
-	url = https://github.com/ros-controls/realtime_tools
