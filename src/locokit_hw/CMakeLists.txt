@@ -7,9 +7,9 @@ project(locokit_hw)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
 	roscpp
-        rospy
-        controller_manager
-        )
+  rospy
+  controller_manager
+  )
 
 catkin_package(
    INCLUDE_DIRS include
@@ -39,15 +39,18 @@ set(HEADERS
 )
 
 set(SOURCES
-    src/locokit_hw_interface_node.cpp
-    include/locokit_firmware/ConnectionClass.cpp
-    include/locokit_firmware/LocoKitInterface.cpp
-    )
+  src/locokit_hw_interface_node.cpp
+  include/locokit_firmware/ConnectionClass.cpp
+  include/locokit_firmware/LocoKitInterface.cpp
+)
 
-## Declare a C++ executable
+## locokit_hw_node
 add_executable(locokit_hw_node ${SOURCES} )
 
-## Specify libraries to link a library or executable target against
- target_link_libraries(locokit_hw_node
-   ${catkin_LIBRARIES}
- )
+target_link_libraries(locokit_hw_node
+ ${catkin_LIBRARIES}
+)
+
+add_dependencies(locokit_hw_node
+    ${${PROJECT_NAME}_EXPORTED_TARGETS} ${PROJECT_NAME}_gencfg
+)
