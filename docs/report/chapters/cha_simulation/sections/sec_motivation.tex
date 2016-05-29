@@ -1,20 +1,20 @@
 %!TEX root = ../../../report.tex
 \section{Motivation} % (fold)
 \label{sec:sim_motivation}
-In the previous chapters the design of a human-proportional biped has been presented. 
-The robot has been developed with security systems in both, software and hardware, that prolong the operating life of the robot. 
-Nevertheless, every device in real life is prone to suffer damage which translates in to money and time for the user.
-By forming part of the toolbox offered in the framework, a comprehensive biped simulation is given so the user can both work with the same algorithms in real and simulated life.
+The robot presented in this thesis has been developed with security systems in both software and hardware meant to prolong its operation life and guarantee a safe use. 
+Nevertheless, every device in real life is prone to suffer damages as part of their use or as a result of mistakes in its control translates into loss of economic and time resources for the user.
+A simulation environment as been implemented as a part of the development tools created with RuBi.
+Its architecture is such that the user can both work with the same algorithms in real and simulated life with a minimum reconfiguration.
 
-Whilst not being a complete replacement of the real life, it offers a similar experience what allows to do qualitative research.
-As an example, neuronal networks or reinforcement learning algorithms, that learn by experience, can be developed faster in the simulator and then transfered to the real robot, reducing the workflow and the need of resources of the user and justifying its use.
+While not being a complete imitation of the real life due to intrinsic limitations, it aims at offering a tool for qualitative research and testing of locomotion.
+As an example, neuronal networks or reinforcement learning algorithms, which learn from experience, can be developed faster in the simulator and then transfered to the real robot, reducing the workflow time and the need of resources of the user and justifying its use.
 
-A simulator consists basically of two elements: a physical engine and a graphical engine.
-Whilst the first one is in charge of calculate all the physical interactions that the agent suffers, the second one offers the visual experience.
+A simulator consists basically of two elements: a physical and a graphical engine.
+Whilst the first one is in charge of computing all the physical interactions that the agent is subjected to, the second one offers the visual experience.
 A congruent simulator with the presented framework will satisfy two conditions:
 \begin{enumerate}
   \item The effort for testing among the simulation and real life must be minimized
-  \item The results must be as closer to real life as possible. This includes multiphysics support (mechanical contacts, different aspects of tribology, wind, water...) but within a fair trade-off with computational speed.
+  \item The results must be as close to real life as possible. This includes multiphysics support (mechanical contacts, different aspects of tribology, wind, water...) but within a fair trade-off with computational load and speed.
 \end{enumerate}
 
 % section motivation (end)
