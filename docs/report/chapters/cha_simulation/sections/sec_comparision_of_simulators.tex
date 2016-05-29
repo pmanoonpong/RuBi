@@ -3,8 +3,8 @@
 \label{sec:sim_comparison_of_simulators}
 When choosing a simulation platform there are several factors to have into account.
 Three robotic simulators have been analyzed and compared. 
-These are: LPZ Robots \cite{lpzrobots} (see Figure \ref{fig:lpzrobots_example}), V-Rep \cite{vrep} (see Figure \ref{fig:vrep_example}) and Gazebo \cite{gazebo} (see Figure \ref{fig:gazebo_example}).
-Some comparisons can be found in the literature as \cite{nogueiracomparative} or \cite{staranowicz2011survey} however the predominant reason has been the integration with ROS.
+These are: LPZ Robots \cite{lpzrobots} (Figure \ref{fig:lpzrobots_example}), V-Rep \cite{vrep} (Figure \ref{fig:vrep_example}) and Gazebo \cite{gazebo} (Figure \ref{fig:gazebo_example}).
+Some comparisons can be found in the literature as \cite{nogueiracomparative} or \cite{staranowicz2011survey} however the predominant criteria has been their integration with ROS.
 
 \begin{figure}[hb!]
   \begin{subfigure}{.33\textwidth}
@@ -29,17 +29,15 @@ Some comparisons can be found in the literature as \cite{nogueiracomparative} or
   \label{fig:simulation_comparison}
 \end{figure}
 
-The device is mainly targeted to be used in the AI department at the Maersk Mc-Kinney Møller Institute, where the toolbox GoRobots is developed.
-This is a set of tools, from a neuronal networks API to a genetic algorithm engine, written in C++ than are supposed to be simulator-independent.
-In order to achieve the first condition of reducing the effort of the user when switching from the simulation to real life, ROS \cite{ros} has been used as the software toolbox.
-The whole set of tools provided in ROS along with its easy extendability give the opportunity to use the controllers and tools already developed in GoRobots.
-
-Despite all three simulators have a C++ interface that would allow to interface with ROS, in it there is already a simulation integrated: Gazebo.
+The RuBi robot is mainly targeted to be used in the AI department at the Maersk Mc-Kinney Møller Institute, where the toolbox GoRobots is being developed.
+This is a set of tools, from a neuronal networks API to a genetic algorithm engine, written in C++ than is meant to be simulator-independent.
+However, in order to provide a more general and supported simulation and development environment for the user, ROS \cite{ros} has been selected as the tool to use.
+The whole set of instruments provided in ROS along with its easy extendability give the opportunity to use the controllers and tools already developed in GoRobots.
+Despite the fact that the three simulators compared have a C++ interface that would allow to interface them with ROS, Gazebo is already fully supported and integrated in ROS, making it the logic choice.
 This reduces the learning curve of a new user and the installation process is easier due to it is included in the Open Source Robotics Foundation (OSRF) repositories.
 
-Regarding the second condition, Gazebo has the feature of change the physics engine in the beginning of the simulation, has multiphysics support (fluids, electromagnetism...), it allows to load external geometries from STL or Collada and, the most important, has an active community behind it providing support and documentation. These are the reasons for taking Gazebo as the simulator for the platform.
-
+Regarding the second condition, Gazebo has the feature of changing the physics engine in the beginning of the simulation, it has multiphysics support (fluids, electromagnetism...), it allows to load external geometries from STL or Collada and, the most important, has an active community behind it providing support and documentation. These are the reasons for selecting Gazebo as the simulator for the RuBi platform.
 In \cite{physics_engine_gazebo_comparison}, a comparison with the different physical engines is carried out.
-In the name of simplicity the default one, Open Dynamics Engine (ODE), has been used, though the others have been tested.
+For the sake of simplicity the default one, Open Dynamics Engine (ODE), has been used, although the others have been tested.
 
 % section comparison_of_simulators (end)\[
