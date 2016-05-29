@@ -1,14 +1,18 @@
 %!TEX root = ../../../../report.tex
 \subsection{Computer-Aided Design (CAD)} % (fold)
 \label{sub:computer_aided_design}
-Based on the defined boundaries of the previous sections, the necessary parts have been designed.
-The modeling has been design-oriented manufacturing having in mind the 3D printing technology where not all kind of geometries can be printed with the same resolution and quality.
+After producing a final sketch for each component of the frame, the software SolidWorks was utilized to create their actual structure based on the required configuration, the desired placement of the sensors/actuators and wiring and the mechanical constraints calculated.
+In the absence of precise data about the physical requirements of a component, its volume has been increased to reinforce the resistance of the piece.
+When no mechanical or morphological constraints were to be applied, the criteria in CAD design has been mostly aesthetic, since the stile of the robot is worth considering, even if it does not influence its performance.
 
-Generally, the parts have followed a round design avoiding cutting edges except where completely necessary.
-Some corrections have been applied to the tolerances of the internal holes as explained in the section \ref{sub:arc_compensation}.
-The implementation of the CAD design can be considered partially parametric due to, for its construction, a file with some parameters is used in several parts of the design.
-This works so in the reconstruction of the part the program reads the file and change everything according to its parameters.
-The used values are shown in the appendix \ref{app:cad_parameters}.
+The CAD design has been carried out oriented to 3D-print manufacturing of the pieces, which adds new constraints in terms of resolution, size and materials available.
+Some corrections had to be applied to the tolerances of the internal holes as explained in the section \ref{sub:arc_compensation} in order to avoid backslash.
+However, the advantages of employing 3D printers for the construction of the prototype compensate for these limitations.
+
+The implementation of the CAD design can be considered partially parametric due to the fact that a file with some parameters has been used in several parts.
+This works so that in the reconstruction of the part, SolidWords reads the file and changes everything according to its content.
+This has eased the iterative process of optimization of the manufactured components.
+The values utilized are shown in the appendix \ref{app:cad_parameters}.
 The results can be seen in the figures from \ref{fig:left_foot} to \ref{fig:knee_upper}.
 
 \begin{figure}[ht!]
@@ -82,9 +86,9 @@ The results can be seen in the figures from \ref{fig:left_foot} to \ref{fig:knee
     \caption{Main CAD designed components}
 \end{figure}
 
-The CAD program has the feature of, given the physical properties of the materials or selecting one of the predefined, calculate the physical values such moments of inertia or center of gravity.
-This has been used in the mathematical model \ref{cha:mathematical_model} to size the motors and in the simulation \ref{cha:simulation} to create the model as close to reality as possible.
-The tables from \ref{tab:foot_physical_properties} to \ref{tab:total_mass} show the moments of inertia and total mass calculated by the CAD program.
+The CAD program has the feature of, given the physical properties of the materials used, calculate the geometrical values of a component such as moments of inertia or CoM position.
+This has been used in the construction and use of the mathematical model in \ref{cha:mathematical_model} and to size the motors, or in the simulation \ref{cha:simulation} to create the model as close to reality as possible.
+The tables from \ref{tab:foot_physical_properties} to \ref{tab:total_mass} contain the moments of inertia and total mass calculated by the CAD program.
 The moments of inertia are taken from the appropriate rotation axis of the link.
 
 \begin{table}[htbp]
@@ -156,7 +160,7 @@ Izx = 1.44e-008 & \multicolumn{1}{c|}{Izy = 0} & \multicolumn{1}{c}{Izz = 0.0003
 
 
 \begin{table}[htbp]
-\caption{Total mass obtained from CAD program}
+\caption{Total frame mass obtained from CAD program}
 \begin{center}
 \begin{tabular}{c|l|l}
 \multicolumn{ 3}{c}{\Large \textbf{Total}} \\ 
