@@ -4,11 +4,19 @@
 \label{sub:hip_and_knee_joint_mechanics}
 Several mechanical configurations were sketched as the first step of the iterations in the mechanical design of the joints.
 As previously explained, the hip joint turned out to have lower design constraints, since belt and compliance were not required, although the use of gears was a need.
-However, for the knee and ankle joints, the need of elastic transmission through a pulley yield some restrictions that resulted in a final configuration as in *** %ref new image here.
+However, for the knee and ankle joints, the need of integrated compliance and the torque transmission through a pulley yielded some restrictions that resulted in a final configuration as in \ref{fig:knee_joint}.
 
-Thus, four bearings, a rod and the interface for the elastic transmission are needed and therefore, discussed below.
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{figures/legs_knee_deconstructed.jpg}
+  \caption{Knee joint mechanical implementation}
+  \label{fig:knee_joint}
+\end{figure}
 
-\subsubsection{Rods} % (fold)
+The configuration in \ref{fig:knee_joint} is equivalent for the ankles.
+Therefore, four bearings, a rod and the interfaces for the springs are needed and thus, discussed below.
+
+\subsubsection{Joints axes} % (fold)
 \label{ssub:rods}
 The characteristics of the rod used as axis of the angular motion of the joint are studied here.
 It is also used, in the case of the knee and the ankle, as a support for the pulleys that transmit the power from the motor to the next link.
@@ -58,7 +66,7 @@ Three mechanical efforts bound its design:
   % paragraph sizing (end)
 % subsubsection rods (end)
 
-\subsubsection{Bearings} % (fold)
+\subsubsection{Bearings on the joints} % (fold)
 \label{ssub:bearings}
 The force calculated in section \ref{sub:impact_force} has been used for sizing the bearings of the knee and the ankle.
 The bearing selected should be such that allowed dynamic loads of more than the impact force while being as small as possible to reduce additional weight on the frame.
@@ -76,17 +84,17 @@ The term $L$ is the service life of a bearing (in number of hours or rpm), in no
 Whilst $L_{10}$ is based in a statistical model that is defined as the 90\% of the bearing of the same type will withstand those loads for a longer time.
 % subsubsection bearings (end)
 
-\subsubsection{Spring integration} % (fold)
+\subsubsection{Implementation of elastic actuation} % (fold)
 
 \todo{Springs selection (shortly)}
 
 \label{ssub:spring_integration}
 In section \ref{sec:joints} the use of springs is justified in order to walk and run efficiently. 
 An analysis of the different possibilities to include compliance in the robot is done in the same section, while Figure \ref{fig:compliance_series} shows the analyzed configurations and their advantages and disadvantages are further discussed.
-The design implemented to allow any of the four possible springs configurations shown in Figure *****
+The final design has been conceived to allow any of the four possible springs configurations shown in Figure \ref{fig:pasive_actuators} to be implemented in the knee and ankle joints.
 This is possible by making a system that allows to put elastic components in series and parallel that are easily replaceable.
 Furthermore, a big range of springs have been ordered for the reasons in explained in \ref{sec_springs}.
-All the springs can be placed due to the hole for inserting the springs has the diameter of the biggest one ordered plus a small clearance obtained from \ref{sub:arc_compensation}.
+Any of the ordered springs can be placed due to the fact that the holes for inserting them have the diameter of the biggest one ordered plus a small clearance obtained from \ref{sub:arc_compensation}.
 
 \paragraph{SEA configuration} % (fold)
 \label{para:sea_configuration}
@@ -94,22 +102,22 @@ All the springs can be placed due to the hole for inserting the springs has the 
 In the section commented above, it is also determined the use of rotational springs for both series and parallel passive actuators.
 This gives a more constrained design that is later used as a feature.
 For example, in the section \ref{sub:pulleys_and_belts} is explained how the the pulley is integrated in a part that has the task of both being the place to put the spring and being the pulley.
-The Figure \ref{fig:serial_spring_pulley} shows this design.
+The Figure \ref{fig:serial_spring_pulley} shows this.
 This design shows the implementation of the SEA configurations that can be adjusted by changing the physical properties of the spring.
 % paragraph sea_configuration (end)
 
 \paragraph{PEA configuration} % (fold)
 \label{para:pea_configuration}
 
-The parallel spring is implemented by adding a spring directly attached to both parts of the joint.
+The parallel spring is implemented by adding a spring directly attached to both links of the joint.
 The problem of the parallel passive actuators is the need of loading the spring for movements in which is maybe not appropriated.
-As an example, the rest position of the parallel spring in the ankle could to be placed when the foot is at 90 degrees with its consecutive link, so the robot can be stood up without applying any extra torque in the motors to keep balance.
+As an example, the rest position of the parallel spring in the ankle could be placed when the foot is at 90 degrees with its consecutive link, so the robot can be stood up without applying any extra torque in the motors to keep balance.
 This would mean though to do an extra effort against the spring when taking off.
-
 In the same line of giving all the possibilities to the user with the compliance, a system that allows to change the rest position of the parallel spring has been implemented.
-This consists of one arm of the torsional spring attached to one of the links of the joint while the other arm can be fastened in different positions.
-The Figure \ref{fig:rotational_spring_rest_position} shows the transversal section of the part where the parallel spring can adopt different configurations. 
-This gives the different PEA configurations by just changing the physical properties of the spring and by using a spring stiff enough in the SEA that would act as DD.
+This consists of one arm of the torsional spring attached to one of the links of the joint while the other arm can be fastened in different relative angles.
+The Figure \ref{fig:rotational_spring_rest_position} shows the transversal section of the joint component where the parallel spring can adopt different configurations. 
+
+The above explained design allows to implement a PEA configuration on the joints by just adding a spring and using an overdimensioned spring for the transmission from the pulley that can act as a DD.
 
 \begin{figure}[ht!]
   \centering
@@ -121,13 +129,13 @@ This gives the different PEA configurations by just changing the physical proper
 
 \paragraph{SEA + PEA configuration} % (fold)
 \label{ssub:sea_pea_configuration}
-The possibility of using both, SEA and PEA, configurations at the same time is given.
-This lets the study of the combination of both configuration.
+The possibility of using both, SEA and PEA, configurations at the same time is offered.
+This allows for the study of the SEA+PEA combination.
 % paragraph sea_pea_configuration (end)
 
 \paragraph{DD configuration } % (fold)
 \label{ssub:dd_configuration}
-Finally if no parallel spring is used and a spring stiff enough that doesn't add compliance to the system is placed, a DD configuration is achieved.
+Finally if no parallel spring is used and a spring stiff enough that does not add compliance to the system is placed in the SEA configuration, a DD transmission is achieved.
 % paragraph dd_configuration (end)
 
 % subsubsection spring_integration (end)
