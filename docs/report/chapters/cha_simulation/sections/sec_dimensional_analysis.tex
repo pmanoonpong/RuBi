@@ -1,21 +1,20 @@
 %!TEX root = ../../../report.tex
 \section{Dimensional analysis} % (fold)
 \label{sec:dimensional_analysis}
-A problem came up when creating the robot. 
-Some of the inertia moments obtained from SolidWorks, were in the order of magnitude of $10^{-8}$.
-Such small number is not handled by the physics engine correctly causing the robot model to be unstable under normal conditions.
+A problem faced when creating the robot was that some of the inertia moments obtained from SolidWorks were in the order of magnitude of $10^{-8}$.
+Such small number cannot be handled by the physics engine correctly causing the robot model to be unstable under normal conditions.
+Three approaches were taken to fix this:
 
-Three approaches were taken:
 \begin{enumerate}
   \item \textbf{Change the physics engine}: As commented in the simulation comparison \ref{fig:simulation_comparison}, Gazebo supports multiple physics engines. Dart \cite{dart}, Simbody \cite{simbody}, Bullet \cite{bullet} and ODE \cite{ode}, where tested giving the same unstable behavior. 
   Thus, this method was discarded.
-  \item \textbf{Fake the moments of inertia}: This would be to make 0 the really small moments of inertia and only leave the ones over a threshold.
-  As the simulation is a qualitative analysis and no quantitative, an exact match of the moments of inertia is not needed. 
-  \item \textbf{Dimensional analysis}: Based on \cite{dimensional_analysis}, the size of the robot can be increased in a proportion that make the figures big enough to be handled.
+  \item \textbf{Customize the moments of inertia}: This would entail rounding to zero the really small magnitudes, only leaving the ones over a threshold.
+  As the simulation is a qualitative analysis and no quantitative, an exact match of the moments of inertia is not a strong requirement and therefore this option is left as a possibility. 
+  \item \textbf{Dimensional analysis}: Based on \cite{dimensional_analysis}, the size of the robot could be increased in a proportion big enough that would provide handleable values.
 \end{enumerate}
 
-Dimensional analysis can be applied to correlate the physical properties of the original robot with its scaled replica.
-This is, if the original robot with mass $m$, volume $V$ and moment of inertia about an axis $I$, given a scale factor $s$, calculate the scaled replica $m'$, $V'$, $I'$ depending exclusively on $s$.
+For option $3$, dimensional analysis can be applied to correlate the physical properties of the original robot with its scaled replica.
+This problem could be formulated as: if the original robot has mass $m$, volume $V$ and moment of inertia about an axis $I$, given a scale factor $s$, calculate the scaled replica $m'$, $V'$, $I'$ depending exclusively on $s$.
 
 In the equation \ref{eq:general_inertia}, the generalized expression of the moment of inertia about an axis is shown.
 \begin{equation}
@@ -29,7 +28,7 @@ If the equation \ref{eq:general_inertia} is taken as the moment of inertia from 
   I' = \iiint_{V'} \rho(u,v,w)' |r^{'2}| \,dx'\,dy'\,dz'
 \end{equation}
 
-Supposing a scale factor of $s$ and as stated in the equations from \ref{eq:dx} to \ref{eq:dz}:
+Assuming a scale factor of $s$ and as stated in the equations from \ref{eq:dx} to \ref{eq:dz}:
 
 \begin{multicols}{3}
   \begin{equation}
@@ -46,7 +45,7 @@ Supposing a scale factor of $s$ and as stated in the equations from \ref{eq:dx} 
   \end{equation}\break
 \end{multicols}
 
-Then can be deduced that $r$ increases proportionally with $s$ as shown in the Figure \ref{fig:dimensional_analysis} and presented in the equation \ref{eq:dr}:
+Thus, it can be deduced that $r$ increases proportionally with $s$ as shown in the Figure \ref{fig:dimensional_analysis} and presented in equation \ref{eq:dr}:
 \begin{equation}
   \label{eq:dr}
   \,r=s \,r'
@@ -59,7 +58,7 @@ Then can be deduced that $r$ increases proportionally with $s$ as shown in the F
   \label{fig:dimensional_analysis}
 \end{figure}
 
-Assuming a constant density across all the scaled bodies, and particularizing for the moment of inertia of the center of gravity the moment of inertia is given then by \ref{eq:general_inertia_3}:
+Assuming a constant density across all the scaled bodies, and particularizing for the moment of inertia of the CoG, the moment of inertia is given then by \ref{eq:general_inertia_3}:
 \begin{equation}
   \label{eq:general_inertia_3}
   I'_{CG} = \iiint_{V'} \rho(u,v,w)' |r^{'2}| \,dx'\,dy'\,dz' = s^{3} r_{CG}^{'2} m
@@ -78,7 +77,8 @@ And lately the mass can be correlated as in \ref{eq:mass_scale}:
   m' = V' \frac{m}{V} = s^{3}m
 \end{equation}
 
-As explained in the \ref{sec:robot_definition}, by using the Xacro format, mathematical expressions can be used.
-The definition of the robot includes a set of variables in which is included $scale$ that is used to calculate $mass\_scaled$ and $inertia\_scaled$ that will modify the values of all the links to make a coherence scalable robot definition.
+As explained in \ref{sec:robot_definition}, Xacro allows the use of mathematical expressions. 
+This feature has been used to includes a set of variables in the definition of the robot which includes $scale$ that is used to calculate $mass\_scaled$ and $inertia\_scaled$.
+If the variable $scale$ is changed, these parameters will then modify the values of all the links to make a coherently scalable robot definition.
 
 % section dimensional_analysis (end)
