@@ -122,7 +122,9 @@ However, they have not been connected to the electronics frame due to unforeseen
 \label{sec:rubi_dynamic_model_and_actuators_calculation}
 The MATLAB scripts containing the implementation and results of the dynamic model of the robot and the calculus for the parameters of the actuators can be found in the source folder attached to this thesis.
 The final model has been considered a fair trade-off between simplicity and accuracy, since the addition of more terms hard to model as frictions or backslash in the transmissions would not have contributed additional value.
-As presented in \ref{sec_dynamic_controller}.
+
+Section \ref{sec_dynamic_controller} has presented a possible intrinsic use of the dynamic model of the robot, which is to conduct torque control on the robot through its real-time computation. 
+However, the application of the model as a controller has not been fully developed and it is just left in this report as a proof of concept and to suggest its potential use.
 % section rubi_dynamic_model_and_actuators_calculation (end)
 
 
@@ -145,10 +147,6 @@ A ROS interface has been created for the simulation environment, together with t
 They have been used also to prove the simplicity of the development and testing of control algorithms with the simulation model.
 In Figure \ref{fig:RuBi_jump_sequence} a sequence of snapshots depicts RuBi performing an unconstrained jump as a result of the use of the impulse controller in the simulation.
 It has been used to demonstrate that the physical characteristics of the structure are capable of handle the motion implied in a jump. 
-
-However, the problems of the physics engine to handle robots of the size of RuBi led to the need of truncating some of its too small physical properties in order to be able to simulate real behaviors.
-Hence, the simulation model can be used to qualitatively test the functionality of controllers, but their outputs will have to be adapted to the real environment until the simulation model is further improved.
-
 \begin{figure}[ht!]
     \centering
     \begin{subfigure}[b]{0.16\textwidth}
@@ -173,11 +171,9 @@ Hence, the simulation model can be used to qualitatively test the functionality 
     \label{fig:RuBi_jump_sequence}
 \end{figure}      
 
-% section simulation_environment (end)
-
-
 However, the problems of the physics engine to handle robots of the size of RuBi led to the need of truncating some of its too small physical properties in order to be able to simulate real behaviors.
 Hence, the simulation model can be used to qualitatively test the functionality of controllers, but their outputs will have to be adapted to the real environment until the simulation model is further improved.
 % section simulation_environment (end)
+
 
 % chapter results (end)
