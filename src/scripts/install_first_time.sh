@@ -58,7 +58,7 @@ echo "
 export LEGS=\"$LEGS_FOLDER\"
 
 ### ROS ###
-source \$LEGS/src/devel/setup.bash
+source \$LEGS/devel/setup.bash
 
 ### Gazebo ###
 source /usr/share/gazebo/setup.sh
