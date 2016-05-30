@@ -9,15 +9,12 @@ The model has been obtained through direct application of trigonometry instead o
 To do so, as explained before the case has been reduced to a two-dimensional study of one leg, where each robot leg has been analyzed as a kinematic chain of three degrees of freedom.
 The main reference frame has been placed attached to the hip with its Y axis parallel to the ground, as if this was the base of a robotic arm, and the toe was the tool, has shown in Figure \ref{fig:kinematics}.
 This representation has been chosen to ease the construction of the mathematical model.
-\todo{add world reference frame attached to the ground for flight phase study}
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.4\textwidth]{figures/kinematics_model.pdf}
 	\caption{Coordinate definitions for the schematic model of one leg}
 	\label{fig:kinematics}
 \end{figure}
-\todo{Add ground reference frame}
-
 The Figure \ref{fig:kinematics} depicts the schematic representation of only one leg, since the other one is equivalent. 
 The system is said to be in single support phase since there would be just one foot in contact to the ground.
 In the analyzed case, the swinging leg (not represented in Figure \ref{fig:kinematics}) would be static and could be considered an additional link with no degrees of freedom.
@@ -39,7 +36,6 @@ From Figure \ref{fig:kinematics}, the forward kinematic model in \ref{eq:forward
 The variables $x_{i}, y_{i}$ represent the position coordinates of the joints in the right leg, named $P_{i}$ in the schematic in Figure \ref{fig:kinematics} and $P'_{i}$ for the left leg (not depicted).
 Once computed, the linear velocity and acceleration of every joint can be obtained by derivation of the forward kinematic model and represented as $\dot{P}_{i}$ and $\ddot{P}_{i}$.
 
-\todo{Add space state vector}
 The model presented is the most basic one and does not contain the degrees of freedom that could be introduced by springs in the actuators.
 This is due to two reasons:
 \begin{itemize}
