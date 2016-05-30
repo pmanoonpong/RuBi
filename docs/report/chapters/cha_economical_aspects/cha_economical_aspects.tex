@@ -2,46 +2,14 @@
 \chapter{Economical analysis} % (fold)
 \label{cha:economical_aspects}
 In this section the economical aspects of the thesis are detailed.
-These are: \textbf{Labor cost} (table \ref{tab:labor_cost}), \textbf{Equipment cost} (table \ref{tab:equipment_cost}), \textbf{Software cost}: (table \ref{tab:sofware_cost}) and \textbf{Material cost} (table \ref{tab:material_cost}).
-The depreciation has been calculated using the formula \ref{eq:depreciation}.
-\begin{equation}
-  \label{eq:depreciation}
-  Attributable\ cost  = \frac{Cost \cdot \% of use \cdot Duration}{Depreciation}
-\end{equation}
-Some of the values found in the next tables are induced from other data or extracted from forums which make this results to be understood not as quantitative data, but qualitative.
-The table \ref{tab:material_cost}, is further detailed in the appendix \ref{app:order_list}, however it includes some items that were not ordered (e.g. a Locokit Kit or a 3D printer PLA spool).
+The labor cost was neglected as it is difficult to measure the dedicated hours to the project in both sides, the students and the supervisors.
+In the same line, the equipment and software costs have not been included due to the uncertainty when calculating the associated cost to the project of, for example, the computers used in the development of the project.
+Thus, only the material cost is shown in the Table \ref{tab:material_cost} showing a total of 22,772 DKK including all the elements used for the project, not the ordered ones.
 
-\begin{table}[htbp]
-\caption{Labor cost}
-\centering
-\begin{tabular}{l|l|r|r|r}
-\multicolumn{ 5}{c}{\Large Labor Cost} \\
-\multicolumn{1}{c|}{\textbf{Full Name}} & \multicolumn{1}{c|}{\textbf{Category}} & \multicolumn{1}{c|}{\textbf{\parbox{2.5cm}{ \centering Dedicated hours [h]}}} & \multicolumn{1}{c|}{\textbf{\parbox{2.5cm}{ \centering Cost per hour [DKK/h]}}} & \multicolumn{1}{c}{\textbf{Cost [DKK]}} \\ \hline
-Jorge Rodriguez & Engineer & 120 & 130 & 15600 \\ \hline
-Ignacio Torroba & Engineer & 120 & 130 & 15600 \\ \hline
-Jørgen Christiensen & Senior Engineer & 20 & 200 & 4000 \\ \hline
-Poramate  & Senior Engineer & 20 & 200 & 4000 \\ \hline
-\multicolumn{3}{l}{} & \textbf{Total [DKK]} & \textbf{39200} \\
-\end{tabular}
-\label{tab:labor_cost}
-\end{table}
-
-\begin{table}[htbp]
-\caption{Equipment cost}
-\begin{center}
-\begin{tabular}{l|r|r|r|r|r}
-\multicolumn{6}{c}{\Large Equipment Cost} \\
-\multicolumn{1}{c|}{\textbf{Description}} & \multicolumn{1}{c|}{\textbf{\centering \parbox{1.25cm}{\centering Cost [DKK]}}} & \multicolumn{1}{c|}{\textbf{\% of use}} & \multicolumn{1}{c|}{\textbf{\parbox{1.75cm}{ \centering Duration [months]}}} & \multicolumn{1}{c|}{\parbox{2.25cm}{\centering \textbf{Depreciation [months]}}} & \multicolumn{1}{c}{\textbf{\parbox{2.25cm}{\centering Attributable Cost [DKK]}}}\\ \hline
-3D Printer \cite{m_prime_io} & 2380 & 5.00\% & 0.5 & 36 & 1.65 \\ \hline
-LocoKit \tablefootnote{http://www3.sdu.dk/cms/locokit/index.php?page=order} & 18592 & 100.00\% & 3 & 36 & 1,549.33 \\ \hline
-Tools & 740 & 100.00\% & 1 & 60 & 12.33 \\ \hline
-\parbox{4cm}{Dell M3800 \tablefootnote{http://www.ebay.com/itm/Dell-Precision-M3800-i7-4702HQ-K1100M-16GB-RAM-500GB-SSD-91-Whr-QHD-Win10-/291750027136}} & 5972 & 100.00\% & 2 & 36 & 331.78 \\ \hline
-\parbox{4cm}{Toshiba P50-B-11M \tablefootnote{http://www.ebay.com/itm/TOSHIBA-SATELLITE-P50-B118-I7-4710HQ-/121988918265}} & 2653 & 100.00\% & 2 & 36 & 147.39 \\ \hline
-\multicolumn{4}{l}{} & \textbf{Total [DKK]} & \textbf{2,042.49} \\ 
-\end{tabular}
-\end{center}
-\label{tab:equipment_cost}
-\end{table}
+Some of the components where available, like the LocoKit, and therefore were not bought.
+Others like the tools or the laptops are not added as they are supposed to be not project-specific.
+Analyzing the budget, the bulk of the money goes into the LocoKit, that includes the electronics and the Maxon motors which are the most expensive part of RuBi.
+However the rest of the components show to be affordable what makes its replication and reparation simple from an economical point of view.
 
 \begin{table}[htbp]
 \caption{Material cost}
@@ -72,31 +40,5 @@ LocoKit  & 1 & 18,592.00 & 18,592.00 \\ \hline
 \label{tab:material_cost}
 \end{table}
 
-\begin{table}[htbp]
-\caption{Software cost}
-\centering
-\begin{tabular}{l|r|r|r|r|r}
-\multicolumn{6}{c}{\Large Software Cost} \\
-\multicolumn{1}{c|}{\textbf{Description}} & \multicolumn{1}{c|}{\textbf{\parbox{1.25cm}{\centering Cost [DKK]}}} & \multicolumn{1}{c|}{\textbf{\% of use}} & \multicolumn{1}{c|}{\textbf{\parbox{1.75cm}{ \centering Duration [months]}}} & \multicolumn{1}{c|}{\parbox{2.25cm}{\centering \textbf{Depreciation [months]}}} & \multicolumn{1}{c}{\textbf{\parbox{2.25cm}{\centering Attributable Cost [DKK]}}}\\ \hline
-\parbox{4cm}{\centering Solidworks 2014 Educational Version \tablefootnote{http://www.christiani.de/product\_info.php/products\_id/22137}} & 892.50 & 100.00\% & 2 & 12 & 148.75 \\ \hline
-\multicolumn{4}{l}{} & \textbf{Total [DKK]} & \textbf{148.75} \\
-\end{tabular}
-\label{tab:sofware_cost}
-\end{table}
-
-\begin{table}[t!]
-\caption{Total cost}
-\begin{center}
-\begin{tabular}{r|r}
-Labor cost & kr 39,200.00 \\ \hline
-Material cost & kr 22,772.19 \\ \hline
-Equipment Cost & kr 2,042.49 \\ \hline
-Software Cost & kr 148.75 \\ \hline
-Indirect Cost (20\%) & kr 12,832.69 \\ \hhline{=|=}
-\textbf{Total Cost [DKK]} & \textbf{kr 76,931.61} \\ 
-\end{tabular}
-\end{center}
-\label{tab:total_cost}
-\end{table}
 
 % chapter economical_aspects (end)

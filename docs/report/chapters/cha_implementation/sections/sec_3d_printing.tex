@@ -20,18 +20,15 @@ For this project FFF using PLA has been used.
 The reasons are feasibility and rapidness.
 The availability of multiple 3D printers and filaments made the selection of this technology straightforward.
 The 3D printer used is a M Prime One \cite{m_prime_one} with a 0.4 mm noozle.
-PLA of two different colors was available, Blue and Black (the color may change the mechanical properties of the final printed part), from the provider BQ.
-\todo{Does the color change the properties?}
+PLA of two different colors was available, Blue and Black (the color may change the mechanical properties of the final printed part, due to different additives are used), from the provider BQ.
 All the parts have been printed at 0.2 mm layer height making use of free software slicers as Cura \cite{cura} and Slic3r \cite{slic3r}.
-The figure
-\todo{missing something?}
+The Figure \ref{fig:3d_printing_gcode} shows the gcode visualization of Simplify3D \cite{simplify3d} of the left foot.
 \begin{figure}[htb]
   \centering
   \includegraphics[width=0.75\textwidth]{figures/3d_printing_gcode}
-  \caption{GCode visualization from Simplify3D \cite{simplify3d}}
+  \caption{Gcode visualization from Simplify3D \cite{simplify3d}}
   \label{fig:3d_printing_gcode}
 \end{figure}
-
 One of the intrinsic problems of this technology is the need of material support for some of the meshes.
 Due to its stratification technique, if one of the higher layers lacked a lower one to be supported on, the material would fall causing problems in final part.
 Nowadays, mostly all the slicers offer a material support solution that can vary but generally offering good results.
