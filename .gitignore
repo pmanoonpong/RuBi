@@ -33,3 +33,6 @@ report.pdf
 
 #Sublime Text
 *.sublime*
+
+#Big media files
+assembly_manual.mp4
