@@ -8,7 +8,7 @@ As an example of the above said, and despite the early stage in its development 
 The only trajectory planner current implemented computes vertical straight paths for the toes.
 However, more complex trajectory equations could be used to achieve different locomotion patterns.
 
-\begin{figure}[h]
+\begin{figure}[htb]
 	\centering
 	\includegraphics[width=0.5\textwidth]{figures/kinematics_sim.pdf}
 	\caption{Joints trajectories from kinematics model}
@@ -27,7 +27,7 @@ It can be seen that the toes trajectory does not cover the full range of a verti
 For the trajectory described and $\Delta h$, the impulse equation in \ref{eq:impulse} has been computed and the values $(F_{min}, t_{max})$ from \ref{eq:work} have been used as input to the dynamic model.
 The result of computing \ref{eq:dynamics_eq1} for the same time steps is shown in \ref{fig:controller_torque}, together with the solution for equation \ref{eq:joint_vel} in \ref{fig:controller_speed}, calculated in an analogue way.
 
-\begin{figure}[h]
+\begin{figure}[htb]
     \centering
     \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{figures/torque-time.pdf}

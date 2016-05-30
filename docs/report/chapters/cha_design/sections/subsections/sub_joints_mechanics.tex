@@ -6,7 +6,7 @@ Several mechanical configurations were sketched as the first step of the iterati
 As previously explained, the hip joint turned out to have lower design constraints, since belt and compliance were not required, although the use of gears was a need.
 However, for the knee and ankle joints, the need of integrated compliance and the torque transmission through a pulley yielded some restrictions that resulted in a final configuration as in \ref{fig:knee_joint}.
 
-\begin{figure}[h]
+\begin{figure}[htb]
   \centering
   \includegraphics[width=\textwidth]{figures/legs_knee_deconstructed.jpg}
   \caption{Knee joint mechanical implementation}
@@ -70,7 +70,7 @@ Three mechanical efforts bound its design:
 \label{ssub:bearings}
 The force calculated in section \ref{sub:impact_force} has been used for sizing the bearings of the knee and the ankle.
 The bearing selected should be such that allowed dynamic loads of more than the impact force while being as small as possible to reduce additional weight on the frame.
-Besides, their internal diameter is defined by the rod diameter calculated in section \ref{sub:rods}.
+Besides, their internal diameter is defined by the rod diameter calculated in section \ref{ssub:rods}.
 
 An estimation of nominal life of the bearing can be done from the Dynamic Load Rating (C), the Dynamic Equivalent Load (P) and the Life Rime Coefficient for a Ball Bearing (p) (being p=3 for balls bearings).
 Equation \ref{eq:service_life_bearing} shows the nominal life of a ball bearing, which can be used in order to calculate the nominal life for a specific application.
