@@ -1,69 +1,61 @@
 %!TEX root = ../../report.tex
 \chapter{Results} % (fold)
 \label{cha:results}
-
-%%%%% Introduction to the results 
-% Biped designed and implemented
-The bipedal locomotion platform for human-like gaits studies RuBi has been analyzed, designed and implemented.
-
-%%%%% Statement showing where the results can be found
-
-%%% Analysis
-% physical properties analyzed
-% kinematic model 
-% dynamic model
-% dynamic controller
-During the first chapters an analysis of the problem was made giving as a result the proper conceptual definition.
-The sections \ref{sec:dimensions} and \ref{sec:physical_properties} define the physical properties of the robot such what kind of materials to use or how to distribute the masses along with what are the proportions that RuBi is going to have.
-It continues with the definition of each one of the joints in the section \ref{sec:joints}, where it is decided what kind of active, passive actuators and transmissions are the most appropriate for each limb.
-Then, in the chapter \ref{cha:mathematical_model}, a theoretical study of the jumping case is done what is then used along with the previous sections to define a kinematic and dynamic model used to size the active and passive actuators.
-This model also gives a dynamic controller used for later experiments.
-
-%%% Electronics
-% Locokit has correctly used
-% The custom interface works
-% ROS control correctly integrated
-% The motors can be moved individually
-The selection of the motors is done in the section \ref{sub:electric_actuators} and is in that electronics chapter where the LocoKit electronics are presented. 
-This also includes the sensory feedback implementation in the section \ref{sub:sensory_feedback}. 
-Being the result that the motors can be moved individually and concurrently which shows a valid system with the robustness and performance shown in LocoKit.
-This is due to the successfully interface developed for ROS Control and LocoKit.
-
-%%% Mechanics
-% Robot designed and printed.
-% Assembled
-% Show photo of the robot assembled
-% The mathematical model gives coherence results
-% The output from the dynamic model make jump the robot in the simulation
-With those constrains and the obtained from the mechanical analysis of different parts in the sections from \ref{sub:pulleys_and_belts} to \ref{sub:finite_element_method}, the CAD model is obtained.
-RuBi is implemented orientated to test different spring configurations, thus a system that allows SEA, PEA or SEA+PEA is modeled and integrated into the design.
-Some of the parts within the assembly have been optimized to used the modern and low-cost 3D printing FFF technologies as shown in \ref{sub:computer_aided_design}.
-The robot has been successfully assembled and the output of the mathematical is coherence with the ultimate design of RuBi.
-The final assembly with its bench test can be seen in the section \ref{sec:assembly}.
-
-%%% Simulation
-% Stable simulation model
-% ROS control works 
-% Jumps in the simulation (show picture)
-% Contact sensors working too
-On the simulation side, a robust and stable simulation environment has been developed.
-The model is the final representation of the robot with the data obtained from the CAD program.
-This assures real-like behaviors and closes the gap between the simulation and the real robot.
-The simulator used, Gazebo, offers already an interface for ROS Control which leaves a complete interoperability for the controllers developed among the simulated model and the real robot.
-
-%%% Software
-The fact of using ROS opens the door to third party software that can be later implemented in RuBi without effort.
-From the addition of LIDARs to IMUs or the integration of vision system, this can be done by using existing software and getting support from the community.
+The main result of this project-oriented thesis is the first prototype of the bipedal platform for human-like locomotion studies RuBi, and its development and study environment.
+The work carried out for the last four months has comprised from the origin of the idea and its initial conceptualization to the last steps taken on its mechatronics construction, the development of its control and electronics architecture, its simulation model and environment and the devise of the tests it should have been subject to in the presence of more time.
+The outputs of the whole workflow presented in this report are summarized in this chapter for an overall view of the results, although they have been discussed more in detail in their respective chapters.
 
 
-%%%%% Statement presenting the most important findings
-% framework completed
-The framework is then complete, and among the most important findings are the simplistic but realistic system to change the passive actuators and the whole set of possibilities that it offers and the implications of make a ROS enabled platform.
+\section{Morphological properties of RuBi} % (fold)
+\label{sec:rubi_mechanical_properties}
+The geometrical and inertial dimensions of the final prototype of RuBi can be found in table \ref{}
+The geometry of the robot has been inspired in the lower limbs of a male person in order to facilitate human-like motion for research in this field.
+However its inertial properties have been minimized in order to reduce power requirements and their inherent economical aspects (a more powerful powertrain would entail greater costs).
+From a mechanical perspective, this has been translated into the application of light but resistant materials, while striving for low cost, standardization and easy maintenance, achieving a low weight and reduced inertias, as can be seen in table \ref{}.
+To facilitate, ****comparison with DACbot dimensions-weight ratio?
 
-%statement commenting on the results this may include:
-  %summary of the results
-  %re-organization of the results to show trends and tendencies
-  %conclusion from the results
-From simulation to real life, the RuBi platform presents a good offer for researches that can work in biped locomotion controllers by reducing the spent time in maintainability of the robot or interoperability among hardware and simulation.
+\todo{Add theoretical froude number?}
+
+% section rubi_mechanical_properties (end)
+
+\section{Actuation and sensory feedback} % (fold)
+\label{sec:actuation_and_sensory_feedback}
+RuBi has six actuated joints for planar motion.
+For each of them, a fully functional and extendable embedded electronics system based on the Locokit hardware has been implemented as the spinal cord of the robot, together with a software interface able to handle the information flow with the robot.
+It provides access to the angular information of each joint in real time and the control of their individual torque commands, all through a standard ROS interface that can be used as well for controlling the simulation model.
+As an example, the full-range readings from hip, knee and ankle on one leg are shown in Figure \ref{}.
+
+The six actuators on the robot has been individually tested once on-board although detached of the transmissions due to the delay on the delivery of the springs explained.
+Its selection has been based on the calculations introduced in Algorithm 1 detailed in \ref{sub:electric_actuators}, that have made use of the dynamic model of the robot constructed.
+
+All the control hardware has been placed off-board to reduce weight on the frame.
+
+Contact sensors have been placed on the heels of the robot to offer the possibility of monitoring ground contact during the locomotion.
+However, they have not been connected to the electronics frame due to unforeseen issues with the hardware frame, that could be easily overcome with simple additional circuitry and some more time.
+
+% section actuation_and_sensory_feedback (end)
+
+\section{Framework for experimentation} % (fold)
+\label{sec:framework_for_experimentation}
+A novelty of RuBi is the possibility of implementing four different elastic actuation configurations in each knee and ankle joint.
+SEA, PEA, SEA+PEA and DD configurations can be utilized for the transmission of the motion to the joints.
+This converts RuBi into an ideal platform to study the influence of the compliance configuration on the energy storage capacity of a bipedal platform or on the power peak consumption of the joints, for instance.
+
+For facilitating the conduction of locomotion experiments, a test bench that allows a fully controlled 2D legged motion for the robot has been built on the top of a treadmill.
+It can be easily modified to be used for hopping or jumping motion experimentation.
+Some experiments devised for testing the prototype are suggested in \ref{cha:experiments} although not carried out due to time constraints and delays suffered.
+% section framework_for_experimentation (end)
+
+\section{Simulation environment} % (fold)
+\label{sec:simulation_environment}
+A simple and extendable simulation environment together with a robot model have been created in Gazebo.
+The physical properties of the robot and its visual model have been exported from its design in SolidWorks for maximum resemblance with the real device.
+A ROS interface has been created for the simulation environment, together with two simple controllers that have been successfully tested (see \ref{cha:experiments}).
+They have been used also to prove the simplicity of the development and testing of control algorithms with the simulation model.
+
+However, the problems of the physics engine to handle robots of the size of RuBi led to the need of truncating some of its too small physical properties in order to be able to simulate real behaviors.
+Hence, the simulation model can be used to qualitatively test the functionality of controllers, but their outputs will have to be adapted to the real environment until the simulation model is further improved.
+% section simulation_environment (end)
+
 
 % chapter results (end)
