@@ -27,13 +27,14 @@ cd ros_controllers
 git checkout jade-devel
 cd ..
 
-cd realtime_tools
-git checkout kinetic-devel
-cd. ..
-
 # Installing Catkin Tools
 echo "    Installing Catkin Tools"
 sudo apt-get install python-catkin-tools
+wait
+
+# Installing ROS Control
+echo "    Installing ROS Control"
+sudo apt-get install ros-jade-ros-control ros-jade-ros-controllers
 wait
 
 #Installing Gazebo 7
@@ -57,7 +58,7 @@ echo "
 export LEGS=\"$LEGS_FOLDER\"
 
 ### ROS ###
-source \$LEGS/src/devel/setup.bash
+source \$LEGS/devel/setup.bash
 
 ### Gazebo ###
 source /usr/share/gazebo/setup.sh
