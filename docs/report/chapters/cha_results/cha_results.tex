@@ -66,4 +66,46 @@ The framework is then complete, and among the most important findings are the si
   %conclusion from the results
 From simulation to real life, the RuBi platform presents a good offer for researches that can work in biped locomotion controllers by reducing the spent time in maintainability of the robot or interoperability among hardware and simulation.
 
+
+\begin{table}[htbp]
+\caption{Physical properties of the limbs obtained from CAD program}
+\begin{center}
+\begin{tabular}{c|c|c|c}
+ \vspace{5mm}
+\large \textbf{Limb} & \large  \textbf{Length [$m$]} & \large  \textbf{Mass [$Kg$]} & \large \textbf{Moments of inertia [$Kg \cdot m^2$]} \\
+
+Foot & 0.095 & 0.021 & \vspace{5mm} \begin{tabular}{c|c|c}
+                        2.2e-005 & -9.16e-006 & 0 \\ \hline
+                        -9.16e-006 & 9.05e-006 & 0 \\ \hline
+                        0 & 0 & 2.88e-005 
+                        \end{tabular} \\
+Lower limb & 0.115 & 0.2 & \vspace{5mm} \begin{tabular}{c|c|c}
+                        0.000699 & 2.44e-005 & 0 \\ \hline
+                        2.44e-005 & 1.85e-005 & -1.82e-005 \\ \hline
+                        0 & -1.82e-005 & 0.000694
+                        \end{tabular}\\ 
+
+Upper limb & 0.123 & 0.2 & \vspace{5mm} \begin{tabular}{c|c|c}
+                        0.00119 & 2.89e-006 & -1.36e-008 \\ \hline
+                        2.89e-006 & 1.69e-005 & -1.78e-005 \\ \hline
+                        -1.36e-008 & -1.78e-005 & 0.00118
+                        \end{tabular}\\
+Hip & 0.150 & 0.156 & \vspace{5mm} \begin{tabular}{c|c|c}
+                        0.000303 & 0 & 1.44e-008 \\ \hline
+                        0 & 2.78e-005 & 0 \\ \hline
+                        1.44e-008 & 0 & 0.000314
+                        \end{tabular}\\ 
+Total & & 0.707 &
+\end{tabular}
+\end{center}
+\label{tab:limb_physical_properties}
+\end{table}
+
+
+\begin{figure}[tb]
+  \centering
+  \includegraphics[width=0.75\textwidth]{figures/position_measurements.pdf}
+  \caption{Measurements obtained from real robot}
+  \label{fig:position_measurements}
+\end{figure}
 % chapter results (end)
