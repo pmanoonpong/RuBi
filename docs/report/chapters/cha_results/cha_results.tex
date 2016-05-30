@@ -98,7 +98,8 @@ Total & & 0.707 &
 RuBi has six actuated joints for planar motion.
 For each of them, a fully functional and extendable embedded electronics system based on the Locokit hardware has been implemented as the spinal cord of the robot, together with a software interface able to handle the information flow with the robot.
 It provides access to the angular information of each joint in real time and the control of their individual torque commands, all through a standard ROS interface that can be used as well for controlling the simulation model.
-As an example, the full-range readings from hip, knee and ankle on one leg are shown in Figure \ref{fig:position_measurements}.
+As an example, the readings from hip, knee and ankle encoders for a random movement on one leg are shown in Figure \ref{fig:position_measurements}.
+
 
 \begin{figure}[h]
   \centering
@@ -119,7 +120,9 @@ However, they have not been connected to the electronics frame due to unforeseen
 
 \section{RuBi dynamic model and actuators calculation} % (fold)
 \label{sec:rubi_dynamic_model_and_actuators_calculation}
-
+The MATLAB scripts containing the implementation and results of the dynamic model of the robot and the calculus for the parameters of the actuators can be found in the source folder attached to this thesis.
+The final model has been considered a fair trade-off between simplicity and accuracy, since the addition of more terms hard to model as frictions or backslash in the transmissions would not have contributed additional value.
+As presented in \ref{sec_dynamic_controller}
 % section rubi_dynamic_model_and_actuators_calculation (end)
 
 
@@ -140,11 +143,44 @@ A simple and extendable simulation environment together with a robot model have 
 The physical properties of the robot and its visual model have been exported from its design in SolidWorks for maximum resemblance with the real device.
 A ROS interface has been created for the simulation environment, together with two simple controllers that have been successfully tested (see \ref{cha:experiments}).
 They have been used also to prove the simplicity of the development and testing of control algorithms with the simulation model.
+<<<<<<< HEAD
+In Figure \ref{fig:RuBi_jump_sequence} a sequence of snapshots depicts RuBi performing an unconstrained jump as a result of the use of the impulse controller in the simulation.
+It has been used to demonstrate that the physical characteristics of the structure are capable of handle the motion implied in a jump. 
+
+However, the problems of the physics engine to handle robots of the size of RuBi led to the need of truncating some of its too small physical properties in order to be able to simulate real behaviors.
+Hence, the simulation model can be used to qualitatively test the functionality of controllers, but their outputs will have to be adapted to the real environment until the simulation model is further improved.
+
+\begin{figure}[h]
+\centering
+  \begin{subfigure}{.19\textwidth}
+    %\centering
+    \includegraphics[width=\linewidth]{figures/gazebo_jumping_1.png}
+  \end{subfigure}
+  \begin{subfigure}{.19\textwidth}
+    %\centering
+    \includegraphics[width=\linewidth]{figures/gazebo_jumping_2.png}
+  \end{subfigure}
+  \begin{subfigure}{.19\textwidth}
+    %\centering
+    \includegraphics[width=\linewidth]{figures/gazebo_jumping_3.png}
+  \end{subfigure}
+  \begin{subfigure}{.19\textwidth}
+    %\centering
+    \includegraphics[width=\linewidth]{figures/gazebo_jumping_4.png}
+  \end{subfigure}
+  \begin{subfigure}{.19\textwidth}
+    %\centering
+    \includegraphics[width=\linewidth]{figures/gazebo_jumping_5.png}
+  \end{subfigure}
+  \caption{Snapshots of RuBi performing an unconstrained jump}
+  \label{fig:RuBi_jump_sequence}
+\end{figure}  
+
+% section simulation_environment (end)
+
 
 However, the problems of the physics engine to handle robots of the size of RuBi led to the need of truncating some of its too small physical properties in order to be able to simulate real behaviors.
 Hence, the simulation model can be used to qualitatively test the functionality of controllers, but their outputs will have to be adapted to the real environment until the simulation model is further improved.
 % section simulation_environment (end)
-
-
 
 % chapter results (end)
