@@ -81,15 +81,12 @@ The change in momentum in the robot, of total mass $m$, caused by the applicatio
 Substituting equation \ref{eq:deltaV} in \ref{eq:impulse}, the necessary impulse to reach the desired maximum height can be computed.
 However, since the force applied to the mass and the application period cannot be decoupled from the result of the equation, an energy analysis has to be carried out together with a posterior optimization of the two values for the desired design of the robot.
 Solving equation \ref{eq:impulse} for a small range of application time values and after computing \ref{eq:deltaV} with increasing values of $\Delta h$ in the range $[0.01,0.1]$ meters yields a reciprocal graph whose positive quadrant can be seen in Figure \ref{fig:f-t}
-
-\todo{Put this Figure in vectorial}
 \begin{figure}[ht!]
 	\centering
-	\includegraphics[width=0.8\textwidth]{figures/force-timePlot.png}
+	\includegraphics[width=\textwidth]{figures/force-timePlot.pdf}
 	\caption{Force-application time values for the same work magnitude.}
 	\label{fig:f-t}
 \end{figure}
-
 However, the obtained graphs do not propagate to an infinite value of application time, existing a boundary farther than which, the impulse will not produce enough variation in the momentum to launch the body.
 
 \begin{equation}
