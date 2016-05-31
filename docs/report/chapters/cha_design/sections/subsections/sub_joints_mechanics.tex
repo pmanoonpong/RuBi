@@ -84,17 +84,30 @@ The term $L$ is the service life of a bearing (in number of hours or rpm), in no
 Whilst $L_{10}$ is based in a statistical model that is defined as the 90\% of the bearing of the same type will withstand those loads for a longer time.
 % subsubsection bearings (end)
 
+\subsubsection{Springs dimensions} % (fold)
+\label{ssub:springs_dimensions}
+A big set of springs have been ordered in order to include them to the toolkit provided for experimentation, so that the trials detailed in \ref{ssub:experiment_2} can be conducted.
+The criteria for the selection of the springs have been torsion model and 90\degree angle, ordering a left and right model of each since the mechanical interfaces on the robot are mirrored.
+Any of the acquired springs can be placed in any holder since the holes for inserting them have been designed with the diameter of the biggest one ordered plus a small clearance obtained from \ref{sub:arc_compensation}.
+
+Exact calculation to obtain the stiffness of springs used for adding compliance to the joints of a legged machine have not been found in the literature. 
+For research in a specific kind of gait, at a determined speed, the usual solution is to study real individuals and collect data from their analysis or empirically optimize the values through recurrent iterations until a good value is found.
+However, the fact that RuBi is not meant to be optimized for a determined speed or gait, but it is supposed to work in a wide range, prevented from conducting this kind of studies.
+Thus, the final values of stiffness were theoretically inferred from an adapted average of the implemented values for ankles in \cite{grimmer}.
+They correspond to the values of $K$ in the middle of the range ordered.
+The stiffest models have been selected to ensure the rigid behavior needed to implement a direct drive configuration in the actuation through a rough estimation of maximum torque requirements.
+Besides, the use of longer axes in the joints would allow the combination of springs in series for the SEA configuration, increasing the actual range of available values of $K$.
+This is suggested here as further work.
+
+
+% subsubsection springs_dimensions (end)
+
 \subsubsection{Implementation of elastic actuation} % (fold)
-
-\todo{Springs selection (shortly)}
-
 \label{ssub:spring_integration}
 In section \ref{sec:joints} the use of springs is justified in order to walk and run efficiently. 
 An analysis of the different possibilities to include compliance in the robot is done in the same section, while Figure \ref{fig:compliance_series} shows the analyzed configurations and their advantages and disadvantages are further discussed.
-The final design has been conceived to allow any of the four possible springs configurations shown in Figure \ref{fig:pasive_actuators} to be implemented in the knee and ankle joints.
+The final design has been conceived to allow for any of the four possible springs configurations shown in Figure \ref{fig:pasive_actuators} to be implemented in the knee and ankle joints.
 This is possible by making a system that allows to put elastic components in series and parallel that are easily replaceable.
-Furthermore, a big range of springs have been ordered for the reasons in explained in \ref{sec_springs}.
-Any of the ordered springs can be placed due to the fact that the holes for inserting them have the diameter of the biggest one ordered plus a small clearance obtained from \ref{sub:arc_compensation}.
 
 \paragraph{SEA configuration} % (fold)
 \label{para:sea_configuration}
