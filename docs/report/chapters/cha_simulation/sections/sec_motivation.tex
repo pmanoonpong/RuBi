@@ -1,19 +1,21 @@
 %!TEX root = ../../../report.tex
 \section{Motivation} % (fold)
 \label{sec:sim_motivation}
-The robot presented in this thesis has been developed with security systems in both software and hardware meant to prolong its operation life and guarantee a safe use. 
-Nevertheless, every device in real life is prone to suffer damages as part of their use or as a result of mistakes in its control translates into loss of economic and time resources for the user.
-A simulation environment as been implemented as a part of the development tools created with RuBi.
-Its architecture is such that the user can both work with the same algorithms in real and simulated life with a minimum reconfiguration.
+Within the goals of the RuBi framework there is the creation of a software environment whose last goal is to facilitate the testing of new motion controllers.
+The process of testing new algorithms in locomotion is usually slow due to the inherent problems of the hardware (maintenance, adjustments, bringing up the robot, etc).
+This breaks the workflow and forces to devote resources that should be used in the actual development of the program.
+Besides, although the RuBi robot has been developed with security systems in both software and hardware meant to prolong its operation life and guarantee a safe use, every device in real life is prone to suffer damages as part of their use or as a result of mistakes in its control.
+The RuBi framework includes a standard simulator and its simulation model in order to tackle this problem.
+Its architecture is such that the user can both work with the same algorithms in real life and simulation with a minimum reconfiguration.
 
-While not being a complete imitation of the real life due to intrinsic limitations, it aims at offering a tool for qualitative research and testing of locomotion.
-As an example, neuronal networks or reinforcement learning algorithms, which learn from experience, can be developed faster in the simulator and then transfered to the real robot, reducing the workflow time and the need of resources of the user and justifying its use.
+While not being a complete imitation of the real life due to intrinsic limitations, the simulator aims at offering a tool for qualitative research and testing of locomotion algorithms.
+As an example, neuronal networks or reinforcement learning algorithms, with an experience-based learning process, can be developed faster in the simulator and then transfered to the real robot, speeding up the development and making it safer.
 
 A simulator consists basically of two elements: a physical and a graphical engine.
-Whilst the first one is in charge of computing all the physical interactions that the agent is subjected to, the second one offers the visual experience.
+While the first one is in charge for computing all the physical interactions that the agent is subjected to, the second one offers the visual experience.
 A congruent simulator with the presented framework will satisfy two conditions:
 \begin{enumerate}
-  \item The effort for testing among the simulation and real life must be minimized
+  \item The effort for testing among the simulation and real life must be minimized.
   \item The results must be as close to real life as possible. This includes multiphysics support (mechanical contacts, different aspects of tribology, wind, water...) but within a fair trade-off with computational load and speed.
 \end{enumerate}
 
