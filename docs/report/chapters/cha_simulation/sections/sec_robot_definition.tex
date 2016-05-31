@@ -1,10 +1,8 @@
 %!TEX root = ../../../report.tex
-\section{Robot definition} % (fold)
+\section{Robot model definition} % (fold)
 \label{sec:robot_definition}
-As in May of 2016, ROS Jade ecosystem has different formats to describe a robot.
-These are SDF, URDF and Xacro.
-At some point they are all transformed to a unique sort of format but the decision of how to express the robot for the simulation is needed from the beginning.
-
+As in May of 2016, ROS Jade ecosystem offers three different formats to describe a robot: SDF, URDF and Xacro.
+During the process of actual construction of the defined robot model they are all transformed to a unique low-level format, but the selection of the syntax to describe the robot for the simulation is needed from the beginning.
 
 \begin{enumerate}
   \item \textbf{URDF\footnote{http://wiki.ros.org/urdf}}: is an open standard used in all the simulators mentioned or others like RobWork \cite{robwork}. 
