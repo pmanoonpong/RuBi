@@ -1,36 +1,40 @@
 %!TEX root = ../../../report.tex
 \section{Project management} % (fold)
 \label{sec:project_management}
-The methodology used for this project is Agile.
+In a project of this magnitude, the organizational aspect results critical for the accomplishment of the targets.
+The methodology used for the plannification and management of this project is called Agile.
 Agile approaches help teams respond to unpredictability through incremental, iterative work cadences, known as sprints.
-It has been implemented as SCRUM \cite{singh2008u} by considering both supervisors as the product managers and having a self managed team striving to build properly tested product increments within short iterations.
-By having weekly meetings, empirical feedback has been received closing the iteration circle faster and more concisely.
+It has been implemented as SCRUM \cite{singh2008u} by considering both supervisors as the product owners (those who specify the requisites of the final product) and having a self managed team striving to build properly tested product increments within short iterations.
+By having weekly meetings, advice and empirical feedback have been received closing the iteration circle faster and more concisely.
 
 The tool Trello \cite{trello} has been used in order to keep track of the tasks in the backlog.
 Trello is an online project management application and it was used since its design made it similar to post-it notes for management.
-It also has the advantage of being online and therefore accessible from both home and workplace through smart phones or computers.
-Figure \ref{fig:trello} shows a screen capture of Trello board for a sprint log.
+It also has the advantage of being online and therefore accessible from both home and workplace.
+Figure \ref{fig:trello} shows a screen capture of a Trello board for a sprint log.
 
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=\textwidth]{figures/trello.png}
+  \includegraphics[width=0.9\textwidth]{figures/trello.png}
   \caption{Screen capture of Trello showing the 1st sprint board. The three
 rightmost lists are used to keep track of tasks and their state.}
   \label{fig:trello}
 \end{figure}
 
-Besides, the project has been organized in four sprints with big tasks that then are broken down into smaller jobs. The sprints are:
+The project was organized in four sprints with big tasks that then were broken down into smaller jobs. 
+Although the original schedule has been subject to modifications due to unforeseen eventualities, its main structure is presented here for clarity.
+The sprints were:
+\vfill
 \paragraph{\textbf{Sprint 1}}
 \begin{itemize}
-  \item \textbf{Goal}: Analyze robot possibilities, define the kinematic model, become familiar with the simulation environment and get ready ROS Control and software.
+  \item \textbf{Goal}: Analyze robot possibilities, sketch its geometrical and inertial parameters and try to model them, become familiar with the simulation environment and set up ROS Control and the rest of software tools.
   \item \textbf{Duration}: 21st of January to 28th of February.
-  \item \textbf{Description}: An analysis of the structural possibilities of the robots is done. This is then used to start the mathematical model, which is subdivided in the kinematic and the dynamic model so the first one can be started. In parallel, all the software environment is created: from ROS control to the Gazebo structures. This will help with future extensions and will facilitate its integration for new features like the real CAD model of the robot.
+  \item \textbf{Description}: An analysis of the possible structures and configurations of the robots is performed. It is then used to outline a mathematical model, subdivided in the kinematic and the dynamic model so that the first one can be started. In parallel, all the software environment is created: from ROS control to the Gazebo structures. This is meant to help with future extensions and to facilitate its integration of new features like the real CAD model of the robot.
 \end{itemize}
 \paragraph{\textbf{Sprint 2}}
   \begin{itemize}
     \item \textbf{Goal}: Define the dynamic model, integrate Go Robots in the software structures and prepare simple simulation for testing and create example controllers.
     \item \textbf{Duration}: 3rd of March to 1st of April.
-    \item \textbf{Description}: The kinematic model is finished and the dynamic starts. From the software point of view, a basic simulation model is created and controlled with ROS Control. The example controllers, based on tools from Go Robots, are created and tested.
+    \item \textbf{Description}: The kinematic model is finished and the dynamics analysis starts. From the software point of view, a basic simulation model is created and controlled with ROS Control. The example controllers, based on tools from Go Robots, are created and tested.
   \end{itemize}
 \paragraph{\textbf{Sprint 3}}
   \begin{itemize}

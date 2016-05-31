@@ -108,9 +108,9 @@ The results in \cite{grimmer} demonstrate that the implementation of compliance 
 They also seem to prove that the contribution to the reduction of energy consumption and power requirements of the hip is neglectable.
 These findings have been used to justify the implementation of elastic actuators in knees and ankles, but not in the hip joints, actuated through direct transmission.
 
-Several models from literature have been subject to a comparative analysis for their use in RuBi, being the main ones shown in Figure \ref{fig:compliance_series} and \ref{fig:compliance_parallel} for the ankle actuation (equivalent for the knees).
-These schematics depict the three major design choices made so far, summarized in \ref{list:design_criterias}.
-A short summary of the conclusions reached by these studies is introduced below.
+Several models from literature have been subjected to a comparative analysis for their use in RuBi, being the main ones shown in Figure \ref{fig:compliance_series} and \ref{fig:compliance_parallel} for the ankle actuation (equivalent for the knees in this project).
+These schematics depict the application of the three major design criteria defined so far, summarized in \ref{list:design_criterias}.
+A short summary of the conclusions reached by these studies and the selected configurations based on them is introduced below.
 
 \begin{itemize}
 \label{list:design_criterias}
@@ -184,7 +184,9 @@ It was considered the most optimal to mimic the human musculature on the legs an
 \label{par:sea_5}
 The configuration called SEA 5 and shown in Figure \ref{fig:series5} was the selected one.
 The original idea was taken from \cite{phides} but has been modified to ease its construction and provide more robustness to the final design.
-In \cite{phides} this elastic transmission is implemented with torsion bars for the joints axes, while RuBi uses torsion springs placed around more resistant axis to transmit the motion.
+In \cite{phides} this elastic transmission is implemented with torsion bars for the joints axes, which made the process of finding a bar with the right stiffness and resistance a very hard task.
+However, RuBi uses torsion springs placed around more resistant axis to transmit the motion.
+This results in a combination of a very robust rod with an easily exchangeable torsion spring.
 % paragraph sea_5 (end)
 
 \begin{figure}[ht!]
@@ -207,15 +209,15 @@ In \cite{phides} this elastic transmission is implemented with torsion bars for 
 
 \paragraph{PEA 1} % (fold)
 \label{par:pea_1}
-The configuration in \ref{fig:parallel1} shows a compression spring (or extension spring depending the placement) connected within the two links.
+The configuration in \ref{fig:parallel1} shows a compression spring (or extension spring depending on the placement) connecting the two links.
 This direct connection act as a parallel spring and has the advantage of being a very flexible system in terms of changing the physical parameters of the spring. 
-However its design was discarded in favor of the rotational due to the previous election of the rotational series spring.
+However its implementation was discarded in favor of the rotational configuration due to the previous selection of the rotational series spring.
 % paragraph pea_1 (end)
 
 \paragraph{PEA 2} % (fold)
 \label{par:pea_2}
 The configuration called PEA 2 and shown in Figure \ref{fig:parallel2} was the selected one.
-This is congruent with the series spring what will facilitate its integration when designing.
+This is congruent with the series spring which will facilitate its integration when designing.
 It also has the advantage of having common interfaces which would lead to the possibility of using the same springs for series and parallel configurations, saving thus money and time.
 
 % paragraph pea_2 (end)
