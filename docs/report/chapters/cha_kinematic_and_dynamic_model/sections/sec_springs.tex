@@ -10,8 +10,7 @@ It was meant to be used for the experiments devised on compliance influence in h
 
 \subsection{Torque and energy contribution of passive actuators} % (fold)
 \label{sub:torque_contribution_of_passive_actuators}
-All the springs that can be implemented in RuBi are torsional, as shown in \ref{fig:knee_joint}, whose general equations for torque and energy storage are shown in \ref{eq:torsion_spring}. 
-
+All the springs that can be assembled in RuBi are torsional, as explained in \ref{fig:knee_joint}, whose general equations for torque and energy storage are shown in \ref{eq:torsion_spring}. 
 \begin{equation}
 \label{eq:torsion_spring}
 \begin{aligned}
@@ -19,33 +18,31 @@ All the springs that can be implemented in RuBi are torsional, as shown in \ref{
 	U_{S} &= \frac{1}{2}K \Delta \theta^2
 \end{aligned}
 \end{equation}
-
 The contribution of the springs torques to the system actuation is therefore modeled introducing the torque equation in \ref{eq:torsion_spring} on the right side of \ref{eq:dynamics_eq1}, which would yield equation \ref{eq:dynamics_eq2}.
 Where the torques vector has been divided into the motors and springs inputs.
-
 \begin{equation}
 	\label{eq:dynamics_eq2}
 	B(q)\ddot{q} + C(q,\dot{q})\dot{q} + g(q) = \tau_{M} + \tau_{S}
 \end{equation}
-
-The values of $\Delta \theta_{i}$ can be obtained through forward kinematics for given trajectories, while $\tau_{i}$ can be computed from equation \ref{eq:dynamics_eq1} given the ground contact force model, which is the only external force applied to the system.
+The values of $\Delta \theta_{i}$ (where i=1,..,N denotes the joint index) can be obtained through forward kinematics for given trajectories, while $\tau_{i}$ can be computed from equation \ref{eq:dynamics_eq1} given the ground contact force model, which is the only external force applied to the system.
 Thus, the first formula in \ref{eq:torsion_spring} can be used to calculate the optimal $K$ for a desired joint trajectory and force model, for instance.
 Knowing $k_{i}$ and $\Delta \theta_{i}$, the energy stored per gait cycle by each spring can be computed and utilized for studying their influence on the performance of the robot.
 
 \subsection{Joint kinetics} % (fold)
 \label{sec:joint_kinetics}
+The formulas presented in this section have not utilized during this project. 
+They are mainly introduced here as a part of the theoretical frame provided to ease the use of the RuBi robot in energy studies for locomotion.
+It use was planned as a part of the experiments devised in the influence of the compliance configuration in energy storage.
+
 The motor power requirements for each joint can be calculated through equation \ref{eq:motor_power} for direct drive transmission.
 This formula does not include inertias, frictions or any other efficiency coefficients. 
-
 \begin{equation}
 \label{eq:motor_power}
 	P_{m} = \dot{\theta}_{m} \tau_{m}
 \end{equation}
-
 By definition of \ref{eq:motor_power}, the value of $P_{m}$ can be positive (motor thrusting) or negative (motor dumping).
 Thus, the peak power in the motion cycle can be computed as the its maximum absolute value.
 Besides, the equation of motor power is used in \ref{eq:energy_requirement} for calculating the overall energy requirements for a whole motion cycle, employing only absolute values as well.
-
 \begin{equation}
 \label{eq:energy_requirement}
  	E_{cycle} = \int{P_{m+}(t) dt} + \int{P_{m-}(t) dt}
@@ -56,8 +53,8 @@ Besides, the equation of motor power is used in \ref{eq:energy_requirement} for 
 The above presented are general formulations.
 However, the introduction of elastic transmission between motor and load through springs modify the computation of motor power.
 The changes resulting from implementing the configurations shown in Figure \ref{fig:sea}, \ref{fig:pea} and \ref{fig:sea_pea} yield equations \ref{eq:SEA_power}, \ref{eq:PEA_power} and \ref{eq:SEA_PEA_power} respectively, as per \cite{grimmer}.
+These equations model the conjunction of the torques provided by the motor and the springs, this one defined by their stiffness constants and the angle they are bent.
 For a complete and detailed description of the parameters in these equations, the reader is referred to the cited paper.
-
 \begin{equation}
 \label{eq:SEA_power}
 	P_{m} = \tau_{m} \left(\dot{\theta}_{t} + \frac{\dot{M}_{ex}}{K_{s}}\right)

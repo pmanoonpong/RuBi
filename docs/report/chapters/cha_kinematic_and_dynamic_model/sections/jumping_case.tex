@@ -48,7 +48,6 @@ The period from the take-off of the toes to the instant in which the maximum hei
 The rest of the cycle, including fall and landing are not described here.
 During the whole period the robot is considered a rigid solid.
 This phase is analyzed following the equations of a static projectile motion for the vertical launch case, expressed in \ref{eq:vertical_motion} and \ref{eq:vertical_energy}.
-
 \begin{equation}
 \label{eq:vertical_motion}	
 	h(t) = V_o t sin(\theta) - \cfrac{1}{2} g t^2 
@@ -58,26 +57,21 @@ This phase is analyzed following the equations of a static projectile motion for
 \label{eq:vertical_energy}
 	m g \Delta h = \cfrac{1}{2} m \Delta V^2
 \end{equation}
-
 The equation \ref{eq:vertical_energy} is an energy balance analysis for the flight phase, that can be rearranged as showed in \ref{eq:deltaV}
-
 \begin{equation}
 \label{eq:deltaV}
 	\Delta V = \sqrt{2 g \Delta h}
 \end{equation}
-
 This equation can be used to input the desired displacement in the CoG of the robot during the free flight period and obtain the necessary velocity at take-off $V_{toff}$, which is the one the robot has to reach in the impulse phase.
 This can be done since $V_{final} = 0$ and therefore $\Delta V = V_{toff}$.
 
 \paragraph{The impulse phase}
 From the initial position at the beginning of the jump, depicted in \ref{fig:launch_phase}, to the instant when the toes of the standing foot take off the ground and the ground reaction force ceases, shown in \ref{fig:takeoff_phase}.
 The change in momentum in the robot, of total mass $m$, caused by the application of a vertical force with the foot to the ground $F$ during a period $t$ is given by equation \ref{eq:impulse}, derived from the second law of motion of Newton.
-
 \begin{equation}
 \label{eq:impulse}
 	F  t = m  \Delta V	
 \end{equation} 
-
 Substituting equation \ref{eq:deltaV} in \ref{eq:impulse}, the necessary impulse to reach the desired maximum height can be computed.
 However, since the force applied to the mass and the application period cannot be decoupled from the result of the equation, an energy analysis has to be carried out together with a posterior optimization of the two values for the desired design of the robot.
 Solving equation \ref{eq:impulse} for a small range of application time values and after computing \ref{eq:deltaV} with increasing values of $\Delta h$ in the range $[0.01,0.1]$ meters yields a reciprocal graph whose positive quadrant can be seen in Figure \ref{fig:f-t}
@@ -88,7 +82,6 @@ Solving equation \ref{eq:impulse} for a small range of application time values a
 	\label{fig:f-t}
 \end{figure}
 However, the obtained graphs do not propagate to an infinite value of application time, existing a boundary farther than which, the impulse will not produce enough variation in the momentum to launch the body.
-
 \begin{equation}
 \label{eq:work}
 	W = \int_{t_{toff}}^{t_{f}} F(t)\,\mathrm{d}t = \cfrac{1}{2} m \Delta V^2 = F_{min} S
