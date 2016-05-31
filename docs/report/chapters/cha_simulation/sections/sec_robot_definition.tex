@@ -7,13 +7,13 @@ At some point they are all transformed to a unique sort of format but the decisi
 
 
 \begin{enumerate}
-  \item \textbf{URDF \footnote{http://wiki.ros.org/urdf}}: is an open standard used in all the simulators mentioned or others like RobWork \cite{robwork}. 
+  \item \textbf{URDF\footnote{http://wiki.ros.org/urdf}}: is an open standard used in all the simulators mentioned or others like RobWork \cite{robwork}. 
   It allows to define all the properties of a single robot but lacks other which are important when simulating. 
   It is mainly used for visual representations or schematic robot definitions.
-  \item \textbf{Xacro \footnote{http://wiki.ros.org/xacro}}: is a parametric format that facilitates the writing of the URDF.
+  \item \textbf{Xacro\footnote{http://wiki.ros.org/xacro}}: is a parametric format that facilitates the writing of the URDF.
   It allows logic conditions like \textit{if} or \textit{for} and from ROS Jade  virtually any python condition can be used.
   This code is then compiled into a URDF automatically which gives Xacro complete interoperability with URDF readers.
-  \item \textbf{SDF \footnote{http://sdformat.org}}: adapted to the current requirements of the simulation environments.
+  \item \textbf{SDF\footnote{http://sdformat.org}}: adapted to the current requirements of the simulation environments.
   With it can be defined from \textit{worlds} to air properties in the case of UAV simulations for instance.
 \end{enumerate}
 
