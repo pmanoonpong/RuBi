@@ -3,28 +3,41 @@
 \label{cha:discussion}
 % a reference to the main purpose of the study
 The purpose of the project was the construction of a robust, low-cost
-and reconfigurable bipedal locomotion platform for human-like walking and running gait
+and reconfigurable bipedal platform for human-like walking and running locomotion
 generation and control studies.
+Once the results of the process are collected, they deserve an evaluation in terms of the goals aimed with the thesis and the development of events withing the past months.
 
-% a generalized review of the most important findings - summary of results
-This has been achieved by making a framework consisting of a real robot and a simulation environment all gathered within ROS.
+\section{The prototype of RuBi} % (fold)
+\label{sec:the_prototype_of_rubi}
+The core of the devised framework for locomotion studies was the biped robot RuBi.
+The design and construction of the first prototype has been fully achieved as planned despite the eventualities faced.
+Its theoretical sensory/motor and mechanics features accomplish most of the targeted requirements for a robot of its characteristics, inspired in similar, existing models in the literature and the authors own intuition.
+However, the next chapter details some tasks left as further work considered necessary for a complete success on the implementation of the fully functional prototype has conceived.
+
+The main deficiency on the development process remains the absence of empirical data to corroborate the accuracy of the theoretical calculations carried out.
+This has been due, as already explained, to the ambitious scope of this master's thesis, the delay in the reception of some fundamental parts of the robot or the unforeseen eventualities that a project of these characteristics always implicates.
+Notwithstanding this fact, that could be firstly mistaken for a result of a misled planning of the project, actually highlights one of its most remarkable facts.
+This is, that the achievement of the intended goals to their current extent has been carried out in a notable time lapse of 4 months.
+% section the_prototype_of_rubi (end)
+
+\section{The simulation and control architectures} % (fold)
+\label{sec:the_simulation_and_control_architectures}
+The goal of a more general simulation environment than the existing LPZ robots used with the DACbot has been accomplished through the implementation of a Gazebo+ROS Control structure.
 The system stands out for facilitating the implementation of locomotion controllers and the possibility of testing them in the simulation and in the real robot.
-Another big feature is the possibility of testing different spring configuration which will lead to more adaptable controllers.
+Two have been created and tested in simulation, although not in the real setup.
+The simulation has proved to be a good tool for qualitative analysis but not for tests assuming real-world conditions, since that still needs further development.
+% section the_simulation_and_control_architectures (end)
 
-% possible explanations for the findings in general
-This can be done thanks to a interchangeable spring system that accepts passive actuators for a big range of torsional springs enabling the user the use of SEA configurations, PEA or SEA+PEA.
-A handy option for changing the resting position of the parallel springs is also offered which gives a big set of possibilities for studying human-like gaits.
-From the mechanical perspective the bulk of the parts are 3D printed which reduces price, construction time and the maintainability costs while the rest of the parts are following standards and thus are easy to find.
-The use of a proved and robust electronic system is a perfect match for the software tools provided and the support and third party tools given by ROS.
-This creates a positive synergy among the mechatronic design and its implementation.
+\section{The mathematical framework} % (fold)
+\label{sec:the_mathematical_framework}
+The calculations carried out to assess the requirements of the actuators have been created in MATLAB and used to evaluate the needs on hardware.
+The models are left in an early development stage since they were meant to count on experimental data to assess its accuracy and improve them.
+However, with a fully operative prototype of the robot, the dynamic model can be further tested and used to detect and carry out improvement on the robot dynamics for a better performance, as it has been used for during its design. 
+% section the_mathematical_framework (end)
 
-% comparison with expected results and other studies
-With the example controllers provided, the actuators have been tested in both real life and simulation.
-The assembly of the robot has shown to be feasible and the given assembly manuals facilitate its replication.
-However, not all the expected experiments can be carried out.
-The passive actuators of RuBi didn't arrive when expected and this planning error has impeded the practice of jumping or walking experiments.
-Though this have been done in the simulation, this has been proved to be a tool for qualitative analysis and not quantitative.
-Further work must be done on testing the capabilities and robustness of the system.
-
-% limitations of the overall study that restrict the extent to which the findings can be generalized
+\section{The test bench for experimentation} % (fold)
+\label{sec:the_test_bench}
+The devised test bench whose goal was the constraint of the robot movements to its sagital plane has been constructed and installed on top of the existing treadmill.
+However, its functionality has not been tested further than manually because of the problems with the robot prototype described above.
+% section the_test_bench (end)
 % chapter discussion (end)
