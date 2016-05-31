@@ -45,12 +45,12 @@ hold off
 %the links
 Xcom0=0;
 Ycom0=0;
-Xcom1=(L(1,1)*motorPos)*sin(Q1);
-Ycom1=(L(1,1)*motorPos)*cos(Q1);
-Xcom2=L(1,1)*sin(Q1)+(L(2,1)*motorPos)*sin(Q1+Q2);
-Ycom2=L(1,1)*cos(Q1)+(L(2,1)*motorPos)*cos(Q1+Q2);
-Xcom3=L(1,1)*sin(Q1)+L(2,1)*sin(Q1+Q2)+(L(3,1)*motorPos)*sin(Q1+Q2+Q3);
-Ycom3=L(1,1)*cos(Q1)+L(2,1)*cos(Q1+Q2)+(L(3,1)*motorPos)*cos(Q1+Q2+Q3);
+Xcom1=(L(1,1)*mP)*sin(Q1);
+Ycom1=(L(1,1)*mP)*cos(Q1);
+Xcom2=L(1,1)*sin(Q1)+(L(2,1)*mP)*sin(Q1+Q2);
+Ycom2=L(1,1)*cos(Q1)+(L(2,1)*mP)*cos(Q1+Q2);
+Xcom3=L(1,1)*sin(Q1)+L(2,1)*sin(Q1+Q2)+(L(3,1)*mP)*sin(Q1+Q2+Q3);
+Ycom3=L(1,1)*cos(Q1)+L(2,1)*cos(Q1+Q2)+(L(3,1)*mP)*cos(Q1+Q2+Q3);
 
 Pcom1=[Xcom0;Ycom0];
 Pcom2=[Xcom1;Ycom1];

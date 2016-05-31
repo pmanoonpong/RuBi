@@ -1,7 +1,7 @@
 %MATHEMATICAL MODEL OF THE BIPEDAL ROBOT
 %COMPUTES THE KINEMATICS AND DYNAMICS MODEL OF THE PLATFORM
 %PERFORMS THE IMPULSE ANALYSIS FOR THE VERTICAL JUMP CASE 
-%OUTPUTS THE NECESSARY TORQUES IN ONE LEG FOR THE DESIRED JUMP 
+%OUTPUTS THE NECESSARY JOINT TORQUES AND VELOCITIES IN ONE LEG FOR THE DESIRED JUMP 
 
 clear; clc;
 close all;
@@ -78,26 +78,8 @@ for t=0:0.025:tf
     P3=[X2;Y2];
     P4=[X3;Y3];
     Positions=[P1,P2,P3,P4];
-
-    %Plot poses of the leg (inverted for visualization)
-%     plot(P1(1,1), P1(2,1));
-%     plot(P2(1,1), P2(2,1));
-%     plot(P3(1,1), P3(2,1));
-%     plot(P4(1,1), P4(2,1));
-    
-    axis([-0.3 0.3 -0.6 0])
-    x1=[vpa(subs(P1(1,1), 0)),vpa(subs(P2(1,1),0))];
-    y1=-[vpa(subs(P1(2,1), 0)),vpa(subs(P2(2,1),0))];
-    plot(x1,y1, 'Color',[(j/100)*7,(j/100)*7,0])
-    x2=[vpa(subs(P2(1,1), 0)),vpa(subs(P3(1,1),0))];
-    y2=-[vpa(subs(P2(2,1), 0)),vpa(subs(P3(2,1),0))];
-    plot(x2,y2, 'Color',[(j/100)*7,(j/100)*7,0])
-    x3=[vpa(subs(P3(1,1), 0)),vpa(subs(P4(1,1),0))];
-    y3=-[vpa(subs(P3(2,1), 0)),vpa(subs(P4(2,1),0))];
-    plot(x3,y3, 'Color',[(j/100)*7,(j/100)*7,0])
     
 end 
 hold off
-%%
-fullSimulation
- 
+
+kinematicsAndDynamics 

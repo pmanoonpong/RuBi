@@ -1,3 +1,6 @@
+%JACOBIAN FOR DYNAMIC MODEL
+%Currently under development
+
 function []=jacobianUse(InitToolPose,Qf)
 %Inputs:
 %InitlToolPose= 2x1 Vector containing [X,Y] position of the end-effector (symbolic)

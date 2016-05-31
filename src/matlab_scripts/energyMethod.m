@@ -1,5 +1,5 @@
 %Energy method algorithm for calculus of the torques in static situation
-
+%Currently under development
 clc
 clear
 

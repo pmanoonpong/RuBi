@@ -1,3 +1,6 @@
+%Calculations for the dimensions of the parallel springs
+%on the knee and ankle joints
+
 clc; clear; close all;
 
 %_______________________________________
