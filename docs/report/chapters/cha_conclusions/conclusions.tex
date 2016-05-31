@@ -17,14 +17,6 @@ From here, the uses of the platform are left to the imagination of future users.
 The missing work that laid on the original scope of this thesis but could not be conducted is mentioned here for each of the main areas of the project.
 Besides, some enhancements and experimental setups already suggested are summarized below.
 
-% section further_work (end)
-
-%%% Mathematical model
-% Development of a ground-contact force model --> the current one is a Normal function
-The mathematical model took as an assumption the constraint of having the hip and the tip toe remaining over the same vertical line.
-By having the exact mechanical properties of the links, as moments of inertia, center of gravity and mass, a model which holds the center of gravity vertically constrained could be obtained.
-Furthermore, a the current force model \todo{no tengo ni idea de que es esto nacho, ayuddaaaa} is based on a normal function and could be improved by using a ground-contact force model.
-
 %%% Mechanics
 % Analyze all the mechanical stresses of individual parts and an assembly analysis
 % Improve fastening for motor interfaces
@@ -41,6 +33,17 @@ Other future improvements could be the development of a more accurate method to 
 Besides, in \ref{cha:experiments} it was suggested the construction of a small platform with additional contact sensors for experiments in vertical jumps.
 This could be necessary since the current contact sensors are placed on the heels, but the first landing point when hopping is the toes.
 Since a solution to the placement of more sensors on the current foot design could not be found, it is proposed to install off-board sensors to supply that information.
+
+%%% Mathematical model
+% Development of a ground-contact force model --> the current one is a Normal function
+The calculations carried out to model the robot and its application have been created in MATLAB and used to evaluate the needs on hardware for RuBi.
+The models are left in an early development stage since they were meant to rely on experimental data to assess its accuracy and enhance them.
+However, with a fully operative prototype of the robot, the dynamic model can be further tested and used to detect and carry out improvement on the robot dynamics for a better performance, as it has been used for during its design. 
+The construction of the dynamic model of a robot must be led by the seek of a balanced trade-off between accuracy in the representation of the actual device and simplicity to handle and understand its behavior.
+This stage has been tried to be found here through the use of the assumptions about the real world and the robot capabilities.
+A first suggestion for further improvement of the model would be to minimize these assumptions and try to model every dynamic term and scenario.
+However, as explained, this does not necessarily yield a better output of the process.
+Therefore it is left as further work the adaption of the mathematical model as required by the user in the need of a more advanced solution, since assessing the quality of a model is not a trivial task and depends on its use.
 
 %%% Electronics
 % Alternatives to the use of the main board's input pins
@@ -68,5 +71,7 @@ The addition of springs to the model could lead to more realistic results, thoug
 The adjustment of certain simulation values as the time step or some in the model of the robot, as the dynamic rotational friction, have to be done based on results taken from the real robot.
 The model can also be improved by attaching more realistic visual characteristics like adding colors and textures to the parts.
 The possibilities of Gazebo have not been squeezed so the inclusion of new simulation environments, sensors or other models is left to further research.
+
+% section further_work (end)
 
 % chapter conclusions (end)
