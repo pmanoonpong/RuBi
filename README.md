@@ -3,7 +3,7 @@
 <h2>Description</h2>
 RuBi is a study framework for human-like gaits part of the master thesis of Ignacio Torroba and Jorge Rodriguez. The idea is to create a robot that can perform actions like walking, running or jumping both in simulation in real life. One of the main advantages is the possibility of changing the springs in order to study SEA, PEA or SEA+PEA configurations with different springs.
 
-![alt tag](https://github.com/RuBi-Robot/RuBi/blob/master/media/Renders/Legs-Camera%201.25.jpg)
+![alt tag](https://github.com/RuBi-Robot/media/blob/master/Renders/Legs-Camera%201.25.jpg)
 
 In here, the description of the structure of the project is presented. The how-to for starting the simulation or bring up the robot can also be found in here. Some example controllers are given too.
 
