@@ -1,2 +1,0 @@
-#!/bin/bash
-gs -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/prepress -sOutputFile="Design, simulation and construction of a bipedal platform for human-like locomotion studies.pdf" report.pdf
