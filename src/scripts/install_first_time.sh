@@ -4,11 +4,11 @@
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd $SCRIPT_DIR
 cd ../..
-LEGS_FOLDER=$(pwd)
+RUBI_FOLDER=$(pwd)
 
 # Pulling the submodules
 echo "    Pulling submodules"
-cd $LEGS_FOLDER/src
+cd $RUBI_FOLDER/src
 git submodule update --init --recursive
 
 cd control_toolbox
@@ -50,24 +50,24 @@ wait
 echo "    Installing some extra tools"
 sudo apt-get install liburdfdom-tools
 
-#Adding the Legs model to the simulator
-echo "    Adding the Legs files to the bashrc"
+#Adding the RuBi model to the simulator
+echo "    Adding the RuBi files to the bashrc"
 echo "
 
 ### RuBi ###
-export LEGS=\"$LEGS_FOLDER\"
+export RUBI=\"$RUBI_FOLDER\"
 
 ### ROS ###
-source \$LEGS/devel/setup.bash
+source \$RUBI/devel/setup.bash
 
 ### Gazebo ###
 source /usr/share/gazebo/setup.sh
-export GAZEBO_MODEL_PATH=\${GAZEBO_MODEL_PATH}:\$LEGS/src/rubi_description:\$LEGS/src/gazebo_resources/models
-export GAZEBO_RESOURCE_PATH=\${GAZEBO_RESOURCE_PATH}:\$LEGS/src/gazebo_resources" >> $HOME/.bashrc
+export GAZEBO_MODEL_PATH=\${GAZEBO_MODEL_PATH}:\$RUBI/src/rubi_description:\$RUBI/src/gazebo_resources/models
+export GAZEBO_RESOURCE_PATH=\${GAZEBO_RESOURCE_PATH}:\$RUBI/src/gazebo_resources" >> $HOME/.bashrc
 
 #Add execute permissions to some files
 echo "    Adding execute permissions"
-cd $LEGS_FOLDER
+cd $RUBI_FOLDER
 chmod +x src/rubi_controllers/cfg/impulse.cfg
 chmod +x src/rubi_controllers/cfg/two_neuron.cfg
 chmod +x src/dacbot_controllers/cfg/two_neuron.cfg
