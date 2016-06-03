@@ -10,3 +10,9 @@
 [submodule "src/control_toolbox"]
 	path = src/control_toolbox
 	url = https://github.com/ros-controls/control_toolbox
+[submodule "docs"]
+	path = docs
+	url = https://github.com/RuBi-Robot/docs
+[submodule "media"]
+	path = media
+	url = https://github.com/RuBi-Robot/media
